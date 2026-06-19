@@ -216,3 +216,40 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ── Prosodia-specific ───────────────────────────────────────────────
+# Rendered audio + chapter artifacts (regenerated from transcripts)
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.ogg
+/outputs/
+/renders/
+
+# TTS model weights / caches (downloaded on first run; large)
+/models/
+/weights/
+*.safetensors
+*.ckpt
+*.pt
+.cache/
+hf_cache/
+
+# Synced job exchange folders (handoff between authoring and renderer)
+/jobs/
+/inbox/
+/processing/
+/outbox/
+/failed/
+
+# Local environment / secrets
+.env
+.env.*
+*.local.yaml
+
+# Voice reference clips used for cloning (may be license-restricted)
+/voice_refs/
+
+# Claude Code personal/local settings (autonomous-build permissions — do not publish)
+.claude/settings.local.json
