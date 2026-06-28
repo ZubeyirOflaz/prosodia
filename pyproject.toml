@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "prosodia"
+version = "0.0.1"
+description = "Script-first, controllable narrated audio: an LLM-authored, human-editable transcript with performance directions, rendered by a decoupled, pluggable TTS engine."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [{ name = "Zubeyir Oflaz" }]
+keywords = ["tts", "narration", "audio", "chatterbox", "podcast", "text-to-speech"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+
+# ── Base install = AUTHORING side ────────────────────────────────────────────
+# Pure-Python. NO torch / CUDA (hard project boundary): the authoring side must
+# pip-install and run on a laptop with no GPU. Renderer deps live in [render].
+dependencies = [
+  "pydantic>=2.6",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+# ── RENDER side — install ONLY on the GPU box ────────────────────────────────
+# chatterbox-tts pulls in torch. IMPORTANT: install the correct CUDA torch wheel
+# FIRST (see scripts/setup.ps1), THEN `pip install prosodia[render]`.
+render = [
+  "chatterbox-tts>=0.1.7",
+  "faster-whisper>=1.0",
+  "soundfile>=0.12",
+]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.5",
+]
+
+[project.scripts]
+prosodia = "prosodia.author.cli:main"
+prosodia-render = "prosodia.render.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/ZubeyirOflaz/prosodia"
+Repository = "https://github.com/ZubeyirOflaz/prosodia"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/prosodia"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

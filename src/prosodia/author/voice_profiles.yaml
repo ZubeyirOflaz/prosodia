@@ -1,0 +1,38 @@
+# Tone specialist table (stage 1, deterministic).
+#
+# Maps engine-neutral delivery intent (tone words) -> Chatterbox parameters.
+# This file is the SINGLE SOURCE OF TRUTH for the tone vocabulary (repair item
+# C2) and for the default pause durations (repair item C3). The transcript SPEC
+# (formats/SPEC.md sec 5.1) references this list rather than re-stating it.
+#
+# Values are STARTING ANCHORS, tuned toward a slow, methodical "Hardcore History"
+# narration baseline. Tune by ear. The pace levers, strongest first:
+#   1. pauses below (real silence between segments — the biggest, most reliable);
+#   2. a beat/episode `rate` (`rate: slow` lowers cfg_weight via pacing.py);
+#   3. cfg_weight here (LOWER = slower/more deliberate);
+#   4. exaggeration here (HIGHER speeds speech up, so keep it modest for narration).
+
+engine: chatterbox
+
+# Default delivery durations (ms) — the one place these live. Generous, for a
+# deliberate cadence; a transcript may override via front-matter `pauses:`.
+pauses:
+  paragraph_ms: 600
+  beat_ms: 1200
+
+# Fallback used when a transcript names a tone not listed here (compiler warns).
+default_tone: measured
+
+tones:
+  measured:       { exaggeration: 0.38, cfg_weight: 0.42, temperature: 0.75 }
+  neutral:        { exaggeration: 0.35, cfg_weight: 0.42, temperature: 0.75 }
+  warm:           { exaggeration: 0.48, cfg_weight: 0.45, temperature: 0.80 }
+  somber:         { exaggeration: 0.30, cfg_weight: 0.34, temperature: 0.70 }
+  grave:          { exaggeration: 0.30, cfg_weight: 0.30, temperature: 0.70 }
+  wistful:        { exaggeration: 0.32, cfg_weight: 0.38, temperature: 0.75 }
+  reverent:       { exaggeration: 0.30, cfg_weight: 0.34, temperature: 0.70 }
+  tense:          { exaggeration: 0.55, cfg_weight: 0.40, temperature: 0.80 }
+  urgent:         { exaggeration: 0.68, cfg_weight: 0.44, temperature: 0.85 }
+  dramatic:       { exaggeration: 0.78, cfg_weight: 0.30, temperature: 0.85 }
+  wry:            { exaggeration: 0.44, cfg_weight: 0.46, temperature: 0.80 }
+  matter-of-fact: { exaggeration: 0.32, cfg_weight: 0.50, temperature: 0.70 }

@@ -1,0 +1,12 @@
+# Per-project pronunciation lexicon (design sec 10-E). Respellings are STARTING
+# guesses to tune against the chosen voice in Phase 4; applied to spoken_text only,
+# so the transcript itself stays readable.
+# Lexicon
+lexicon:
+  Monnet: "Mon-nay"
+  Cognac: "Cone-yak"
+  Ruhr: "Roor"
+  Versailles: "Vair-sigh"
+  Zurich: "Zoor-ick"
+  Strasbourg: "Strahss-boorg"
+  Adriatic: "Ay-dree-attic"

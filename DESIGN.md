@@ -91,6 +91,11 @@ Meta-goals (also fixed):
 └───────────────────────────┘     episode.mp3, status.json └────────────────────────────┘
 ```
 
+> **Superseded by §11.** The `mp3` / `mp3 + chapters` wording in this sketch and in
+> the §6 phase table is out of date: the renderer as built writes a flat
+> `episode.wav` (WAV, loudness-normalized) with **no chapter markers**. Read §11
+> for the as-built behavior.
+
 **Proposed repo layout** (note: the authoring/renderer split and single-vs-two-package question is itself an OPEN decision — see §7):
 
 ```
@@ -218,3 +223,54 @@ Beyond the must-resolve build decisions in §7, these cross-cutting questions de
 **L. Render throughput & completion signal.** Estimate render time on the 3080 (~10-min episodes synthesized in ~40 s chunks) to set expectations and decide on batching; and how the authoring side learns a job finished (poll `outbox/` vs a push notification). A side benefit of local rendering worth noting: it removes NotebookLM's hard per-day generation quota entirely. *[Phases 2,3]*
 
 **M. Future / secondary.** Multilingual narration (Chatterbox has a multilingual 0.5B); and a cloud-backend GPU-off path (Gemini/ElevenLabs) for rendering when the 3080 box is unavailable — both fit naturally behind the pluggable interface. *[Phase 6]*
+
+---
+
+## 11. Implementation status & resolved decisions (PoC)
+
+What the PoC build settled for the §7 open decisions, and where each lives. Known
+follow-ups are tracked in `REPAIR_PLAN.md`.
+
+**Architecture as built** (supersedes the §5 sketch's single "authoring" box):
+
+- **Authoring** is a role-separated, traced, looped multi-agent process driven by
+  **headless Claude Code** (`claude -p`, subscription auth, no API key):
+  **Planner → (plan critic) → Writer ⇄ Editor loop → Tone specialist**. Each stage
+  writes a versioned artifact + a `trace.jsonl` line, so feedback routes to the
+  stage that caused it. `prosodia.author.orchestrate` + `author/roles/*.md`; loop
+  logic unit-tested with an injectable runner.
+- **Two-layer tone** (§7-12/§10-F): the transcript carries engine-neutral intent;
+  the **Tone specialist** compiles intent → engine params. Stage 1 is the
+  deterministic table `author/voice_profiles.yaml` (`author/tone.py`); an
+  LLM-driven version is an optional later upgrade. `render_plan.json` is derived.
+- **Renderer** is a deterministic, LLM-free function of (IR + render_plan + voice +
+  seed) on the GPU box: chunk → generate → pause silence → trim → 20 ms crossfade →
+  concat → STT quality gate (faster-whisper) → loudness-normalize once;
+  fast-preview vs final modes. `prosodia.render.*`.
+
+**Resolved §7 decisions:**
+
+| §7 | Decision / location |
+|---|---|
+| 1 Transcript grammar | Hybrid: front-matter + `## beat {tone, rate}` + `{pause}` + `*emphasis*` — `formats/SPEC.md`. |
+| 2 IR schema | `prosodia.core.ir` (pydantic); Segment carries intent, authored_text, spoken_text, pause_before_ms, emphasis, chunks. |
+| 3 voice_profiles | `author/voice_profiles.yaml` — single source of truth for tone words + pause defaults. |
+| 4 Chunking | sentence-aware pack to ~300 chars with split cascade (`author/chunk.py`). |
+| 5 Pauses | real silence at segment boundaries; explicit `{pause}` + paragraph/beat defaults. |
+| 6 Job protocol | `protocol/SPEC.md` — manifest (sha256+size) atomic claim + building→inbox rename. |
+| 7 Integration | in-process library behind a `TTSBackend` interface, model kept warm. |
+| 8 Packaging | one package `prosodia`; base = pure-Python authoring, `[render]` extra = torch/Chatterbox. |
+| 9 Coverage | `series.yaml` coverage map + Planner role; a lint pass is future. |
+| 10 Windows setup | `scripts/setup.ps1` + `start_renderer.ps1` (CUDA torch first, Py 3.11, ffmpeg, logon task). |
+| 11 Determinism/CLI | derived per-chunk seeds; `prosodia` / `prosodia-render` CLIs; pytest suite. |
+| 12 Mapping layer | table-first deterministic; LLM optional. |
+| 13 Normalization | `author/normalize.py` (years, ranges, §, era abbreviations). |
+| 14 Pronunciation | per-project `lexicon.yaml` (`author/lexicon.py`), applied to spoken_text only. |
+| 15 Pause policy | author-marked + paragraph/beat defaults (configurable). |
+| 16 Two-host | `@speaker` tags + front-matter `speakers` map are **parsed into the IR and validated** (unknown `@tag` warns); single-narrator is the default/tested path. **Not yet wired in the renderer:** per-speaker voice resolution and turn-taking gaps — the renderer currently voices the whole episode with one resolved voice. |
+
+**Voice resolution (§3 / repair C1):** instruction-time override → front-matter
+`voice` → project-config default.
+
+**First validation target:** `projects/eu_history/` (ep1 authored, compiled,
+packaged). A/B vs NotebookLM on EU ep1–3 per `docs/AB_TESTING.md`.

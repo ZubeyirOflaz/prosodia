@@ -1,0 +1,110 @@
+"""Headless multi-agent authoring orchestrator.
+
+Drives Claude Code in headless mode (``claude -p --output-format json``,
+subscription auth, no API key) through the pipeline: Planner -> Writer <-> Editor
+loop -> (Tone specialist = the deterministic compile step). Each role is a
+``claude -p`` call; the Editor returns a structured ``{ready, notes}`` verdict via
+``--json-schema``.
+
+The claude invocation is injectable (the ``runner`` argument) so the loop logic is
+unit-testable without real calls or subscription quota. Every stage appends to the
+trace so feedback can later be routed to the stage that produced a given result.
+"""
+
+from __future__ import annotations
+
+import json
+import shutil
+import subprocess
+from dataclasses import dataclass, field
+from importlib import resources
+
+from prosodia.core.trace import Trace
+
+EDITOR_SCHEMA = {
+    "type": "object",
+    "properties": {"ready": {"type": "boolean"}, "notes": {"type": "string"}},
+    "required": ["ready", "notes"],
+}
+
+
+def _load_role(name: str) -> str:
+    return (
+        resources.files("prosodia.author")
+        .joinpath("roles")
+        .joinpath(f"{name}.md")
+        .read_text(encoding="utf-8")
+    )
+
+
+@dataclass
+class ClaudeRunner:
+    """Runs a role as a headless ``claude -p`` call on the local subscription."""
+
+    model: str | None = None
+    extra_dirs: tuple[str, ...] = field(default_factory=tuple)
+    timeout: int = 1200
+
+    def run(self, prompt: str, *, system: str | None = None, schema: dict | None = None):
+        if shutil.which("claude") is None:
+            raise RuntimeError("claude CLI not found on PATH (Claude Code is required for authoring)")
+        cmd = ["claude", "-p", "--output-format", "json", "--permission-mode", "dontAsk"]
+        if system:
+            cmd += ["--append-system-prompt", system]
+        if schema:
+            cmd += ["--json-schema", json.dumps(schema)]
+        if self.model:
+            cmd += ["--model", self.model]
+        for d in self.extra_dirs:
+            cmd += ["--add-dir", d]
+        proc = subprocess.run(
+            cmd, input=prompt, capture_output=True, text=True, encoding="utf-8", timeout=self.timeout
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(f"claude -p failed (exit {proc.returncode}): {proc.stderr[:500]}")
+        data = json.loads(proc.stdout)
+        result = data.get("result", "")
+        structured = data.get("structured_output")
+        if schema and structured is None:
+            try:
+                structured = json.loads(result)
+            except Exception:
+                structured = None
+        return result, structured
+
+
+def plan_series(prompt: str, *, runner, trace: Trace | None = None) -> str:
+    outline, _ = runner.run(prompt, system=_load_role("planner"))
+    if trace:
+        trace.append("plan", "planner", chars=len(outline))
+    return outline
+
+
+def author_episode(brief: str, *, runner, trace: Trace | None = None, max_rounds: int = 3) -> str:
+    """Run the Writer <-> Editor loop until the Editor says ready (or max_rounds)."""
+    writer_sys = _load_role("writer")
+    editor_sys = _load_role("editor")
+    notes = ""
+    transcript = ""
+    for rnd in range(1, max_rounds + 1):
+        wprompt = (
+            f"{brief}\n\n"
+            f"--- Editorial notes to address (from the previous round) ---\n{notes or '(none)'}\n\n"
+            f"--- Your previous draft (revise it) ---\n{transcript or '(none)'}"
+        )
+        transcript, _ = runner.run(wprompt, system=writer_sys)
+        if trace:
+            trace.append("write", "writer", round=rnd, chars=len(transcript))
+
+        eprompt = f"BRIEF:\n{brief}\n\nTRANSCRIPT:\n{transcript}"
+        _, verdict = runner.run(eprompt, system=editor_sys, schema=EDITOR_SCHEMA)
+        verdict = verdict or {"ready": True, "notes": ""}
+        if trace:
+            trace.append(
+                "edit", "editor", round=rnd,
+                ready=bool(verdict.get("ready")), notes=str(verdict.get("notes", ""))[:300],
+            )
+        if verdict.get("ready"):
+            break
+        notes = str(verdict.get("notes", ""))
+    return transcript

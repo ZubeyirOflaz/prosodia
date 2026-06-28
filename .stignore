@@ -1,0 +1,48 @@
+// Syncthing ignore patterns — the Prosodia repo root is the synced exchange folder.
+// Sync the source + the job handoff; skip VCS, virtualenvs, caches, weights, local state.
+//
+// IMPORTANT: do NOT add inbox/ outbox/ processing/ failed/ here — those ARE the
+// author <-> renderer handoff and must sync. Only local-noise paths belong below.
+//
+// NOTE: Syncthing does not sync .stignore itself. Put the same file at the repo
+// root on the render box too (or use the #include approach — see docs/HANDOFF.md).
+
+// Version control — syncing .git between machines corrupts it
+/.git
+
+// Virtualenvs — each machine builds its own (authoring .venv vs render .venv-render)
+/.venv
+/.venv-render
+/venv
+/env
+
+// Python caches & build artifacts (match at any depth)
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.ruff_cache
+.mypy_cache
+*.egg-info
+/build
+/dist
+
+// Local job staging — NOT the synced exchange (inbox/ etc. still sync)
+/building
+/jobs
+
+// TTS model weights / caches — downloaded on the render box; huge; one-way clutter
+/models
+/weights
+/hf_cache
+.cache
+*.safetensors
+*.ckpt
+*.pt
+
+// Local tooling / editor / OS state
+/.claude
+.vscode
+.idea
+Thumbs.db
+.DS_Store

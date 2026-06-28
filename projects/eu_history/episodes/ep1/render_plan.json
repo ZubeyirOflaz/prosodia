@@ -1,0 +1,239 @@
+{
+  "plan_version": "0.1",
+  "engine": "chatterbox",
+  "voice": "narrator",
+  "seed": 70814,
+  "params": [
+    {
+      "segment_id": 0,
+      "exaggeration": 0.3,
+      "cfg_weight": 0.34,
+      "temperature": 0.7,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 1,
+      "exaggeration": 0.3,
+      "cfg_weight": 0.34,
+      "temperature": 0.7,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 2,
+      "exaggeration": 0.3,
+      "cfg_weight": 0.34,
+      "temperature": 0.7,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 3,
+      "exaggeration": 0.3,
+      "cfg_weight": 0.34,
+      "temperature": 0.7,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 4,
+      "exaggeration": 0.3,
+      "cfg_weight": 0.34,
+      "temperature": 0.7,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 5,
+      "exaggeration": 0.3,
+      "cfg_weight": 0.34,
+      "temperature": 0.7,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 6,
+      "exaggeration": 0.3,
+      "cfg_weight": 0.3,
+      "temperature": 0.7,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 7,
+      "exaggeration": 0.3,
+      "cfg_weight": 0.3,
+      "temperature": 0.7,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 8,
+      "exaggeration": 0.3,
+      "cfg_weight": 0.3,
+      "temperature": 0.7,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 9,
+      "exaggeration": 0.3,
+      "cfg_weight": 0.3,
+      "temperature": 0.7,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 10,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 11,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 12,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 13,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 14,
+      "exaggeration": 0.55,
+      "cfg_weight": 0.4,
+      "temperature": 0.8,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 15,
+      "exaggeration": 0.55,
+      "cfg_weight": 0.4,
+      "temperature": 0.8,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 16,
+      "exaggeration": 0.55,
+      "cfg_weight": 0.4,
+      "temperature": 0.8,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 17,
+      "exaggeration": 0.44,
+      "cfg_weight": 0.46,
+      "temperature": 0.8,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 18,
+      "exaggeration": 0.44,
+      "cfg_weight": 0.46,
+      "temperature": 0.8,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 19,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 20,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 21,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 22,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 23,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 24,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 25,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 26,
+      "exaggeration": 0.38,
+      "cfg_weight": 0.42,
+      "temperature": 0.75,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 27,
+      "exaggeration": 0.55,
+      "cfg_weight": 0.4,
+      "temperature": 0.8,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 28,
+      "exaggeration": 0.55,
+      "cfg_weight": 0.4,
+      "temperature": 0.8,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 29,
+      "exaggeration": 0.78,
+      "cfg_weight": 0.3,
+      "temperature": 0.85,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 30,
+      "exaggeration": 0.78,
+      "cfg_weight": 0.3,
+      "temperature": 0.85,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 31,
+      "exaggeration": 0.78,
+      "cfg_weight": 0.3,
+      "temperature": 0.85,
+      "rate_multiplier": 0.9
+    },
+    {
+      "segment_id": 32,
+      "exaggeration": 0.78,
+      "cfg_weight": 0.3,
+      "temperature": 0.85,
+      "rate_multiplier": 0.9
+    }
+  ]
+}

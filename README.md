@@ -27,13 +27,37 @@ Author a transcript          →   Render to audio
 - **Rendering** runs on a machine with an NVIDIA GPU.
 - The two sides exchange jobs through a synced folder, so you can write remotely and render on the GPU box.
 
-The default is a **single narrator** (optional multi-speaker), the TTS engine is **pluggable** (local [Chatterbox](https://github.com/resemble-ai/chatterbox) first; cloud engines later), and voices can be **preset or cloned**.
+The default is a **single narrator** (multi-speaker `@tags` are parsed and validated today, but per-speaker voice rendering is not yet wired — see [`DESIGN.md`](DESIGN.md) §11), the TTS engine is **pluggable** (local [Chatterbox](https://github.com/resemble-ai/chatterbox) first; cloud engines later), and voices can be **preset or cloned**.
 
 See [`DESIGN.md`](DESIGN.md) for the full architecture, decisions, and build plan.
 
 ## Status
 
-Pre-alpha. Architecture and decisions are documented; the authoring and rendering pipelines are being built. Not yet usable end-to-end.
+Pre-alpha PoC. The **authoring side is built and tested** (`plan → write → compile → submit`), with a worked example in `projects/eu_history/`. The **renderer is built** for a Windows + NVIDIA box (`prosodia-render`; see [`scripts/RENDERER_SETUP.md`](scripts/RENDERER_SETUP.md)) and awaits its first end-to-end audio run on the GPU machine.
+
+## Quickstart
+
+Authoring (any machine, no GPU — pure-Python, no torch):
+
+```bash
+pip install -e .
+prosodia compile projects/eu_history/episodes/ep1/transcript.md \
+  --config projects/eu_history/series.yaml --lexicon projects/eu_history/lexicon.yaml
+prosodia submit projects/eu_history/episodes/ep1 --root <synced_folder> --job-id eu-ep1
+```
+
+`compile` writes `ir.json` + `render_plan.json` next to the transcript by default; pass `--out <dir>` to write them elsewhere. If `--lexicon` is omitted, a `lexicon:` key in the `--config` file (resolved relative to that file) is used.
+
+`prosodia plan --project <dir>` and `prosodia write --project <dir> --episode N` drive the headless Claude Code authoring loop (Planner → Writer ⇄ Editor). Rendering runs on a GPU box — see [`scripts/RENDERER_SETUP.md`](scripts/RENDERER_SETUP.md) and [`docs/HANDOFF.md`](docs/HANDOFF.md).
+
+## Documentation
+
+Full documentation is in [`docs/`](docs/README.md):
+[Overview](docs/overview.md) · [Getting started](docs/getting-started.md) ·
+[Architecture](docs/architecture.md) · [Authoring guide](docs/authoring-guide.md) ·
+[Configuration](docs/configuration.md) · [CLI reference](docs/cli-reference.md) ·
+[Rendering](docs/rendering.md) · [Pipeline & traces](docs/pipeline-and-traces.md) ·
+[Roadmap & status](docs/roadmap.md).
 
 ## License
 

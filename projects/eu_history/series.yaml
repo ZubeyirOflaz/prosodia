@@ -1,0 +1,39 @@
+# Ever Closer Union — series config + coverage map.
+# Seeded from the hand-written corpus README (audio_sources/eu_history_series).
+series: "Ever Closer Union"
+description: >
+  A Hardcore-History-style narrative of how the European Union was forged out of
+  the ruin of 1945 - stakes, gambles, and human beings, not abstractions.
+style: hardcore-history
+engine: chatterbox
+voice: narrator        # project default; a transcript may omit `voice` and inherit this (repair C1)
+lexicon: lexicon.yaml
+target_minutes: 35     # long-form target the Writer aims for (per-episode `target_minutes` overrides)
+
+# Coverage map: every era assigned to exactly one episode (goal #4: no gaps/overlap).
+episodes:
+  - n: 1
+    slug: ep1
+    title: "The Suicide of a Continent"
+    scope: "1914-1945: Europe destroys itself; the rubble and fear of 1945; why grand federalism failed; Monnet's stealth idea forms."
+    tension: "Rock-bottom chapter. End in the dark, one strange idea forming."
+  - n: 2
+    slug: ep2
+    title: "The Conjurer's Trick"
+    scope: "1950-1954: the Schuman Declaration, the Coal and Steel Community, and the dream's first near-death."
+  - n: 3
+    slug: ep3
+    title: "Relaunch at Messina"
+    scope: "1955-1958: pulling victory from the wreckage - the Treaties of Rome and the common market."
+  - n: 4
+    slug: ep4
+    title: "The General Says No"
+    scope: "1958-1969: De Gaulle, the Empty Chair crisis, and the war between the nation and the supranational dream."
+  - n: 5
+    slug: ep5
+    title: "Widening and the Long Malaise"
+    scope: "1973-1989: enlargement, Eurosclerosis, Thatcher, and Delors relaunching integration."
+  - n: 6
+    slug: ep6
+    title: "The Euro and the Reckoning"
+    scope: "1989-2020: reunification, Maastricht, the euro, eastern enlargement, overreach, and Brexit."

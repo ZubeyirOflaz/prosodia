@@ -1,0 +1,625 @@
+{
+  "ir_version": "0.1",
+  "episode": 1,
+  "title": "The Suicide of a Continent",
+  "voice": "narrator",
+  "seed": 70814,
+  "segments": [
+    {
+      "id": 0,
+      "beat_index": 0,
+      "beat_title": "The smell of the ruin",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "somber",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 0,
+      "authored_text": "Picture the continent in the spring of 1945.",
+      "spoken_text": "Picture the continent in the spring of nineteen forty-five.",
+      "emphasis": [],
+      "chunks": [
+        "Picture the continent in the spring of nineteen forty-five."
+      ]
+    },
+    {
+      "id": 1,
+      "beat_index": 0,
+      "beat_title": "The smell of the ruin",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "somber",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 800,
+      "authored_text": "Not a map — a smell. Brick dust, and cordite, and something worse underneath it. Cologne is a photograph of a cathedral standing over a field of rubble that used to be a city. Warsaw has been erased on purpose, block by block, by demolition crews.",
+      "spoken_text": "Not a map — a smell. Brick dust, and cordite, and something worse underneath it. Cologne is a photograph of a cathedral standing over a field of rubble that used to be a city. Warsaw has been erased on purpose, block by block, by demolition crews.",
+      "emphasis": [],
+      "chunks": [
+        "Not a map — a smell. Brick dust, and cordite, and something worse underneath it. Cologne is a photograph of a cathedral standing over a field of rubble that used to be a city. Warsaw has been erased on purpose, block by block, by demolition crews."
+      ]
+    },
+    {
+      "id": 2,
+      "beat_index": 0,
+      "beat_title": "The smell of the ruin",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "somber",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "In the space of thirty-one years — from the summer of 1914 to the spring of 1945 — the most powerful, wealthy, scientifically advanced civilization on Earth had tried to kill itself, twice, and on the second attempt had very nearly succeeded.",
+      "spoken_text": "In the space of thirty-one years — from the summer of nineteen fourteen to the spring of nineteen forty-five — the most powerful, wealthy, scientifically advanced civilization on Earth had tried to kill itself, twice, and on the second attempt had very nearly succeeded.",
+      "emphasis": [],
+      "chunks": [
+        "In the space of thirty-one years — from the summer of nineteen fourteen to the spring of nineteen forty-five — the most powerful, wealthy, scientifically advanced civilization on Earth had tried to kill itself, twice, and on the second attempt had very nearly succeeded."
+      ]
+    },
+    {
+      "id": 3,
+      "beat_index": 0,
+      "beat_title": "The smell of the ruin",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "somber",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 800,
+      "authored_text": "Tens of millions were dead. Whole cities were gone.",
+      "spoken_text": "Tens of millions were dead. Whole cities were gone.",
+      "emphasis": [],
+      "chunks": [
+        "Tens of millions were dead. Whole cities were gone."
+      ]
+    },
+    {
+      "id": 4,
+      "beat_index": 0,
+      "beat_title": "The smell of the ruin",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "somber",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "And here is the thing the people standing in that rubble actually believed — the thing that is almost impossible to feel from where we sit now. They did not believe it was over.",
+      "spoken_text": "And here is the thing the people standing in that rubble actually believed — the thing that is almost impossible to feel from where we sit now. They did not believe it was over.",
+      "emphasis": [],
+      "chunks": [
+        "And here is the thing the people standing in that rubble actually believed — the thing that is almost impossible to feel from where we sit now. They did not believe it was over."
+      ]
+    },
+    {
+      "id": 5,
+      "beat_index": 0,
+      "beat_title": "The smell of the ruin",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "somber",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 1000,
+      "authored_text": "They believed it might happen again.",
+      "spoken_text": "They believed it might happen again.",
+      "emphasis": [
+        "again"
+      ],
+      "chunks": [
+        "They believed it might happen again."
+      ]
+    },
+    {
+      "id": 6,
+      "beat_index": 1,
+      "beat_title": "Three times in one lifetime",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "grave",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 1200,
+      "authored_text": "Because it had a pattern. Think like a Frenchman born in 1900. By the time you are forty-five years old, Germany has invaded your country three times — 1870, 1914, 1940.",
+      "spoken_text": "Because it had a pattern. Think like a Frenchman born in nineteen hundred. By the time you are forty-five years old, Germany has invaded your country three times — eighteen seventy, nineteen fourteen, nineteen forty.",
+      "emphasis": [],
+      "chunks": [
+        "Because it had a pattern. Think like a Frenchman born in nineteen hundred. By the time you are forty-five years old, Germany has invaded your country three times — eighteen seventy, nineteen fourteen, nineteen forty."
+      ]
+    },
+    {
+      "id": 7,
+      "beat_index": 1,
+      "beat_title": "Three times in one lifetime",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "grave",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "Three times, in a single human lifetime.",
+      "spoken_text": "Three times, in a single human lifetime.",
+      "emphasis": [],
+      "chunks": [
+        "Three times, in a single human lifetime."
+      ]
+    },
+    {
+      "id": 8,
+      "beat_index": 1,
+      "beat_title": "Three times in one lifetime",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "grave",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "This is not history to you. This is a recurring event, like a flood that comes every twenty years and is always worse than the last. So when the guns finally stop in 1945, the question on the table in Paris and London is not the warm question we would ask today, how do we build a united Europe? The question is colder, and more frightening.",
+      "spoken_text": "This is not history to you. This is a recurring event, like a flood that comes every twenty years and is always worse than the last. So when the guns finally stop in nineteen forty-five, the question on the table in Paris and London is not the warm question we would ask today, how do we build a united Europe? The question is colder, and more frightening.",
+      "emphasis": [
+        "how do we build a united Europe?"
+      ],
+      "chunks": [
+        "This is not history to you. This is a recurring event, like a flood that comes every twenty years and is always worse than the last.",
+        "So when the guns finally stop in nineteen forty-five, the question on the table in Paris and London is not the warm question we would ask today, how do we build a united Europe? The question is colder, and more frightening."
+      ]
+    },
+    {
+      "id": 9,
+      "beat_index": 1,
+      "beat_title": "Three times in one lifetime",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "grave",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 700,
+      "authored_text": "How do we stop the Germans from doing this a fourth time?",
+      "spoken_text": "How do we stop the Germans from doing this a fourth time?",
+      "emphasis": [],
+      "chunks": [
+        "How do we stop the Germans from doing this a fourth time?"
+      ]
+    },
+    {
+      "id": 10,
+      "beat_index": 2,
+      "beat_title": "The bad medicine",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 1200,
+      "authored_text": "And the traditional answers were all bad. You could try what they tried after the First World War — crush Germany, strip it, saddle it with reparations, keep it on the floor. They had tried exactly that, at Versailles, in 1919. It produced a humiliated, furious nation, mass unemployment, and a man named Hitler who rode that fury straight into power.",
+      "spoken_text": "And the traditional answers were all bad. You could try what they tried after the First World War — crush Germany, strip it, saddle it with reparations, keep it on the floor. They had tried exactly that, at Vair-sigh, in nineteen nineteen. It produced a humiliated, furious nation, mass unemployment, and a man named Hitler who rode that fury straight into power.",
+      "emphasis": [],
+      "chunks": [
+        "And the traditional answers were all bad. You could try what they tried after the First World War — crush Germany, strip it, saddle it with reparations, keep it on the floor. They had tried exactly that, at Vair-sigh, in nineteen nineteen.",
+        "It produced a humiliated, furious nation, mass unemployment, and a man named Hitler who rode that fury straight into power."
+      ]
+    },
+    {
+      "id": 11,
+      "beat_index": 2,
+      "beat_title": "The bad medicine",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "So that medicine had been administered once, and the patient had not recovered.",
+      "spoken_text": "So that medicine had been administered once, and the patient had not recovered.",
+      "emphasis": [],
+      "chunks": [
+        "So that medicine had been administered once, and the patient had not recovered."
+      ]
+    },
+    {
+      "id": 12,
+      "beat_index": 2,
+      "beat_title": "The bad medicine",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 500,
+      "authored_text": "The patient had come back, and burned the house down.",
+      "spoken_text": "The patient had come back, and burned the house down.",
+      "emphasis": [],
+      "chunks": [
+        "The patient had come back, and burned the house down."
+      ]
+    },
+    {
+      "id": 13,
+      "beat_index": 2,
+      "beat_title": "The bad medicine",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "You could try the opposite — be generous, rebuild Germany, hope it behaves. But a rebuilt Germany is an industrial Germany, and industry is steel, and steel is tanks and guns. Every road seemed to lead back to the same place: the Ruhr valley, full of coal and steel, the dark heart of European war-making, firing up again.",
+      "spoken_text": "You could try the opposite — be generous, rebuild Germany, hope it behaves. But a rebuilt Germany is an industrial Germany, and industry is steel, and steel is tanks and guns. Every road seemed to lead back to the same place: the Roor valley, full of coal and steel, the dark heart of European war-making, firing up again.",
+      "emphasis": [],
+      "chunks": [
+        "You could try the opposite — be generous, rebuild Germany, hope it behaves. But a rebuilt Germany is an industrial Germany, and industry is steel, and steel is tanks and guns.",
+        "Every road seemed to lead back to the same place: the Roor valley, full of coal and steel, the dark heart of European war-making, firing up again."
+      ]
+    },
+    {
+      "id": 14,
+      "beat_index": 3,
+      "beat_title": "The terror in the east",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "tense",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 1200,
+      "authored_text": "Now layer on the new terror, the one rising in the east. By 1948 the Soviet Union has swallowed half the continent. The Iron Curtain has come down — from the Baltic to the Adriatic. Berlin is blockaded; the Western allies are flying coal and food into the city around the clock, because Stalin has cut the roads.",
+      "spoken_text": "Now layer on the new terror, the one rising in the east. By nineteen forty-eight the Soviet Union has swallowed half the continent. The Iron Curtain has come down — from the Baltic to the Ay-dree-attic. Berlin is blockaded; the Western allies are flying coal and food into the city around the clock, because Stalin has cut the roads.",
+      "emphasis": [],
+      "chunks": [
+        "Now layer on the new terror, the one rising in the east. By nineteen forty-eight the Soviet Union has swallowed half the continent. The Iron Curtain has come down — from the Baltic to the Ay-dree-attic.",
+        "Berlin is blockaded; the Western allies are flying coal and food into the city around the clock, because Stalin has cut the roads."
+      ]
+    },
+    {
+      "id": 15,
+      "beat_index": 3,
+      "beat_title": "The terror in the east",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "tense",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "Western Europe is broke, hungry, demoralized, and now sitting in the shadow of the Red Army. And the Americans, who have the money and the bomb, are asking a pointed question. They will help — but you Europeans have to stop being a collection of squabbling, bankrupt, vengeful little states. The Marshall Plan comes with dollars, and with a demand.",
+      "spoken_text": "Western Europe is broke, hungry, demoralized, and now sitting in the shadow of the Red Army. And the Americans, who have the money and the bomb, are asking a pointed question. They will help — but you Europeans have to stop being a collection of squabbling, bankrupt, vengeful little states. The Marshall Plan comes with dollars, and with a demand.",
+      "emphasis": [],
+      "chunks": [
+        "Western Europe is broke, hungry, demoralized, and now sitting in the shadow of the Red Army. And the Americans, who have the money and the bomb, are asking a pointed question. They will help — but you Europeans have to stop being a collection of squabbling, bankrupt, vengeful little states.",
+        "The Marshall Plan comes with dollars, and with a demand."
+      ]
+    },
+    {
+      "id": 16,
+      "beat_index": 3,
+      "beat_title": "The terror in the east",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "tense",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "Cooperate, or we walk.",
+      "spoken_text": "Cooperate, or we walk.",
+      "emphasis": [],
+      "chunks": [
+        "Cooperate, or we walk."
+      ]
+    },
+    {
+      "id": 17,
+      "beat_index": 4,
+      "beat_title": "The famous men give speeches",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "wry",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 1200,
+      "authored_text": "Into this moment step a handful of people who will quietly bend the century. And they are not, for the most part, the famous men. The famous men give speeches. In 1946, Winston Churchill stands up in Zurich and says something electrifying: \"We must build a kind of United States of Europe.\" A thrilling line.",
+      "spoken_text": "Into this moment step a handful of people who will quietly bend the century. And they are not, for the most part, the famous men. The famous men give speeches. In nineteen forty-six, Winston Churchill stands up in Zoor-ick and says something electrifying: \"We must build a kind of United States of Europe.\" A thrilling line.",
+      "emphasis": [],
+      "chunks": [
+        "Into this moment step a handful of people who will quietly bend the century. And they are not, for the most part, the famous men. The famous men give speeches.",
+        "In nineteen forty-six, Winston Churchill stands up in Zoor-ick and says something electrifying: \"We must build a kind of United States of Europe.\" A thrilling line."
+      ]
+    },
+    {
+      "id": 18,
+      "beat_index": 4,
+      "beat_title": "The famous men give speeches",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "wry",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 500,
+      "authored_text": "And then — nothing happens. Because Churchill means they should do it, the continentals; Britain will cheer from across the Channel.",
+      "spoken_text": "And then — nothing happens. Because Churchill means they should do it, the continentals; Britain will cheer from across the Channel.",
+      "emphasis": [
+        "they"
+      ],
+      "chunks": [
+        "And then — nothing happens. Because Churchill means they should do it, the continentals; Britain will cheer from across the Channel."
+      ]
+    },
+    {
+      "id": 19,
+      "beat_index": 4,
+      "beat_title": "The famous men give speeches",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "The federalists hold a great congress at The Hague in 1948, full of passion, and what they get for it is the Council of Europe — a debating chamber in Strasbourg with no real power, where delegates can talk but cannot bind anyone to anything. So the lesson, by 1949, is brutal.",
+      "spoken_text": "The federalists hold a great congress at The Hague in nineteen forty-eight, full of passion, and what they get for it is the Council of Europe — a debating chamber in Strahss-boorg with no real power, where delegates can talk but cannot bind anyone to anything. So the lesson, by nineteen forty-nine, is brutal.",
+      "emphasis": [],
+      "chunks": [
+        "The federalists hold a great congress at The Hague in nineteen forty-eight, full of passion, and what they get for it is the Council of Europe — a debating chamber in Strahss-boorg with no real power, where delegates can talk but cannot bind anyone to anything.",
+        "So the lesson, by nineteen forty-nine, is brutal."
+      ]
+    },
+    {
+      "id": 20,
+      "beat_index": 4,
+      "beat_title": "The famous men give speeches",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "Nations will not simply vote away their sovereignty around a conference table. The big front door is locked.",
+      "spoken_text": "Nations will not simply vote away their sovereignty around a conference table. The big front door is locked.",
+      "emphasis": [],
+      "chunks": [
+        "Nations will not simply vote away their sovereignty around a conference table. The big front door is locked."
+      ]
+    },
+    {
+      "id": 21,
+      "beat_index": 5,
+      "beat_title": "The strange, indispensable man",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": "a turn toward intrigue; lean in, let curiosity build"
+      },
+      "pause_before_ms": 1200,
+      "authored_text": "Which brings us to the strange, indispensable man at the center of this story. His name is Jean Monnet, and he is almost a joke as a candidate for \"father of a continent.\" He is not a president, or a general. He is not even an elected politician — he will never, once in his life, win an election. He is a businessman from Cognac, in southwest France. His family sells brandy.",
+      "spoken_text": "Which brings us to the strange, indispensable man at the center of this story. His name is Jean Mon-nay, and he is almost a joke as a candidate for \"father of a continent.\" He is not a president, or a general. He is not even an elected politician — he will never, once in his life, win an election. He is a businessman from Cone-yak, in southwest France. His family sells brandy.",
+      "emphasis": [],
+      "chunks": [
+        "Which brings us to the strange, indispensable man at the center of this story. His name is Jean Mon-nay, and he is almost a joke as a candidate for \"father of a continent.\" He is not a president, or a general. He is not even an elected politician — he will never, once in his life, win an election.",
+        "He is a businessman from Cone-yak, in southwest France. His family sells brandy."
+      ]
+    },
+    {
+      "id": 22,
+      "beat_index": 5,
+      "beat_title": "The strange, indispensable man",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": "a turn toward intrigue; lean in, let curiosity build"
+      },
+      "pause_before_ms": 600,
+      "authored_text": "But Monnet has a single, uncanny talent. He is a fixer — a man who appears at the elbow of the powerful in moments of crisis and quietly reorganizes how things work. He has a mind that does not think in terms of speeches, or borders, but in terms of machinery. What concrete mechanism would make a thing happen — regardless of what people said they wanted?",
+      "spoken_text": "But Mon-nay has a single, uncanny talent. He is a fixer — a man who appears at the elbow of the powerful in moments of crisis and quietly reorganizes how things work. He has a mind that does not think in terms of speeches, or borders, but in terms of machinery. What concrete mechanism would make a thing happen — regardless of what people said they wanted?",
+      "emphasis": [
+        "fixer"
+      ],
+      "chunks": [
+        "But Mon-nay has a single, uncanny talent. He is a fixer — a man who appears at the elbow of the powerful in moments of crisis and quietly reorganizes how things work. He has a mind that does not think in terms of speeches, or borders, but in terms of machinery.",
+        "What concrete mechanism would make a thing happen — regardless of what people said they wanted?"
+      ]
+    },
+    {
+      "id": 23,
+      "beat_index": 6,
+      "beat_title": "Solidarity by plumbing",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 1200,
+      "authored_text": "And Monnet had drawn a radical conclusion from all the failure around him. If you cannot get nations to surrender sovereignty in one grand gesture — and you cannot — then stop asking them to.",
+      "spoken_text": "And Mon-nay had drawn a radical conclusion from all the failure around him. If you cannot get nations to surrender sovereignty in one grand gesture — and you cannot — then stop asking them to.",
+      "emphasis": [],
+      "chunks": [
+        "And Mon-nay had drawn a radical conclusion from all the failure around him. If you cannot get nations to surrender sovereignty in one grand gesture — and you cannot — then stop asking them to."
+      ]
+    },
+    {
+      "id": 24,
+      "beat_index": 6,
+      "beat_title": "Solidarity by plumbing",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 500,
+      "authored_text": "Don't aim at the whole. Aim at one small, specific, vital thing.",
+      "spoken_text": "Don't aim at the whole. Aim at one small, specific, vital thing.",
+      "emphasis": [],
+      "chunks": [
+        "Don't aim at the whole. Aim at one small, specific, vital thing."
+      ]
+    },
+    {
+      "id": 25,
+      "beat_index": 6,
+      "beat_title": "Solidarity by plumbing",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "Take one sector of the economy — one that two enemies both depend on — and place it under a shared authority that stands above the nations. Make their industries so physically tangled together that pulling them apart to build weapons becomes impossible. Solidarity not by treaty of friendship — those are worthless — but solidarity by plumbing.",
+      "spoken_text": "Take one sector of the economy — one that two enemies both depend on — and place it under a shared authority that stands above the nations. Make their industries so physically tangled together that pulling them apart to build weapons becomes impossible. Solidarity not by treaty of friendship — those are worthless — but solidarity by plumbing.",
+      "emphasis": [
+        "above"
+      ],
+      "chunks": [
+        "Take one sector of the economy — one that two enemies both depend on — and place it under a shared authority that stands above the nations. Make their industries so physically tangled together that pulling them apart to build weapons becomes impossible.",
+        "Solidarity not by treaty of friendship — those are worthless — but solidarity by plumbing."
+      ]
+    },
+    {
+      "id": 26,
+      "beat_index": 6,
+      "beat_title": "Solidarity by plumbing",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "measured",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 400,
+      "authored_text": "By welding the pipes together. And then, once that one small thing works, you do the next thing, and the next. Build the United States of Europe not with a constitution, but with — of all things — coal and steel.",
+      "spoken_text": "By welding the pipes together. And then, once that one small thing works, you do the next thing, and the next. Build the United States of Europe not with a constitution, but with — of all things — coal and steel.",
+      "emphasis": [],
+      "chunks": [
+        "By welding the pipes together. And then, once that one small thing works, you do the next thing, and the next. Build the United States of Europe not with a constitution, but with — of all things — coal and steel."
+      ]
+    },
+    {
+      "id": 27,
+      "beat_index": 7,
+      "beat_title": "The secret draft",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "tense",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 1200,
+      "authored_text": "In the first months of 1950, Monnet and a tiny team lock themselves away and begin, in total secrecy, to draft a proposal. They tell almost no one. They have one shot, one audience that matters, and a window of weeks before the great powers meet and the moment passes.",
+      "spoken_text": "In the first months of nineteen fifty, Mon-nay and a tiny team lock themselves away and begin, in total secrecy, to draft a proposal. They tell almost no one. They have one shot, one audience that matters, and a window of weeks before the great powers meet and the moment passes.",
+      "emphasis": [],
+      "chunks": [
+        "In the first months of nineteen fifty, Mon-nay and a tiny team lock themselves away and begin, in total secrecy, to draft a proposal. They tell almost no one. They have one shot, one audience that matters, and a window of weeks before the great powers meet and the moment passes."
+      ]
+    },
+    {
+      "id": 28,
+      "beat_index": 7,
+      "beat_title": "The secret draft",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "tense",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "They are going to take the two materials that had armed every German invasion of France — coal and steel — and propose handing control of them, French and German together, to a body that neither government will fully control.",
+      "spoken_text": "They are going to take the two materials that had armed every German invasion of France — coal and steel — and propose handing control of them, French and German together, to a body that neither government will fully control.",
+      "emphasis": [],
+      "chunks": [
+        "They are going to take the two materials that had armed every German invasion of France — coal and steel — and propose handing control of them, French and German together, to a body that neither government will fully control."
+      ]
+    },
+    {
+      "id": 29,
+      "beat_index": 8,
+      "beat_title": "They have one in mind",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "dramatic",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 1200,
+      "authored_text": "Now imagine you are a French official who gets wind of this. Your country has been invaded by Germany three times in living memory. The war ended five years ago. The bodies are barely cold.",
+      "spoken_text": "Now imagine you are a French official who gets wind of this. Your country has been invaded by Germany three times in living memory. The war ended five years ago. The bodies are barely cold.",
+      "emphasis": [
+        "five years ago"
+      ],
+      "chunks": [
+        "Now imagine you are a French official who gets wind of this. Your country has been invaded by Germany three times in living memory. The war ended five years ago. The bodies are barely cold."
+      ]
+    },
+    {
+      "id": 30,
+      "beat_index": 8,
+      "beat_title": "They have one in mind",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "dramatic",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 800,
+      "authored_text": "And someone is about to propose that France voluntarily merge its war industries with Germany's.",
+      "spoken_text": "And someone is about to propose that France voluntarily merge its war industries with Germany's.",
+      "emphasis": [],
+      "chunks": [
+        "And someone is about to propose that France voluntarily merge its war industries with Germany's."
+      ]
+    },
+    {
+      "id": 31,
+      "beat_index": 8,
+      "beat_title": "They have one in mind",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "dramatic",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 600,
+      "authored_text": "They are going to need a politician brave enough — or reckless enough — to put his name on it, and say it out loud.",
+      "spoken_text": "They are going to need a politician brave enough — or reckless enough — to put his name on it, and say it out loud.",
+      "emphasis": [],
+      "chunks": [
+        "They are going to need a politician brave enough — or reckless enough — to put his name on it, and say it out loud."
+      ]
+    },
+    {
+      "id": 32,
+      "beat_index": 8,
+      "beat_title": "They have one in mind",
+      "speaker": "narrator",
+      "intent": {
+        "tone": "dramatic",
+        "rate": "slow",
+        "note": null
+      },
+      "pause_before_ms": 800,
+      "authored_text": "They have one in mind.",
+      "spoken_text": "They have one in mind.",
+      "emphasis": [],
+      "chunks": [
+        "They have one in mind."
+      ]
+    }
+  ]
+}
