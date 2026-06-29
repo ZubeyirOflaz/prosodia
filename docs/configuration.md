@@ -29,12 +29,13 @@ Series-level config and the coverage map (goal #4). Fields:
 | `engine` | target TTS engine (`chatterbox`) |
 | `voice` | **default voice** for the series (a transcript may omit `voice` and inherit this) |
 | `lexicon` | path to the pronunciation lexicon, relative to this file |
-| `episodes` | list of `{ n, slug, title, scope, tension }` — every topic assigned to exactly one episode |
+| `target_minutes` | long-form length the Writer aims for (per-episode `target_minutes` overrides) |
+| `episodes` | list of `{ n, slug, title, scope, tension, target_minutes? }` — every topic assigned to exactly one episode |
 
 `scope` defines an episode's boundaries (so later episodes don't re-explain earlier
 material); `tension` is the dramatic hook the Writer emphasizes.
 
-## `voice_profiles.yaml` — the tone table
+## Tone table
 
 The **Tone specialist's** deterministic table (`src/prosodia/author/voice_profiles.yaml`)
 and the **single source of truth** for the tone vocabulary and default pauses.
@@ -42,13 +43,14 @@ Maps each engine-neutral tone word to Chatterbox params:
 
 ```yaml
 engine: chatterbox
+pace: 0.9          # global speed dial: scales every cfg_weight (<1 = slower)
 pauses:            # default silence durations (ms) — the one place these live
-  paragraph_ms: 400
-  beat_ms: 800
+  paragraph_ms: 600
+  beat_ms: 1200
 default_tone: measured   # fallback for an unknown tone (the compiler warns)
 tones:
-  somber:   { exaggeration: 0.30, cfg_weight: 0.35, temperature: 0.70 }
-  dramatic: { exaggeration: 0.80, cfg_weight: 0.30, temperature: 0.85 }
+  somber:   { exaggeration: 0.30, cfg_weight: 0.34, temperature: 0.70 }
+  dramatic: { exaggeration: 0.78, cfg_weight: 0.30, temperature: 0.85 }
   # ... measured, neutral, warm, grave, wistful, reverent, tense, urgent, wry, matter-of-fact
 ```
 
@@ -57,7 +59,11 @@ These are **starting anchors** to tune per voice. Chatterbox coupling: higher
 the pairs already account for that interaction. Editing this file re-tunes the
 whole show's delivery without touching any transcript.
 
-## `lexicon.yaml` — pronunciation
+**Pace levers, strongest first** (the show felt too fast → slow it here):
+`pauses` (real silence between segments) → `pace` (one global dial) → a beat's
+`rate: slow` (lowers its cfg via the backend) → individual `cfg_weight` values.
+
+## Pronunciation lexicon
 
 Per-project respellings, applied to `spoken_text` only (the transcript stays
 readable). Longer keys win; matching is whole-word.
@@ -71,13 +77,30 @@ lexicon:
 
 Respellings are approximate and meant to be tuned against the chosen voice.
 
-## `voices/`
+## Voices
 
-Narrator reference clips as `voices/<name>.wav` (10s+, clean, single speaker). A
-job whose resolved `voice` is `narrator` renders against `voices/narrator.wav`. A
-job may also bundle its own clip (via `prosodia submit --voice-ref`), which wins.
-The same reference is reused across every chunk and episode — the primary defense
-against timbre drift.
+Each project owns its narrator clips at `projects/<proj>/voices/<name>.wav` (10s+,
+clean, single speaker, ≥24 kHz). Naming matches the `voice` id, so `voice:
+narrator` → `voices/narrator.wav`.
+
+`prosodia submit` **auto-bundles** the matching clip into the job, so the clip
+travels with it and the render box needs no extra flags (a bundled clip is
+preferred over the `--voices` dir; `submit --voice-ref <wav>` overrides). The same
+reference is reused across every chunk and episode — the primary defense against
+timbre drift.
+
+Chatterbox clones zero-shot (no training) — just supply the clip. To cut one from
+a longer recording, use [`prosodia voice-prep`](cli-reference.md#prosodia-voice-prep)
+(needs the `audio` extra: `pip install "prosodia[audio]"`):
+
+```bash
+prosodia voice-prep narration.wav --start 1:30 \
+  --out projects/eu_history/voices/narrator.wav
+```
+
+It cuts a ~10s clip from the given timestamp, ending at a natural pause, downmixed
+to mono. Only clone voices you have the rights to; every render carries
+Chatterbox's inaudible watermark.
 
 ## Lexicon & normalization
 

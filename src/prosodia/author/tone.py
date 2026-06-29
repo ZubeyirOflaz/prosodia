@@ -24,6 +24,7 @@ class VoiceProfiles:
         self.engine: str = data.get("engine", "chatterbox")
         self.default_tone: str = data.get("default_tone", "measured")
         self.tones: dict[str, dict] = data.get("tones", {})
+        self.pace = float(data.get("pace", 1.0))  # global cfg scale; <1 = slower
         pauses = data.get("pauses", {}) or {}
         self.paragraph_ms = int(pauses.get("paragraph_ms", 400))
         self.beat_ms = int(pauses.get("beat_ms", 800))
@@ -64,11 +65,15 @@ def build_render_plan(
                 f"segment {seg.id}: unknown tone '{seg.intent.tone}' -> "
                 f"fell back to '{profiles.default_tone}'"
             )
+        # Apply the global pace dial to cfg_weight here (the per-beat `rate` is
+        # applied later, in the backend). Clamp to a sane range.
+        cfg = float(p.get("cfg_weight", _FALLBACK["cfg_weight"])) * profiles.pace
+        cfg = max(0.15, min(0.95, cfg))
         params.append(
             SegmentParams(
                 segment_id=seg.id,
                 exaggeration=float(p.get("exaggeration", _FALLBACK["exaggeration"])),
-                cfg_weight=float(p.get("cfg_weight", _FALLBACK["cfg_weight"])),
+                cfg_weight=cfg,
                 temperature=float(p.get("temperature", _FALLBACK["temperature"])),
                 rate_multiplier=seg.intent.rate_multiplier,
             )

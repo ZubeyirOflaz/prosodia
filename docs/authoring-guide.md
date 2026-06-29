@@ -53,7 +53,7 @@ A mid-beat shift: {tone: tense} now it is tense.
 - **Directives** `{tone, rate, note}` set engine-neutral intent; `{pause: N}`
   inserts `N` seconds of real silence. **Mark only what the prose can't imply.**
 - **Tone words**: `measured, neutral, warm, somber, grave, wistful, reverent,
-  tense, urgent, dramatic, wry, matter-of-fact` (the [tone table](configuration.md#voice_profilesyaml-the-tone-table)
+  tense, urgent, dramatic, wry, matter-of-fact` (the [tone table](configuration.md#tone-table)
   is the source of truth; unknown tones warn and fall back).
 - **Emphasis** `*word*` (use `\*` / `\{` for literals). **Two-host**: `@speaker`
   tags with a `speakers:` map in front-matter.
@@ -70,7 +70,7 @@ example.
 
 Write naturally — `1945`, `1914–1945`, `§45a`, `Maastricht`. Conversion to spoken
 form happens at **compile time**: [normalization](configuration.md#lexicon--normalization)
-spells out numbers/years; a per-project [lexicon](configuration.md#lexiconyaml-pronunciation)
+spells out numbers/years; a per-project [lexicon](configuration.md#pronunciation-lexicon)
 respells proper nouns. The IR keeps both the authored and spoken text.
 
 ## Compile and submit

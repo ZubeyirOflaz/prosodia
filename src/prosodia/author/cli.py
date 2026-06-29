@@ -67,8 +67,33 @@ def _cmd_submit(args: argparse.Namespace) -> int:
     ir = EpisodeIR.from_json((ep / "ir.json").read_text(encoding="utf-8"))
     plan = RenderPlan.from_json((ep / "render_plan.json").read_text(encoding="utf-8"))
     job_id = args.job_id or (f"ep{ir.episode}" if ir.episode is not None else ep.name)
-    dest = package_job(args.root, job_id, ir, plan, voice_ref=args.voice_ref)
-    print(f"submitted job '{job_id}' -> {dest}")
+
+    # Per-project voice: bundle <project>/voices/<voice>.wav so the clip travels
+    # with the job (the renderer prefers a bundled clip). --voice-ref overrides.
+    voice_ref = args.voice_ref
+    if not voice_ref and ir.voice and not ir.voice.startswith("preset:"):
+        voices_dir = Path(args.voices) if args.voices else ep.parent.parent / "voices"
+        cand = voices_dir / f"{ir.voice}.wav"
+        if cand.exists():
+            voice_ref = str(cand)
+
+    dest = package_job(args.root, job_id, ir, plan, voice_ref=voice_ref)
+    note = f" (voice: {Path(voice_ref).name})" if voice_ref else " (no voice clip; engine default)"
+    print(f"submitted job '{job_id}' -> {dest}{note}")
+    return 0
+
+
+def _cmd_voice_prep(args: argparse.Namespace) -> int:
+    try:
+        from prosodia.author.voiceprep import prepare_clip
+    except ImportError:
+        print('voice-prep needs the audio extra: pip install "prosodia[audio]"', file=sys.stderr)
+        return 1
+
+    info = prepare_clip(args.source, args.start, args.out, target_s=args.duration)
+    for w in info["warnings"]:
+        print(f"warning: {w}", file=sys.stderr)
+    print(f"wrote {args.out}  ({info['duration']:.1f}s @ {info['sr']} Hz, mono)")
     return 0
 
 
@@ -153,7 +178,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_submit.add_argument("episode", help="directory holding ir.json + render_plan.json")
     p_submit.add_argument("--root", required=True, help="synced exchange root (holds inbox/ etc.)")
     p_submit.add_argument("--job-id", help="job id (default: ep<N> or the directory name)")
-    p_submit.add_argument("--voice-ref", help="optional voice reference .wav to bundle")
+    p_submit.add_argument("--voice-ref", help="explicit voice .wav to bundle (overrides project voices/)")
+    p_submit.add_argument("--voices", help="dir of voice clips (default: <project>/voices)")
+
+    p_vp = sub.add_parser("voice-prep", help="cut a ~10s reference clip from a source .wav")
+    p_vp.add_argument("source", help="source .wav file")
+    p_vp.add_argument("--start", required=True, help="start timestamp: seconds (12.5) or M:SS")
+    p_vp.add_argument("--out", required=True, help="output .wav (e.g. projects/<proj>/voices/narrator.wav)")
+    p_vp.add_argument("--duration", type=float, default=10.0, help="target clip length seconds (default 10)")
     return parser
 
 
@@ -162,6 +194,7 @@ _DISPATCH = {
     "write": _cmd_write,
     "compile": _cmd_compile,
     "submit": _cmd_submit,
+    "voice-prep": _cmd_voice_prep,
 }
 
 

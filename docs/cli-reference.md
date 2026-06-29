@@ -8,7 +8,7 @@ Two commands: **`prosodia`** (authoring, any machine) and **`prosodia-render`**
 ## `prosodia` (authoring)
 
 ```
-prosodia [--version] {plan, write, compile, submit} ...
+prosodia [--version] {plan, write, compile, submit, voice-prep} ...
 ```
 
 ### `prosodia plan`
@@ -52,7 +52,24 @@ Package a compiled episode into a render job and publish it atomically to `inbox
 | `episode` | yes | directory holding `ir.json` + `render_plan.json` |
 | `--root ROOT` | yes | synced exchange root (holds `inbox/` etc.) |
 | `--job-id ID` | no | job id (default: `ep<N>` or the directory name) |
-| `--voice-ref WAV` | no | a voice reference `.wav` to bundle with the job |
+| `--voices DIR` | no | dir of voice clips to bundle from (default: `<project>/voices`) |
+| `--voice-ref WAV` | no | explicit voice `.wav` to bundle (overrides `--voices`) |
+
+By default `submit` bundles `<project>/voices/<voice>.wav` (the per-project clip
+matching the resolved `voice`) into the job, so it travels with it.
+
+### `prosodia voice-prep`
+
+Cut a ~10s narration reference clip from a longer source `.wav`, ending at a
+natural pause and downmixed to mono. Needs the `audio` extra
+(`pip install "prosodia[audio]"`); no GPU.
+
+| Argument / option | Req | Meaning |
+|---|---|---|
+| `source` | yes | source `.wav` file |
+| `--start TS` | yes | start timestamp: seconds (`12.5`) or `M:SS` (`1:30`) |
+| `--out WAV` | yes | output path (e.g. `projects/<proj>/voices/narrator.wav`) |
+| `--duration S` | no | target clip length in seconds (default 10) |
 
 ## `prosodia-render` (GPU box)
 

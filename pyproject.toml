@@ -35,9 +35,16 @@ render = [
   "faster-whisper>=1.0",
   "soundfile>=0.12",
 ]
+# Audio utilities for the authoring machine (voice clip prep) — no torch.
+audio = [
+  "numpy>=1.24",
+  "soundfile>=0.12",
+]
 dev = [
   "pytest>=8.0",
   "ruff>=0.5",
+  "numpy>=1.24",
+  "soundfile>=0.12",
 ]
 
 [project.scripts]

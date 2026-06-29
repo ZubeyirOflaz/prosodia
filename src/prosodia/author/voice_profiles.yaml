@@ -14,6 +14,11 @@
 
 engine: chatterbox
 
+# Global pace dial: scales every tone's cfg_weight (lower = slower/more
+# deliberate across the whole show). 1.0 = use the table values as-is; 0.9 ~= 10%
+# slower. This is the one knob to nudge overall speed without editing every tone.
+pace: 0.9
+
 # Default delivery durations (ms) — the one place these live. Generous, for a
 # deliberate cadence; a transcript may override via front-matter `pauses:`.
 pauses:

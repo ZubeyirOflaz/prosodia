@@ -20,6 +20,16 @@ def test_default_pauses_present():
     assert profiles.paragraph_ms > 0 and profiles.beat_ms > profiles.paragraph_ms
 
 
+def test_global_pace_scales_cfg():
+    base = {"default_tone": "measured",
+            "tones": {"measured": {"exaggeration": 0.4, "cfg_weight": 0.5, "temperature": 0.75}}}
+    ir = EpisodeIR(segments=[Segment(id=0, intent=Intent(tone="measured"), spoken_text="a", chunks=["a"])])
+    full = build_render_plan(ir, VoiceProfiles({**base, "pace": 1.0}))[0]
+    slow = build_render_plan(ir, VoiceProfiles({**base, "pace": 0.8}))[0]
+    assert full.params[0].cfg_weight == 0.5
+    assert slow.params[0].cfg_weight < full.params[0].cfg_weight  # 0.5 * 0.8 = 0.4
+
+
 def test_build_render_plan_and_unknown_tone():
     ir = EpisodeIR(
         voice="narrator",

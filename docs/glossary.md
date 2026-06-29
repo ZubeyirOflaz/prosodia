@@ -17,7 +17,7 @@
   (`RenderPlan` / `SegmentParams`); produced by the Tone specialist, consumed by
   the renderer. Kept separate from the IR so the transcript stays engine-portable.
 - **Tone specialist** — the mapping layer (intent → engine params); v0.1 is a
-  deterministic [table](configuration.md#voice_profilesyaml-the-tone-table).
+  deterministic [table](configuration.md#tone-table).
 - **Chunk** — a ~300-char piece of `spoken_text` sized for the engine's
   per-generation cap.
 - **Normalization** — compile-time conversion of numbers/dates/symbols to spoken form.
