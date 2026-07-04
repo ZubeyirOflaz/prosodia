@@ -31,6 +31,9 @@ __pycache__
 /building
 /jobs
 
+// Prompt-refinement audit logs — authoring-side only
+/experiments
+
 // TTS model weights / caches — downloaded on the render box; huge; one-way clutter
 /models
 /weights

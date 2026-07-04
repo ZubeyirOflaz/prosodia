@@ -8,7 +8,7 @@ Two commands: **`prosodia`** (authoring, any machine) and **`prosodia-render`**
 ## `prosodia` (authoring)
 
 ```
-prosodia [--version] {plan, write, compile, submit, voice-prep} ...
+prosodia [--version] {plan, write, compile, submit, voice-prep, plan-view} ...
 ```
 
 ### `prosodia plan`
@@ -70,6 +70,18 @@ natural pause and downmixed to mono. Needs the `audio` extra
 | `--start TS` | yes | start timestamp: seconds (`12.5`) or `M:SS` (`1:30`) |
 | `--out WAV` | yes | output path (e.g. `projects/<proj>/voices/narrator.wav`) |
 | `--duration S` | no | target clip length in seconds (default 10) |
+
+### `prosodia plan-view`
+
+Render a plan outline (the Planner's Markdown) into a self-contained HTML **review
+page** — the highest-value point for a quick human check, before any episode is
+written. Pure standard-library; no GPU, no extra deps; open the file in a browser.
+
+| Argument / option | Req | Meaning |
+|---|---|---|
+| `plan` | yes | path to a plan `.md` (the Planner's outline) |
+| `--out HTML` | no | output path (default: alongside the plan) |
+| `--title T` | no | page title (default: the plan's H1 or the filename) |
 
 ## `prosodia-render` (GPU box)
 

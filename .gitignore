@@ -226,6 +226,7 @@ __marimo__/
 *.ogg
 /outputs/
 /renders/
+/experiments/
 
 # TTS model weights / caches (downloaded on first run; large)
 /models/

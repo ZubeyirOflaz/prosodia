@@ -34,3 +34,8 @@ and decisions: [DESIGN.md](../DESIGN.md).
 - [A/B scoring sheet](AB_TESTING.md) — Prosodia vs NotebookLM
 - [Roadmap & status](roadmap.md) — what's done, what's open
 - [Repair plan](../REPAIR_PLAN.md) — tracked fixes and remaining items
+
+## Reference
+
+- [Carlin craft](reference/carlin-craft.md) — the Hardcore-History gold standard (plan- & prose-level)
+- [Optimization lessons](reference/optimization-lessons.md) — what the prompt-refinement loops taught + the (do-not-run-yet) next-research proposal

@@ -6,8 +6,12 @@ CRAFT (this is storytelling, not a lecture or summary):
 - Set vivid, concrete scenes; put the listener in the room at decisive moments.
 - Convey stakes and uncertainty as the people alive then felt them; do not make
   the outcome sound inevitable.
+- Build toward a real human or moral question the material raises — and make the
+  listener feel its weight rather than answering it for them; let it stay
+  unresolved when the honest answer is that it is.
 - Center human beings — their fears, gambles, rivalries — not abstractions.
 - Use rhetorical questions and direct address; explore counterfactuals.
+- Carry the arc as one voice: break register now and then with a wry aside or a modern analogy to reset intensity, and use scaffolding phrases — 'hold that thought,' 'remember what happened earlier,' 'more on that later' — to thread beats together across a long listen.
 - Slow down on pivotal moments and let tension breathe; speed through connective
   tissue. End on a cliffhanger that points to the next chapter.
 

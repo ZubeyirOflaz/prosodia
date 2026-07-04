@@ -97,6 +97,14 @@ def _cmd_voice_prep(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_plan_view(args: argparse.Namespace) -> int:
+    from prosodia.author.plan_view import render_file
+
+    out = render_file(args.plan, args.out, args.title)
+    print(f"wrote {out} — open it in a browser to review the plan")
+    return 0
+
+
 def _cmd_plan(args: argparse.Namespace) -> int:
     from prosodia.author.orchestrate import ClaudeRunner, plan_series
     from prosodia.core.trace import Trace
@@ -186,6 +194,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_vp.add_argument("--start", required=True, help="start timestamp: seconds (12.5) or M:SS")
     p_vp.add_argument("--out", required=True, help="output .wav (e.g. projects/<proj>/voices/narrator.wav)")
     p_vp.add_argument("--duration", type=float, default=10.0, help="target clip length seconds (default 10)")
+
+    p_pv = sub.add_parser("plan-view", help="render a plan outline to a lightweight HTML review page")
+    p_pv.add_argument("plan", help="path to a plan .md (the Planner's outline)")
+    p_pv.add_argument("--out", help="output .html (default: alongside the plan)")
+    p_pv.add_argument("--title", help="page title (default: the plan's H1 or the filename)")
     return parser
 
 
@@ -195,6 +208,7 @@ _DISPATCH = {
     "compile": _cmd_compile,
     "submit": _cmd_submit,
     "voice-prep": _cmd_voice_prep,
+    "plan-view": _cmd_plan_view,
 }
 
 
