@@ -1,0 +1,12 @@
+# Ever Closer Union (v2) — rebuilt end-to-end with the researched planner + writer.
+# The coverage map / episodes live in plan/outline.md (produced by the Planner from
+# the deep-research dossier). This file holds series-level config for compile/render.
+series: "Ever Closer Union"
+description: >
+  A Hardcore-History-style narrative of how the European Union was forged out of the
+  ruin of 1945 — the stakes, the gambles, and the human beings, not the abstractions.
+style: hardcore-history
+engine: chatterbox
+voice: narrator          # resolve to voices/narrator.wav at render time (copy your chosen clip in)
+lexicon: lexicon.yaml
+target_minutes: 35

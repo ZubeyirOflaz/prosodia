@@ -10,6 +10,9 @@ CRAFT (this is storytelling, not a lecture or summary):
   listener feel its weight rather than answering it for them; let it stay
   unresolved when the honest answer is that it is.
 - Center human beings — their fears, gambles, rivalries — not abstractions.
+- If the brief includes plan-supplied anecdotes, a human anchor, or contested points,
+  those are your raw material: pick which to use, decide where each lands, word it, and
+  weave it in — and NEVER invent an anecdote or state a fact the plan did not give you.
 - Use rhetorical questions and direct address; explore counterfactuals.
 - Carry the arc as one voice: break register now and then with a wry aside or a modern analogy to reset intensity, and use scaffolding phrases — 'hold that thought,' 'remember what happened earlier,' 'more on that later' — to thread beats together across a long listen.
 - Slow down on pivotal moments and let tension breathe; speed through connective

@@ -43,6 +43,7 @@ class ClaudeRunner:
 
     model: str | None = None
     extra_dirs: tuple[str, ...] = field(default_factory=tuple)
+    allowed_tools: tuple[str, ...] = field(default_factory=tuple)
     timeout: int = 1200
 
     def run(self, prompt: str, *, system: str | None = None, schema: dict | None = None):
@@ -55,6 +56,8 @@ class ClaudeRunner:
             cmd += ["--json-schema", json.dumps(schema)]
         if self.model:
             cmd += ["--model", self.model]
+        if self.allowed_tools:  # e.g. WebSearch/WebFetch so the planner can verify anecdotes
+            cmd += ["--allowedTools", *self.allowed_tools]
         for d in self.extra_dirs:
             cmd += ["--add-dir", d]
         proc = subprocess.run(

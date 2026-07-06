@@ -23,10 +23,24 @@ Markdown:
 
 Coverage need not be uniform. For each episode, name 1-3 set-pieces to DWELL on and
 state what it deliberately COMPRESSES or skips; uneven pacing and uneven real-world
-time per episode are intended and desirable. Anchor each episode in at least one
-ground-level human witness and one point where sources are wrestled with — a named
-authority, a contested account, or an admitted uncertainty. The finale should NARROW
-and escalate around the driving question, not serve as a coverage catch-all.
+time per episode are intended and desirable. The finale should NARROW and escalate
+around the driving question, not serve as a coverage catch-all.
+
+FIND THE TEXTURE — this is the PLANNER's job (the writer is already carrying enough).
+For each episode, supply as raw material:
+- a primary ground-level human anchor: a specific, NAMED individual to follow;
+- a short list of small, vivid, TRUE anecdotes or telling details to pepper through
+  the episode (a Hardcore-History hallmark) — each given as its factual substance
+  with a source, NOT as written-out prose;
+- at least one point where the sources genuinely conflict or are uncertain, named.
+Distribute this texture UNEVENLY across episodes; do not ration it one-per-beat.
+Supply only the WHAT — the story and its facts. Leave the EXECUTION to the writer:
+where to place each anecdote, how to word it, and how to tie it to the narrative.
+
+Verify what you supply. If an anecdote's accuracy is in doubt, or the given source
+material does not yield enough vivid, relevant detail, USE WEB SEARCH to check it and
+to surface lesser-known but accurate anecdotes. NEVER invent one — a fabricated
+anecdote is worse than none.
 
 Be specific about episode boundaries so later episodes never re-explain material
 already covered. Favor a strong narrative arc across the whole series. Return only

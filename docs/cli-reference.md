@@ -86,7 +86,7 @@ written. Pure standard-library; no GPU, no extra deps; open the file in a browse
 ## `prosodia-render` (GPU box)
 
 ```
-prosodia-render {doctor, render, watch} ...
+prosodia-render {doctor, render, watch, audition} ...
 ```
 
 Heavy imports are deferred; on a base install (no torch) it fails with a helpful
@@ -118,6 +118,20 @@ Watch an exchange root and render jobs as they arrive (model kept warm).
 | `--voices DIR` | no | directory of voice reference `.wav` files |
 | `--interval SEC` | no | poll interval seconds (default 5.0) |
 | `--once` | no | process the current inbox once and exit |
+
+### `prosodia-render audition`
+
+Render the **same text** with several reference clips side by side (content held
+constant, so the clip is the only variable) to A/B candidate voices. Writes one `.wav`
+per clip×take plus an `index.html` player. See [Renderer setup → Voices](../scripts/RENDERER_SETUP.md).
+
+| Argument / option | Req | Meaning |
+|---|---|---|
+| `--voices ...` | yes | a `voices/` dir and/or `.wav` files to compare |
+| `--out DIR` | no | output directory (default: `./voice_audition`) |
+| `--text STR` / `--text-file F` | no | text to speak (default: a built-in narration sample) |
+| `--takes N` | no | takes per clip, seeds matched across clips (default 2) |
+| `--exaggeration` / `--cfg` / `--temperature` | no | delivery overrides |
 
 ## See also
 

@@ -79,6 +79,34 @@ in `status.json`). The model is loaded once and kept warm across jobs.
 
 ## Voices
 
-Put narrator reference clips in a `voices/` folder as `<name>.wav` (10s+, clean,
-single speaker). A transcript/job whose `voice` is `narrator` resolves to
-`voices\narrator.wav`. A job may also bundle its own voice clip, which wins.
+Put narrator reference clips in a `voices/` folder as `<name>.wav`. A transcript/job
+whose `voice` is `narrator` resolves to `voices\narrator.wav`; a job may also bundle its
+own clip, which wins.
+
+**Choosing a clip matters — it's a real lever.** Chatterbox clones zero-shot, so the
+reference's *style and emotion leak into the output*, and stability/artifacts vary by clip:
+
+- **Match the delivery you want:** a calm, measured, audiobook-style clip for narration —
+  not conversational, dramatic, whispery, or fast (a breathy clip can add hissy noise).
+- **Meet the spec:** WAV, ≥24 kHz, single speaker, no background music/noise, one
+  continuous take, ~10–20 s (≈5 s for Turbo). Cleanliness matters more than length.
+- **Instability is partly random per generation**, so judge a clip on its *best of N*
+  takes, not one. Once you pick a clip, reuse that *same* clip (and seed) across every
+  chunk and episode — the main defense against timbre drift.
+- **Accent is Chatterbox's weak spot** and a clip swap won't reliably fix it. If your
+  narrator isn't General-American, test the accent early; a known workaround is to
+  generate a clean sample in the target accent and then use *that* as the reference.
+
+### Audition candidate voices
+
+Render the **same text** with several clips (so the clip is the only variable), then A/B them:
+
+```powershell
+.venv-render\Scripts\prosodia-render.exe audition --voices .\voices --out .\voice_audition --takes 2
+# or compare specific files, with your own line:
+.venv-render\Scripts\prosodia-render.exe audition --voices a.wav b.wav c.wav --text "Your test line." --takes 3
+```
+
+It writes one `.wav` per clip×take plus an `index.html` with audio players — open it in a
+browser to compare. Uses the renderer's slow-narration defaults; override with
+`--exaggeration` / `--cfg` / `--temperature`.

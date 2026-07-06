@@ -118,7 +118,10 @@ def _cmd_plan(args: argparse.Namespace) -> int:
         "Produce the series outline and coverage map."
     )
     trace = Trace(proj / "plan" / "trace.jsonl")
-    outline = plan_series(prompt, runner=ClaudeRunner(extra_dirs=(str(proj),)), trace=trace)
+    # The planner may web-search to verify or discover anecdotes, so allow web tools
+    # (needs a Claude Code with WebSearch/WebFetch available).
+    runner = ClaudeRunner(extra_dirs=(str(proj),), allowed_tools=("WebSearch", "WebFetch"))
+    outline = plan_series(prompt, runner=runner, trace=trace)
     out = proj / "plan" / "outline.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(outline, encoding="utf-8")
@@ -144,9 +147,25 @@ def _cmd_write(args: argparse.Namespace) -> int:
         f"Scope: {ep.get('scope', '')}\n"
         f"Tension: {ep.get('tension', '')}\n"
         f"Target length: about {target_minutes} minutes of narration "
-        "(long-form; write to that depth, not a summary).\n\n"
-        "Write the full episode transcript in the Prosodia hybrid format."
+        "(long-form; write to that depth, not a summary).\n"
     )
+    # If the Planner has produced an outline, feed THIS episode's plan (its sourced
+    # anecdotes, human anchor, and contested points) to the writer so it places rather
+    # than invents. Falls back to the coarse brief above if there's no outline yet.
+    outline_path = proj / "plan" / "outline.md"
+    if outline_path.exists():
+        from prosodia.author.planparse import extract_episode_section
+
+        section = extract_episode_section(outline_path.read_text(encoding="utf-8"), ep["n"])
+        if section:
+            brief += (
+                "\n--- PLAN FOR THIS EPISODE (from the Planner — follow it) ---\n"
+                "Use the human anchor, the sourced anecdotes, and the contested points below as\n"
+                "raw material: choose which to use, decide where each lands, word it, and tie it to\n"
+                "the narrative. Do NOT invent anecdotes or state facts the plan did not give you.\n\n"
+                f"{section}\n"
+            )
+    brief += "\nWrite the full episode transcript in the Prosodia hybrid format."
     epdir = proj / "episodes" / ep.get("slug", f"ep{ep['n']}")
     epdir.mkdir(parents=True, exist_ok=True)
     trace = Trace(epdir / "trace.jsonl")

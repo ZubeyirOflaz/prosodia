@@ -101,6 +101,12 @@ diversity, not a single style.
 *contested points* to wrestle; the per-episode **brief** carries them. Then the writer's
 existing (already-good) bullets fire *on cue* instead of everywhere. This is likely the
 single highest-leverage change and does not need a loop to validate first.
+**Update (2026-07): the *sourcing* half is now shipped** — `planner.md` finds
+per-episode anecdotes/anchors (web-verified) as raw material, and the planner runner
+allows WebSearch/WebFetch. The remaining, now-critical piece is the **writer-brief
+plumbing**: the anecdotes live in the planner's outline, but `prosodia write` still
+builds the brief from `series.yaml` only, so they don't yet reach the writer. Wire that
+next — it's the step that makes the whole division actually function end-to-end.
 
 **(d) Evaluation upgrades.** Held-out topics (above); a **human calibration checkpoint**
 (you rate ~1 artifact/run so we can detect grader drift against a human anchor); and
@@ -112,12 +118,36 @@ expensive model for judging only; **hard token/round budget caps**; **fewer, hig
 rounds**; cache/reuse artifacts; and dedicated per-role scripts (avoid the `args`
 footgun). Assume a serious run is **multi-million tokens** — scope it deliberately.
 
+**(f) Anecdote veracity & sourcing (new — from the 2026-07 planner change; validated on EU).**
+A test run of the updated planner produced an 8-episode EU plan with per-episode,
+web-sourced anecdotes, each cited; it flagged uncertain items *inline* and *dropped* two
+it could not verify (the anti-fabrication behavior working). What that surfaced for the cycle:
+- **Veracity must become a first-class eval axis.** The planner *asserting* a source is not
+  proof the source is real or supports the claim. Add an independent **fact-check pass** (a
+  separate agent/tool that re-verifies each anecdote + source) and score anecdote *accuracy*
+  and *vividness*. Hallucinated or misattributed sources are the top risk of this feature.
+- **The mandatory per-episode "sources conflict" line over-constrains.** Episodes without a
+  natural factual dispute got a *historiographical/interpretive* debate instead. Soften to
+  "where one naturally exists," and explicitly allow interpretive debates — don't force a
+  factual clash that isn't there.
+- **"Exactly one episode" vs. seams plant/payoff conflict.** Maastricht had to be marked
+  "shared (set up in Ep 7, delivered in Ep 8)." The rubric should treat an *explicit*
+  set-up→pay-off as legitimate seam-work, not a coverage-overlap failure.
+- **WHAT-vs-execution grey zone.** A verbatim quote is sometimes the *fact* itself; the prompt
+  should state that quotes-as-facts are acceptable raw material (placement still the writer's).
+- **Web-tool dependency & fetch robustness.** The planner needs WebSearch/WebFetch actually
+  granted, and external sources can fail (a Thatcher Foundation page 403'd mid-run). Plan for
+  fallbacks and a "flagged — needs a second source" state.
+- **Plans got denser.** Richer per-episode texture makes a plan harder to skim; the new
+  `prosodia plan-view` HTML review page is the intended mitigation for the human check.
+
 **Open questions for the user to decide first:**
 1. Which/how many Carlin series to ingest, and which topics are refinement vs. held-out?
 2. Do we build (c) — the allocation field — *before* the loop (likely yes; it's cheap and structural)?
 3. Is a human-in-the-loop calibration checkpoint acceptable (adds latency, big quality gain)?
 4. Do we gate the whole effort behind at least one **rendered-audio** evaluation, so we're optimizing against real output, not text proxies?
 5. Budget ceiling per run, and cheap-vs-expensive model split.
+6. How do we fact-check anecdote veracity — a dedicated verification agent/tool — and do we gate a plan on it before it can proceed to writing?
 
 **Cost caveat:** this is a high-cost effort (plausibly several million output tokens);
 do not launch without a budget cap and the decisions above settled.

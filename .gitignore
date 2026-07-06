@@ -254,3 +254,28 @@ hf_cache/
 
 # Claude Code personal/local settings (autonomous-build permissions — do not publish)
 .claude/settings.local.json
+
+
+# Log files
+error_log.txt
+commands.txt
+
+# ── Experimental / generated — keep the tool repo clean ─────────────
+# IDE + Syncthing markers (swept into the initial commit by mistake)
+.vs/
+.stfolder/
+.stversions/
+
+# Voice audition / candidate comparison output (renders + A/B index pages)
+/voice_audition/
+/voice_candidates/
+
+# Per-project GENERATED artifacts (regenerate with `prosodia compile`) and
+# orchestration logs. The SOURCE OF TRUTH stays tracked: transcript.md,
+# series.yaml, lexicon.yaml, plan/outline.md.
+projects/**/ir.json
+projects/**/render_plan.json
+projects/**/*.html
+projects/**/trace.jsonl
+# Bulky deep-research scratch (dossier + per-segment notes)
+projects/**/research/

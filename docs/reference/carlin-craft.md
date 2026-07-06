@@ -33,9 +33,11 @@ owns each technique: the **Planner** (series/plan structure) vs. the **Writer**
 6. **Coverage honesty.** No gaps/overlap **and** no bundling loophole (a topic row
    that silently hides 2–3 episodes of material). Omission is a first-class,
    *stated* choice, not a silent gap.
-7. **Texture allocation.** Which episodes carry a tracked human anchor vs. sustained
-   source-wrestling is distributed *unevenly* by design — the plan allocates the
-   slots even though the prose fills them.
+7. **Texture sourcing.** The planner *finds* the texture per episode — a named human
+   anchor, a short list of small **true** anecdotes (with sources; web-checked when
+   needed), and named contested/uncertain points — distributed *unevenly* by design.
+   The plan supplies the WHAT (story + facts, never fabricated); the writer's prose is
+   the HOW (placement, wording, connection). See §B.4/§B.8 for the execution side.
 
 ## B. Prose-level craft (owned by the WRITER)
 

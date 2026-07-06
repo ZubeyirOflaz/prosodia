@@ -1,5 +1,0 @@
-# This directory is a Syncthing folder marker.
-# Do not delete.
-
-folderID: xkccw-pamry
-created: 2026-06-25T00:14:17+02:00

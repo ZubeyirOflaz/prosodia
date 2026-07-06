@@ -1,43 +1,46 @@
 # Tone specialist table (stage 1, deterministic).
 #
 # Maps engine-neutral delivery intent (tone words) -> Chatterbox parameters.
-# This file is the SINGLE SOURCE OF TRUTH for the tone vocabulary (repair item
-# C2) and for the default pause durations (repair item C3). The transcript SPEC
-# (formats/SPEC.md sec 5.1) references this list rather than re-stating it.
+# SINGLE SOURCE OF TRUTH for the tone vocabulary (repair C2) and default pauses (C3).
 #
-# Values are STARTING ANCHORS, tuned toward a slow, methodical "Hardcore History"
-# narration baseline. Tune by ear. The pace levers, strongest first:
-#   1. pauses below (real silence between segments — the biggest, most reliable);
-#   2. a beat/episode `rate` (`rate: slow` lowers cfg_weight via pacing.py);
-#   3. cfg_weight here (LOWER = slower/more deliberate);
-#   4. exaggeration here (HIGHER speeds speech up, so keep it modest for narration).
+# Values are STARTING ANCHORS — tune by ear, and calibrate against a real narrator
+# with the delivery-profile diff (see docs/reference/prosody-profiling.md).
+# The two Chatterbox levers and what they REALLY do (per research):
+#   * exaggeration = the monotone <-> expressive dial. HIGHER = LESS FLAT / more
+#     emotional dynamics. (An earlier tune kept this low "for a measured feel" — that
+#     is what made narration sound flat. Raised here to fight flatness.) It also
+#     speeds speech up, which the low cfg_weight below compensates for.
+#   * cfg_weight = pace/deliberateness. LOWER = slower, more deliberate (and it
+#     offsets exaggeration's speed-up). The global `pace` dial scales it show-wide.
+# NOTE: pitch/REGISTER is NOT settable here — Chatterbox takes register only from the
+# reference clip. "Use the lower register more" = a lower reference clip, a
+# formant-preserving pitch-down, or a fine-tune (future); it is not a tone-table knob.
 
 engine: chatterbox
 
-# Global pace dial: scales every tone's cfg_weight (lower = slower/more
-# deliberate across the whole show). 1.0 = use the table values as-is; 0.9 ~= 10%
-# slower. This is the one knob to nudge overall speed without editing every tone.
+# Global pace dial: scales every cfg_weight (lower = slower/more deliberate show-wide).
 pace: 0.9
 
-# Default delivery durations (ms) — the one place these live. Generous, for a
-# deliberate cadence; a transcript may override via front-matter `pauses:`.
+# Default silence durations (ms). Deliberate long pauses at "let it land" moments are
+# the tone specialist's job (explicit {pause}); these are just the baseline gaps.
 pauses:
   paragraph_ms: 600
   beat_ms: 1200
 
-# Fallback used when a transcript names a tone not listed here (compiler warns).
 default_tone: measured
 
+# exaggeration raised across the narration tones (fights flatness); cfg_weight kept
+# low (slow, deliberate, and compensates for the speed-up). matter-of-fact stays plain.
 tones:
-  measured:       { exaggeration: 0.38, cfg_weight: 0.42, temperature: 0.75 }
-  neutral:        { exaggeration: 0.35, cfg_weight: 0.42, temperature: 0.75 }
-  warm:           { exaggeration: 0.48, cfg_weight: 0.45, temperature: 0.80 }
-  somber:         { exaggeration: 0.30, cfg_weight: 0.34, temperature: 0.70 }
-  grave:          { exaggeration: 0.30, cfg_weight: 0.30, temperature: 0.70 }
-  wistful:        { exaggeration: 0.32, cfg_weight: 0.38, temperature: 0.75 }
-  reverent:       { exaggeration: 0.30, cfg_weight: 0.34, temperature: 0.70 }
-  tense:          { exaggeration: 0.55, cfg_weight: 0.40, temperature: 0.80 }
-  urgent:         { exaggeration: 0.68, cfg_weight: 0.44, temperature: 0.85 }
-  dramatic:       { exaggeration: 0.78, cfg_weight: 0.30, temperature: 0.85 }
-  wry:            { exaggeration: 0.44, cfg_weight: 0.46, temperature: 0.80 }
-  matter-of-fact: { exaggeration: 0.32, cfg_weight: 0.50, temperature: 0.70 }
+  measured:       { exaggeration: 0.50, cfg_weight: 0.40, temperature: 0.78 }
+  neutral:        { exaggeration: 0.45, cfg_weight: 0.42, temperature: 0.78 }
+  warm:           { exaggeration: 0.58, cfg_weight: 0.44, temperature: 0.82 }
+  somber:         { exaggeration: 0.52, cfg_weight: 0.32, temperature: 0.72 }
+  grave:          { exaggeration: 0.50, cfg_weight: 0.28, temperature: 0.72 }
+  wistful:        { exaggeration: 0.50, cfg_weight: 0.36, temperature: 0.78 }
+  reverent:       { exaggeration: 0.48, cfg_weight: 0.32, temperature: 0.72 }
+  tense:          { exaggeration: 0.64, cfg_weight: 0.38, temperature: 0.82 }
+  urgent:         { exaggeration: 0.74, cfg_weight: 0.42, temperature: 0.85 }
+  dramatic:       { exaggeration: 0.84, cfg_weight: 0.28, temperature: 0.85 }
+  wry:            { exaggeration: 0.55, cfg_weight: 0.46, temperature: 0.82 }
+  matter-of-fact: { exaggeration: 0.42, cfg_weight: 0.50, temperature: 0.72 }

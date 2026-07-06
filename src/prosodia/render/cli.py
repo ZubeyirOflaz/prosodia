@@ -71,6 +71,16 @@ def build_parser() -> argparse.ArgumentParser:
     p_watch.add_argument("--voices", help="directory of voice reference .wav files")
     p_watch.add_argument("--interval", type=float, default=5.0, help="poll interval seconds")
     p_watch.add_argument("--once", action="store_true", help="process the current inbox once and exit")
+
+    p_aud = sub.add_parser("audition", help="render the SAME text with several voice clips, side by side (A/B)")
+    p_aud.add_argument("--voices", nargs="+", required=True, help="a voices/ dir and/or .wav files to compare")
+    p_aud.add_argument("--out", default="voice_audition", help="output directory (default: ./voice_audition)")
+    p_aud.add_argument("--text", help="text to speak (default: a short built-in narration sample)")
+    p_aud.add_argument("--text-file", help="read the text from a file instead of --text")
+    p_aud.add_argument("--takes", type=int, default=2, help="takes per clip, seeds matched across clips (default 2)")
+    p_aud.add_argument("--exaggeration", type=float, default=0.4)
+    p_aud.add_argument("--cfg", type=float, default=0.45, dest="cfg_weight")
+    p_aud.add_argument("--temperature", type=float, default=0.75)
     return parser
 
 
@@ -113,6 +123,21 @@ def main(argv: list[str] | None = None) -> int:
             args.root, interval=args.interval, fast_preview=not args.final,
             voices_dir=args.voices, once=args.once,
         )
+        return 0
+
+    if args.command == "audition":
+        from prosodia.render.audition import DEFAULT_TEXT, audition
+
+        if args.text_file:
+            text = Path(args.text_file).read_text(encoding="utf-8")
+        else:
+            text = args.text or DEFAULT_TEXT
+        written = audition(
+            text, args.voices, args.out, takes=args.takes,
+            exaggeration=args.exaggeration, cfg_weight=args.cfg_weight, temperature=args.temperature,
+        )
+        print(f"rendered {len(written)} sample(s) -> {args.out}")
+        print(f"open {Path(args.out) / 'index.html'} to A/B the voices")
         return 0
 
     return 2
