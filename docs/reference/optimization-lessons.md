@@ -141,6 +141,27 @@ it could not verify (the anti-fabrication behavior working). What that surfaced 
 - **Plans got denser.** Richer per-episode texture makes a plan harder to skim; the new
   `prosodia plan-view` HTML review page is the intended mitigation for the human check.
 
+**(g) Repetition / freshness — emergent tics & a generality test (new, 2026-07; from the EU ep4–8 rewrite).**
+The named opener/tic problem was addressed with three shipped pieces: `writer.md` FRESHNESS
+rules, a deterministic **repetition linter** (`author/repetition.py` + `prosodia
+lint-repetition`), and **feed-forward** (prior episodes' openings/phrases injected into each
+writer brief). EU ep4–8 then came back with the headline problem solved — distinct openings,
+zero watchlist tics — but with NEW, subtler convergences the writers drifted onto independently:
+- "the men who built it" (ep5–8), "I am (not) going to…" (ep6–8), "both readings are alive"
+  (ep4,5,8), plus a per-episode over-reached metaphor or two.
+Key caveat (user, and confirmed in practice): **some of these are intentional rhetorical
+devices, not tics** — e.g. "over the heads of the people" *is* the series thesis; a reviser
+found the editor had **over-counted** several flagged repeats. So repetition findings must be
+**judged intentional-vs-oversight**, never auto-stripped.
+**Open question before generalizing:** are these tics topic-specific or general model habits?
+**Do NOT bake them into `writer.md`/the linter watchlist yet.** Test first: run a short
+diagnostic series on a deliberately different topic — chosen: **"great political thinkers
+through history and the circumstances that shaped them"** (character/idea-driven, a contrast
+to institutional history) — through the same pipeline on the *current* prompts, then
+lint/review for the same patterns. Recur → general → add to FRESHNESS + `STOCK_PHRASES`;
+absent → they were artifacts of the EU topic. **Deferred by the user to a future cycle** (the
+linter + feed-forward are already built; only the diagnostic run remains).
+
 **Open questions for the user to decide first:**
 1. Which/how many Carlin series to ingest, and which topics are refinement vs. held-out?
 2. Do we build (c) — the allocation field — *before* the loop (likely yes; it's cheap and structural)?

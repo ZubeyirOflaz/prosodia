@@ -16,261 +16,280 @@ seed: 50969
      exist yet. Carry it heavy — the episode can afford it. Do not resolve the
      two named historiographical fights (was 1963 really about Nassau; was the
      Empty Chair really about money or sovereignty). Leave the closing question
-     open: reactionary, or the only honest man in the room? `voice` omitted on
-     purpose — resolves from series.yaml. -->
+     open: reactionary, or the only honest man in the room? Assigned opening
+     move: a CONCRETE OBJECT, described before it is explained. NO "I want to",
+     NO "hold that thought / sit with that / here's the part / here's the
+     thing". `voice` omitted on purpose — resolves from series.yaml. -->
 
-## One minute past midnight {tone: grave, rate: slow, note: "open hushed and deliberate; this is a deathbed scene for a career"}
-I want to start at the end. {pause: 0.6}
+## The chair {tone: measured, rate: slow, note: "open cold on a physical object; describe it plainly before revealing what it means"}
+There is a chair at a long table in a building in Brussels. {pause: 0.8}
 
-It is a little after midnight, the 28th of April, 1969. A statement goes out from a house in a village in eastern France called Colombey-les-Deux-Églises. Nine words long, in the French he wrote it in — and it is not a resignation the way you or I would write one. There is no thanks, no farewell, no looking back over a life. There is a man {pause: 1.0} closing a door.
+It is nothing much to look at. Upholstered, functional, the kind of chair a serious room keeps a dozen of. It has a place at the table, a nameplate in front of it, a folder of papers set square on the wood, a water glass filled and waiting. Everything around it is arranged for a man to sit down and go to work.
 
-{rate: very-slow} *"I am ceasing to exercise my functions as President of the Republic."* {pause: 1.2}
+And through the summer of 1965, and into the autumn, and on toward Christmas, {pause: 1.0} nobody sits in it.
 
-That is all. {pause: 0.5} One minute past midnight. And with that sentence, Charles de Gaulle — soldier, exile, liberator, president, the most formidable nationalist Europe produced in the twentieth century — walks off the stage of history {pause: 1.2} and does not come back.
+The folder is not opened. The glass is not touched. The ministers of five nations take their seats around that table, and they look across at the one place that stays empty, meeting after meeting, month after month — because the sixth nation, the second largest of them, one of the founders of the whole enterprise, has decided *not to come.* {pause: 1.2}
 
-He had just lost a referendum. Not a great one. A tangled proposal about reforming France's regions and its senate, a vote he did not have to hold, on a question almost nobody deeply cared about. He had staked himself on it anyway — he always staked himself; that was the whole method — and this time the country said no. And so, at seventy-eight, he simply left. {pause: 0.8}
+That empty chair is France. And the man who emptied it is the most formidable figure Europe produced in the whole of the twentieth century. {pause: 0.8} A soldier who refused to accept his country's surrender when its own government had signed it. An exile who spoke for France when France had no voice. And now the President of the Republic — a man who looks at the machine six nations built together and sees, underneath the fine words, a fiction. A state that isn't one. A crown with no country under it.
 
-Now hold that thought. {tone: dramatic} Because here is the strange thing, the thing this whole hour is going to circle. Within months of that midnight sentence — *months* — the one thing de Gaulle had personally, furiously, vetoed *twice* becomes possible. The door he had bolted shut against Britain swings open {pause: 1.0} the moment he stops holding it.
+His name is Charles de Gaulle. And this is the story of the decade he spent inside the European Community, {pause: 0.8} keeping it alive with one hand {pause: 0.6} and throttling it with the other.
 
-The man who did more than anyone to shape what Europe's Community *was* spent an entire decade making sure it could never become anything *more*. And it turns out the only way to set that Community free — to let it grow, to let it widen — was for him to leave the room. {pause: 0.6}
+## The paradox at the center {tone: matter-of-fact, rate: normal, note: "lay out the central irony cleanly; this is the spine of the hour"}
+Because the strange thing about de Gaulle — the thing you have to grasp before anything else in this hour will make sense — is that he did both. At the same time. On purpose.
 
-## The other man in the room {tone: measured, rate: normal}
-So this is a story about two men who could not stand each other, and it will not make sense unless you can see them both.
+He built the Community's single most important, most durable piece of working machinery: the deal that saved French farming, the Common Agricultural Policy, the great subsidy engine that is still running today. Nobody did more than de Gaulle to make that thing real.
 
-The first you already know. Charles de Gaulle. Six foot five, a voice like a church organ, a sense of France so total that he once said, without embarrassment, that all his life he had "a certain idea of France" — that he pictured her, and I am not exaggerating, like the princess in the fairy tales. This is a man who believes nations are *real* things. Not accidents. Not administrative conveniences. Souls, almost. France is a person to him, with a destiny, and no committee in Brussels gets to be her regent.
+And he spent the identical decade making sure the Community could never become anything *more* than machinery. He vetoed Britain's entry not once but twice. He walked France out of its own institutions for seven months. He froze the move to majority voting for twenty years with a single sheet of paper. And along the way he broke the career of the one man who dreamed the Community might grow into something like a government — a man most people listening have never heard of, which is part of the tragedy.
 
-The second man, most people have never heard of, and that is the tragedy this hour is partly about. His name is Walter Hallstein. {pause: 0.5} A German. A professor of law. And in 1958 he becomes the first President of the Commission of the brand-new European Economic Community — the machine that six nations had just built at Rome, the thing we met being signed at the end of the last chapter.
+Two hands. One decade. Build and throttle. {pause: 0.8}
 
-Now, Hallstein is not a nationalist. Hallstein is the *opposite* of a nationalist. He is the man who called national sovereignty *"a doctrine of yesteryear"* — a doctrine of yesteryear — and he meant it as an insult to the doctrine, not a compliment.
+And then — and everything in this hour bends toward this — at one minute past midnight one night in April 1969, de Gaulle loses a small and pointless referendum, and resigns in nine words, and walks off the stage of history. And within *months* of his leaving, the thing he had personally, furiously blocked twice becomes possible. The door he had bolted shut swings open the moment he lets go of it.
 
-Here is a detail that tells you who he is. {tone: warm} At the end of the Second World War, Hallstein is a German prisoner of war, held in a camp in Mississippi — Camp Como. And what does he do behind the wire? He organizes a *university*. A camp university, where he teaches law to his fellow prisoners. Think about that. {pause: 1.2} A man in a cage on the other side of an ocean, who responds to captivity by building an institution. That is Walter Hallstein all the way down. Give him a defeat and he will build you a school.
+The man who did more than anyone to shape what Europe's Community *was* had to leave the room {pause: 1.0} before it could become anything else. {pause: 0.6}
 
-{tone: measured} And when this man takes over the Commission, he does not treat it like a secretariat. He treats it like a government. He receives the formal credentials of foreign ambassadors — the ritual of a *head of state* — as though the Commission were a country, and he its president. He describes the job, more or less, as being a kind of *European prime minister.*
+That is the shape of this. Now let me put the two men in it.
 
-Now put these two men on the same continent. {pause: 0.8} A man who thinks nations are eternal souls, and a man who thinks nations are a doctrine of yesteryear, running a court that dresses itself in the trappings {pause: 1.0} of a state that does not exist yet.
+## A certain idea of France {tone: measured, rate: slow}
+You already half-know de Gaulle, so let me sharpen him.
 
-They are going to collide. {tone: dramatic} And the collision *is* this story. {pause: 0.6}
+Six foot five. A deep, deliberate voice. And a sense of his country so total it is hard, at first, to take seriously. He wrote, without a flicker of embarrassment, that all his life he had carried "a certain idea of France" — that he pictured her, and I am not softening this, {pause: 0.8} the way you picture the princess in a fairy tale, or the Madonna in a painting. Destined for greatness. Diminished only by the errors of men, never by any fault of her own.
 
-## The paradox of the General {tone: measured, note: "set up the central irony carefully; let it sit"}
-But before the collision, you have to sit with a paradox, because if you miss it you will misjudge de Gaulle for the rest of the hour.
+To de Gaulle, a nation is not an administrative convenience. It is not a set of borders drawn by treaty or a market of consumers. A nation is a living thing, almost a soul, with a will and a destiny of its own — and France is the highest of them. No committee gets to be her regent. No court in Brussels gets to speak in her name.
 
-De Gaulle *hated* the supranational idea. The idea that some authority above the nations — a Commission, a court, a parliament of Europeans — could tell France what to do. To him that was a fiction, and worse, a dangerous fiction, because it pretended to a democratic legitimacy it did not have. Who elected these men in Brussels? {pause: 0.7} Nobody. Whom did they answer to? {pause: 0.7} Nobody. And yet Hallstein sat there receiving ambassadors like a monarch.
+He is not a fool about this, and that matters. He is not a flag-waver. He is one of the coldest, most clear-eyed calculators of power the century produced. He simply begins from a conviction the men who built the Community had quietly decided to set aside: that the nation is *real*, and permanent, and the only thing on the whole continent that a people will actually die for. Ask them to die for a customs union, he would say, and see how many rifles you raise. {pause: 0.8}
 
-So you would expect de Gaulle to try to smash the Community. To pull France out. To kill it.
+Hold that man in your mind. Now here is the man he collided with.
 
-He does the opposite. {tone: wry} He *keeps* it. He *uses* it. Because de Gaulle was, above everything, a realist about power, and the Community contained one thing France desperately needed: a deal for its farmers.
+## The prime minister of nowhere {tone: warm, rate: normal, note: "reintroduce Hallstein warmly but briskly — the audience met him last episode"}
+His name was Walter Hallstein. A German. A professor of law. And in 1958 he became the first President of the Commission of the brand-new European Economic Community — the machine we watched six nations sign into being at Rome, at the close of the last chapter.
 
-{tone: measured} France in these years is still, to a startling degree, a nation of small farms. And French farming was inefficient, and French governments kept falling partly because they could not solve the farm problem. The Common Agricultural Policy — the great subsidy machine the Community was building — would pour money and protected markets into exactly those French farms. To de Gaulle, that was not "Europe." That was a French national interest that happened to wear a European costume.
+We met Hallstein there, so I will not tell his whole story again — only the one thing you must carry into this one. {tone: grave} Hallstein was the *opposite* of a nationalist. He had watched the nation-state, his own nation-state, produce the barbed wire he'd stood behind {pause: 0.8} as a prisoner of war on the far side of an ocean. He came out of that convinced the sovereign nation was, in his own cold phrase, a "doctrine of yesteryear" — and he meant it as an epitaph.
 
-So here is the paradox, and I want you to hold it, because it runs through everything that follows. De Gaulle builds up the Community's most important, most durable piece of machinery — the farm deal that arguably saved French agriculture — *while at the same time* {tone: grave} he is sabotaging the Community's political evolution and, before he is done, {pause: 1.0} decapitating the man who embodies it.
+{tone: measured} And when this man took charge of the Commission, he did not run it like a filing office. He ran it like a government. He received the formal credentials of foreign ambassadors — the ritual by which an envoy presents himself to a *head of state* — as though Brussels were a capital and he its leader. He spoke of his own role as something like a European prime minister.
 
-{tone: measured} He is not against the machine. {pause: 0.6} He is against the machine having a *mind of its own.* He wants a Europe of nations — *l'Europe des patries*, the Europe of fatherlands — cooperating where it suits them, France first among them, and no super-state, no European soul, no Walter Hallstein playing king. {rate: slow} A market, yes. A master, never. {pause: 0.6}
+Which is where de Gaulle's blood ran cold. Because when the General looked across the water at Walter Hallstein, he did not see a diligent Eurocrat doing paperwork. He saw a man he had never voted for, whom no Frenchman had ever voted for, sitting in the borrowed robes of a state that did not exist — receiving ambassadors, playing at sovereignty, {pause: 0.8} pretending to a legitimacy that de Gaulle believed only a nation could confer. Later, in his memoirs, he wrote the sentence that says it all: that Hallstein sat there "surrounded with all the trappings of sovereignty," "ardently wedded to the thesis of the super-State."
 
-Keep that distinction close. Almost every fight in this hour is really that distinction, in different clothes.
+A man who thinks nations are eternal souls. A man who thinks nations are yesterday's mistake. On the same continent. Inside the same institutions. {pause: 0.8}
+
+They were going to collide, and the collision *is* the episode.
+
+## Why he kept the thing he hated {tone: measured, rate: slow, note: "the crucial distinction; go slow, it unlocks everything after"}
+So you would expect de Gaulle, holding views like these, to try to smash the Community. Pull France out. Strangle it in its cradle.
+
+He does the reverse. {tone: wry} He keeps it. He guards it. He *uses* it. {tone: measured} Because de Gaulle was, above every other thing, a realist about power — and the Community held one prize France could not do without.
+
+France in these years is, to a degree that would surprise you, still a country of small farms. Millions of people on the land, farming inefficiently, politically untouchable, and perpetually angry. French governments had fallen — actually collapsed — over the farm problem, because no French politician could solve it and survive. And the Community was building the one thing that could: the Common Agricultural Policy. A machine that would pour money and guaranteed prices and protected markets straight into those French farms. To de Gaulle, that was not "Europe." That was a French national interest wearing a European costume, and he would wear the costume all day long if it paid the farmers.
+
+So the distinction — and almost every fight in this hour is really this distinction in different clothes — is not *for* the machine or *against* it.
+
+He is not against the machine. {pause: 0.8} He is against the machine having a mind of its own.
+
+He wants a market. He does not want a master. He wants a Europe of nations — *l'Europe des patries*, the Europe of fatherlands — cooperating exactly as far as it suits them, France first among equals, and above them nothing. No super-state. No European soul. No Walter Hallstein receiving ambassadors as though there were a country there to receive them for. A market, yes. {pause: 0.8} A sovereign above the nations, {pause: 0.8} never. {pause: 1.0}
+
+Keep that close. Everything else follows from it.
 
 ## The Englishman at the door {tone: measured, rate: normal}
-Now, the British.
+Now bring in the British, because their humiliation is where the machinery of this decade first turns.
 
-You will remember — from earlier chapters — that Britain had been offered a seat at the founding table again and again, and had turned it down every time. Too imperial, too Atlantic, too proud, too sure the whole continental experiment would collapse. Britain sent an observer to the negotiations that built the Common Market and then withdrew him. Britain stood outside and expected the thing to fail.
+You will remember the pattern from earlier chapters. Again and again, Britain had been offered a seat at the founding table — and again and again she had declined it. Too imperial. Too Atlantic. Too proud, and too certain the whole continental experiment would fold. Britain sent an observer to the talks that built the common market, and then pulled him out, and stood outside waiting for the thing to fail.
 
-The thing did not fail. {tone: wry} By the early 1960s the Community of the Six is *booming*. Growth rates the British can only dream of. And so, with the particular discomfort of a man who told the party it would never work and now has to attend the wedding, the British Prime Minister — Harold Macmillan — decides Britain wants in after all.
+It did not fail. {tone: wry} By the early 1960s the Community of the Six is booming — growth rates that make British ministers wince. {tone: measured} And so, with the particular discomfort of the man who swore the venture would never work and now has to turn up to its wedding, the British Prime Minister — Harold Macmillan — decides Britain wants in after all.
 
-{tone: measured} And to get in, he has to go through one man. Because the Community works by unanimity on new members. One no is enough. And there is a very tall Frenchman who has views.
+And to get in, he has to pass one man. Because new members are admitted only by unanimity. One "no" is enough. And there is a very tall Frenchman with views.
 
-So picture the room. {pause: 0.6} December 1962, a château outside Paris — Rambouillet, a royal hunting lodge, all cold stone and hunting trophies and the short grey light of a French winter afternoon. On one side of the table, Harold Macmillan: sixty-eight years old, a wounded veteran of the Somme who still walks with the limp of it, an Edwardian gentleman who has come, hat almost literally in hand, to ask a favor. On the other side, folded into a chair too small for him, Charles de Gaulle: six foot five, the head tilted back, the eyes hooded, listening the way a mountain {pause: 1.0} listens to weather.
+So picture the room. December 1962. A château outside Paris — Rambouillet, a royal hunting lodge, cold stone and mounted antlers and the short grey light of a French winter afternoon. On one side of the table, Macmillan: sixty-eight, a wounded veteran of the Somme who still carries the limp of it, an Edwardian gentleman come — hat very nearly in hand — to ask a favor. On the other side, folded into a chair that was never built for him, de Gaulle: the head tilted back, the eyes half-hooded, listening the way a mountain listens to the weather passing over it.
 
-And Macmillan makes his case, and he makes it beautifully. He reaches for history, for four centuries of it. England, he tells the General, has been *"isolated from the Continent since the Reformation"* — since the Reformation, mind you — and now, at last, she *"wishes to come out of its isolation."* Hear what that is. {tone: wistful} That is a proud old country saying, in the most dignified language it can find: *we have stood apart for four hundred years, and we are ready to come home. {pause: 1.2} Will you have us?*
+And Macmillan makes his case, and he makes it beautifully. He reaches back four centuries for it. England, he tells the General, has been "isolated from the Continent since the Reformation" — since the *Reformation* — and now, at last, she "wishes to come out of its isolation." {tone: wistful} Hear what that is. That is a proud old country, in the most dignified words it can find, saying: we have stood apart for four hundred years, and we are ready to come home. {pause: 1.2} Will you have us?
 
-{tone: measured} And de Gaulle nods. He murmurs. He is courteous — he is always courteous — and he gives away almost nothing, and what little he gives away, Macmillan misreads. Because Macmillan is a shrewd, experienced statesman, and he leaves that cold château believing the door is open. He believes he has a deal, or something close to one. He climbs back into the car thinking he has moved the mountain. {pause: 0.8}
+{tone: measured} And de Gaulle nods. He murmurs. He is courteous — he is always courteous — and he gives almost nothing away, and the little he does give, Macmillan reads exactly wrong. Because Macmillan is shrewd and experienced and he leaves that freezing château believing the door is ajar. He believes he has a deal, or the beginnings of one. He climbs into the car certain he has won the General over. {pause: 0.8}
 
-{tone: grave, rate: slow} He has read the man completely wrong. {pause: 1.0} The mountain never moved.
+{tone: grave, rate: slow} He had read the man completely backwards. {pause: 1.2} De Gaulle had not moved an inch.
 
-## Nassau {tone: tense}
-Because five days after Rambouillet, Macmillan does something that, to de Gaulle, settles everything. And I don't want to just tell you what it was. I want you to stand in the room where Britain chose.
+## Nassau {tone: tense, rate: normal}
+Because five days after Rambouillet, Macmillan does a thing that, to de Gaulle, decides everything.
 
-Move from the grey stone of Rambouillet to the sunlight of the Bahamas. Nassau, five days later. Palm trees, white light off the water, {pause: 1.0} and inside, two men. Macmillan again — but the courtly supplicant of the château is gone, because here he is in real trouble. Britain's independent nuclear deterrent, the thing that makes her a great power and not merely a large island, is collapsing: the American missile it was built around has just been cancelled out from under her. Without a replacement, the British bomb has no way to fly. And across the table sits the young President, John Kennedy, holding the only thing that can save it — Polaris, the submarine-launched missile, the future of the deterrent.
+Go from the grey stone of a French hunting lodge to white light off tropical water. Nassau, in the Bahamas. Five days later. And the courtly supplicant of the château is gone, because here Macmillan is a man in real trouble. Britain's independent nuclear deterrent — the possession that keeps her a great power and not merely a large cold island — is falling apart. The American missile it had been built around has just been cancelled out from under her. Without a replacement, the British bomb has no way to fly. And across the table sits a young American president, John Kennedy, holding the only thing that can save it: {pause: 0.8} Polaris. The submarine-launched missile. The whole future of the deterrent.
 
-So here is the choice, and it is a real choice, made by real men in a real room. Macmillan can hold out for Europe — can keep Britain's options open, keep faith with the Continent he has just told de Gaulle he wants to rejoin. Or he can take the American weapon and tie Britain's ultimate survival, her nuclear last resort, to Washington for a generation. {pause: 0.8}
+So there is a choice, a real one, made by real men in a real room. Macmillan can hold out for Europe — keep Britain's options open, keep faith with the Continent he has just finished telling de Gaulle he wants to rejoin. Or he can take the American weapon, and tie Britain's ultimate survival, her last resort, her doomsday, to Washington for a generation. {pause: 0.8}
 
-{tone: dramatic} He takes the American weapon. {pause: 1.0} Of course he does. Faced with the choice between the Continent and the cousin across the Atlantic, between Paris and Washington, Britain reaches for Washington without a second's real hesitation — because when the question is national survival, the old special relationship is simply deeper than the new European one. Macmillan flies home with Polaris in his pocket and, I think, no idea what it has just cost him in Paris.
+{tone: dramatic} He takes the American weapon. {pause: 1.2} Of course he does. Faced with the Continent on one side and the cousin across the Atlantic on the other, faced with Paris or Washington, Britain reaches for Washington almost before the question is finished — because when the stake is national survival, the old blood tie runs deeper than the new European one. Macmillan flies home with Polaris in his pocket and, I suspect, no real notion of what it has just cost him in Paris.
 
-{tone: tense} Because now sit with what that looks like from across the Channel. De Gaulle had wanted exactly that kind of help for *France's* deterrent — the *force de frappe*, the strike force he was building to make France a nuclear power in her own right, dependent on no one. And he had, in effect, been refused. The Americans would arm the British cousin and not the French one.
+{tone: tense} Now stand where de Gaulle stands and see it from across the Channel. The General had wanted exactly this kind of help for *France's* deterrent — the *force de frappe*, the strike force he was building to make France a nuclear power beholden to no one — and he had, in effect, been refused it. The Americans would arm the British cousin and not the French one.
 
-And so de Gaulle watches a Britain that, the very moment she has to choose, runs to Washington and comes back carrying an American weapon. He sees, in that one decision at Nassau, the answer to the only question that ever mattered to him about British membership: {rate: slow} *when the chips are down, whose side is this country really on?* {pause: 0.8}
+And so he watches a Britain that, the instant she is forced to choose, sprints to Washington and comes back cradling an American weapon. And in that one act at Nassau he reads the answer to the only question about British membership he ever cared about: {rate: slow} when the chips are truly down, whose side is this country on? {pause: 1.0}
 
-And the answer, he decides, is: {pause: 1.0} not Europe's.
+Not Europe's. {pause: 1.2} That is the answer he takes away.
 
-## The veto {tone: dramatic, rate: slow, note: "this is a peak; let the quoted prediction land word by word"}
-So on the 14th of January, 1963, Charles de Gaulle sits down in front of the press and does something politicians almost never do. He tells the truth about his reasoning. Out loud. As a *reason.*
+## The candor of the veto {tone: dramatic, rate: slow, note: "a peak; deliver the quoted prediction slowly, word by word"}
+So on the 14th of January, 1963, Charles de Gaulle sits down in front of the world's press and does something politicians almost never do. He tells the truth about his reasoning. Out loud. Not as an evasion — as an *argument.*
 
-He says no to Britain. And then he explains, with a candor that is genuinely startling, *why.* He says that if Britain comes in, others will follow her — her Atlantic friends, her trading partners — and the tight little market of the Six will dissolve into a loose free-trade zone, and then, and I want to give you his own words, because they are extraordinary:
+He says no to Britain. And then he explains why, with a bluntness that is genuinely startling even now. If Britain comes in, he says, others will follow — her trading partners, her Atlantic friends — and the tight little market of the Six will loosen into a sprawling free-trade zone, and then, and here are his own words, because you should hear them exactly:
 
-{rate: very-slow} *"In the end there would appear a colossal Atlantic Community under American dependence and leadership, which would completely swallow up the European Community."* {pause: 1.5}
+{rate: very-slow} "In the end there would appear a colossal Atlantic Community under American dependence and leadership, which would completely swallow up the European Community." {pause: 1.5}
 
-{rate: slow} Read that again in your head. In *1963*, de Gaulle stands up and predicts, as his stated reason for the veto, that letting Britain in would eventually mean an America-led Atlantic bloc absorbing Europe. That is not a prejudice. That is a geopolitical forecast, delivered aloud, and reasonable people have argued about how right he was for sixty years since.
+{rate: slow} Take a moment with that. In 1963, de Gaulle stands up and gives, as his stated public reason for the veto, a forecast: let Britain in, and one day you get an America-led Atlantic bloc that absorbs Europe whole. That is not a prejudice dressed as policy. That is a geopolitical prediction, delivered in the open — and reasonable people have argued for sixty years about how right he turned out to be.
 
-Macmillan is *"staggered and deeply wounded."* His own words. He had sat at Rambouillet a month earlier and thought he had a friend. {pause: 1.0} He never saw the knife coming.
+Macmillan's reaction is in his own words too. He was, he wrote, "staggered and deeply wounded." A month earlier he had sat at Rambouillet believing he had found a friend. {pause: 1.2} He never saw the knife.
 
-{tone: measured} Though here you have to be a little careful with the General, because he was a master of the dignified public reason — and the historians who have gone through the record aren't at all sure Nassau was the *real* one. There are serious scholars, Ludlow among them, who think de Gaulle had already decided Britain wasn't ready long before Macmillan ever flew to the Bahamas, and that Nassau simply arrived at the perfect moment: a clean, respectable, sayable-out-loud pretext for a no he'd been carrying for months. Maybe Nassau lit the fuse. Maybe it just lit a fuse he had already laid. {pause: 1.0} Either way, the charge went off.
+{tone: measured} Though here you have to be careful with the General, because he was a grandmaster of the dignified public reason. And the historians who have gone through the record are not at all sure Nassau was the *true* one. There are serious scholars — Ludlow among them — who argue that de Gaulle had privately decided long before the Bahamas that Britain simply wasn't ready, wasn't European enough in her bones, and that Nassau merely arrived at the perfect moment: a clean, respectable, sayable-in-public reason for a "no" he had been carrying for months. Maybe Nassau lit the fuse. {pause: 0.8} Maybe it only lit a fuse he had already laid. {pause: 1.2} Either way the charge went off, and Britain was left standing outside.
 
-## The counter-Europe {tone: measured}
-Now watch the timing, because de Gaulle is not only saying no to something. He is saying yes to something *else*, and the calendar tells you it is deliberate.
+## The counter-Europe {tone: measured, rate: normal}
+Now watch the calendar, because de Gaulle is never only saying no to one thing. He is always saying yes to something else, and the timing here is far too neat to be an accident.
 
-That *same week* — the veto is the 14th of January; this is the 22nd — de Gaulle and the German Chancellor, Konrad Adenauer, sign the Élysée Treaty. A treaty of friendship between France and Germany. {tone: reverent} The two nations that had bled each other white for a century, {pause: 1.0} bound now in a formal embrace.
+That same *week* — the veto falls on the 14th of January; this is the 22nd, eight days later — de Gaulle and the old German Chancellor, Konrad Adenauer, sign the Élysée Treaty. A treaty of friendship between France and Germany. {tone: reverent} The two nations that had bled each other white for the better part of a century, {pause: 1.2} bound now, deliberately, in a formal embrace.
 
-{tone: measured} Sit with the sequence. In a single week, de Gaulle slams the door on the Anglo-American Atlantic vision of Europe — and opens a door to a Franco-German one. A Paris–Bonn axis instead of a London–Washington one. His Europe, built on his terms, with France as the political leader and Germany as the loyal, chastened partner.
+{tone: measured} Read the two acts side by side. In a single week, de Gaulle slams the door on the Anglo-American vision of Europe — and swings open a door to a Franco-German one. A Paris–Bonn axis in place of a London–Washington one. His Europe, on his terms: France as the political head, Germany as the loyal and chastened partner, and no supranational Commission with ideas above its station.
 
-This is de Gaulle's counter-Europe. Not the supranational Community of Hallstein's dreams, run by a Commission with a mind of its own. A partnership of two proud nations at the core, cooperating because it suits them, answerable to no one above them.
+This is de Gaulle's counter-Europe. Not Hallstein's Community of institutions with wills of their own. A partnership of two proud nations at the core, cooperating because it serves them, and answering to nobody above them.
 
-{rate: slow} The market can grow. But the *master* will be a Frenchman. {pause: 0.6}
+{rate: slow} The market may grow as large as it likes. {pause: 0.8} But the master, if there is to be one, will speak French. {pause: 0.8}
 
-## The provocation {tone: tense}
-Which brings us, at last, to the collision. To Hallstein.
+## The professor's gamble {tone: tense, rate: slow, note: "build the fuse toward the crisis; make Hallstein's move feel bold and doomed"}
+Which brings the collision to the door. Which brings us back to Walter Hallstein.
 
-Because Walter Hallstein has been watching all this, and Hallstein has ambitions of his own — for the *Community*, not for himself, but that distinction is going to get lost. He wants the Commission to become more like a real government. And in the spring of 1965 he sees his opening.
+Because Hallstein has been watching all of this, and Hallstein has ambitions — for the Community, not for himself, though that distinction is about to get lost in the wreckage. He wants the Commission to grow into something more like a real government. And in the spring of 1965 he thinks he sees his moment.
 
-The farm policy — the Common Agricultural Policy, the machine de Gaulle loves because it feeds French farmers — needs a permanent way to be *paid for.* And Hallstein has a plan. A clever, ambitious plan. He proposes that the Community should get its *own* money — its own revenue, flowing straight to Brussels, not routed through national treasuries where governments can turn the tap off. And along with it, more budget power for the European *Parliament*, that so-far-toothless assembly. Own resources. Real money. Real parliamentary power. The bones of an actual federal state, quietly growing inside the farm accounts.
+The farm policy — the very machine de Gaulle loves, the one that feeds the French countryside — needs a permanent way to be *paid for.* And Hallstein has a plan, a clever and ambitious one. He proposes that the Community should have its *own* money. Its own revenue, flowing straight to Brussels, rather than being handed over year by year by national treasuries that could always turn off the tap. And alongside the money, more budget power for the European *Parliament* — that so-far-toothless assembly of Europeans. Own resources. Real revenue. Real parliamentary teeth. {pause: 0.8} The bones of an actual federal state, quietly forming inside the accounts of a farm subsidy.
 
-Now, a careful man — a *cautious* man — brings a plan like that to the member governments first. Privately. Lets them chew on it. Softens them up.
+Now. A cautious man brings a plan like that to the national governments first. Privately. He lets them chew it over, complain, feel consulted, come around slowly.
 
-Hallstein does the opposite, and this is the fatal move. On the 24th of March, 1965, he takes his package and presents it to the European *Parliament* — a full *week* before he brings it to the Council of Ministers, the room where the national governments sit. {pause: 0.7}
+Hallstein does the opposite, and this is the fatal step. On the 24th of March, 1965, he takes his package and unveils it to the European *Parliament* — a full *week* before he lays it before the Council of Ministers, the room where the national governments actually sit.
 
-Do you see what he's doing? He is going over the governments' heads. He is building momentum in the Parliament, generating a wave of federalist enthusiasm, so that by the time the national ministers get their hands on the plan it will already have a life of its own and be harder to kill. It is the Monnet method — build the fait accompli — turned up loud.
+Do you see the move? He is going over the governments' heads. He is building a wave of federalist enthusiasm in the Parliament first, so that by the time the national ministers get their hands on the thing, it will already have a momentum of its own and be that much harder to kill. It is the old method of the founders — build the momentum, present the near-finished thing — turned up to full volume.
 
-It is, in its way, brilliant. {tone: grave} And it is, for a man dealing with Charles de Gaulle, suicidally reckless. Because de Gaulle looks at a German law professor going over the heads of national governments to hand new powers to a European parliament, and he does not see cleverness. He sees the super-state, {pause: 1.0} reaching for the throat of the nation. He sees exactly the thing he has spent his life warning about, and it is being done by a man who receives ambassadors like a king.
+It is, on its own terms, brilliant. {tone: grave} And for a man dealing with Charles de Gaulle, it is close to suicidal. Because de Gaulle looks at a German law professor vaulting over the heads of elected national governments to hand new money and new power to a European parliament — and he does not see cleverness. He sees the super-state reaching for the throat of the nation. He sees, in one gesture, the precise thing he has spent his life warning against, being done by the very man he already regarded as a pretender to a throne that did not exist.
 
-{rate: slow} Within three months, France will empty its chair. {pause: 0.6}
+{rate: slow} Within three months, France will empty its chair. {pause: 0.8}
 
 ## The empty chair {tone: dramatic, rate: slow}
-The 30th of June, 1965.
+Which returns us to where we began. To the chair.
 
-France, as it happens, is holding the rotating presidency of the Council — France is *in the chair*, chairing the meetings. And France's foreign minister, Maurice Couve de Murville, sits in that chair through a long night of negotiation over the farm financing, and he refuses. Every compromise offered, he refuses. And then, when the talks fail, he does something the Community has no rule for, no precedent for, no defense against.
+The 30th of June, 1965. France, as it happens, holds the rotating presidency of the Council — France is *in the chair*, chairing the meetings herself. And France's foreign minister, Maurice Couve de Murville — cold, precise, immaculate — sits in that chair through a long night of negotiation over the farm financing, and he refuses. Every compromise laid in front of him, he refuses. And then, when the talks collapse in the small hours, he does the thing the Community has no rule for, no precedent for, no defense against.
 
 He recalls France's permanent representative from Brussels. {pause: 0.8}
 
-{rate: very-slow} And France simply. {pause: 0.4} Stops. {pause: 0.4} Coming. {pause: 0.8}
+{rate: very-slow} And France simply. {pause: 0.5} Stops. {pause: 0.5} Coming. {pause: 1.0}
 
-{rate: slow} For *seven months.* The world's most ambitious experiment in shared government, and one of its six members just doesn't show up. The chair sits empty. Meetings can't be held, decisions can't be taken, because the whole thing was built on the assumption that everyone would be in the room, and now the second-largest member has walked out and gone home {pause: 1.0} and will not answer.
+{rate: slow} For *seven months.* The most ambitious experiment in shared government the world had ever attempted — and one of its six members just doesn't turn up. The folder stays shut. The glass stays full. The nameplate sits in front of an empty seat while the other five try to work around a hole in the table the size of France, and cannot, because the entire thing was built on the assumption that everyone would be *in the room.* And now the second-largest member has gone home {pause: 1.2} and will not answer the telephone.
 
-This is the Empty Chair Crisis. And it is the moment de Gaulle stops merely resisting the machine and starts to break it.
+This is the Empty Chair Crisis. And it is the moment de Gaulle stops merely resisting the machine {pause: 0.8} and begins, deliberately, to break it.
 
-And here — {tone: measured} because I promised you honesty — is the second great fight the historians are still having. {pause: 0.5} Was the Empty Chair really *about the money?* About the farm financing and who controls it? Or was that just the trigger, and the real war was about the thing underneath — majority voting, sovereignty, whether France could ever be *outvoted* by the others on something that mattered to her?
+## What was it really about? {tone: measured, rate: normal, note: "voice both readings of the crisis; resolve neither"}
+And here — because I promised you honesty, and because the honest version is always the better story — is the second of two fights the historians are still having.
 
-Because here is the ticking clock nobody has mentioned yet. {tone: tense} Under the founding treaty, the Community was scheduled to move — soon — from deciding many things by *unanimity*, where every nation has a veto, to deciding them by *majority vote*, where you can be outvoted and bound anyway. To a nationalist, that is the whole ballgame. That is the moment "cooperation between nations" {pause: 1.0} becomes "submission to a majority." And de Gaulle was *not* going to let France walk into that.
+Was the Empty Chair really *about the money?* About the farm financing, and who would control the Community's purse? Or was the money only the trigger, and the real war the thing underneath it — majority voting, and sovereignty, and whether France could ever be *outvoted* by the others on a matter she cared about?
 
-{tone: measured} So which was it — the money, or the sovereignty? The honest answer is that they are braided together and you probably can't fully separate them, and that de Gaulle may well have reached for the money quarrel because it was the fight in front of him, while the sovereignty question was the war he actually meant to win. Both are live. Neither cancels the other. Hold them both.
+Because there is a clock ticking in the background that nobody in this story has mentioned yet. {tone: tense} Under the founding treaty, the Community was scheduled to move — soon, on a fixed date — from deciding a whole range of things by *unanimity*, where every nation holds a veto, to deciding them by *majority vote*, where you can be outvoted and bound anyway. To a man like de Gaulle, that is the entire game. That is the exact instant "cooperation among nations" curdles into "submission to a majority." And Charles de Gaulle was not going to let France sleepwalk across that line.
 
-## The agreement to disagree {tone: measured, note: "explain the trick slowly; this is the intellectual heart of the episode"}
-Seven months of empty chair. And then, at the end of January 1966, in Luxembourg, they find a way out. Sort of.
+{tone: measured} So which was it — the money, or the sovereignty? The honest answer is that the two are braided together so tightly you probably cannot pull them apart. It may well be that de Gaulle reached for the money quarrel because it was the fight standing conveniently in front of him, while the sovereignty question was the war he actually intended to win — the money the pretext, the veto the prize. It may be the reverse. Both readings are alive in the record. Neither cancels the other. Carry them both, because a clean answer here would be a lie.
 
-I want to slow down here, because what they produce is one of the strangest, most quietly brilliant documents in the whole story, and if you understand it you understand something deep about how this entire Union has always worked.
+## The sentence that meant two things {tone: measured, rate: slow, note: "the intellectual heart of the episode; put the listener at the table and go slow"}
+Seven months of empty chair. And then, at the end of January 1966, in Luxembourg, the six find their way out. After a fashion.
 
-It is called the Luxembourg Compromise. {rate: slow} And it is not a compromise. {pause: 0.8}
+Slow down here with me, because what they produce is one of the strangest and quietly cleverest documents in the whole of this story — and if you understand this one piece of paper, you understand something that runs right through the European Union to this day.
 
-{rate: slow} So don't let me hand you this as a logic puzzle. Let me put you at the table, because that is where it happened, and the strangeness of it only lands if you can see the faces.
+It is called the Luxembourg Compromise. {rate: slow} And it is not a compromise. {pause: 1.0}
 
-Picture the room in Luxembourg. A long table. The exhaustion of seven months hangs in the air {pause: 1.0} like smoke. And imagine two men leaning over the same single sheet of paper — the text they have finally agreed on. On one side, the Frenchman, Couve de Murville, the cold, precise foreign minister who emptied the chair in the first place. On the other, one of the five who stayed — a Dutchman, say, or the German across from him, one of the men who spent seven months waiting for France to come back.
+Let me not hand it to you as a riddle on a page. Let me put you at the table, because the strangeness of it only lands if you can see the faces around it.
 
-And here is the clause between them. Where a decision could be taken by majority vote, but *"very important interests"* of one or more countries are at stake, the Council will *"endeavour to reach solutions which can be adopted by all."*
+A long room in Luxembourg. The stale exhaustion of seven wasted months hanging in the air. And two men leaning over the same single sheet of paper — the text they have finally, painfully agreed. On one side, the Frenchman, Couve de Murville, the same cold minister who emptied the chair to begin with. On the other, one of the five who waited him out — a Dutchman, say, one of the men who spent seven months staring at France's empty seat.
 
-Now watch. The Frenchman reads that line aloud, and hear what *he* hears. *"Solutions which can be adopted by all."* He looks up and says: *of course.* Where France's vital interests are at stake, the outcome must be one France can accept — which means France cannot be outvoted, which means, quite simply, a veto. A permanent, informal veto for anyone who says the words "vital interest." He sets the paper down satisfied. To him, majority voting has just died on that table.
+And here is the clause lying on the paper between them. Where a decision could be taken by majority vote, but "very important interests" of one or more countries are at stake, the Council will "endeavour to reach solutions which can be adopted by all."
 
-And then the Dutchman pulls the same sheet toward him and reads the same line aloud — *"endeavour to reach solutions"* — and hears the exact opposite. *Endeavour*, he says. *Try.* It says we will *try* to reach agreement. And if we try, in good faith, and we fail — then we vote, as the treaty always said we would. To him the sentence changes nothing: consensus is the courtesy, the majority is still the rule. He sets the paper down equally satisfied.
+Now watch closely. The Frenchman reads that line, and hear what *he* hears. "Solutions which can be adopted by all." He looks up and says: of course. Where France's vital interests are in play, the outcome must be one France can accept — which means France cannot be outvoted — which means, stripped of the diplomacy, a veto. A permanent, informal veto for anyone who so much as pronounces the words "vital interest." He sets the paper down satisfied. To him, majority voting has just quietly died on that table.
 
-Two men. {pause: 0.6} One sentence. {pause: 0.5} Opposite meanings. Each certain the words say what he needs them to say.
+And then the Dutchman draws the same sheet toward himself and reads the very same line — "endeavour to reach solutions" — and hears the opposite. *Endeavour*, he says. *Try.* It says we will *try* to reach agreement. And if we try, in good faith, and we fail — then we vote, exactly as the treaty always promised we would. To him the sentence changes nothing at all: seeking consensus is the courtesy, the majority is still the rule. He sets the paper down every bit as satisfied.
 
-And here is the astonishing part — the part that is almost too neat to be true, except that it is. Nobody forces the issue. Nobody says, *wait, which is it?* Because the whole point is *not* to answer that question. So both readings go into the record, side by side, and then both men pick up the pen. {pause: 0.7} The Frenchman signs the sentence that means a veto. The Dutchman signs the sentence that means the majority still rules. {rate: slow, tone: dramatic} And it is the *same sentence.* {pause: 1.2}
+Two men. {pause: 0.8} One sentence. {pause: 0.6} Opposite meanings. Each of them certain the words say what he needs them to say.
 
-{tone: measured, rate: slow} It is not a resolution of the argument. It is a formal, notarized record that the argument was *not resolved* — dressed up as a settlement so everyone could stand up, shake hands, and go home. An agreement to disagree, with signatures on it.
+And now the detail that would be too neat to believe if it were not simply true. Nobody forces the question. Nobody at that table stands up and demands: *which is it?* Because the whole point — the genius and the cowardice of it together — is *not* to answer that question. So both readings go into the record, side by side, and then both men reach for the pen. {pause: 0.8} The Frenchman signs the sentence that means a veto. The Dutchman signs the sentence that means the majority still rules. {rate: slow, tone: dramatic} And it is the *same sentence.* {pause: 1.5}
 
-And it worked, in the sense that France came back and sat down. {tone: wry} But it worked the way a wound "heals" when you just stop looking at it. {tone: measured} Because in practice, everyone became too frightened to force a majority vote against a member's stated wishes — the memory of the empty chair was too fresh — and so the veto de Gaulle wanted became the *de facto* rule. For nearly *twenty years*, the machine that was supposed to move to majority decisions instead crawled, hostage to any single nation willing to say the words "vital interest."
+{tone: measured, rate: slow} It is not a resolution of the argument. It is a formal, notarized record that the argument was *not* resolved — dressed as a settlement so that grown men could stand, shake hands, and go home. An agreement to disagree, with signatures on it.
 
-{rate: slow} De Gaulle lost the battle of the chair — France came back. {pause: 1.0} And he won the war. He froze the Community's political engine for two decades, and he did it with a sentence that said two opposite things at once.
+And it worked, in the sense that France came back and sat down in the chair. {tone: wry} But it worked the way a wound "heals" when you simply stop looking at it. {tone: measured} Because in practice, everyone grew too frightened to force a majority vote against a member's stated wishes — the memory of that empty chair was too raw — and so the veto de Gaulle wanted became the unwritten rule of the house. For close to *twenty years*, the machine that was built to move toward majority decisions instead crawled, hostage to any single nation willing to say the magic words.
 
-That, right there — a document deliberately built to mean two things so that both sides can sign it — is the European method in its purest form. {pause: 0.5} Remember it. You are going to meet its descendants all the way to the end of this series.
+{rate: slow} De Gaulle lost the battle of the chair — France came back to the table. {pause: 1.0} And he won the war. He froze the Community's political engine for two decades, and he did it with one sentence that faced in two directions at once.
 
-## The second veto {tone: measured}
+That — a document deliberately written to mean two opposite things so that both sides can sign it — is the European method distilled to its essence. Remember its shape. You will meet its children again and again, all the way to the end of this series.
+
+## He never relented {tone: measured, rate: normal}
 Meanwhile, the British are still at the door.
 
-A new Prime Minister now — Harold Wilson, Labour — and Britain, watching the Community boom while its own economy stumbles, tries again to get in. Surely, four years on, with a different government in London and a warmer approach, the General might relent.
+A new Prime Minister now — Harold Wilson, Labour this time — and Britain, watching the Community boom while its own economy stumbles from crisis to crisis, tries the handle again. Surely, four years on, with a different government in London and a warmer face, the General might soften.
 
-He does not relent.
+He does not soften.
 
-And this time, Britain hands him the weapon. On the 18th of November, 1967, under crushing economic pressure, Wilson's government *devalues* the pound. The pound sterling — the old anchor of an empire — has to be cut down.
+And this time Britain hands him the weapon herself. On the 18th of November, 1967, buckling under relentless economic pressure, Wilson's government *devalues* the pound. The pound sterling — the old iron anchor of a world empire — has to be marked down like damaged stock.
 
-Nine days later — *nine days* {pause: 1.0} — de Gaulle vetoes British membership again. {tone: wry} And he does it almost gently, almost pityingly, which is worse. He observes that Britain's economy simply *"does not at present belong to Europe."* The devaluation had handed him, on a plate, the economic argument to go with the political one he'd used in '63. He didn't even have to reach for it.
+Nine days later — *nine days* {pause: 1.0} — de Gaulle vetoes British membership for the second time. {tone: wry} And he does it almost gently, almost with pity, which is somehow worse than cruelty. He observes that Britain's economy simply "does not at present belong to Europe." The devaluation had handed him, on a silver plate, the economic argument to set beside the political one he'd used in 1963. He barely had to lift his hand for it.
 
-{tone: somber} Twice now. Twice the British have come to the door, and twice the same tall Frenchman has closed it in their faces. And it is starting to look permanent. {pause: 1.0} It is starting to look like Britain will simply never be allowed in while de Gaulle draws breath.
+{tone: somber} Twice now. Twice the British have come to the door, and twice the same tall Frenchman has closed it in their faces. And it is beginning to look permanent. {pause: 0.8} It is beginning to look as though Britain will never be let in for as long as Charles de Gaulle draws breath. {pause: 0.8} Keep that thought in reserve — because when the deadlock finally breaks, it will break over something remarkably small.
 
-{tone: measured} Hold that thought too, because the resolution of it is going to be almost absurd.
+## The only casualty {tone: somber, rate: slow}
+But first, back to Walter Hallstein. Because a crisis this large has to be paid for by *someone*, and it is not going to be de Gaulle, and it is certainly not going to be France.
 
-## The only casualty {tone: somber}
-But first, back to Walter Hallstein. Because someone has to pay for the Empty Chair Crisis, and it is not going to be de Gaulle, and it is not going to be France.
+{rate: slow} It is going to be the professor. {pause: 0.8}
 
-{rate: slow} It is going to be the professor. {pause: 0.6}
+When the dust finally settles after Luxembourg, one of the quiet, unspoken prices of France's return is Hallstein himself. The man who lit the fuse by going over the governments' heads. The man de Gaulle regarded as the living embodiment of the super-state he despised. And so, when Hallstein's term as Commission President comes up for renewal, the Council simply declines to grant him a full new one. He is eased out — smoothly, bloodlessly, permanently. He leaves the Commission on the 30th of June, 1967.
 
-When the dust settles after Luxembourg, the price of France's return — one of the unspoken prices — is Hallstein. The man who provoked the crisis by going over the governments' heads, the man de Gaulle regarded as the very embodiment of the super-state he despised. And so, when Hallstein's term as Commission President comes up for renewal, the Council simply declines to give him a full new one. He is, in effect, eased out. He leaves the Commission on the 30th of June, 1967.
+Listen to the way one account of it puts things. He was "the only person to lose his job over what happened." {pause: 1.0}
 
-Listen to how one account puts it. He was *"the only person to lose his job over what happened."* {pause: 0.8}
+Weigh that arithmetic. A crisis that shook the entire Community to its foundations. That emptied a chair for seven months. That froze majority voting for twenty years. And when the ledger is finally balanced, exactly *one* man is dismissed. {pause: 1.2} Not de Gaulle, who caused it. Not Couve de Murville, who carried it out. The German law professor who dreamed, too openly and much too early, of a Europe that governed itself.
 
-Think about the arithmetic of that. A crisis that shook the entire Community to its foundations, that emptied a chair for seven months, that froze majority voting for twenty years — and when the accounts are finally settled, exactly *one* man is sacked. {pause: 1.2} Not de Gaulle, who caused it. Not Couve de Murville, who executed it. The German law professor who once built a university behind barbed wire and who dreamed, too openly and too soon, of a Europe that governed itself.
+De Gaulle did not merely stall the integration of Europe. He beheaded the man who embodied it. {tone: wistful} And do not let Walter Hallstein slide off the page here, because in a story this crowded it is fatally easy to let a man like that be forgotten. He was not *wrong* about where Europe was headed. Own resources for the Community. A parliament with real power. A Commission that behaves like a government. That is, more or less exactly, the Europe that exists today. He saw it coming. His only crime was seeing it thirty, forty, fifty years too soon — and making the mistake of being early in the same room as Charles de Gaulle. And for the sin of being right ahead of his time, {pause: 1.2} he lost everything he had built.
 
-De Gaulle didn't just stall the integration. He decapitated the man who embodied it. {tone: wistful} And here is what I want you to feel about Hallstein — because it is easy, in a story this size, to let a man like that just slide off the page. He was not wrong about where Europe was going. Own resources, a stronger parliament, a Commission that acts like a government — that is, more or less, the Europe that exists *today.* He saw it. He was just thirty, forty, fifty years early, and he made the mistake of being early in the same room as Charles de Gaulle. And for being right too soon, {pause: 1.2} he lost everything.
+## Completion. Deepening. Enlargement. {tone: matter-of-fact, rate: normal}
+So step back and look at the board by the end of 1968. The farm machine that saved French agriculture: built. Britain: vetoed, twice. Majority voting: frozen under a two-faced sheet of paper. The one man who tried to make the Commission into a government: gone. The Europe of fatherlands is winning on every front, and the super-state is in a coma. By any measure a sane man would use, the General has *won.* {pause: 0.8}
 
-{rate: slow} The doctrine of yesteryear outlived the man who mocked it. But the man who mocked it took the prophet down with him first. {pause: 0.6}
+And then, at one minute past midnight one April night in 1969, he loses a small referendum about regional reform — a vote he did not need to hold, on a question almost nobody cared about — and, having staked himself on it as he always staked himself, he keeps his word and walks away. Seventy-eight years old, and simply gone. And everything he had frozen begins, {pause: 0.8} with astonishing speed, to thaw.
 
-## Completion, deepening, enlargement {tone: measured}
-So by 1968, here is the board. De Gaulle has built the farm machine that saved French agriculture. He has vetoed Britain twice. He has frozen majority voting with a two-faced document. He has forced out the one man who tried to make the Commission a government. The Europe of fatherlands is winning. The super-state is in a coma. The General has, by any reasonable measure, *won.* {pause: 1.0}
+The man who takes his place in Paris is Georges Pompidou — de Gaulle's own former prime minister, a Gaullist to the marrow, but a more supple one: a banker's mind rather than a prophet's. And Pompidou calls for a summit, at The Hague, to unlock the machine the General had jammed shut. And here you get to watch Gaullist cunning outlive the Gaullist.
 
-And then, at one minute past midnight, he loses a small referendum about regional reform, and he walks away. And everything he had frozen begins, {pause: 1.0} very quickly, to thaw.
+Pompidou frames the entire summit around three words, and the *order* of the three words is the whole trick. He calls for — and these are his words — "completion, deepening and enlargement." In that exact sequence. Completion. Then deepening. Then, and only then, enlargement.
 
-The man who takes over in Paris is Georges Pompidou — de Gaulle's own former prime minister, a Gaullist to his fingertips, but a more flexible one, a banker's mind rather than a prophet's. And Pompidou proposes a summit, at The Hague, to unlock the machine the General had jammed. And here is where you get to watch Gaullist cunning survive the Gaullist.
+It sounds like a tidy little agenda. {tone: wry} It is a trap, and a beautiful one.
 
-Pompidou frames the summit around three words, and the *order* of the words is everything. He calls for — and I quote him — *"completion, deepening and enlargement."* In that exact sequence. Completion. Then deepening. Then enlargement.
+{tone: matter-of-fact} Because "completion" — first, before anything else is allowed to happen — means locking in the permanent financing of the Common Agricultural Policy. Nailing down the subsidy to French farmers, treaty-deep, forever, *before* any newcomer can lay a finger on it. And "enlargement" — the part where Britain and the others are finally let in — comes dead last, *after* the French farm deal is safely bolted to the floor. So that when Britain does at last walk through the door, she walks in as a net *contributor* to a farm-financing system already rigged in France's favor — arriving too late to argue the terms, and paying for the privilege.
 
-It sounds like a tidy to-do list. {tone: wry} It is a trap, and a beautiful one.
+That is the pure language of European idealism — completion, deepening, enlargement; it could almost be a hymn — deployed as cold Gaullist realpolitik. Get France's money nailed down first, and let the British foot the bill for arriving after the deal was done.
 
-{tone: measured} Because *"completion"* — first, before anything else — means locking in the permanent financing of the Common Agricultural Policy. Nailing down the subsidy to French farmers, forever, treaty-deep, *before* anyone else can touch it. And *"enlargement"* — letting Britain and the others in — comes dead last, *after* the French farm deal is safely bolted down. So that when Britain finally does walk through the door, she walks in as a *net contributor* to a farm-financing system already rigged in France's favor, with no chance to renegotiate the terms first.
+{rate: slow} De Gaulle was gone from the room. But you can hear him in every syllable of that sentence.
 
-That is the language of European idealism — completion, deepening, enlargement, it could be a hymn — deployed as pure, cold Gaullist realpolitik. Get France's money first. Let the British pay for the privilege of arriving too late to argue.
+## The door swings open {tone: measured, rate: slow, note: "release the tension built all episode; let it breathe"}
+And so the thing that could not happen while the General held the door, happens the instant he lets go of it.
 
-{rate: slow} De Gaulle was gone. But you can hear him in every syllable of that sentence.
+With de Gaulle back at his village, tending his memoirs and his bitterness, the last obstacle to British entry — the man himself — is simply removed from the earth of politics. Pompidou is willing to deal. The farm financing gets *completed*, French-first, precisely as designed. And the enlargement talks that de Gaulle had strangled twice at birth are finally allowed to draw breath.
 
-## The door swings open {tone: measured, note: "the release of tension; let it breathe"}
-And so the thing that could not happen while the General lived, happens the moment he stops holding the door.
+Britain — twice-refused, twice-humiliated, having sent an economist and an observer and two Prime Ministers to that door and been turned away every single time — is at last, {pause: 1.2} actually, going to be let in.
 
-With de Gaulle at Colombey, tending his memoirs, the second obstacle to British entry — the man himself — is simply gone. Pompidou is willing to deal. The farm financing gets *completed*, French-first, exactly as designed. And the enlargement negotiations that de Gaulle had strangled twice, at birth, are allowed to breathe.
+{rate: slow} Not because Europe changed its mind. Not because a single one of the arguments changed. But because one very tall man lost a vote about regional government {pause: 0.8} and kept an old soldier's promise to leave if he did. {pause: 0.8}
 
-Britain — twice-refused, twice-humiliated, having sent an economist and an observer and two Prime Ministers to that door and been turned away each time — is finally, {pause: 1.0} actually going to be let in.
+## Reactionary, or the only honest man in the room? {tone: grave, rate: slow, note: "the real question of the episode; do NOT answer it"}
+So let me leave you where an honest teller of this story has no choice but to leave you. With the question. Not the answer — because I do not have the answer, and I am not convinced anyone does.
 
-{rate: slow} Not because Europe changed its mind. Not because the arguments changed. But because one very tall man lost a vote about regional government {pause: 1.2} and kept his promise to leave if he did. {pause: 0.6}
+The whole of this series turns on a single question. {rate: slow} Can you engineer a peace from the top down — chain the nations together with treaties and quotas and courts before their peoples have ever agreed to any of it — and does that engineered peace truly *belong* to the people living inside it? {pause: 1.5}
 
-## Was he wrong? {tone: grave, rate: slow, note: "the real question of the episode; do NOT answer it"}
-So let me leave you where an honest storyteller has to leave you: with the question, and not the answer, because I do not have the answer and neither, I think, does anyone.
+And Charles de Gaulle is the man who stood up at the very height of the project and said, to its face: *no.* He said the peoples *are* the nations, and the nations are *real*, and your supranational Commission is a fiction wearing a paper crown. He said you cannot conjure a European democracy out of protocol and procedure, because there is no European *demos* — no single people who feel in their bones that they are one people — for that democracy to belong to. Hallstein sat there wrapped in all the trappings of sovereignty, de Gaulle wrote, wedded to the thesis of the super-State — and de Gaulle asked the three questions nobody in Brussels wanted asked out loud. Sovereign over whom? {pause: 0.6} Elected by whom? {pause: 0.6} Answerable to whom? {pause: 1.0}
 
-The whole of this series turns on one question. {rate: slow} *Can you engineer a peace from the top down — chain nations together with treaties and quotas before their peoples ever agree to it — and does that engineered peace belong to the people living inside it?* {pause: 1.5}
+{tone: measured} Now, you can tell this whole story as the tale of a reactionary. An old soldier stranded out of his own time, clutching an idea of the nation that the twentieth century had already disproved in blood, blocking a benevolent and inevitable future out of vanity and Gallic pride — freezing a machine that would have brought Europeans together sooner and gentler if only he had stepped aside. That is a real reading. A great many thoughtful people hold it, and hold it honestly.
 
-And Charles de Gaulle is the man who stood up, at the height of it all, and said: {pause: 1.0} *no.* He said the peoples *are* the nations, and the nations are *real*, and your supranational Commission is a fiction wearing a crown. He said you cannot conjure a European democracy by protocol, because there is no European *demos* — no single people who feel themselves one people — to be democratic *with*. Hallstein sat there surrounded by all the trappings of sovereignty, de Gaulle wrote, ardently wedded to the thesis of the super-state — and de Gaulle asked the question no one wanted asked: *sovereign over whom? Elected by whom? Answerable to whom?*
+{tone: grave} Or. {pause: 1.0} You can tell it as the tale of the only honest man in the room. The one person willing to say aloud that the emperor's shining new Europe had no *people* standing underneath it — that a court of unelected planners receiving ambassadors like kings was not a democracy, no matter how noble its aims and how kind its intentions — and that a peace the peoples had never once been asked to bless was a peace that would, someday, present its bill for payment. That reading is real too. And every later chapter of this series — every revolt at the ballot box still to come, every "no" that gets quietly re-asked until it is worn down into a "yes" — is going to make that second reading harder to wave away, not easier.
 
-{tone: measured} Now. You can tell this story as the tale of a reactionary. An old soldier out of his time, clutching an idea of the nation that the twentieth century had already disproved in blood, blocking an inevitable and benevolent future out of vanity and Gallic pride, freezing a machine that would have brought Europeans together sooner. That is a real reading. Plenty of good people hold it.
+{rate: very-slow} A reactionary blocking the future. Or the one man who saw the crack in the foundation and refused to paper over it. {pause: 2.0}
 
-{tone: grave} Or. {pause: 0.8} You can tell it as the tale of the only honest man in the room. The one person willing to say out loud that the emperor's new Europe had no *people* underneath it — that a court of unelected planners receiving ambassadors like kings was not democracy no matter how noble its aims, and that a peace the peoples had never been asked to bless was a peace that would, someday, present its bill. That reading is also real. And every later chapter of this series — every referendum revolt still to come, every "no" that gets re-asked until it turns into a "yes" — is going to make that reading harder to dismiss, not easier.
+{rate: slow} I genuinely do not know which. And I would rather you left this hour standing honestly in that not-knowing than walked out with a tidy answer that isn't true. {pause: 0.6}
 
-{rate: very-slow} Was he a reactionary blocking the future? Or the one man who saw the flaw at the foundation and refused to pretend it wasn't there? {pause: 2.0}
+## The machine he left behind {tone: somber, rate: slow, note: "the cliffhanger; turn the release cold and point hard at the next episode"}
+At one minute past midnight, the giant walked away — and the door he had bolted swung open behind him.
 
-{rate: slow} I genuinely don't know. I want you to sit in that not-knowing, because it is the whole point.
+Britain, twice-humiliated, is about to be let in. But hold on to one thing before we go, because it changes everything that comes next.
 
-## The door he bolted {tone: somber, rate: slow}
-At one minute past midnight, the giant walked away, and the door he had bolted swung open behind him.
+The Europe that Britain is about to join is not the confident, roaring engine of the 1950s that she once so foolishly stood outside and waited to fail. It is a machine that de Gaulle *froze.* Its political engine seized up. Its majority voting a dead letter. Its Commission decapitated and cautious and small. Its grand ambitions filed down to farm subsidies and tariff schedules. And it is heading — all unknowing — {pause: 0.8} straight into a decade of oil shocks and stagnation and the slow, grinding disappointment that people will soon start calling *Eurosclerosis.*
 
-Britain — twice-humiliated — is about to be let in. But hold on to something before we go, because it changes what comes next.
+And Britain is about to discover the thing this entire series has really been about all along. That the hard problem was never getting *in.* De Gaulle made getting in look like the hard part — but it was the easy part. The hard problem, the one that has no veto to break it and no summit to solve it, is getting ordinary people to actually *want* to be there. To feel it. To choose it, freely, with their eyes open.
 
-The Europe that Britain is about to join is not the confident, booming engine of the 1950s that she once so foolishly stood outside of. It is a machine that de Gaulle *froze* — its political engine seized up, its majority voting a dead letter, its Commission decapitated and cautious, its ambitions filed down to farm subsidies and free trade. And it is heading, all unknowing, straight into a decade of oil shocks and stagnation and the slow grinding disappointment that people will start to call *Eurosclerosis.*
+Because for all the treaties and all the vetoes and all the two-faced documents, in more than twenty years the men building Europe had never once simply *asked* a whole nation, straight out, in plain words: {pause: 0.8} do you want this?
 
-And Britain is about to discover the thing this whole series is really about. That the hard problem was never getting *in.* De Gaulle made that look hard, but it was the easy part. The hard problem — the one that has no veto to break it and no summit to solve it — is getting ordinary people to actually *want* to be there. To feel it. To choose it.
+{tone: grave} They are about to. In 1972, for the very first time, the question is going to be put directly {pause: 1.0} to an entire people. {pause: 1.2}
 
-Because for all the treaties and all the vetoes and all the two-faced documents, Europe has never once, in twenty years, simply *asked* a whole nation, straight out: *do you want this?*
-
-{tone: grave} It is about to. In 1972, for the very first time, the question is going to be put directly {pause: 1.0} to an entire people. {pause: 1.2}
-
-{rate: very-slow} And the answer is going to be {pause: 1.0} *no.*
+{rate: very-slow} And the answer {pause: 1.0} is going to be {pause: 0.8} *no.*

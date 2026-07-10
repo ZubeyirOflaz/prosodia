@@ -15,8 +15,9 @@ Markdown:
   carrying disproportionate material, so the map is auditable by workload, not just
   by topic count.
 - For each episode: a **title**, a **scope** (what it covers and, crucially, its
-  boundaries), an **opening hook** (a scene, paradox, or question — not merely a
-  recap), the **handover** to the next episode (suspended tension, not just
+  boundaries), an **opening hook** with a named TYPE — cold scene / person mid-action /
+  concrete object / date-and-place / paradox / question — that DIFFERS from the other
+  episodes' openings (not merely a recap), the **handover** to the next episode (suspended tension, not just
   momentum), and a **central tension** that is a distinct FACET of the driving
   question, re-tested against this episode's material and building to an unresolved
   human/moral "so what," not just an analytical hook.
@@ -25,6 +26,12 @@ Coverage need not be uniform. For each episode, name 1-3 set-pieces to DWELL on 
 state what it deliberately COMPRESSES or skips; uneven pacing and uneven real-world
 time per episode are intended and desirable. The finale should NARROW and escalate
 around the driving question, not serve as a coverage catch-all.
+
+VARY THE VOICE ACROSS EPISODES — the series must not feel formulaic. Give each episode a
+distinct opening MOVE (no two open the same way) and vary the structural rhythm and the
+devices it leans on. Name, at series level, the "house phrases" a writer tends to overuse
+— "I want to…", "hold that thought," "sit with that," "here's the part" — and mark them
+OFF-LIMITS, so each episode finds its own texture instead of repeating a template.
 
 FIND THE TEXTURE — this is the PLANNER's job (the writer is already carrying enough).
 For each episode, supply as raw material:

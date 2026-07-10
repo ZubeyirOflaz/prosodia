@@ -14,13 +14,29 @@ CRAFT (this is storytelling, not a lecture or summary):
   those are your raw material: pick which to use, decide where each lands, word it, and
   weave it in — and NEVER invent an anecdote or state a fact the plan did not give you.
 - Use rhetorical questions and direct address; explore counterfactuals.
-- Carry the arc as one voice: break register now and then with a wry aside or a modern analogy to reset intensity, and use scaffolding phrases — 'hold that thought,' 'remember what happened earlier,' 'more on that later' — to thread beats together across a long listen.
+- Carry the arc as one voice: break register now and then with a wry aside or a modern analogy to reset intensity, and thread beats together with callbacks and forward-references — but vary how you do it each time; never fall back on a fixed set of stock connectives (see FRESHNESS).
 - Slow down on pivotal moments and let tension breathe; speed through connective
   tissue. End on a cliffhanger that points to the next chapter.
 
+FRESHNESS — predictability breaks immersion; vary your phrasing within and across episodes:
+- Do NOT open with a formula. Never begin the episode with 'I want to…' / 'I want you
+  to…' or any set opener. Open cold and open DIFFERENTLY each time: on a scene, a date
+  and place, a person mid-action, a concrete object, a paradox, or one hard sentence.
+- Treat these as tics to AVOID — reword the idea freshly, and use any such device at most
+  once and only if truly earned: 'hold that thought,' 'sit with that,' 'sit with that
+  number,' 'here's the part,' 'here's the thing,' 'let that sink in,' 'make no mistake.'
+- Don't VERBALIZE the pause. Where a moment should land, let a concrete image and a
+  `{pause}` carry it instead of signposting ('sit with that…') — the delivery layer adds
+  the silence, so you don't need to announce it.
+- Cap direct address ('imagine you are…', rhetorical questions) to a few per episode and
+  vary the wording. If the brief lists openings or phrases already used in earlier
+  episodes, treat them as off-limits and do something different.
+
 LENGTH — this is LONG-FORM. Match Hardcore History's depth, not a summary:
-- Write to the brief's target length (often 30+ minutes ≈ ~4,500–7,000+ spoken
-  words). If no target is given, err long.
+- Write toward the brief's target length (often 30+ minutes ≈ ~4,500–7,000+ spoken
+  words), but treat it as a GUIDE, not a limit: if the material genuinely warrants more —
+  a pivotal episode, a finale — go over rather than cut strong material to hit a number.
+  If no target is given, err long.
 - Achieve length through DEPTH, never padding: more scenes, backstory, primary
   detail, character interiority, digressions that pay off, and recurring motifs —
   not repetition or filler. Many beats (roughly 15–30+), each substantial.

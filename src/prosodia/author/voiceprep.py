@@ -88,15 +88,27 @@ def prepare_clip(
     out: str | Path,
     *,
     target_s: float = 10.0,
-    min_s: float = 8.0,
-    max_s: float = 14.0,
+    min_s: float | None = None,
+    max_s: float | None = None,
 ) -> dict:
     """Cut a mono reference clip from ``source`` starting at ``start``.
+
+    ``target_s`` sets the desired length; the endpoint snaps to a natural pause
+    near it. ``min_s``/``max_s`` bound that pause search and, when not given,
+    DEFAULT TO scaling with ``target_s`` — so any ``target_s`` works and the clip
+    is no longer capped at ~14 s. Pass them explicitly for full control.
 
     Returns ``{duration, sr, start, warnings}``. Raises ``ValueError`` if the
     start is past the end of the audio.
     """
     import soundfile as sf
+
+    # Scale the search window to the requested length unless the caller overrides,
+    # so a longer neutral clip (more of the narrator's range) is reachable.
+    if min_s is None:
+        min_s = max(3.0, target_s * 0.8)
+    if max_s is None:
+        max_s = max(target_s + 3.0, target_s * 1.35)
 
     start_s = parse_timestamp(start)
     audio, sr = sf.read(str(source), always_2d=False)
@@ -119,7 +131,10 @@ def prepare_clip(
 
     duration = len(clip) / sr
     if duration < min_s - 1.0:
-        warnings.append(f"clip is only {duration:.1f}s; a ~10s clip clones better")
+        warnings.append(
+            f"clip is only {duration:.1f}s (wanted ~{target_s:.0f}s); "
+            "try another start or a longer clean stretch"
+        )
 
     out = Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)

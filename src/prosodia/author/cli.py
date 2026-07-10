@@ -8,6 +8,7 @@ fully offline. Handlers import lazily so ``--help`` stays fast.
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
@@ -90,7 +91,10 @@ def _cmd_voice_prep(args: argparse.Namespace) -> int:
         print('voice-prep needs the audio extra: pip install "prosodia[audio]"', file=sys.stderr)
         return 1
 
-    info = prepare_clip(args.source, args.start, args.out, target_s=args.duration)
+    info = prepare_clip(
+        args.source, args.start, args.out,
+        target_s=args.duration, min_s=args.min_s, max_s=args.max_s,
+    )
     for w in info["warnings"]:
         print(f"warning: {w}", file=sys.stderr)
     print(f"wrote {args.out}  ({info['duration']:.1f}s @ {info['sr']} Hz, mono)")
@@ -102,6 +106,23 @@ def _cmd_plan_view(args: argparse.Namespace) -> int:
 
     out = render_file(args.plan, args.out, args.title)
     print(f"wrote {out} — open it in a browser to review the plan")
+    return 0
+
+
+def _cmd_lint_repetition(args: argparse.Namespace) -> int:
+    from prosodia.author.repetition import analyze, format_report, load_episode_transcripts
+
+    if args.project:
+        episodes = load_episode_transcripts(Path(args.project))
+    else:
+        episodes = {
+            (Path(p).parent.name or Path(p).stem): Path(p).read_text(encoding="utf-8")
+            for p in args.transcripts
+        }
+    if not episodes:
+        print("no transcripts found (pass files or --project)", file=sys.stderr)
+        return 1
+    print(format_report(analyze(episodes)))
     return 0
 
 
@@ -165,6 +186,19 @@ def _cmd_write(args: argparse.Namespace) -> int:
                 "the narrative. Do NOT invent anecdotes or state facts the plan did not give you.\n\n"
                 f"{section}\n"
             )
+    # Feed-forward: warn the writer off openings/phrases already used in earlier
+    # episodes (a fresh writer is otherwise blind to the rest of the series).
+    from prosodia.author.repetition import feedforward_context, load_episode_transcripts
+
+    prior: dict[str, str] = {}
+    for name, md in load_episode_transcripts(proj).items():
+        m = re.search(r"(\d+)", name)
+        if m and int(m.group(1)) < ep["n"]:
+            prior[name] = md
+    ff = feedforward_context(prior)
+    if ff:
+        brief += "\n\n" + ff + "\n"
+
     brief += "\nWrite the full episode transcript in the Prosodia hybrid format."
     epdir = proj / "episodes" / ep.get("slug", f"ep{ep['n']}")
     epdir.mkdir(parents=True, exist_ok=True)
@@ -208,16 +242,23 @@ def build_parser() -> argparse.ArgumentParser:
     p_submit.add_argument("--voice-ref", help="explicit voice .wav to bundle (overrides project voices/)")
     p_submit.add_argument("--voices", help="dir of voice clips (default: <project>/voices)")
 
-    p_vp = sub.add_parser("voice-prep", help="cut a ~10s reference clip from a source .wav")
+    p_vp = sub.add_parser("voice-prep", help="cut a reference clip from a source .wav")
     p_vp.add_argument("source", help="source .wav file")
     p_vp.add_argument("--start", required=True, help="start timestamp: seconds (12.5) or M:SS")
     p_vp.add_argument("--out", required=True, help="output .wav (e.g. projects/<proj>/voices/narrator.wav)")
-    p_vp.add_argument("--duration", type=float, default=10.0, help="target clip length seconds (default 10)")
+    p_vp.add_argument("--duration", type=float, default=10.0,
+                      help="target clip length seconds (default 10; endpoint snaps to a natural pause near it)")
+    p_vp.add_argument("--min-s", type=float, help="min clip length for the pause search (default: 0.8x duration)")
+    p_vp.add_argument("--max-s", type=float, help="max clip length for the pause search (default: 1.35x duration)")
 
     p_pv = sub.add_parser("plan-view", help="render a plan outline to a lightweight HTML review page")
     p_pv.add_argument("plan", help="path to a plan .md (the Planner's outline)")
     p_pv.add_argument("--out", help="output .html (default: alongside the plan)")
     p_pv.add_argument("--title", help="page title (default: the plan's H1 or the filename)")
+
+    p_lint = sub.add_parser("lint-repetition", help="report repeated openings/phrases across a series")
+    p_lint.add_argument("transcripts", nargs="*", help="transcript .md files (or use --project)")
+    p_lint.add_argument("--project", help="project dir; scans episodes/*/transcript.md")
     return parser
 
 
@@ -228,6 +269,7 @@ _DISPATCH = {
     "submit": _cmd_submit,
     "voice-prep": _cmd_voice_prep,
     "plan-view": _cmd_plan_view,
+    "lint-repetition": _cmd_lint_repetition,
 }
 
 
