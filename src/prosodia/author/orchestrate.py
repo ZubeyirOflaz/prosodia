@@ -19,7 +19,7 @@ import subprocess
 from dataclasses import dataclass, field
 from importlib import resources
 
-from prosodia.core.trace import Trace
+from prosodia.core.trace import Run, Trace
 
 EDITOR_SCHEMA = {
     "type": "object",
@@ -76,19 +76,38 @@ class ClaudeRunner:
         return result, structured
 
 
-def plan_series(prompt: str, *, runner, trace: Trace | None = None) -> str:
+def plan_series(
+    prompt: str, *, runner, trace: Trace | None = None, run: Run | None = None
+) -> str:
     outline, _ = runner.run(prompt, system=_load_role("planner"))
     if trace:
         trace.append("plan", "planner", chars=len(outline))
+    if run is not None:
+        art = run.write_artifact("stages/plan/outline.md", outline, label="outline")
+        run.event("plan", "planner", outputs=[art], chars=len(outline))
     return outline
 
 
-def author_episode(brief: str, *, runner, trace: Trace | None = None, max_rounds: int = 3) -> str:
-    """Run the Writer <-> Editor loop until the Editor says ready (or max_rounds)."""
+def author_episode(
+    brief: str,
+    *,
+    runner,
+    trace: Trace | None = None,
+    run: Run | None = None,
+    max_rounds: int = 3,
+) -> str:
+    """Run the Writer <-> Editor loop until the Editor says ready (or max_rounds).
+
+    When a ``run`` is given, every round is persisted with enriched trace events:
+    the Writer's prompt and its ``transcript.vN`` draft, and the Editor's verdict.
+    A loop that exhausts ``max_rounds`` without approval is flagged ``warn`` — a
+    signal the diagnosis pass can surface. ``trace`` (the thin log) is still honored.
+    """
     writer_sys = _load_role("writer")
     editor_sys = _load_role("editor")
     notes = ""
     transcript = ""
+    brief_art = run.write_artifact("brief.md", brief, label="brief") if run is not None else None
     for rnd in range(1, max_rounds + 1):
         wprompt = (
             f"{brief}\n\n"
@@ -98,16 +117,37 @@ def author_episode(brief: str, *, runner, trace: Trace | None = None, max_rounds
         transcript, _ = runner.run(wprompt, system=writer_sys)
         if trace:
             trace.append("write", "writer", round=rnd, chars=len(transcript))
+        if run is not None:
+            run.write_artifact(f"stages/write.r{rnd}/prompt.md", wprompt)
+            draft_art = run.write_artifact(
+                f"stages/write.r{rnd}/transcript.v{rnd}.md", transcript, label=f"draft r{rnd}"
+            )
+            run.event(
+                "write", "writer", round=rnd,
+                inputs=[brief_art] if brief_art else [],
+                outputs=[draft_art], chars=len(transcript),
+            )
 
         eprompt = f"BRIEF:\n{brief}\n\nTRANSCRIPT:\n{transcript}"
         _, verdict = runner.run(eprompt, system=editor_sys, schema=EDITOR_SCHEMA)
         verdict = verdict or {"ready": True, "notes": ""}
+        ready = bool(verdict.get("ready"))
+        note_txt = str(verdict.get("notes", ""))
         if trace:
-            trace.append(
-                "edit", "editor", round=rnd,
-                ready=bool(verdict.get("ready")), notes=str(verdict.get("notes", ""))[:300],
+            trace.append("edit", "editor", round=rnd, ready=ready, notes=note_txt[:300])
+        if run is not None:
+            verdict_art = run.write_artifact(
+                f"stages/edit.r{rnd}/verdict.json",
+                json.dumps({"ready": ready, "notes": note_txt}, ensure_ascii=False, indent=2),
             )
-        if verdict.get("ready"):
+            unresolved = (not ready) and (rnd == max_rounds)
+            run.event(
+                "edit", "editor", round=rnd,
+                status="warn" if unresolved else "ok",
+                outputs=[verdict_art], ready=ready, notes=note_txt[:500],
+                warnings=["reached max_rounds without Editor approval"] if unresolved else [],
+            )
+        if ready:
             break
-        notes = str(verdict.get("notes", ""))
+        notes = note_txt
     return transcript

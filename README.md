@@ -2,7 +2,7 @@
 
 **Script-first, controllable narrated audio.** Prosodia turns a transcript you fully control — annotated with performance directions like tone, speed, and pauses — into narrated audio using a decoupled, swappable text-to-speech engine running on your own GPU.
 
-> ⚠️ **Early / work in progress.** The design is settled and documented in [`DESIGN.md`](DESIGN.md); implementation is just beginning.
+> ⚠️ **Pre-alpha.** Design in [`DESIGN.md`](DESIGN.md). The authoring pipeline (`plan → write → compile → submit`), the per-episode run trace, and the trace-viewer + diagnosis tooling are **built and tested**; the renderer is built and awaits its first end-to-end audio run on a GPU box.
 
 ## Why
 

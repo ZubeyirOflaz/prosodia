@@ -27,8 +27,11 @@ def _load_series(project: Path) -> dict:
 def _cmd_compile(args: argparse.Namespace) -> int:
     import yaml
 
-    from prosodia.author.compile import compile_with_plan
+    from prosodia.author.compile import compile_text
     from prosodia.author.lexicon import Lexicon
+    from prosodia.author.tone import VoiceProfiles, build_render_plan
+    from prosodia.core.lineage import build_lineage
+    from prosodia.core.trace import Run
 
     text = Path(args.transcript).read_text(encoding="utf-8")
     config: dict = {}
@@ -45,18 +48,36 @@ def _cmd_compile(args: argparse.Namespace) -> int:
     if not lexicon_path and config.get("lexicon") and config_dir is not None:
         lexicon_path = config_dir / config["lexicon"]
     lexicon = Lexicon.load(Path(lexicon_path)) if lexicon_path else Lexicon({})
-    ir, plan, warnings = compile_with_plan(
-        text, lexicon=lexicon, config=config, voice_override=args.voice
+
+    # Run compile and tone as separate steps so their warnings can be attributed
+    # to the right stage in the trace (bad directives -> compile; tone fallbacks
+    # -> tone specialist). Share one VoiceProfiles instance across both.
+    profiles = VoiceProfiles.load()
+    ir, compile_warnings = compile_text(
+        text, lexicon=lexicon, config=config, voice_override=args.voice, profiles=profiles
     )
+    plan, tone_warnings = build_render_plan(ir, profiles)
 
     out = Path(args.out) if args.out else Path(args.transcript).parent
     out.mkdir(parents=True, exist_ok=True)
     (out / "ir.json").write_text(ir.to_json(), encoding="utf-8")
     (out / "render_plan.json").write_text(plan.to_json(), encoding="utf-8")
 
-    for w in warnings:
+    # Provenance: record compile + tone into the episode's run/, persisting each
+    # stage's warnings as first-class diagnosis signals (not just stderr).
+    run = Run(out / "run")
+    ir_art = run.write_artifact("stages/compile/ir.json", ir.to_json(), label="ir")
+    run.event("compile", "compile", outputs=[ir_art], warnings=compile_warnings, segments=len(ir.segments))
+    plan_art = run.write_artifact("stages/tone/render_plan.json", plan.to_json(), label="render_plan")
+    run.event("tone", "tone-specialist", inputs=[ir_art], outputs=[plan_art], warnings=tone_warnings)
+    lineage = build_lineage(ir, plan, run.events())
+    run.write_artifact("lineage.json", lineage.to_json(), label="lineage")
+    run.write_index(episode=ir.episode, title=ir.title)
+
+    for w in compile_warnings + tone_warnings:
         print(f"warning: {w}", file=sys.stderr)
     print(f"compiled {len(ir.segments)} segments -> {out / 'ir.json'}")
+    print(f"trace: {run.dir}")
     return 0
 
 
@@ -79,6 +100,17 @@ def _cmd_submit(args: argparse.Namespace) -> int:
             voice_ref = str(cand)
 
     dest = package_job(args.root, job_id, ir, plan, voice_ref=voice_ref)
+
+    # Record the handoff in the episode's run/ so the trace spans authoring -> submit.
+    from prosodia.core.trace import Run
+
+    run = Run(ep / "run")
+    run.event(
+        "submit", "submit", job=job_id, dest=str(dest),
+        voice=Path(voice_ref).name if voice_ref else None, segments=len(ir.segments),
+    )
+    run.write_index(episode=ir.episode, title=ir.title)
+
     note = f" (voice: {Path(voice_ref).name})" if voice_ref else " (no voice clip; engine default)"
     print(f"submitted job '{job_id}' -> {dest}{note}")
     return 0
@@ -126,6 +158,83 @@ def _cmd_lint_repetition(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_trace_report(args: argparse.Namespace) -> int:
+    from prosodia.author.trace_view import render_trace_html
+    from prosodia.core.lineage import Lineage
+    from prosodia.core.trace import RunIndex
+
+    run_dir = Path(args.episode) / "run"
+    index_path = run_dir / "run.json"
+    if not index_path.exists():
+        print(f"no run trace at {index_path} (run plan/write/compile first)", file=sys.stderr)
+        return 1
+    index = RunIndex.model_validate_json(index_path.read_text(encoding="utf-8"))
+    lin_path = run_dir / "lineage.json"
+    lineage = Lineage.from_json(lin_path.read_text(encoding="utf-8")) if lin_path.exists() else None
+    out = Path(args.out) if args.out else run_dir / "trace.html"
+    out.write_text(render_trace_html(index, lineage), encoding="utf-8")
+    print(f"wrote {out} — open it in a browser")
+    return 0
+
+
+def _cmd_diagnose(args: argparse.Namespace) -> int:
+    from datetime import datetime, timezone
+
+    from prosodia.author.trace_view import render_diagnosis_html
+    from prosodia.core.diagnosis import (
+        DIAGNOSIS_SCHEMA, apply_agent_result, build_agent_context, build_diagnosis,
+    )
+    from prosodia.core.ir import EpisodeIR, RenderPlan
+    from prosodia.core.lineage import Lineage, build_lineage
+    from prosodia.core.trace import Run
+
+    ep = Path(args.episode)
+    ir = EpisodeIR.from_json((ep / "ir.json").read_text(encoding="utf-8"))
+    plan = RenderPlan.from_json((ep / "render_plan.json").read_text(encoding="utf-8"))
+    run = Run(ep / "run")
+    events = run.events()
+    lin_path = run.dir / "lineage.json"
+    lineage = (
+        Lineage.from_json(lin_path.read_text(encoding="utf-8"))
+        if lin_path.exists()
+        else build_lineage(ir, plan, events)
+    )
+
+    diags_dir = run.dir / "diagnoses"
+    diags_dir.mkdir(parents=True, exist_ok=True)
+    diag_id = f"diag-{len(list(diags_dir.glob('diag-*.json'))) + 1:03d}"
+    diag = build_diagnosis(
+        args.complaint, lineage, events,
+        episode=ir.episode, beat=args.beat, diag_id=diag_id,
+        created=datetime.now(timezone.utc).isoformat(),
+    )
+
+    # Hand the deterministic ranking to the Claude agent to refine, unless --no-agent.
+    if not args.no_agent:
+        try:
+            from prosodia.author.orchestrate import ClaudeRunner, _load_role
+
+            _, structured = ClaudeRunner().run(
+                build_agent_context(diag, lineage, events),
+                system=_load_role("diagnostician"),
+                schema=DIAGNOSIS_SCHEMA,
+            )
+            diag = apply_agent_result(diag, structured)
+        except Exception as exc:  # noqa: BLE001 - agent is best-effort; fall back deterministically
+            print(f"note: agent refinement skipped ({exc}); using deterministic diagnosis", file=sys.stderr)
+
+    (diags_dir / f"{diag_id}.json").write_text(diag.to_json(), encoding="utf-8")
+    html_path = diags_dir / f"{diag_id}.html"
+    html_path.write_text(render_diagnosis_html(diag), encoding="utf-8")
+
+    if diag.most_likely:
+        top = diag.most_likely
+        print(f"{diag_id}: most likely -> {top.stage} ({int(round(top.confidence * 100))}%) [{diag.method}]")
+    print(f"  {diag.summary}")
+    print(f"report: {html_path}")
+    return 0
+
+
 def _cmd_plan(args: argparse.Namespace) -> int:
     from prosodia.author.orchestrate import ClaudeRunner, plan_series
     from prosodia.core.trace import Trace
@@ -152,7 +261,7 @@ def _cmd_plan(args: argparse.Namespace) -> int:
 
 def _cmd_write(args: argparse.Namespace) -> int:
     from prosodia.author.orchestrate import ClaudeRunner, author_episode
-    from prosodia.core.trace import Trace
+    from prosodia.core.trace import Run
 
     proj = Path(args.project)
     cfg = _load_series(proj)
@@ -202,13 +311,15 @@ def _cmd_write(args: argparse.Namespace) -> int:
     brief += "\nWrite the full episode transcript in the Prosodia hybrid format."
     epdir = proj / "episodes" / ep.get("slug", f"ep{ep['n']}")
     epdir.mkdir(parents=True, exist_ok=True)
-    trace = Trace(epdir / "trace.jsonl")
+    run = Run(epdir / "run")
     transcript = author_episode(
-        brief, runner=ClaudeRunner(extra_dirs=(str(proj),)), trace=trace, max_rounds=args.max_rounds
+        brief, runner=ClaudeRunner(extra_dirs=(str(proj),)), run=run, max_rounds=args.max_rounds
     )
     out = epdir / "transcript.md"
     out.write_text(transcript, encoding="utf-8")
+    run.write_index(episode=ep["n"], title=ep.get("title"))
     print(f"wrote {out}")
+    print(f"trace: {run.dir}")
     return 0
 
 
@@ -259,6 +370,16 @@ def build_parser() -> argparse.ArgumentParser:
     p_lint = sub.add_parser("lint-repetition", help="report repeated openings/phrases across a series")
     p_lint.add_argument("transcripts", nargs="*", help="transcript .md files (or use --project)")
     p_lint.add_argument("--project", help="project dir; scans episodes/*/transcript.md")
+
+    p_trace = sub.add_parser("trace-report", help="render an episode's run trace to a self-contained HTML page")
+    p_trace.add_argument("episode", help="episode dir holding run/ (run.json)")
+    p_trace.add_argument("--out", help="output .html (default: <episode>/run/trace.html)")
+
+    p_diag = sub.add_parser("diagnose", help="diagnose a reported problem into ranked sources + an HTML report")
+    p_diag.add_argument("episode", help="episode dir holding ir.json + render_plan.json + run/")
+    p_diag.add_argument("complaint", help='the problem in plain words (e.g. "the opening feels flat")')
+    p_diag.add_argument("--beat", type=int, help="focus on a specific beat index")
+    p_diag.add_argument("--no-agent", action="store_true", help="deterministic signals only (skip the Claude agent)")
     return parser
 
 
@@ -270,6 +391,8 @@ _DISPATCH = {
     "voice-prep": _cmd_voice_prep,
     "plan-view": _cmd_plan_view,
     "lint-repetition": _cmd_lint_repetition,
+    "trace-report": _cmd_trace_report,
+    "diagnose": _cmd_diagnose,
 }
 
 

@@ -8,7 +8,7 @@ Two commands: **`prosodia`** (authoring, any machine) and **`prosodia-render`**
 ## `prosodia` (authoring)
 
 ```
-prosodia [--version] {plan, write, compile, submit, voice-prep, plan-view} ...
+prosodia [--version] {plan, write, compile, submit, voice-prep, plan-view, trace-report, diagnose} ...
 ```
 
 ### `prosodia plan`
@@ -33,7 +33,8 @@ Run the Writer ⇄ Editor loop for one episode. Writes
 
 ### `prosodia compile`
 
-Compile a transcript to `ir.json` + `render_plan.json`. Deterministic and offline.
+Compile a transcript to `ir.json` + `render_plan.json` (and a per-episode `run/`
+trace + `lineage.json`). Deterministic and offline.
 
 | Argument / option | Req | Meaning |
 |---|---|---|
@@ -82,6 +83,31 @@ written. Pure standard-library; no GPU, no extra deps; open the file in a browse
 | `plan` | yes | path to a plan `.md` (the Planner's outline) |
 | `--out HTML` | no | output path (default: alongside the plan) |
 | `--title T` | no | page title (default: the plan's H1 or the filename) |
+
+### `prosodia trace-report`
+
+Render an episode's run trace into a self-contained HTML **trace viewer** (pipeline
+timeline, per-stage inputs/outputs/warnings, and the segment lineage table). Pure
+standard-library; open the file in a browser.
+
+| Argument / option | Req | Meaning |
+|---|---|---|
+| `episode` | yes | episode dir holding `run/` (`run.json`) |
+| `--out HTML` | no | output path (default: `<episode>/run/trace.html`) |
+
+### `prosodia diagnose`
+
+Turn a reported problem into a ranked list of probable sources across the pipeline —
+each with evidence and a recommended fix — written to an HTML report in
+`run/diagnoses/`. A deterministic signal pass reads the trace and ranks candidates;
+unless `--no-agent`, a Claude agent then re-ranks and enriches them.
+
+| Argument / option | Req | Meaning |
+|---|---|---|
+| `episode` | yes | episode dir holding `ir.json` + `render_plan.json` + `run/` |
+| `complaint` | yes | the problem in plain words (e.g. `"the opening feels flat"`) |
+| `--beat N` | no | focus on a specific beat index |
+| `--no-agent` | no | deterministic signals only (skip the Claude agent) |
 
 ## `prosodia-render` (GPU box)
 

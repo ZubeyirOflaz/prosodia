@@ -53,11 +53,37 @@ afterward via the traces.
 
 ## Traces
 
-Each stage appends one JSON line to the episode's `trace.jsonl` (and writes its
-artifact). The trace records the sequence (plan → write → edit → …) so a complaint
-about the output can be reconstructed end-to-end.
+Every stage writes into the episode's `run/` folder — the single provenance store
+that both you and the agent read:
+
+- `events.jsonl` / `run.json` — an id-linked, status-bearing event per stage
+  (`ok`/`warn`/`error`), with content-hashed inputs/outputs so each stage links to
+  the next, and warnings (a tone fallback, a malformed directive) recorded as
+  first-class signals.
+- `stages/` — the persisted artifacts, including **every Writer/Editor round**
+  (`write.rN/transcript.vN.md`, `edit.rN/verdict.json`) — no silent overwrite, so
+  the diff between rounds is inspectable.
+- `lineage.json` — each final segment mapped back to its beat, intent, resolved
+  tone params, and any tone fallback.
+
+`prosodia trace-report <episode>` renders all of this into a self-contained
+`trace.html` (pipeline timeline, per-stage detail, segment lineage table) you open
+in a browser.
+
+## Diagnosis
+
+`prosodia diagnose <episode> "<complaint>" [--beat N]` turns a plain-words problem
+into a ranked list of probable sources across the whole process — each with its
+evidence and a concrete fix — written to an HTML report in `run/diagnoses/`. A
+deterministic signal pass reads the trace and ranks candidates; unless
+`--no-agent`, a Claude agent (`roles/diagnostician.md`) then re-ranks and enriches
+them. Example: "the opening feels flat" on an episode whose first beat asked for an
+unmapped tone → **tone stage, 85%** → "add the tone to `voice_profiles.yaml`."
 
 ## Troubleshooting
+
+`prosodia diagnose` automates the routing below; this table is the manual reference
+for which stage owns which kind of problem:
 
 | You notice… | Stage at fault | Where / fix |
 |---|---|---|

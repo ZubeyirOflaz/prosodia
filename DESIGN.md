@@ -235,10 +235,18 @@ follow-ups are tracked in `REPAIR_PLAN.md`.
 
 - **Authoring** is a role-separated, traced, looped multi-agent process driven by
   **headless Claude Code** (`claude -p`, subscription auth, no API key):
-  **Planner → (plan critic) → Writer ⇄ Editor loop → Tone specialist**. Each stage
-  writes a versioned artifact + a `trace.jsonl` line, so feedback routes to the
-  stage that caused it. `prosodia.author.orchestrate` + `author/roles/*.md`; loop
+  **Planner → (plan critic) → Writer ⇄ Editor loop → Tone specialist**. Every stage
+  writes into a per-episode `run/` folder — id-linked, status-bearing events
+  (`events.jsonl` + `run.json`), content-hashed artifacts, **versioned Writer/Editor
+  rounds** (no overwrite), and a `lineage.json` mapping each final segment back
+  through its stages. `prosodia.author.orchestrate` + `author/roles/*.md`; loop
   logic unit-tested with an injectable runner.
+- **Observability & diagnosis** read that one store two ways: `prosodia trace-report`
+  renders the run to a self-contained HTML viewer, and `prosodia diagnose "<complaint>"`
+  ranks the probable stage(s) behind a reported problem — a deterministic signal pass
+  (tone fallbacks, warn/error events, an unresolved editorial loop, compile warnings),
+  optionally refined by a Claude agent (`roles/diagnostician.md`) — into an HTML report.
+  `core/trace.py` (`Run`), `core/lineage.py`, `core/diagnosis.py`, `author/trace_view.py`.
 - **Two-layer tone** (§7-12/§10-F): the transcript carries engine-neutral intent;
   the **Tone specialist** compiles intent → engine params. Stage 1 is the
   deterministic table `author/voice_profiles.yaml` (`author/tone.py`); an

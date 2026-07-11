@@ -277,5 +277,6 @@ projects/**/ir.json
 projects/**/render_plan.json
 projects/**/*.html
 projects/**/trace.jsonl
+projects/**/run/
 # Bulky deep-research scratch (dossier + per-segment notes)
 projects/**/research/

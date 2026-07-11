@@ -7,7 +7,7 @@ from prosodia.author.orchestrate import (
     author_episode,
     plan_series,
 )
-from prosodia.core.trace import Trace
+from prosodia.core.trace import Run, Trace
 
 
 class FakeRunner:
@@ -104,3 +104,34 @@ def test_claude_runner_parses_structured_from_result(monkeypatch):  # finding 26
     monkeypatch.setattr(orchestrate.subprocess, "run", fake_run)
     result, structured = ClaudeRunner().run("prompt", schema=EDITOR_SCHEMA)
     assert structured == {"ready": True, "notes": "ok"}
+
+
+def test_author_episode_run_versions_rounds(tmp_path):
+    run = Run(tmp_path / "run")
+    runner = FakeRunner(
+        drafts=["draft1", "draft2"],
+        verdicts=[{"ready": False, "notes": "fix open"}, {"ready": True, "notes": ""}],
+    )
+    author_episode("BRIEF", runner=runner, run=run, max_rounds=3)
+
+    # Each round is kept as its own versioned draft (no overwrite).
+    assert (run.dir / "stages/write.r1/transcript.v1.md").read_text() == "draft1"
+    assert (run.dir / "stages/write.r2/transcript.v2.md").read_text() == "draft2"
+    assert (run.dir / "brief.md").read_text() == "BRIEF"
+
+    writes = [e for e in run.events() if e.stage == "write"]
+    edits = [e for e in run.events() if e.stage == "edit"]
+    assert [e.round for e in writes] == [1, 2]
+    assert edits[0].meta["ready"] is False and edits[1].meta["ready"] is True
+    assert edits[0].status == "ok"  # not-ready mid-loop is normal, not a warning
+    assert run.rollup_status() == "ok"
+
+
+def test_author_episode_run_flags_unresolved_loop(tmp_path):
+    run = Run(tmp_path / "run")
+    runner = FakeRunner(drafts=["d1", "d2", "d3"], verdicts=[{"ready": False, "notes": "n"}] * 3)
+    author_episode("BRIEF", runner=runner, run=run, max_rounds=3)
+    last_edit = [e for e in run.events() if e.stage == "edit"][-1]
+    assert last_edit.status == "warn"
+    assert "max_rounds" in last_edit.warnings[0]
+    assert run.rollup_status() == "warn"
