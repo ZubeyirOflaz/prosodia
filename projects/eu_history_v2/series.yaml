@@ -6,6 +6,7 @@ description: >
   A Hardcore-History-style narrative of how the European Union was forged out of the
   ruin of 1945 — the stakes, the gambles, and the human beings, not the abstractions.
 style: hardcore-history
+persona: hardcore-history   # authoring voice; see `prosodia personas`
 engine: chatterbox
 voice: narrator          # resolve to voices/narrator.wav at render time (copy your chosen clip in)
 lexicon: lexicon.yaml

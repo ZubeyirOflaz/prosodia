@@ -8,7 +8,7 @@ Two commands: **`prosodia`** (authoring, any machine) and **`prosodia-render`**
 ## `prosodia` (authoring)
 
 ```
-prosodia [--version] {plan, write, compile, submit, voice-prep, plan-view, trace-report, diagnose} ...
+prosodia [--version] {plan, write, compile, submit, voice-prep, plan-view, trace-report, diagnose, personas, persona-new} ...
 ```
 
 ### `prosodia plan`
@@ -19,6 +19,7 @@ Run the Planner to produce a series outline + coverage map. Writes
 | Option | Req | Meaning |
 |---|---|---|
 | `--project DIR` | yes | project directory holding `series.yaml` |
+| `--persona NAME` | no | persona to author with (default: `series.yaml` `persona:` or `hardcore-history`) |
 
 ### `prosodia write`
 
@@ -30,6 +31,7 @@ Run the Writer ⇄ Editor loop for one episode. Writes
 | `--project DIR` | yes | project directory holding `series.yaml` |
 | `--episode N` | yes | episode number (must exist in `series.yaml`) |
 | `--max-rounds N` | no | max editorial rounds (default 3) |
+| `--persona NAME` | no | persona to author with (default: `series.yaml` `persona:` or `hardcore-history`) |
 
 ### `prosodia compile`
 
@@ -43,6 +45,7 @@ trace + `lineage.json`). Deterministic and offline.
 | `--lexicon FILE` | no | pronunciation lexicon YAML |
 | `--config FILE` | no | project config YAML (supplies the default `voice`/`seed`; if `--lexicon` is omitted, its `lexicon:` key is used, resolved relative to the config file) |
 | `--voice NAME` | no | voice override (highest precedence) |
+| `--persona NAME` | no | persona for the tone table (default: `--config` `persona:` or `hardcore-history`) |
 
 ### `prosodia submit`
 
@@ -108,6 +111,26 @@ unless `--no-agent`, a Claude agent then re-ranks and enriches them.
 | `complaint` | yes | the problem in plain words (e.g. `"the opening feels flat"`) |
 | `--beat N` | no | focus on a specific beat index |
 | `--no-agent` | no | deterministic signals only (skip the Claude agent) |
+
+### `prosodia personas`
+
+List available personas (the built-in library plus a project's local `personas/`).
+
+| Option | Req | Meaning |
+|---|---|---|
+| `--project DIR` | no | also include this project's local `personas/` |
+
+### `prosodia persona-new`
+
+Scaffold a new persona by copying an existing one (ownership is complete, so you start
+from a full role set + tone table to edit).
+
+| Argument / option | Req | Meaning |
+|---|---|---|
+| `name` | yes | new persona name |
+| `--from NAME` | no | persona to copy from (default: `hardcore-history`) |
+| `--into DIR` | no | library dir to create it in (default: the built-in library) |
+| `--project DIR` | no | resolve `--from` against a project's `personas/` too |
 
 ## `prosodia-render` (GPU box)
 

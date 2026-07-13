@@ -26,6 +26,7 @@ Author a transcript          →   Render to audio
 - **Authoring** runs anywhere (no GPU required).
 - **Rendering** runs on a machine with an NVIDIA GPU.
 - The two sides exchange jobs through a synced folder, so you can write remotely and render on the GPU box.
+- The authoring **persona** — the voice, as a full set of planner/writer/editor/tone prompts + tone table — is switchable per project, so different topics get different registers (`hardcore-history` for dramatic history; `thinkers` for ideas-in-their-time).
 
 The default is a **single narrator** (multi-speaker `@tags` are parsed and validated today, but per-speaker voice rendering is not yet wired — see [`DESIGN.md`](DESIGN.md) §11), the TTS engine is **pluggable** (local [Chatterbox](https://github.com/resemble-ai/chatterbox) first; cloud engines later), and voices can be **preset or cloned**.
 

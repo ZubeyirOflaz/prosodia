@@ -1,0 +1,19 @@
+name: hardcore-history
+title: "Hardcore History"
+description: >
+  Long-form, single-narrator, immersive historical narrative in the spirit of Dan
+  Carlin's "Hardcore History" — stakes, vivid scenes, and human beings under
+  pressure, not a dry summary. The original Prosodia voice.
+defaults:
+  target_minutes: 35
+  host_mode: single
+  voice: narrator
+  freshness_watchlist:
+    - "I want to"
+    - "I want you to"
+    - "hold that thought"
+    - "sit with that"
+    - "here's the part"
+    - "here's the thing"
+    - "let that sink in"
+    - "make no mistake"

@@ -1,0 +1,53 @@
+# First series authored with the `thinkers` persona.
+# The coverage map / episodes are produced by the Planner into plan/outline.md,
+# seeded by research/dossier.md. This file holds series-level config + the angle.
+series: "The Long Argument"          # working title — the Planner may refine the through-line/title
+description: >
+  A history of political thought across the ages: the thinkers, the circumstances they grew
+  up in, their ideas, and how those ideas were shaped both by their circumstances and by the
+  thinkers who came before them.
+persona: thinkers
+angle: >
+  Trace political thinkers from classical Athens to the modern age. For each, show the
+  circumstances and life that formed them, explain their core ideas accurately, and — the
+  spine of the series — reveal how each thinker's ideas grew out of BOTH their circumstances
+  AND the thinkers who came before them: the genealogy of political thought, one long argument
+  handed down and fought over across the centuries.
+scope: >
+  FIRST plan — cover the thinkers present in the research docket (research/dossier.md + the
+  02/03/04 supplements), spanning classical Athens through the modern social-contract capstone
+  (Rawls vs. Nozick). Do NOT create episodes for thinkers reserved for a later expansion: the
+  reaction/rights set (Burke, Paine, Wollstonecraft) and the 20th-century cluster (Arendt, Berlin,
+  Foucault, Habermas, Beauvoir, Fanon, Sen, Schmitt, Hayek, Popper), nor second-tier figures absent
+  from the docket (Spinoza, Grotius, More, Erasmus, Bodin, Constant, de Maistre, the anarchists,
+  Durkheim, Lenin, Gramsci). End at Rawls/Nozick; a later session extends into the 20th century.
+engine: chatterbox
+voice: narrator            # add a clip at voices/narrator.wav (see voices/README.txt)
+lexicon: lexicon.yaml
+target_minutes: 40         # soft default; the Planner sets per-episode lengths (some short, some multi-part)
+
+# Episodes are seeded from plan/outline.md. Scope/tension here are the brief header; the writer
+# also receives the full per-episode plan section (anchors, sourced anecdotes, contested points).
+episodes:
+  - n: 1
+    slug: ep01-strong-and-weak
+    title: "The Strong and the Weak"
+    target_minutes: 30
+    scope: >
+      The founding axis of the whole series — nomos (law/convention) vs. phusis (nature) — and its
+      hardest edge, political realism. The Sophists as its authors; Thucydides as its dramatist.
+      Pose the challenge; do NOT answer it (Plato does that in Ep 2). No soul-theory yet.
+    tension: >
+      If law is only convention and nature only power, then authority is never right — only
+      effective. Every later thinker is trying to escape that conclusion.
+  - n: 2
+    slug: ep02-just-soul
+    title: "The Just Soul"
+    target_minutes: 45
+    scope: >
+      Socrates and Plato's answer to Episode 1. The Republic: justice as a condition of the whole,
+      the tripartite soul, the guardian class. Boundary: the ideal city and the inner meaning of
+      justice — Aristotle's empirical turn is held for Ep 3.
+    tension: >
+      To make justice more than power, Plato locates it inside the person and above the crowd — but
+      the price is a city ruled by experts who abolish family and property. Cure, or second disease?

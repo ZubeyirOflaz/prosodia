@@ -247,6 +247,12 @@ follow-ups are tracked in `REPAIR_PLAN.md`.
   (tone fallbacks, warn/error events, an unresolved editorial loop, compile warnings),
   optionally refined by a Claude agent (`roles/diagnostician.md`) — into an HTML report.
   `core/trace.py` (`Run`), `core/lineage.py`, `core/diagnosis.py`, `author/trace_view.py`.
+- **Personas** make the authoring voice switchable: each persona is a self-contained
+  set of role prompts + tone table + defaults in a reusable library
+  (`author/personas/<name>/`), chosen per project via `series.yaml` `persona:`
+  (default `hardcore-history`). Built-ins: `hardcore-history` (the original dramatic
+  voice) and `thinkers` (ideas-in-their-time — Carlin × Sandel). `author/persona.py`;
+  `prosodia personas` / `persona-new`; the `diagnostician` role stays shared.
 - **Two-layer tone** (§7-12/§10-F): the transcript carries engine-neutral intent;
   the **Tone specialist** compiles intent → engine params. Stage 1 is the
   deterministic table `author/voice_profiles.yaml` (`author/tone.py`); an

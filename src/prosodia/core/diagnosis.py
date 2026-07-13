@@ -109,7 +109,7 @@ def gather_signals(
                 f"Add {tones} to voice_profiles.yaml with tuned exaggeration/cfg_weight, "
                 "or change the beat's tone to a mapped one; then recompile."
             ),
-            fix_command="edit src/prosodia/author/voice_profiles.yaml",
+            fix_command="edit the persona's voice_profiles.yaml",
         ))
 
     # 3) The Editor never approved the episode (loop hit max_rounds).
@@ -145,7 +145,7 @@ def gather_signals(
             evidence=[f"beat {s.beat_index}: rate={s.rate}, cfg_weight={s.cfg_weight}" for s in focus[:4]],
             confidence=0.55,
             recommended_fix="Adjust the beat's rate, or lower the tone's cfg_weight in voice_profiles.yaml (lower = slower/more deliberate).",
-            fix_command="edit src/prosodia/author/voice_profiles.yaml",
+            fix_command="edit the persona's voice_profiles.yaml",
         ))
 
     # 6) Complaint is about coverage/repetition -> plan / cross-episode freshness.

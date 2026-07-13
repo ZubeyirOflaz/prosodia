@@ -9,7 +9,6 @@ can replace this behind the same ``build_render_plan`` interface.
 
 from __future__ import annotations
 
-from importlib import resources
 from pathlib import Path
 
 import yaml
@@ -32,14 +31,11 @@ class VoiceProfiles:
     @classmethod
     def load(cls, path: Path | None = None) -> "VoiceProfiles":
         if path is None:
-            text = (
-                resources.files("prosodia.author")
-                .joinpath("voice_profiles.yaml")
-                .read_text(encoding="utf-8")
-            )
-        else:
-            text = Path(path).read_text(encoding="utf-8")
-        return cls(yaml.safe_load(text))
+            # Default to the built-in persona's tone table.
+            from prosodia.author.persona import Persona
+
+            path = Persona.resolve().voice_profiles_path()
+        return cls(yaml.safe_load(Path(path).read_text(encoding="utf-8")))
 
     def known_tones(self) -> set[str]:
         return set(self.tones)

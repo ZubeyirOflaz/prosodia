@@ -22,7 +22,7 @@ def _heading_episode(line: str) -> int | None:
     if not m:
         return None
     text = m.group(1).strip()
-    m2 = re.search(r"(?i)\bepisode\s+0*(\d+)\b", text)  # "Episode 3", "EPISODE 3:"
+    m2 = re.search(r"(?i)\b(?:episode|ep)\s+0*(\d+)\b", text)  # "Episode 3", "EP 3", "EPISODE 3:"
     if m2:
         return int(m2.group(1))
     m3 = re.match(r"^0*(\d+)\s*[—:.\-]", text)  # "3 — Title", "3. Title", "3: Title"

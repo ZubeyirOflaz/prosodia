@@ -1,0 +1,26 @@
+# Pronunciation respellings for tricky names, applied to spoken_text at compile time
+# (the transcript stays readable). Approximate — TUNE against the chosen narrator voice.
+# Longer keys win; matching is whole-word. Add names as episodes surface them.
+lexicon:
+  Montesquieu: "Mon-tess-kyuh"
+  Rousseau: "Roo-so"
+  Machiavelli: "Mah-kee-uh-vel-ee"
+  Aquinas: "Uh-kwy-nuss"
+  "Ibn Khaldun": "Ib-un Khal-doon"
+  Marsilius: "Mar-sil-ee-us"
+  Grotius: "Gro-shus"
+  Nietzsche: "Nee-chuh"
+  Tocqueville: "Toke-veel"
+  Bakunin: "Buh-koo-nin"
+  Kropotkin: "Kruh-pot-kin"
+  Proudhon: "Proo-don"
+  Gramsci: "Gram-shee"
+  Foucault: "Foo-koh"
+  Habermas: "Hah-ber-mahs"
+  Weber: "Vay-ber"
+  Wollstonecraft: "Wool-stun-kraft"
+  Thucydides: "Thoo-sid-ih-deez"
+  Polybius: "Puh-lib-ee-us"
+  Thrasymachus: "Thruh-sim-uh-kus"
+  Beauvoir: "Boh-vwar"
+  Fanon: "Fah-nohn"

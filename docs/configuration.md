@@ -26,6 +26,7 @@ Series-level config and the coverage map (goal #4). Fields:
 |---|---|
 | `series`, `description` | series name and one-line goal |
 | `style` | house-style id, passed to the Writer |
+| `persona` | authoring persona (voice) — resolved from the persona library; default `hardcore-history` |
 | `engine` | target TTS engine (`chatterbox`) |
 | `voice` | **default voice** for the series (a transcript may omit `voice` and inherit this) |
 | `lexicon` | path to the pronunciation lexicon, relative to this file |
@@ -35,11 +36,34 @@ Series-level config and the coverage map (goal #4). Fields:
 `scope` defines an episode's boundaries (so later episodes don't re-explain earlier
 material); `tension` is the dramatic hook the Writer emphasizes.
 
+## Personas
+
+A **persona** is the authoring voice — the full set of role prompts (planner, writer,
+editor, tone) plus a tone table and defaults — that decides *how* a show is written.
+Personas are self-contained (no shared base) and live in a reusable library at
+`src/prosodia/author/personas/<name>/`; a project picks one with the `persona:` field
+in `series.yaml` (default `hardcore-history`). A project may also add or override a
+persona in a local `personas/<name>/` dir, which wins over the built-in library.
+
+| Built-in persona | Voice |
+|---|---|
+| `hardcore-history` | Dan-Carlin dramatic historical narrative (the original voice) |
+| `thinkers` | thinkers and their ideas — Carlin's narrative × Sandel's argue-both-sides, explaining hard theory accurately |
+
+```
+prosodia personas                              # list available personas
+prosodia persona-new my-voice --from thinkers  # scaffold a new one to edit
+```
+
+The `diagnostician` role is shared across personas (it reasons about the pipeline, not
+the content style).
+
 ## Tone table
 
-The **Tone specialist's** deterministic table (`src/prosodia/author/voice_profiles.yaml`)
-and the **single source of truth** for the tone vocabulary and default pauses.
-Maps each engine-neutral tone word to Chatterbox params:
+Each persona owns its **Tone specialist** table at
+`src/prosodia/author/personas/<persona>/voice_profiles.yaml` — the source of truth for
+that persona's tone vocabulary and default pauses. Maps each engine-neutral tone word
+to Chatterbox params:
 
 ```yaml
 engine: chatterbox

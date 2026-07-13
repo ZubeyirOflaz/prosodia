@@ -1,0 +1,41 @@
+# Tone specialist table for the `thinkers` persona (deterministic, stage 1).
+#
+# Register: lucid and curious, not dramatic. Where the hardcore-history table pushes
+# exaggeration high to fight flatness in a dramatic narration, this persona wants an
+# even, thinking-aloud clarity — moderate exaggeration on the exposition tones — with
+# the heavier tones (grave/dramatic) reserved for genuine historical stakes.
+#
+# Chatterbox levers: exaggeration = monotone <-> expressive (higher = less flat, also
+# faster); cfg_weight = pace/deliberateness (lower = slower, more deliberate). The
+# global `pace` dial scales every cfg_weight show-wide.
+
+engine: chatterbox
+
+# A touch less slowed than the dramatist (0.9): ideas want a lucid, unhurried pace,
+# not a funereal one.
+pace: 0.95
+
+# Exposition flows more continuously than dramatic narration, so slightly tighter
+# baseline gaps; the tone specialist still places deliberate long {pause}s by hand.
+pauses:
+  paragraph_ms: 500
+  beat_ms: 1000
+
+default_tone: measured
+
+tones:
+  # -- exposition register (the persona's core voice) --
+  measured:       { exaggeration: 0.48, cfg_weight: 0.44, temperature: 0.76 }
+  neutral:        { exaggeration: 0.44, cfg_weight: 0.46, temperature: 0.76 }
+  warm:           { exaggeration: 0.55, cfg_weight: 0.46, temperature: 0.80 }
+  curious:        { exaggeration: 0.58, cfg_weight: 0.46, temperature: 0.82 }  # engaged, thinking-aloud
+  lucid:          { exaggeration: 0.50, cfg_weight: 0.48, temperature: 0.76 }  # clear, even, unhurried
+  contemplative:  { exaggeration: 0.44, cfg_weight: 0.36, temperature: 0.72 }  # slower, reflective
+  wry:            { exaggeration: 0.56, cfg_weight: 0.48, temperature: 0.84 }  # the reset-aside
+  # -- reserved for genuine HISTORICAL stakes, not the ideas --
+  somber:         { exaggeration: 0.50, cfg_weight: 0.34, temperature: 0.72 }
+  grave:          { exaggeration: 0.50, cfg_weight: 0.30, temperature: 0.72 }
+  reverent:       { exaggeration: 0.46, cfg_weight: 0.34, temperature: 0.72 }
+  tense:          { exaggeration: 0.64, cfg_weight: 0.40, temperature: 0.82 }
+  urgent:         { exaggeration: 0.74, cfg_weight: 0.44, temperature: 0.85 }
+  dramatic:       { exaggeration: 0.82, cfg_weight: 0.30, temperature: 0.85 }

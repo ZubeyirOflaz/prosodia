@@ -29,6 +29,7 @@ def _cmd_compile(args: argparse.Namespace) -> int:
 
     from prosodia.author.compile import compile_text
     from prosodia.author.lexicon import Lexicon
+    from prosodia.author.persona import Persona
     from prosodia.author.tone import VoiceProfiles, build_render_plan
     from prosodia.core.lineage import build_lineage
     from prosodia.core.trace import Run
@@ -52,7 +53,8 @@ def _cmd_compile(args: argparse.Namespace) -> int:
     # Run compile and tone as separate steps so their warnings can be attributed
     # to the right stage in the trace (bad directives -> compile; tone fallbacks
     # -> tone specialist). Share one VoiceProfiles instance across both.
-    profiles = VoiceProfiles.load()
+    persona = Persona.resolve(args.persona or config.get("persona"), project=config_dir)
+    profiles = VoiceProfiles.load(persona.voice_profiles_path())
     ir, compile_warnings = compile_text(
         text, lexicon=lexicon, config=config, voice_override=args.voice, profiles=profiles
     )
@@ -76,7 +78,7 @@ def _cmd_compile(args: argparse.Namespace) -> int:
 
     for w in compile_warnings + tone_warnings:
         print(f"warning: {w}", file=sys.stderr)
-    print(f"compiled {len(ir.segments)} segments -> {out / 'ir.json'}")
+    print(f"compiled {len(ir.segments)} segments (persona: {persona.name}) -> {out / 'ir.json'}")
     print(f"trace: {run.dir}")
     return 0
 
@@ -235,32 +237,91 @@ def _cmd_diagnose(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_personas(args: argparse.Namespace) -> int:
+    from prosodia.author.persona import Persona
+
+    project = Path(args.project) if args.project else None
+    names = Persona.available(project)
+    if not names:
+        print("no personas found", file=sys.stderr)
+        return 1
+    for name in names:
+        p = Persona.resolve(name, project=project)
+        desc = " ".join(p.description.split())
+        print(f"{name:20} {desc[:96]}")
+    return 0
+
+
+def _cmd_persona_new(args: argparse.Namespace) -> int:
+    import shutil
+
+    from prosodia.author.persona import Persona
+
+    project = Path(args.project) if args.project else None
+    src = Persona.resolve(args.from_persona, project=project)
+    dest_root = Path(args.into) if args.into else Persona._builtin_library()
+    dest = dest_root / args.name
+    if dest.exists():
+        print(f"persona '{args.name}' already exists at {dest}", file=sys.stderr)
+        return 1
+    shutil.copytree(src.root, dest)
+    print(f"created persona '{args.name}' at {dest}  (copied from '{src.name}')")
+    print("  edit roles/*.md, voice_profiles.yaml, and persona.yaml to shape the new voice")
+    return 0
+
+
 def _cmd_plan(args: argparse.Namespace) -> int:
     from prosodia.author.orchestrate import ClaudeRunner, plan_series
+    from prosodia.author.persona import Persona
     from prosodia.core.trace import Trace
 
     proj = Path(args.project)
     cfg = _load_series(proj)
+    persona = Persona.resolve(args.persona or cfg.get("persona"), project=proj)
     prompt = (
         f"Series: {cfg.get('series', '')}\n"
         f"Goal: {cfg.get('description', '')}\n"
-        f"Style: {cfg.get('style', '')}\n\n"
-        "Produce the series outline and coverage map."
+        f"Style: {cfg.get('style', '')}\n"
+        f"Organizing angle: {cfg.get('angle') or '(none given — propose one that fits the material)'}\n"
     )
+    if cfg.get("scope"):
+        prompt += f"Scope for THIS plan (cover only this; reserve the rest for a later expansion): {cfg['scope']}\n"
+    # Feed the verified research docket STRAIGHT into the prompt so the planner builds from our
+    # material instead of re-researching every thinker from the open web (which timed out).
+    research_dir = proj / "research"
+    docket = (
+        [
+            f"===== research/{f.name} =====\n{f.read_text(encoding='utf-8')}"
+            for f in sorted(research_dir.glob("*.md"))
+        ]
+        if research_dir.is_dir()
+        else []
+    )
+    if docket:
+        prompt += (
+            "\n\nRESEARCH DOCKET — verified, cited source material. BUILD THE OUTLINE FROM THIS; do "
+            "NOT re-research thinkers it already covers. Use web search ONLY to fill a gap the docket "
+            "explicitly flags (e.g. Ibn Khaldun) or to check a single doubtful anecdote:\n\n"
+            + "\n\n".join(docket)
+        )
+    prompt += "\n\nProduce the series outline and coverage map."
     trace = Trace(proj / "plan" / "trace.jsonl")
-    # The planner may web-search to verify or discover anecdotes, so allow web tools
-    # (needs a Claude Code with WebSearch/WebFetch available).
-    runner = ClaudeRunner(extra_dirs=(str(proj),), allowed_tools=("WebSearch", "WebFetch"))
-    outline = plan_series(prompt, runner=runner, trace=trace)
+    # Web tools stay on for the few flagged gaps; longer timeout — a full-series outline is a big
+    # single generation.
+    runner = ClaudeRunner(
+        extra_dirs=(str(proj),), allowed_tools=("WebSearch", "WebFetch"), timeout=1800
+    )
+    outline = plan_series(prompt, runner=runner, persona=persona, trace=trace)
     out = proj / "plan" / "outline.md"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(outline, encoding="utf-8")
-    print(f"wrote {out}")
+    print(f"wrote {out}  (persona: {persona.name})")
     return 0
 
 
 def _cmd_write(args: argparse.Namespace) -> int:
     from prosodia.author.orchestrate import ClaudeRunner, author_episode
+    from prosodia.author.persona import Persona
     from prosodia.core.trace import Run
 
     proj = Path(args.project)
@@ -270,7 +331,8 @@ def _cmd_write(args: argparse.Namespace) -> int:
     if not ep:
         print(f"episode {args.episode} not found in {proj / 'series.yaml'}", file=sys.stderr)
         return 1
-    target_minutes = ep.get("target_minutes", cfg.get("target_minutes", 30))
+    persona = Persona.resolve(args.persona or cfg.get("persona"), project=proj)
+    target_minutes = ep.get("target_minutes", cfg.get("target_minutes", persona.defaults.target_minutes))
     brief = (
         f"Series: {cfg.get('series', '')}\n"
         f"Episode {ep['n']}: {ep.get('title', '')}\n"
@@ -313,12 +375,13 @@ def _cmd_write(args: argparse.Namespace) -> int:
     epdir.mkdir(parents=True, exist_ok=True)
     run = Run(epdir / "run")
     transcript = author_episode(
-        brief, runner=ClaudeRunner(extra_dirs=(str(proj),)), run=run, max_rounds=args.max_rounds
+        brief, runner=ClaudeRunner(extra_dirs=(str(proj),)), persona=persona,
+        run=run, max_rounds=args.max_rounds,
     )
     out = epdir / "transcript.md"
     out.write_text(transcript, encoding="utf-8")
     run.write_index(episode=ep["n"], title=ep.get("title"))
-    print(f"wrote {out}")
+    print(f"wrote {out}  (persona: {persona.name})")
     print(f"trace: {run.dir}")
     return 0
 
@@ -333,11 +396,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_plan = sub.add_parser("plan", help="plan a series outline + coverage map (Planner)")
     p_plan.add_argument("--project", required=True, help="project dir holding series.yaml")
+    p_plan.add_argument("--persona", help="persona name (default: series.yaml persona: or hardcore-history)")
 
     p_write = sub.add_parser("write", help="author an episode (Writer <-> Editor loop)")
     p_write.add_argument("--project", required=True, help="project dir holding series.yaml")
     p_write.add_argument("--episode", type=int, required=True, help="episode number")
     p_write.add_argument("--max-rounds", type=int, default=3, help="max editorial rounds")
+    p_write.add_argument("--persona", help="persona name (default: series.yaml persona: or hardcore-history)")
 
     p_compile = sub.add_parser("compile", help="compile a transcript.md to IR + render plan")
     p_compile.add_argument("transcript", help="path to a transcript .md file")
@@ -345,6 +410,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_compile.add_argument("--lexicon", help="path to a pronunciation lexicon YAML")
     p_compile.add_argument("--config", help="project config YAML (provides default voice/seed)")
     p_compile.add_argument("--voice", help="voice override (highest precedence)")
+    p_compile.add_argument("--persona", help="persona name (default: --config persona: or hardcore-history)")
 
     p_submit = sub.add_parser("submit", help="package a compiled episode into a render job")
     p_submit.add_argument("episode", help="directory holding ir.json + render_plan.json")
@@ -380,6 +446,16 @@ def build_parser() -> argparse.ArgumentParser:
     p_diag.add_argument("complaint", help='the problem in plain words (e.g. "the opening feels flat")')
     p_diag.add_argument("--beat", type=int, help="focus on a specific beat index")
     p_diag.add_argument("--no-agent", action="store_true", help="deterministic signals only (skip the Claude agent)")
+
+    p_personas = sub.add_parser("personas", help="list available personas")
+    p_personas.add_argument("--project", help="include a project's local personas/ too")
+
+    p_pnew = sub.add_parser("persona-new", help="scaffold a new persona by copying an existing one")
+    p_pnew.add_argument("name", help="new persona name")
+    p_pnew.add_argument("--from", dest="from_persona", default="hardcore-history",
+                        help="persona to copy from (default: hardcore-history)")
+    p_pnew.add_argument("--into", help="library dir to create it in (default: the built-in library)")
+    p_pnew.add_argument("--project", help="also resolve --from against this project's personas/")
     return parser
 
 
@@ -393,6 +469,8 @@ _DISPATCH = {
     "lint-repetition": _cmd_lint_repetition,
     "trace-report": _cmd_trace_report,
     "diagnose": _cmd_diagnose,
+    "personas": _cmd_personas,
+    "persona-new": _cmd_persona_new,
 }
 
 

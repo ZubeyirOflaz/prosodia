@@ -1,0 +1,22 @@
+name: thinkers
+title: "Ideas in Their Time"
+description: >
+  Investigates thinkers and their ideas within the crises of their age — Dan
+  Carlin's narrative drive fused with Michael Sandel's argue-both-sides clarity,
+  with a light debt to Peter Adamson's rigorous, accessible exposition. Explains
+  hard theory in philosophy, politics, and social science engagingly and
+  accurately, without flattening it into a lecture.
+defaults:
+  target_minutes: 40   # soft midpoint only — length follows the idea; simple ideas run short,
+  # while complex ones run long or span multiple parts (see the planner and writer prompts).
+  host_mode: single
+  voice: narrator
+  freshness_watchlist:
+    - "in other words"
+    - "at the end of the day"
+    - "the fact of the matter"
+    - "boils down to"
+    - "let's unpack"
+    - "simply put"
+    - "the bottom line"
+    - "when you really think about it"

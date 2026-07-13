@@ -14,11 +14,13 @@ trace so feedback can later be routed to the stage that produced a given result.
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import subprocess
 from dataclasses import dataclass, field
 from importlib import resources
 
+from prosodia.author.persona import Persona
 from prosodia.core.trace import Run, Trace
 
 EDITOR_SCHEMA = {
@@ -26,6 +28,25 @@ EDITOR_SCHEMA = {
     "properties": {"ready": {"type": "boolean"}, "notes": {"type": "string"}},
     "required": ["ready", "notes"],
 }
+
+
+def _extract_transcript(raw: str) -> str:
+    """Recover the bare transcript from a Writer response.
+
+    Writers occasionally wrap the script in explanatory prose and/or a ```markdown code
+    fence — especially on a revision round ("Here is the revised transcript: ```..."). The
+    transcript itself always begins at a YAML front-matter ``---`` line and contains no code
+    fences, so: prefer the contents of a fenced block that holds front-matter; otherwise drop
+    any preamble before the first front-matter line. Idempotent on already-clean input.
+    """
+    t = raw.strip()
+    fence = re.search(r"```[A-Za-z0-9]*\s*\n(.*?)\n```", t, re.DOTALL)
+    if fence and re.search(r"(?m)^---\s*$", fence.group(1)):
+        return fence.group(1).strip()
+    fm = re.search(r"(?m)^---\s*$", t)
+    if fm and fm.start() > 0:
+        return t[fm.start():].strip()
+    return t
 
 
 def _load_role(name: str) -> str:
@@ -64,7 +85,10 @@ class ClaudeRunner:
             cmd, input=prompt, capture_output=True, text=True, encoding="utf-8", timeout=self.timeout
         )
         if proc.returncode != 0:
-            raise RuntimeError(f"claude -p failed (exit {proc.returncode}): {proc.stderr[:500]}")
+            # claude -p --output-format json writes its error to STDOUT, not stderr,
+            # so surface both (tail — the message is usually at the end).
+            detail = (proc.stderr.strip() or proc.stdout.strip() or "(no output)")[-1000:]
+            raise RuntimeError(f"claude -p failed (exit {proc.returncode}): {detail}")
         data = json.loads(proc.stdout)
         result = data.get("result", "")
         structured = data.get("structured_output")
@@ -77,9 +101,11 @@ class ClaudeRunner:
 
 
 def plan_series(
-    prompt: str, *, runner, trace: Trace | None = None, run: Run | None = None
+    prompt: str, *, runner, persona: Persona | None = None,
+    trace: Trace | None = None, run: Run | None = None,
 ) -> str:
-    outline, _ = runner.run(prompt, system=_load_role("planner"))
+    persona = persona or Persona.resolve()
+    outline, _ = runner.run(prompt, system=persona.role("planner"))
     if trace:
         trace.append("plan", "planner", chars=len(outline))
     if run is not None:
@@ -92,6 +118,7 @@ def author_episode(
     brief: str,
     *,
     runner,
+    persona: Persona | None = None,
     trace: Trace | None = None,
     run: Run | None = None,
     max_rounds: int = 3,
@@ -103,8 +130,9 @@ def author_episode(
     A loop that exhausts ``max_rounds`` without approval is flagged ``warn`` — a
     signal the diagnosis pass can surface. ``trace`` (the thin log) is still honored.
     """
-    writer_sys = _load_role("writer")
-    editor_sys = _load_role("editor")
+    persona = persona or Persona.resolve()
+    writer_sys = persona.role("writer")
+    editor_sys = persona.role("editor")
     notes = ""
     transcript = ""
     brief_art = run.write_artifact("brief.md", brief, label="brief") if run is not None else None
@@ -115,6 +143,7 @@ def author_episode(
             f"--- Your previous draft (revise it) ---\n{transcript or '(none)'}"
         )
         transcript, _ = runner.run(wprompt, system=writer_sys)
+        transcript = _extract_transcript(transcript)
         if trace:
             trace.append("write", "writer", round=rnd, chars=len(transcript))
         if run is not None:
