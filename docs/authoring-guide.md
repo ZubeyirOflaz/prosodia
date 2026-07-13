@@ -21,6 +21,10 @@ prosodia plan  --project projects/eu_history              # writes plan/outline.
 prosodia write --project projects/eu_history --episode 1  # writes episodes/ep1/transcript.md
 ```
 
+`plan` builds the outline from any verified source material you place in
+`projects/<proj>/research/*.md` (the [docket](configuration.md#research-docket)),
+web-searching only to fill flagged gaps; a series-level `scope:` plans a subset now.
+
 `write` runs the Writer ⇄ Editor loop until the Editor judges the draft ready (up
 to `--max-rounds`, default 3). Every stage appends to `episodes/<slug>/trace.jsonl`
 so you can see what happened and [route feedback to the right stage](pipeline-and-traces.md#troubleshooting).
@@ -62,9 +66,9 @@ A mid-beat shift: {tone: tense} now it is tense.
 
 The target is immersive, single-narrator *Hardcore History*-style narration:
 vivid scenes, real stakes, human focus, rhetorical questions, slow down on
-pivotal moments, end on a hook. The Writer role prompt encodes this
-(`src/prosodia/author/roles/writer.md`); the existing EU episode is a worked
-example.
+pivotal moments, end on a hook. The active persona's Writer role prompt encodes this
+(`src/prosodia/author/personas/<persona>/roles/writer.md`); the existing EU episode
+is a worked example.
 
 ## Numbers, dates, and pronunciation
 

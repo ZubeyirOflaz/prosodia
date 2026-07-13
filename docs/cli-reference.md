@@ -16,6 +16,11 @@ prosodia [--version] {plan, write, compile, submit, voice-prep, plan-view, trace
 Run the Planner to produce a series outline + coverage map. Writes
 `<project>/plan/outline.md` (and `plan/trace.jsonl`). Requires the `claude` CLI.
 
+Feeds the project's `research/*.md` [docket](configuration.md#research-docket) into
+the Planner so it builds from your verified material rather than researching from
+scratch, and enables web search/fetch for gaps the docket flags. Honors a
+series-level `scope:` to plan a subset now and expand later.
+
 | Option | Req | Meaning |
 |---|---|---|
 | `--project DIR` | yes | project directory holding `series.yaml` |

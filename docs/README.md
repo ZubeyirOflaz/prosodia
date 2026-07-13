@@ -25,6 +25,7 @@ and decisions: [DESIGN.md](../DESIGN.md).
 
 - [Architecture](architecture.md) — components, contracts, and data flow
 - [Pipeline & traces](pipeline-and-traces.md) — the multi-agent authoring loop and troubleshooting
+- [Authoring UI](authoring-ui.md) — the planned local dashboard (stdlib + vendored htmx)
 - [Job protocol](../protocol/SPEC.md) — the synced job-folder contract (canonical)
 - [Glossary](glossary.md) — terms used across the docs
 

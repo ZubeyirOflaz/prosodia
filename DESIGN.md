@@ -239,8 +239,10 @@ follow-ups are tracked in `REPAIR_PLAN.md`.
   writes into a per-episode `run/` folder — id-linked, status-bearing events
   (`events.jsonl` + `run.json`), content-hashed artifacts, **versioned Writer/Editor
   rounds** (no overwrite), and a `lineage.json` mapping each final segment back
-  through its stages. `prosodia.author.orchestrate` + `author/roles/*.md`; loop
-  logic unit-tested with an injectable runner.
+  through its stages. `prosodia.author.orchestrate` + the active persona's
+  `personas/<persona>/roles/*.md` (the shared `diagnostician` stays at
+  `author/roles/`), and the Planner also reads the project's `research/` docket;
+  loop logic unit-tested with an injectable runner.
 - **Observability & diagnosis** read that one store two ways: `prosodia trace-report`
   renders the run to a self-contained HTML viewer, and `prosodia diagnose "<complaint>"`
   ranks the probable stage(s) behind a reported problem — a deterministic signal pass
@@ -255,7 +257,8 @@ follow-ups are tracked in `REPAIR_PLAN.md`.
   `prosodia personas` / `persona-new`; the `diagnostician` role stays shared.
 - **Two-layer tone** (§7-12/§10-F): the transcript carries engine-neutral intent;
   the **Tone specialist** compiles intent → engine params. Stage 1 is the
-  deterministic table `author/voice_profiles.yaml` (`author/tone.py`); an
+  deterministic table `author/personas/<persona>/voice_profiles.yaml`
+  (`author/tone.py`); an
   LLM-driven version is an optional later upgrade. `render_plan.json` is derived.
 - **Renderer** is a deterministic, LLM-free function of (IR + render_plan + voice +
   seed) on the GPU box: chunk → generate → pause silence → trim → 20 ms crossfade →
@@ -268,13 +271,13 @@ follow-ups are tracked in `REPAIR_PLAN.md`.
 |---|---|
 | 1 Transcript grammar | Hybrid: front-matter + `## beat {tone, rate}` + `{pause}` + `*emphasis*` — `formats/SPEC.md`. |
 | 2 IR schema | `prosodia.core.ir` (pydantic); Segment carries intent, authored_text, spoken_text, pause_before_ms, emphasis, chunks. |
-| 3 voice_profiles | `author/voice_profiles.yaml` — single source of truth for tone words + pause defaults. |
+| 3 voice_profiles | `author/personas/<persona>/voice_profiles.yaml` — each persona's source of truth for tone words + pause defaults. |
 | 4 Chunking | sentence-aware pack to ~300 chars with split cascade (`author/chunk.py`). |
 | 5 Pauses | real silence at segment boundaries; explicit `{pause}` + paragraph/beat defaults. |
 | 6 Job protocol | `protocol/SPEC.md` — manifest (sha256+size) atomic claim + building→inbox rename. |
 | 7 Integration | in-process library behind a `TTSBackend` interface, model kept warm. |
 | 8 Packaging | one package `prosodia`; base = pure-Python authoring, `[render]` extra = torch/Chatterbox. |
-| 9 Coverage | `series.yaml` coverage map + Planner role; a lint pass is future. |
+| 9 Coverage | `series.yaml` coverage map + series-level `scope` + Planner role (builds from a per-project `research/` docket); a lint pass is future. |
 | 10 Windows setup | `scripts/setup.ps1` + `start_renderer.ps1` (CUDA torch first, Py 3.11, ffmpeg, logon task). |
 | 11 Determinism/CLI | derived per-chunk seeds; `prosodia` / `prosodia-render` CLIs; pytest suite. |
 | 12 Mapping layer | table-first deterministic; LLM optional. |
@@ -287,4 +290,32 @@ follow-ups are tracked in `REPAIR_PLAN.md`.
 `voice` → project-config default.
 
 **First validation target:** `projects/eu_history/` (ep1 authored, compiled,
-packaged). A/B vs NotebookLM on EU ep1–3 per `docs/AB_TESTING.md`.
+packaged). A/B vs NotebookLM on EU ep1–3 per `docs/AB_TESTING.md`. The first
+`thinkers`-persona series is `projects/political_thinkers/` ("The Long Argument" —
+a 20-episode outline built from a verified docket, with episodes 1–2 authored and
+compiled).
+
+---
+
+## 12. Authoring UI (planned)
+
+A single, barebones **local** interface unifying the authoring commands (plan,
+write, compile, trace, diagnose, persona/transcript management) so the pipeline
+isn't driven by CLI flags alone. Decision recorded here; full rationale and the
+options comparison in [`docs/authoring-ui.md`](docs/authoring-ui.md):
+
+- **Backend: Python standard-library `http.server`** (a `ThreadingHTTPServer` bound
+  to `127.0.0.1`) — **zero new dependencies**, so the torch-free authoring install
+  stays `pydantic + pyyaml`. It reuses the self-contained HTML the project already
+  emits (`author/trace_view.py`, `plan-view`) and reads status straight from the
+  existing `Run` trace store. A small thread-based job runner **serializes** the
+  long `claude -p` jobs (concurrent sessions contend) and runs fast ops inline.
+- **Frontend: vendored htmx** — one ~14 KB file served locally (not a Python
+  dependency, no build step) — for live job progress and inline actions via partial
+  HTML swaps, which the plain full-page-reload model handles poorly.
+- **Sanctioned upgrade: Flask** — identical architecture; adopt only if hand-rolled
+  routing/templating outgrows a comfortable dispatch table (htmx's many small
+  endpoints are the likely trigger). FastAPI/Textual are situational;
+  Streamlit/Gradio are rejected (they violate the dependency budget).
+- **Phased**: (1) read-only dashboard → (2) trigger jobs with live status → (3)
+  in-browser transcript editing + recompile → (4) diagnosis flow + render-job submit.

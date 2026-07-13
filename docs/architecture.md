@@ -59,8 +59,9 @@ Full detail: [Pipeline & traces](pipeline-and-traces.md). Roles, loop, and CLI:
 ### The two-layer tone model
 
 The transcript carries **engine-neutral delivery intent** (`tone`, `rate`,
-`note`) — never engine knobs. The **Tone specialist** (`author/tone.py` +
-`author/voice_profiles.yaml`) maps intent → Chatterbox params. In v0.1 this is a
+`note`) — never engine knobs. The **Tone specialist** (`author/tone.py` + each
+persona's `personas/<persona>/voice_profiles.yaml`) maps intent → Chatterbox params.
+In v0.1 this is a
 deterministic table; an optional LLM-driven Tone specialist can replace it behind
 the same interface. The `render_plan.json` is a **derived** artifact, so the
 transcript stays portable across engines (design goal #5).

@@ -10,7 +10,7 @@ you can find — and fix — the stage that caused it.
 ## The pipeline
 
 ```
-                          series.yaml
+                series.yaml + research/*.md (docket)
                               │
                           [Planner] ── outline + coverage map
                               │ (per-episode brief: scope, tension)
@@ -29,17 +29,23 @@ you can find — and fix — the stage that caused it.
 
 ## Roles
 
-- **Planner** — from the series goal, produces the outline and a **coverage map**
-  that assigns every topic to exactly one episode (no gaps/overlap, goal #4), with
-  per-episode scope, handover/recap, and tension. (`author/roles/planner.md`)
+- **Planner** — from the series goal (and the project's `research/*.md`
+  [docket](configuration.md#research-docket), fed in so it builds from verified
+  material), produces the outline and a **coverage map** that assigns every topic to
+  exactly one episode (no gaps/overlap, goal #4), with per-episode scope,
+  handover/recap, and tension; honors a series-level `scope:`.
+  (persona-owned: `personas/<persona>/roles/planner.md`)
 - **Writer** — writes the **verbatim** transcript for one episode in the house
-  style + first-layer engine-neutral delivery intent. (`author/roles/writer.md`)
+  style + first-layer engine-neutral delivery intent; its output is sanitized (any
+  wrapping prose or code fence a revision round adds is stripped back to the bare
+  transcript). (`personas/<persona>/roles/writer.md`)
 - **Editor** — judges the draft against the brief and house style and returns a
   structured `{ready, notes}` verdict; if not ready, the notes go back to the
-  Writer. (`author/roles/editor.md`)
+  Writer. (`personas/<persona>/roles/editor.md`)
 - **Tone specialist** — compiles the engine-neutral intent into engine params. In
-  v0.1 this is the deterministic [tone table](configuration.md#tone-table);
-  an LLM-driven version is an optional later upgrade.
+  v0.1 this is the deterministic [tone table](configuration.md#tone-table)
+  (persona-owned: `personas/<persona>/voice_profiles.yaml`); an LLM-driven version is
+  an optional later upgrade.
 
 Implementation: `author/orchestrate.py` (the loop is unit-tested with an injectable
 runner, so no quota is needed to test it). See [Architecture](architecture.md).

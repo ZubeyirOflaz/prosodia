@@ -9,6 +9,7 @@ projects/eu_history/
   series.yaml            # series config + coverage map
   lexicon.yaml           # pronunciation respellings
   voices/                # narrator reference clips: <name>.wav  (you add these)
+  research/              # verified source docket the Planner reads  (optional; gitignored)
   plan/                  # Planner output: outline.md, trace.jsonl  (generated)
   episodes/
     ep1/
@@ -31,10 +32,24 @@ Series-level config and the coverage map (goal #4). Fields:
 | `voice` | **default voice** for the series (a transcript may omit `voice` and inherit this) |
 | `lexicon` | path to the pronunciation lexicon, relative to this file |
 | `target_minutes` | long-form length the Writer aims for (per-episode `target_minutes` overrides) |
+| `scope` | *(optional)* series-level coverage scope for the Planner — what THIS plan covers and what to reserve for a later expansion |
 | `episodes` | list of `{ n, slug, title, scope, tension, target_minutes? }` — every topic assigned to exactly one episode |
 
-`scope` defines an episode's boundaries (so later episodes don't re-explain earlier
-material); `tension` is the dramatic hook the Writer emphasizes.
+An episode's `scope` defines its boundaries (so later episodes don't re-explain
+earlier material); `tension` is the dramatic hook the Writer emphasizes. The
+*series-level* `scope` field is different: it lets you plan a subset now (e.g.
+"cover classical Athens → the 1970s; reserve the rest for a later plan") and the
+Planner is told to cover only it.
+
+## Research docket
+
+Drop verified source material for a series in `projects/<proj>/research/*.md` — a
+cited dossier and any supplementary notes. `prosodia plan` **feeds these files into
+the Planner**, so it builds the outline from your material instead of researching
+every topic from the open web (slower and less accurate); it web-searches only to
+fill a gap the docket explicitly flags. The docket is treated as scratch and is
+**gitignored** by default — the distilled, verified result lives in the tracked
+`plan/outline.md`.
 
 ## Personas
 
