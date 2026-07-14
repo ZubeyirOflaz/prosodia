@@ -67,10 +67,11 @@ class Diagnosis(BaseModel):
 
 
 def _mentions(complaint: str, stage: str) -> bool:
-    # Whole-word match: a plain substring test fired on benign complaints (e.g. "space"
-    # matched "pace", "update" matched "date"), inventing spurious cause candidates.
+    # Word-INITIAL prefix match: the leading \b blocks mid-word false positives
+    # ("space"->"pace", "breakfast"->"fast"), while \w* keeps the inflected cues the
+    # base-form keywords must still catch ("slow"->"slowly", "drag"->"dragging").
     c = complaint.lower()
-    return any(re.search(rf"\b{re.escape(k)}\b", c) for k in KEYWORDS.get(stage, []))
+    return any(re.search(rf"\b{re.escape(k)}\w*", c) for k in KEYWORDS.get(stage, []))
 
 
 def gather_signals(

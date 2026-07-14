@@ -29,7 +29,7 @@ series-level `scope:` to plan a subset now and expand later.
 ### `prosodia write`
 
 Run the Writer ⇄ Editor loop for one episode. Writes
-`<project>/episodes/<slug>/transcript.md` (and `trace.jsonl`). Requires the `claude` CLI.
+`<project>/episodes/<slug>/transcript.md` (and a `run/` trace). Requires the `claude` CLI.
 
 | Option | Req | Meaning |
 |---|---|---|
@@ -180,13 +180,15 @@ Exit 0 and "OK" when ready; otherwise lists exactly what's missing.
 
 ### `prosodia-render render`
 
-Render a single job directory to `episode.wav`.
+Render a single job directory to `episode.wav`. The episode is bookended with 4 s of
+lead/tail silence, and (unless `--no-title`) opens with the spoken episode title.
 
 | Argument / option | Req | Meaning |
 |---|---|---|
 | `job` | yes | a job directory (holds `ir.json` + `render_plan.json`) |
 | `--final` | no | final mode: N candidates + STT quality gate (default: fast preview) |
 | `--voices DIR` | no | directory of voice reference `.wav` files |
+| `--no-title` | no | don't speak the episode title at the start |
 
 ### `prosodia-render watch`
 
@@ -199,6 +201,7 @@ Watch an exchange root and render jobs as they arrive (model kept warm).
 | `--voices DIR` | no | directory of voice reference `.wav` files |
 | `--interval SEC` | no | poll interval seconds (default 5.0) |
 | `--once` | no | process the current inbox once and exit |
+| `--no-title` | no | don't speak the episode title at the start |
 
 ### `prosodia-render audition`
 

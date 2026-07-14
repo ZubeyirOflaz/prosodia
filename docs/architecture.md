@@ -26,8 +26,8 @@ has no torch, and the render dependencies live in a `[render]` extra.
                                           inbox/<job>/  ───── synced ─────▶  watch + claim
                                                                                   │
                                                                                   ▼ render
-                                                            chunk → generate → pause silence →
-                                                            trim → crossfade → STT gate →
+                                                            chunk → generate (+STT gate) →
+                                                            pause silence → trim → crossfade →
                                                             concat → loudness-normalize
                                                                                   │
                                           outbox/<job>/episode.wav  ◀── synced ───┘

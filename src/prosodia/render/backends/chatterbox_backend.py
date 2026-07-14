@@ -55,14 +55,14 @@ class ChatterboxBackend(TTSBackend):
         self.load()
         if seed is not None:
             _set_seed(int(seed))
-        # Chatterbox has no preset-voice catalog (it conditions on a reference
-        # clip). A `preset:<name>` request can only be honored if it resolves to a
-        # bundled clip upstream; reaching here with one means we cannot honor it,
-        # so fail loudly rather than silently render the built-in default.
-        if voice and voice.startswith("preset:"):
+        # Chatterbox has no preset-voice catalog — it can only clone from a reference
+        # clip. ANY voice id (a `preset:<name>` or a named voice) that reaches here
+        # WITHOUT a resolved clip cannot be honored, so fail loudly rather than silently
+        # render the built-in default. (voice=None + no clip = a deliberate default.)
+        if voice and audio_prompt_path is None:
             raise ValueError(
-                f"ChatterboxBackend cannot resolve preset voice {voice!r}; "
-                "provide a reference .wav (cloning) instead"
+                f"ChatterboxBackend cannot honor voice {voice!r} without a reference clip; "
+                "bundle a .wav to clone (Chatterbox has no preset-voice catalog)"
             )
         # Tone/pace coupling (DESIGN sec 10-G): lower cfg_weight = slower/more
         # deliberate, so a slower rate (multiplier < 1) lowers cfg. See pacing.py.

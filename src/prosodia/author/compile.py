@@ -185,7 +185,9 @@ def compile_text(
     fm, body = split_front_matter(text)
     body = _COMMENT.sub("", body)
 
-    defaults = fm.get("defaults") or {}
+    defaults = fm.get("defaults")
+    if not isinstance(defaults, dict):
+        defaults = {}
     default_intent = {
         # SPEC allows a numeric rate multiplier in front-matter defaults; Intent.rate is a
         # str and pydantic v2 won't coerce float->str, so stringify (None -> "normal").
@@ -205,7 +207,9 @@ def compile_text(
     default_speaker = next(iter(speakers_map), "narrator")
 
     paragraph_ms, beat_ms = profiles.paragraph_ms, profiles.beat_ms
-    fmp = fm.get("pauses") or {}
+    fmp = fm.get("pauses")
+    if not isinstance(fmp, dict):
+        fmp = {}
     if "paragraph" in fmp:
         paragraph_ms = int(float(fmp["paragraph"]) * 1000)
     if "beat" in fmp:

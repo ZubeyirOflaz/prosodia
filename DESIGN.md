@@ -262,7 +262,7 @@ follow-ups are tracked in `REPAIR_PLAN.md`.
   LLM-driven version is an optional later upgrade. `render_plan.json` is derived.
 - **Renderer** is a deterministic, LLM-free function of (IR + render_plan + voice +
   seed) on the GPU box: chunk → generate → pause silence → trim → 20 ms crossfade →
-  concat → STT quality gate (faster-whisper) → loudness-normalize once;
+  concat → STT quality gate (faster-whisper) → loudness-normalize once, bookended by 4 s lead/tail silence and (by default) a spoken title;
   fast-preview vs final modes. `prosodia.render.*`.
 
 **Resolved §7 decisions:**

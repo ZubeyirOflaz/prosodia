@@ -28,7 +28,7 @@ def _move(src: Path, dst_root: Path, name: str) -> Path:
     return dst
 
 
-def render_one(job_dir, root, *, fast_preview=True, voices_dir=None, backend=None) -> Path:
+def render_one(job_dir, root, *, fast_preview=True, voices_dir=None, backend=None, speak_title=True) -> Path:
     job_dir, root = Path(job_dir), Path(root)
     name = job_dir.name
     proc = _move(job_dir, root / protocol.PROCESSING, name)  # claim
@@ -36,7 +36,8 @@ def render_one(job_dir, root, *, fast_preview=True, voices_dir=None, backend=Non
     status.write_text(protocol.JobStatus(job_id=name, state="rendering").to_json(), encoding="utf-8")
     try:
         audio = render_job(
-            proc, proc / "episode.wav", fast_preview=fast_preview, voices_dir=voices_dir, backend=backend
+            proc, proc / "episode.wav", fast_preview=fast_preview, voices_dir=voices_dir,
+            backend=backend, speak_title=speak_title,
         )
         status.write_text(
             protocol.JobStatus(job_id=name, state="done", message=audio.name, progress=1.0).to_json(),
@@ -51,7 +52,8 @@ def render_one(job_dir, root, *, fast_preview=True, voices_dir=None, backend=Non
         return _move(proc, root / protocol.FAILED, name)
 
 
-def watch(root, *, interval: float = 5.0, fast_preview: bool = True, voices_dir=None, once: bool = False):
+def watch(root, *, interval: float = 5.0, fast_preview: bool = True, voices_dir=None,
+          once: bool = False, speak_title: bool = True):
     root = Path(root)
     inbox = root / protocol.INBOX
     backend = None
@@ -86,7 +88,8 @@ def watch(root, *, interval: float = 5.0, fast_preview: bool = True, voices_dir=
                 print(f"rendering {job.name} ...")
                 try:
                     dest = render_one(
-                        job, root, fast_preview=fast_preview, voices_dir=voices_dir, backend=backend
+                        job, root, fast_preview=fast_preview, voices_dir=voices_dir,
+                        backend=backend, speak_title=speak_title,
                     )
                     print(f"  done -> {dest}")
                 except Exception as exc:  # noqa: BLE001 - one job (or a transient claim

@@ -109,6 +109,9 @@ def render_job(
     target_lufs: float = -16.0,
     validator=None,
     on_progress=None,
+    edge_silence_ms: int = 4000,
+    speak_title: bool = True,
+    title_gap_ms: int = 1000,
 ) -> Path:
     job_dir = Path(job_dir)
     ir = EpisodeIR.from_json((job_dir / "ir.json").read_text(encoding="utf-8"))
@@ -170,6 +173,26 @@ def render_job(
             just_paused = False  # only the first chunk follows the pause
         if on_progress:
             on_progress((i + 1) / total)
+
+    # QoL: speak the episode title at the top (best-effort — a title glitch must never
+    # fail an otherwise-good render), then bookend the whole thing with lead/tail silence
+    # so it doesn't start or end abruptly.
+    intro = np.zeros(0, dtype=np.float32)
+    if speak_title and ir.title:
+        tparams = (params.get(ir.segments[0].id) if ir.segments else None) or _FALLBACK
+        try:
+            tw = _render_chunk(
+                backend, ir.title, tparams, ir.seed, -1, 0, ref,
+                fast_preview=fast_preview, candidates=candidates, validator=None, sr=sr,
+                voice=None if ref else (ir.voice or None),
+            )
+            tw = A.trim_silence(tw, sr)
+            if tw.size:
+                intro = np.concatenate([tw, A.silence(title_gap_ms, sr)])
+        except Exception as exc:  # noqa: BLE001 - the title is a nicety, not worth aborting for
+            logger.warning("could not render episode title %r: %s", ir.title, exc)
+    edge = A.silence(edge_silence_ms, sr)
+    out = np.concatenate([edge, intro, out, edge])
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     raw = out_path.with_suffix(".raw.wav")

@@ -122,7 +122,13 @@ class Run:
         self.index_path = self.dir / "run.json"
         self.stages_dir = self.dir / "stages"
         self._events: list[TraceEvent] = self._load_events()
-        self._counter = len(self._events)
+        # Base the id counter on the non-blank line count, not the parsed-event count: a
+        # skipped corrupt line still consumed an id, so len(events) could reuse one.
+        self._counter = (
+            sum(1 for ln in self.events_path.read_text(encoding="utf-8").splitlines() if ln.strip())
+            if self.events_path.exists()
+            else 0
+        )
 
     def _load_events(self) -> list[TraceEvent]:
         if not self.events_path.exists():

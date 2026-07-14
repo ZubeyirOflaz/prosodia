@@ -64,6 +64,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_render.add_argument("job", help="path to a job directory (holds ir.json + render_plan.json)")
     p_render.add_argument("--final", action="store_true", help="final mode (N candidates + STT gate)")
     p_render.add_argument("--voices", help="directory of voice reference .wav files")
+    p_render.add_argument("--no-title", action="store_true", help="don't speak the episode title at the start")
 
     p_watch = sub.add_parser("watch", help="watch an exchange root and render jobs as they arrive")
     p_watch.add_argument("root", help="synced exchange root (holds inbox/ processing/ outbox/ failed/)")
@@ -71,6 +72,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_watch.add_argument("--voices", help="directory of voice reference .wav files")
     p_watch.add_argument("--interval", type=float, default=5.0, help="poll interval seconds")
     p_watch.add_argument("--once", action="store_true", help="process the current inbox once and exit")
+    p_watch.add_argument("--no-title", action="store_true", help="don't speak the episode title at the start")
 
     p_aud = sub.add_parser("audition", help="render the SAME text with several voice clips, side by side (A/B)")
     p_aud.add_argument("--voices", nargs="+", required=True, help="a voices/ dir and/or .wav files to compare")
@@ -111,7 +113,8 @@ def main(argv: list[str] | None = None) -> int:
         from prosodia.render.render import render_job
 
         out = render_job(
-            args.job, Path(args.job) / "episode.wav", fast_preview=not args.final, voices_dir=args.voices
+            args.job, Path(args.job) / "episode.wav", fast_preview=not args.final,
+            voices_dir=args.voices, speak_title=not args.no_title,
         )
         print(f"rendered -> {out}")
         return 0
@@ -121,7 +124,7 @@ def main(argv: list[str] | None = None) -> int:
 
         watch(
             args.root, interval=args.interval, fast_preview=not args.final,
-            voices_dir=args.voices, once=args.once,
+            voices_dir=args.voices, once=args.once, speak_title=not args.no_title,
         )
         return 0
 
