@@ -8,7 +8,7 @@ Two commands: **`prosodia`** (authoring, any machine) and **`prosodia-render`**
 ## `prosodia` (authoring)
 
 ```
-prosodia [--version] {plan, write, compile, submit, voice-prep, plan-view, trace-report, diagnose, personas, persona-new, ui} ...
+prosodia [--version] {plan, write, compile, submit, voice-prep, plan-view, lint-repetition, trace-report, diagnose, personas, persona-new, ui} ...
 ```
 
 ### `prosodia plan`
@@ -91,6 +91,16 @@ written. Pure standard-library; no GPU, no extra deps; open the file in a browse
 | `plan` | yes | path to a plan `.md` (the Planner's outline) |
 | `--out HTML` | no | output path (default: alongside the plan) |
 | `--title T` | no | page title (default: the plan's H1 or the filename) |
+
+### `prosodia lint-repetition`
+
+Report repeated openings and phrases across a series' episodes — a cross-episode
+freshness check. Pure standard-library; no GPU.
+
+| Argument / option | Req | Meaning |
+|---|---|---|
+| `transcripts` | no | transcript `.md` files to compare (omit when using `--project`) |
+| `--project DIR` | no | scan `episodes/*/transcript.md` under this project |
 
 ### `prosodia trace-report`
 

@@ -109,12 +109,12 @@ def analyze(episodes: dict[str, str], *, ngram_sizes=(4, 5)) -> dict:
             seen.update(s)
         for gram, ep_count in seen.items():
             if ep_count >= 2:
-                total = sum(counts[l][gram] for l in episodes)
+                total = sum(counts[ep][gram] for ep in episodes)
                 shared.append({
                     "ngram": " ".join(gram),
                     "episodes": ep_count,
                     "total": total,
-                    "in": [l for l in episodes if gram in per_ep_sets[l]],
+                    "in": [ep for ep in episodes if gram in per_ep_sets[ep]],
                 })
     shared.sort(key=lambda d: (d["episodes"], d["total"]), reverse=True)
 

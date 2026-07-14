@@ -84,8 +84,14 @@ def watch(root, *, interval: float = 5.0, fast_preview: bool = True, voices_dir=
                     backend = ChatterboxBackend()
                     backend.load()
                 print(f"rendering {job.name} ...")
-                dest = render_one(job, root, fast_preview=fast_preview, voices_dir=voices_dir, backend=backend)
-                print(f"  done -> {dest}")
+                try:
+                    dest = render_one(
+                        job, root, fast_preview=fast_preview, voices_dir=voices_dir, backend=backend
+                    )
+                    print(f"  done -> {dest}")
+                except Exception as exc:  # noqa: BLE001 - one job (or a transient claim
+                    # error, e.g. a file lock mid-sync) must never kill the watcher daemon
+                    print(f"  error rendering {job.name}: {exc}")
         if once:
             break
         time.sleep(interval)

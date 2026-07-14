@@ -104,7 +104,10 @@ def split_front_matter(text: str) -> tuple[dict, str]:
     if lines and lines[0].strip() == "---":
         for j in range(1, len(lines)):
             if lines[j].strip() == "---":
-                fm = yaml.safe_load("\n".join(lines[1:j])) or {}
+                try:
+                    fm = yaml.safe_load("\n".join(lines[1:j])) or {}
+                except yaml.YAMLError as exc:
+                    raise ValueError(f"malformed YAML front-matter: {exc}") from exc
                 return (fm if isinstance(fm, dict) else {}), "\n".join(lines[j + 1:])
     return {}, text
 
@@ -184,8 +187,10 @@ def compile_text(
 
     defaults = fm.get("defaults") or {}
     default_intent = {
-        "tone": defaults.get("tone", "measured"),
-        "rate": defaults.get("rate", "normal"),
+        # SPEC allows a numeric rate multiplier in front-matter defaults; Intent.rate is a
+        # str and pydantic v2 won't coerce float->str, so stringify (None -> "normal").
+        "tone": str(defaults.get("tone", "measured")),
+        "rate": str(defaults.get("rate") or "normal"),
         "note": defaults.get("note"),
     }
     voice = voice_override or fm.get("voice") or config.get("voice") or ""

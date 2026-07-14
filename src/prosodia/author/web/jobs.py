@@ -16,9 +16,15 @@ import os
 import queue
 import subprocess
 import threading
+from collections import deque
 from dataclasses import dataclass, field
 
 _TERMINAL = {"done", "failed"}
+
+# Wall-clock ceiling for a single job (generous — real jobs run minutes), and how many
+# jobs to retain in memory (the durable record lives in the on-disk run/ trace).
+_JOB_TIMEOUT_S = 3600
+_MAX_JOBS = 100
 
 # Force child prosodia/claude processes to emit UTF-8 on Windows (their default is
 # the console codepage, e.g. cp1252, which mangles em-dashes); decode leniently too.
@@ -33,7 +39,7 @@ class Job:
     argv: list[str]
     status: str = "queued"   # queued | running | done | failed
     returncode: int | None = None
-    log: list[str] = field(default_factory=list)
+    log: deque = field(default_factory=lambda: deque(maxlen=4000))  # capped; only tail() is read
     meta: dict = field(default_factory=dict)   # e.g. {"project":..., "slug":...}
 
     @property
@@ -75,8 +81,19 @@ class JobRegistry:
             jid = f"job-{next(self._counter):04d}"
             job = Job(id=jid, kind=kind, label=label, argv=list(argv), meta=meta or {})
             self._jobs[jid] = job
+            self._evict()
         self._q.put(job)
         return job
+
+    def _evict(self) -> None:
+        """Drop the oldest terminal jobs beyond the retention cap (caller holds the lock)."""
+        while len(self._jobs) > _MAX_JOBS:
+            for jid, j in self._jobs.items():
+                if j.done:
+                    del self._jobs[jid]
+                    break
+            else:
+                break  # nothing evictable (all still running/queued)
 
     def get(self, jid: str) -> Job | None:
         with self._lock:
@@ -100,6 +117,11 @@ class JobRegistry:
             job = self._q.get()
             try:
                 self._execute(job)
+            except Exception as exc:  # noqa: BLE001 - one bad job must never kill the worker
+                job.log.append(f"\n[runner] worker error: {exc}\n")
+                job.status = "failed"
+                if job.returncode is None:
+                    job.returncode = -1
             finally:
                 self._q.task_done()
 
@@ -121,9 +143,37 @@ class JobRegistry:
             job.status = "failed"
             job.returncode = -1
             return
-        assert proc.stdout is not None
-        for line in proc.stdout:
-            job.log.append(line)
-        proc.wait()
-        job.returncode = proc.returncode
-        job.status = "done" if proc.returncode == 0 else "failed"
+
+        # Watchdog: kill a job that overruns the wall-clock ceiling — covers a silently
+        # hung child (no output) that the blocking read loop could never detect itself.
+        timed_out = {"v": False}
+
+        def _kill() -> None:
+            timed_out["v"] = True
+            job.log.append(f"\n[runner] timed out after {_JOB_TIMEOUT_S}s — killing\n")
+            try:
+                proc.kill()
+            except Exception:  # noqa: BLE001
+                pass
+
+        watchdog = threading.Timer(_JOB_TIMEOUT_S, _kill)
+        watchdog.daemon = True
+        watchdog.start()
+        try:
+            if proc.stdout is not None:
+                for line in proc.stdout:
+                    job.log.append(line)
+            proc.wait()
+            job.returncode = 124 if timed_out["v"] else proc.returncode
+            job.status = "failed" if (timed_out["v"] or proc.returncode != 0) else "done"
+        except Exception as exc:  # noqa: BLE001 - streaming/wait must not kill the worker
+            job.log.append(f"\n[runner] error while running: {exc}\n")
+            try:
+                proc.kill()
+            except Exception:  # noqa: BLE001
+                pass
+            job.status = "failed"
+            if job.returncode is None:
+                job.returncode = -1
+        finally:
+            watchdog.cancel()

@@ -86,7 +86,9 @@ textarea.editor{width:100%;min-height:60vh;font-family:var(--mono);font-size:13p
 # ── helpers ──────────────────────────────────────────────────────────────────
 
 def _esc(s) -> str:
-    return html.escape("" if s is None else str(s), quote=False)
+    # quote=True escapes " and ' too — required because _esc output is interpolated
+    # into double-quoted HTML attributes (data-post, href, …), not just text nodes.
+    return html.escape("" if s is None else str(s), quote=True)
 
 
 def _layout(title: str, body: str, *, back: bool = True) -> str:
@@ -105,9 +107,10 @@ def _load_series(proj: Path) -> dict:
     if not f.is_file():
         return {}
     try:
-        return yaml.safe_load(f.read_text(encoding="utf-8")) or {}
+        data = yaml.safe_load(f.read_text(encoding="utf-8"))
     except Exception:
         return {}
+    return data if isinstance(data, dict) else {}
 
 
 def _episodes(cfg: dict) -> list[dict]:
@@ -155,9 +158,12 @@ def _trace_body(root: Path, name: str, slug: str) -> str | None:
     from prosodia.core.lineage import Lineage
     from prosodia.core.trace import RunIndex
 
-    index = RunIndex.model_validate_json(idx.read_text(encoding="utf-8"))
-    lin = run_dir / "lineage.json"
-    lineage = Lineage.from_json(lin.read_text(encoding="utf-8")) if lin.is_file() else None
+    try:
+        index = RunIndex.model_validate_json(idx.read_text(encoding="utf-8"))
+        lin = run_dir / "lineage.json"
+        lineage = Lineage.from_json(lin.read_text(encoding="utf-8")) if lin.is_file() else None
+    except Exception:
+        return None  # transient partial read during a non-atomic rewrite — retry next poll
     return render_trace_fragment(index, lineage)
 
 
@@ -286,15 +292,91 @@ def render_outline(root: Path, name: str) -> str | None:
 
 
 def render_trace(root: Path, name: str, slug: str) -> str | None:
-    body = _trace_body(root, name, slug)
-    if body is None:
+    """The interactive trace page: artifact drill-down, segment→round links, and
+    re-run buttons. Rendered with the trace viewer's own styling plus the UI's JS."""
+    proj = root / name
+    run_dir = proj / "episodes" / slug / "run"
+    idx = run_dir / "run.json"
+    if not idx.is_file():
         return None
-    return _layout(f"{name} · {slug} · trace", body)
+    from urllib.parse import quote
+
+    from prosodia.author.trace_view import _CSS as TRACE_CSS
+    from prosodia.author.trace_view import TraceLinks, render_trace_fragment
+    from prosodia.core.lineage import Lineage
+    from prosodia.core.trace import RunIndex
+
+    try:
+        index = RunIndex.model_validate_json(idx.read_text(encoding="utf-8"))
+        lin = run_dir / "lineage.json"
+        lineage = Lineage.from_json(lin.read_text(encoding="utf-8")) if lin.is_file() else None
+    except Exception:
+        return None
+
+    base = f"/p/{quote(name)}/ep/{quote(slug)}"
+    # "the round that produced it" = the last write stage's transcript artifact.
+    final_write_rel = None
+    for ev in index.events:
+        if ev.stage == "write":
+            for a in ev.outputs:
+                if a.rel.endswith(".md"):
+                    final_write_rel = a.rel
+
+    def rerun_url(stage: str) -> str | None:
+        if stage == "write":
+            return f"{base}/write"
+        if stage in ("compile", "tone"):
+            return f"{base}/compile"
+        return None
+
+    links = TraceLinks(
+        artifact_url=lambda rel: f"{base}/artifact?rel={quote(rel)}",
+        rerun_url=rerun_url,
+        segment_url=(
+            (lambda _sid: f"{base}/artifact?rel={quote(final_write_rel)}") if final_write_rel else None
+        ),
+    )
+    body = render_trace_fragment(index, lineage, links=links)
+    title = index.title or (f"Episode {index.episode}" if index.episode is not None else "Run")
+    return (
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        f"<title>Trace · {_esc(title)}</title><style>{TRACE_CSS}</style></head><body>"
+        '<div class="doc"><div class="eyebrow">Prosodia &middot; trace &middot; '
+        f'<a href="/p/{_esc(name)}">&larr; {_esc(name)}</a></div>{body}</div>'
+        '<script src="/assets/app.js"></script></body></html>'
+    )
 
 
 def render_trace_fragment(root: Path, name: str, slug: str) -> str:
+    """The (non-interactive) trace body — used for the live poll embed in a job panel."""
     body = _trace_body(root, name, slug)
     return body if body is not None else '<p class="muted">Waiting for the trace to appear…</p>'
+
+
+def render_artifact(root: Path, name: str, slug: str, rel: str) -> str:
+    """Lazy-load a single run artifact's content into the trace inspector pane.
+    Guards against path traversal — ``rel`` must resolve inside the episode's run/."""
+    proj = root / name
+    if not (proj / "series.yaml").is_file() or _find_episode(_load_series(proj), slug) is None:
+        return '<div class="art"><p class="muted">unknown episode</p></div>'
+    run_dir = (proj / "episodes" / slug / "run").resolve()
+    if not run_dir.is_dir():
+        return '<div class="art"><p class="muted">no trace yet</p></div>'
+    try:
+        target = (run_dir / rel).resolve()
+        target.relative_to(run_dir)
+    except (ValueError, OSError):
+        return '<div class="art"><p class="err">invalid artifact path</p></div>'
+    if not target.is_file():
+        return f'<div class="art"><p class="muted">not found: {_esc(rel)}</p></div>'
+    try:
+        text = target.read_text(encoding="utf-8", errors="replace")
+    except Exception as exc:  # noqa: BLE001
+        return f'<div class="art"><p class="err">could not read: {_esc(exc)}</p></div>'
+    if len(text) > 40000:
+        text = text[:40000] + "\n… (truncated)"
+    return f'<div class="art"><h3>{_esc(rel)}</h3><pre>{_esc(text)}</pre></div>'
 
 
 # ── jobs (plan / write) ──────────────────────────────────────────────────────

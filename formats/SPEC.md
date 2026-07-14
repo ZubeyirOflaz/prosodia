@@ -67,7 +67,7 @@ YAML between the opening and closing `---`. Metadata only — **never spoken**.
 
 | Field | Req? | Meaning |
 |---|---|---|
-| `format_version` | no | Format version this file targets (quote it — a bare `0.1` parses as a YAML float). Defaults to the current SPEC version. *In v0.1 it is advisory: the compiler records but does not validate it.* |
+| `format_version` | no | Format version this file targets (quote it — a bare `0.1` parses as a YAML float). Defaults to the current SPEC version. *In v0.1 it is advisory: the compiler neither records nor validates it.* |
 | `voice` | no | Narrator voice id (a reference clip in the project's `voices/` folder, or `preset:<name>`). **Optional override** — if omitted, the voice is resolved from the project-config default. The renderer uses the *same* resolved reference for every chunk and episode (the primary defense against timbre drift). |
 | `style` | no | Series house-style id. Guides **what the Writer writes**; ignored by the renderer. |
 | `episode`, `title` | no | Episode number and title. *(v0.1: recorded in the IR for provenance; the renderer does not yet use them for chapter metadata or output filenames — the output is a flat `episode.wav`.)* |
@@ -295,9 +295,9 @@ transcript.md ──compile──▶ IR (segments: intent + authored_text + spok
                               │
                               ├─ Tone specialist ─▶ render_plan.json (engine params per segment)
                               │
-                              └──────────────▶ renderer: chunk → generate → splice pauses →
-                                               trim/crossfade → STT quality-gate → concat →
-                                               loudness-normalize → episode.wav
+                              └──────────────▶ renderer: chunk → generate (+STT quality-gate,
+                                               final mode) → trim → splice pauses / crossfade →
+                                               concat → loudness-normalize → episode.wav
 ```
 
 > **v0.1 output.** A single flat `episode.wav` (loudness-normalized). Chapter

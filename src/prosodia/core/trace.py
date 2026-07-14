@@ -127,11 +127,15 @@ class Run:
     def _load_events(self) -> list[TraceEvent]:
         if not self.events_path.exists():
             return []
-        return [
-            TraceEvent.model_validate_json(line)
-            for line in self.events_path.read_text(encoding="utf-8").splitlines()
-            if line.strip()
-        ]
+        events: list[TraceEvent] = []
+        for line in self.events_path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            try:
+                events.append(TraceEvent.model_validate_json(line))
+            except Exception:  # noqa: BLE001 - tolerate a partial/corrupt trailing line
+                continue
+        return events
 
     def _next_id(self) -> str:
         self._counter += 1

@@ -59,18 +59,21 @@ def write_wav(path: str | Path, wav: np.ndarray, sr: int) -> None:
     sf.write(str(path), wav, sr)
 
 
-def loudness_normalize(in_path: str | Path, out_path: str | Path, target_lufs: float = -16.0) -> bool:
-    """EBU R128 loudness normalization via ffmpeg. Returns True on success."""
+def loudness_normalize(
+    in_path: str | Path, out_path: str | Path, target_lufs: float = -16.0, *, sr: int | None = None
+) -> bool:
+    """EBU R128 loudness normalization via ffmpeg. Returns True on success.
+
+    ffmpeg's ``loudnorm`` filter resamples internally to 192 kHz; without an explicit
+    output rate the final file is written at 192 kHz. Pass ``sr`` to pin the output
+    back to the backend's sample rate.
+    """
+    cmd = ["ffmpeg", "-y", "-i", str(in_path), "-af", f"loudnorm=I={target_lufs}:TP=-1.5:LRA=11"]
+    if sr:
+        cmd += ["-ar", str(int(sr))]
+    cmd.append(str(out_path))
     try:
-        subprocess.run(
-            [
-                "ffmpeg", "-y", "-i", str(in_path),
-                "-af", f"loudnorm=I={target_lufs}:TP=-1.5:LRA=11",
-                str(out_path),
-            ],
-            check=True,
-            capture_output=True,
-        )
+        subprocess.run(cmd, check=True, capture_output=True)
         return True
     except Exception:
         return False

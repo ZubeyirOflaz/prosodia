@@ -24,6 +24,7 @@ _GET = [
     (re.compile(r"^/p/([^/]+)/ep/([^/]+)/trace$"), "trace"),
     (re.compile(r"^/p/([^/]+)/ep/([^/]+)/trace/fragment$"), "trace_fragment"),
     (re.compile(r"^/p/([^/]+)/ep/([^/]+)/edit$"), "edit_form"),
+    (re.compile(r"^/p/([^/]+)/ep/([^/]+)/artifact$"), "artifact"),
     (re.compile(r"^/p/([^/]+)/ep/([^/]+)/diagnose$"), "diagnose_form"),
     (re.compile(r"^/p/([^/]+)/ep/([^/]+)/submit$"), "submit_form"),
     (re.compile(r"^/jobs/([^/]+)$"), "job_page"),
@@ -45,6 +46,18 @@ class _Handler(BaseHTTPRequestHandler):
     def log_message(self, *args) -> None:  # keep the console quiet
         pass
 
+    def _csrf_ok(self) -> bool:
+        """Reject cross-origin state-changing POSTs. Same-origin app.js fetches carry a
+        matching Origin; non-browser clients (curl, tests) send neither header."""
+        from urllib.parse import urlparse
+
+        host = self.headers.get("Host", "")
+        for hdr in ("Origin", "Referer"):
+            val = self.headers.get(hdr)
+            if val:
+                return urlparse(val).netloc == host
+        return True
+
     def _send(self, body: str, status: int = 200, ctype: str = "text/html; charset=utf-8") -> None:
         data = body.encode("utf-8")
         self.send_response(status)
@@ -62,7 +75,9 @@ class _Handler(BaseHTTPRequestHandler):
         return self.server.jobs  # type: ignore[attr-defined]
 
     def do_GET(self) -> None:
-        path = self.path.split("?", 1)[0]
+        parts = self.path.split("?", 1)
+        path = parts[0]
+        query = parse_qs(parts[1]) if len(parts) > 1 else {}
         try:
             for rx, name in _GET:
                 m = rx.match(path)
@@ -71,7 +86,7 @@ class _Handler(BaseHTTPRequestHandler):
                 a = [unquote(g) for g in m.groups()]
                 if name == "appjs":
                     return self._send(assets.APP_JS, ctype="application/javascript; charset=utf-8")
-                out = self._get(name, a)
+                out = self._get(name, a, query)
                 if out is None:
                     return self._send(views.not_found(path), 404)
                 return self._send(out)
@@ -79,7 +94,7 @@ class _Handler(BaseHTTPRequestHandler):
         except Exception as exc:  # noqa: BLE001 - never crash the dev server on one request
             return self._send(views.error_page(exc), 500)
 
-    def _get(self, name: str, a: list[str]) -> str | None:
+    def _get(self, name: str, a: list[str], query: dict) -> str | None:
         r = self.root
         if name == "index":
             return views.render_index(r)
@@ -99,6 +114,8 @@ class _Handler(BaseHTTPRequestHandler):
             return views.render_diagnose_form(r, a[0], a[1])
         if name == "submit_form":
             return views.render_submit_form(r, a[0], a[1])
+        if name == "artifact":
+            return views.render_artifact(r, a[0], a[1], query.get("rel", [""])[0])
         if name == "job_page":
             return views.render_job_page(self.jobs, r, a[0])
         if name == "job_fragment":
@@ -110,6 +127,8 @@ class _Handler(BaseHTTPRequestHandler):
         try:
             length = int(self.headers.get("Content-Length", 0) or 0)
             raw = self.rfile.read(length).decode("utf-8") if length else ""
+            if not self._csrf_ok():
+                return self._send(views.error_page(PermissionError("cross-origin POST refused")), 403)
             form = parse_qs(raw, keep_blank_values=True)
             for rx, name in _POST:
                 m = rx.match(path)
@@ -136,7 +155,10 @@ class _Handler(BaseHTTPRequestHandler):
             return views.action_edit_save(r, a[0], a[1], form.get("content", [""])[0])
         if name == "diagnose":
             beat_raw = form.get("beat", [""])[0].strip()
-            beat = int(beat_raw) if beat_raw.isdigit() else None
+            try:
+                beat = int(beat_raw)
+            except ValueError:
+                beat = None
             return views.action_diagnose(r, a[0], a[1], form.get("complaint", [""])[0], beat)
         if name == "submit":
             return views.action_submit(r, a[0], a[1], form.get("root", [""])[0])

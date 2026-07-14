@@ -12,10 +12,26 @@ inside the authoring boundary and open with a double-click:
 from __future__ import annotations
 
 import html
+from collections.abc import Callable
+from dataclasses import dataclass
 
 from prosodia.core.diagnosis import Diagnosis
 from prosodia.core.lineage import Lineage
 from prosodia.core.trace import RunIndex
+
+
+@dataclass
+class TraceLinks:
+    """Optional UI hooks that make a rendered trace interactive. Each builder maps a
+    trace element to a URL (or returns None to leave it inert). When ``TraceLinks`` is
+    not passed at all, the trace renders as a plain, self-contained document — which is
+    exactly what the standalone ``trace-report`` file uses. One core, two modes.
+    """
+
+    artifact_url: Callable[[str], str | None] | None = None    # (rel) -> lazy-load URL
+    rerun_url: Callable[[str], str | None] | None = None        # (stage) -> POST URL
+    segment_url: Callable[[int], str | None] | None = None      # (segment_id) -> URL
+    pane: str = "tracepane"
 
 _CSS = """
 :root{ --bg:#eef1f5; --card:#fff; --card2:#f6f8fa; --ink:#151d2a; --muted:#5a6472;
@@ -67,11 +83,20 @@ tr.fb td{background:color-mix(in srgb,var(--warn) 12%,transparent);}
 .hyp{margin:9px 0;}
 .fix{background:var(--card2);border-radius:8px;padding:9px 12px;margin-top:8px;font-size:14px;}
 ul.ev-list{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--muted);}
+a{color:var(--accent-ink);}
+.artlink,.seglink{color:var(--accent-ink);cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
+button.rerun{font:inherit;font-size:11px;cursor:pointer;margin-left:8px;color:var(--accent-ink);
+  background:var(--card2);border:1px solid var(--line);border-radius:6px;padding:2px 8px;}
+button.rerun:hover{border-color:var(--accent);}
+.tracepane{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 15px;min-height:56px;}
+.tracepane pre{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;
+  overflow:auto;max-height:440px;white-space:pre-wrap;font-family:var(--mono);font-size:12.5px;}
 """
 
 
 def _esc(s) -> str:
-    return html.escape("" if s is None else str(s), quote=False)
+    # quote=True: interactive traces interpolate _esc output into HTML attributes.
+    return html.escape("" if s is None else str(s), quote=True)
 
 
 def _pct(conf: float) -> int:
@@ -122,7 +147,9 @@ def render_diagnosis_html(diag: Diagnosis) -> str:
     return _page(f"Diagnosis · {diag.id}", "\n".join(parts), f"Prosodia · diagnosis · {diag.id}")
 
 
-def render_trace_fragment(index: RunIndex, lineage: Lineage | None = None) -> str:
+def render_trace_fragment(
+    index: RunIndex, lineage: Lineage | None = None, *, links: TraceLinks | None = None
+) -> str:
     """The trace body — timeline + stages + segments — WITHOUT page chrome.
 
     Shared rendering core: :func:`render_trace_html` composes this into a
@@ -154,9 +181,20 @@ def render_trace_fragment(index: RunIndex, lineage: Lineage | None = None) -> st
             f'<h3><span class="dot s-{_esc(ev.status)}"></span>{_esc(ev.id)} · {_esc(ev.stage)} '
             f"({_esc(ev.role)}){_esc(rnd)}</h3>",
         ]
+        if links and links.rerun_url and (u := links.rerun_url(ev.stage)):
+            block.append(
+                f'<button class="rerun" data-post="{_esc(u)}" data-target="#{_esc(links.pane)}">'
+                "re-run</button>"
+            )
         for kind, arts in (("in", ev.inputs), ("out", ev.outputs)):
             for a in arts:
-                block.append(f'<div class="arts">{kind} <b>{_esc(a.rel)}</b> · {_esc(a.sha256[:10])} · {a.size} B</div>')
+                rel_html = f"<b>{_esc(a.rel)}</b>"
+                if links and links.artifact_url and (u := links.artifact_url(a.rel)):
+                    rel_html = (
+                        f'<a class="artlink" href="#{_esc(links.pane)}" data-get="{_esc(u)}" '
+                        f'data-target="#{_esc(links.pane)}">{_esc(a.rel)}</a>'
+                    )
+                block.append(f'<div class="arts">{kind} {rel_html} · {_esc(a.sha256[:10])} · {a.size} B</div>')
         if ev.meta:
             meta = ", ".join(f"{k}={_esc(v)}" for k, v in ev.meta.items())
             block.append(f'<div class="arts">{meta}</div>')
@@ -173,12 +211,25 @@ def render_trace_fragment(index: RunIndex, lineage: Lineage | None = None) -> st
         for s in lineage.segments:
             row_cls = ' class="fb"' if s.tone_fallback else ""
             tone = _esc(s.tone) + (" ⚠" if s.tone_fallback else "")
+            beat_cell = f"{s.beat_index} · {_esc(s.beat_title)}"
+            if links and links.segment_url and (u := links.segment_url(s.segment_id)):
+                beat_cell = (
+                    f'<a class="seglink" href="#{_esc(links.pane)}" data-get="{_esc(u)}" '
+                    f'data-target="#{_esc(links.pane)}">{beat_cell}</a>'
+                )
             parts.append(
-                f"<tr{row_cls}><td>{s.segment_id}</td><td>{s.beat_index} · {_esc(s.beat_title)}</td>"
+                f"<tr{row_cls}><td>{s.segment_id}</td><td>{beat_cell}</td>"
                 f"<td>{tone} / {_esc(s.rate)}</td><td>{_esc(s.exaggeration)}</td><td>{_esc(s.cfg_weight)}</td>"
                 f"<td>{s.pause_before_ms}</td><td>{_esc(s.spoken_preview)}</td></tr>"
             )
         parts.append("</tbody></table></div>")
+
+    if links:
+        parts.append(
+            f'<h2>Inspector</h2><div id="{_esc(links.pane)}" class="tracepane">'
+            '<p class="muted">Click an artifact or a segment above to load it here; '
+            "use “re-run” on a stage to run it again.</p></div>"
+        )
 
     return "\n".join(parts)
 

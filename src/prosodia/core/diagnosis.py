@@ -15,6 +15,8 @@ The models are plain pydantic — no agent harness.
 
 from __future__ import annotations
 
+import re
+
 from pydantic import BaseModel, Field
 
 from prosodia.core.lineage import Lineage
@@ -65,8 +67,10 @@ class Diagnosis(BaseModel):
 
 
 def _mentions(complaint: str, stage: str) -> bool:
+    # Whole-word match: a plain substring test fired on benign complaints (e.g. "space"
+    # matched "pace", "update" matched "date"), inventing spurious cause candidates.
     c = complaint.lower()
-    return any(k in c for k in KEYWORDS.get(stage, []))
+    return any(re.search(rf"\b{re.escape(k)}\b", c) for k in KEYWORDS.get(stage, []))
 
 
 def gather_signals(

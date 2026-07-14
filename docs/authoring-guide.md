@@ -26,8 +26,9 @@ prosodia write --project projects/eu_history --episode 1  # writes episodes/ep1/
 web-searching only to fill flagged gaps; a series-level `scope:` plans a subset now.
 
 `write` runs the Writer ⇄ Editor loop until the Editor judges the draft ready (up
-to `--max-rounds`, default 3). Every stage appends to `episodes/<slug>/trace.jsonl`
-so you can see what happened and [route feedback to the right stage](pipeline-and-traces.md#troubleshooting).
+to `--max-rounds`, default 3). Every stage records into `episodes/<slug>/run/`
+(events + versioned artifacts) so you can see what happened and [route feedback to the
+right stage](pipeline-and-traces.md#troubleshooting).
 
 ## Writing by hand — format cheatsheet
 
@@ -52,7 +53,7 @@ A mid-beat shift: {tone: tense} now it is tense.
 ...
 ```
 
-- **Beat** = `## title {directives}` — the title is a chapter marker (not spoken)
+- **Beat** = `## title {directives}` — the title is a section label (not spoken)
   and the unit of delivery. One beat → one IR segment.
 - **Directives** `{tone, rate, note}` set engine-neutral intent; `{pause: N}`
   inserts `N` seconds of real silence. **Mark only what the prose can't imply.**

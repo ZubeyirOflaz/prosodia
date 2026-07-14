@@ -19,7 +19,8 @@ _FALLBACK = {"exaggeration": 0.40, "cfg_weight": 0.50, "temperature": 0.75}
 
 
 class VoiceProfiles:
-    def __init__(self, data: dict):
+    def __init__(self, data: dict | None):
+        data = data or {}  # an empty / comment-only voice_profiles.yaml parses to None
         self.engine: str = data.get("engine", "chatterbox")
         self.default_tone: str = data.get("default_tone", "measured")
         self.tones: dict[str, dict] = data.get("tones", {})
@@ -65,13 +66,20 @@ def build_render_plan(
         # applied later, in the backend). Clamp to a sane range.
         cfg = float(p.get("cfg_weight", _FALLBACK["cfg_weight"])) * profiles.pace
         cfg = max(0.15, min(0.95, cfg))
+        # An unknown rate word must degrade gracefully (warn + normal), symmetric with
+        # how an unknown tone is handled — never crash the whole build.
+        try:
+            rate_multiplier = seg.intent.rate_multiplier
+        except ValueError:
+            warnings.append(f"segment {seg.id}: unknown rate '{seg.intent.rate}' -> normal (1.0)")
+            rate_multiplier = 1.0
         params.append(
             SegmentParams(
                 segment_id=seg.id,
                 exaggeration=float(p.get("exaggeration", _FALLBACK["exaggeration"])),
                 cfg_weight=cfg,
                 temperature=float(p.get("temperature", _FALLBACK["temperature"])),
-                rate_multiplier=seg.intent.rate_multiplier,
+                rate_multiplier=rate_multiplier,
             )
         )
     return RenderPlan(engine=profiles.engine, voice=ir.voice, seed=ir.seed, params=params), warnings

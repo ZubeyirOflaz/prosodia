@@ -69,12 +69,12 @@ Mapped to the feature surface:
 |---|---|---|
 | **Live job console** for `plan`/`write` — Writer↔Editor rounds appear as they complete, from the trace store, with a stdout tail | live refresh | **Flagship** |
 | Inline pipeline triggers — run compile/lint/write from the dashboard; the status badge flips in place | inline action | Strong |
-| Live transcript editor — save → recompile → segment count + format errors swap in | form-swap | Strong |
-| Episode table with live status (*planned → drafted → approved → compiled*) | live refresh | Strong |
-| Job queue panel (queued/running, cancel) | live refresh | Good |
-| Draft-round diff (`transcript.v1` vs `v2`, already persisted) | lazy panel | Moderate |
-| Diagnosis flow — "report a problem" form swaps in the ranked-sources panel | form-swap | Moderate |
-| Tone/delivery tuner — nudge a `voice_profiles.yaml` value, re-render a segment's params | form-swap | Nice |
+| Transcript editor — save → recompile → errors shown | full-page POST | Strong |
+| Episode table with status badges (*drafted / compiled / traced*) | static per load | Strong |
+| Per-job panel — status + stdout tail, self-refreshing (no cancel yet) | live refresh | Good |
+| Artifact drill-down (view any round's `transcript.vN`, verdicts, brief) | lazy panel | Moderate |
+| Diagnosis flow — "report a problem" form → ranked-sources page | full-page POST | Moderate |
+| Tone/delivery tuner *(not built)* — nudge a `voice_profiles.yaml` value, re-render params | form-swap | future |
 | Serving existing trace/diagnosis/outline HTML; static config viewing | — | **None** (full page is fine) |
 
 The decisive one is the first row: long `claude -p` jobs whose status must update
@@ -118,10 +118,11 @@ fragments to htmx. Diagnosis follows the same split.
 
 This lands across the phases: the fragment refactor + live trace is part of **Phase
 2** (job console); the actionable/navigable trace is **Phase 3**. The exportable
-self-contained file is kept throughout. *(Shipped so far: the `render_trace_fragment`
-refactor and the live trace embedded in the running `write` job panel. The fully
-actionable/navigable trace — click a segment to the round that produced it, re-run a
-stage from the trace — remains future.)*
+self-contained file is kept throughout. *(Shipped: the `render_trace_fragment` refactor,
+the live trace embedded in the running `write` job panel, and the fully interactive
+trace page — lazy artifact drill-down, segment→producing-round links, and
+re-run-a-stage buttons — via an optional `TraceLinks` hook the UI passes and the
+standalone file omits.)*
 
 ## Architecture
 
@@ -130,11 +131,11 @@ A new torch-free package `prosodia.author.web`, launched by a
 It adds a layer; it changes nothing beneath it.
 
 ```
-  Browser (127.0.0.1)                     server-rendered HTML + vendored htmx.js
-        │  htmx swaps HTML fragments; <meta refresh> or SSE on job panels
+  Browser (127.0.0.1)              server-rendered HTML + in-house app.js (htmx-style)
+        │  app.js swaps HTML fragments; data-poll self-refresh on job panels
         ▼
-  web/server.py        ThreadingHTTPServer · ~10 routes · shared _page() layout
-        │              (extended from author/trace_view.py) · inlined CSS
+  web/server.py        ThreadingHTTPServer · GET/POST routes · shared _layout()
+        │              (+ trace_view's CSS on the trace page) · inlined CSS
         ├──────────────────────────────┬───────────────────────────────────────
         ▼                               ▼
   web/jobs.py                     web/views.py

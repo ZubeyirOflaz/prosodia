@@ -100,7 +100,7 @@ def audition(
     seeds = [base_seed + k for k in range(max(1, takes))]
     written: list[Path] = []
     rows: list[tuple[str, list[str]]] = []
-    for clip in clips:
+    for ci, clip in enumerate(clips):
         files: list[str] = []
         for seed in seeds:
             wav = backend.generate(
@@ -108,11 +108,11 @@ def audition(
                 temperature=temperature, seed=seed, audio_prompt_path=str(clip),
             )
             wav = A.trim_silence(wav, sr)
-            name = f"{clip.stem}__seed{seed}.wav"
+            name = f"{ci:02d}_{clip.stem}__seed{seed}.wav"  # prefix index: two clips can share a stem
             raw = out_dir / f"_raw_{name}"
             A.write_wav(raw, wav, sr)
             final = out_dir / name
-            if not A.loudness_normalize(raw, final, target_lufs):
+            if not A.loudness_normalize(raw, final, target_lufs, sr=sr):
                 A.write_wav(final, A.peak_normalize(wav), sr)
             raw.unlink(missing_ok=True)
             written.append(final)

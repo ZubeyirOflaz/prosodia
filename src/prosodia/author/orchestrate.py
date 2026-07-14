@@ -156,10 +156,13 @@ def author_episode(
                 inputs=[brief_art] if brief_art else [],
                 outputs=[draft_art], chars=len(transcript),
             )
+            run.write_index()  # persist per round so a live viewer sees each round land
 
         eprompt = f"BRIEF:\n{brief}\n\nTRANSCRIPT:\n{transcript}"
         _, verdict = runner.run(eprompt, system=editor_sys, schema=EDITOR_SCHEMA)
-        verdict = verdict or {"ready": True, "notes": ""}
+        # A missing/unparseable verdict is treated as ready (deliberate — don't wedge on a
+        # flaky editor), but record WHY so it isn't a silent pass in the trace.
+        verdict = verdict or {"ready": True, "notes": "(no parseable editor verdict — treated as ready)"}
         ready = bool(verdict.get("ready"))
         note_txt = str(verdict.get("notes", ""))
         if trace:
@@ -176,6 +179,7 @@ def author_episode(
                 outputs=[verdict_art], ready=ready, notes=note_txt[:500],
                 warnings=["reached max_rounds without Editor approval"] if unresolved else [],
             )
+            run.write_index()
         if ready:
             break
         notes = note_txt

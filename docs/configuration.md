@@ -27,6 +27,7 @@ Series-level config and the coverage map (goal #4). Fields:
 |---|---|
 | `series`, `description` | series name and one-line goal |
 | `style` | house-style id, passed to the Writer |
+| `angle` | *(optional)* organizing through-line handed to the Planner (it proposes one if absent) |
 | `persona` | authoring persona (voice) — resolved from the persona library; default `hardcore-history` |
 | `engine` | target TTS engine (`chatterbox`) |
 | `voice` | **default voice** for the series (a transcript may omit `voice` and inherit this) |

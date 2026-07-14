@@ -30,14 +30,20 @@ SIM_THRESHOLD = 0.85
 _FALLBACK = (0.40, 0.50, 0.75, 1.0)
 
 
-def _resolve_voice_ref(ir: EpisodeIR, job_dir: Path, voices_dir: str | None) -> str | None:
+def _resolve_voice_ref(
+    ir: EpisodeIR, job_dir: Path, voices_dir: str | None, *, exclude: frozenset = frozenset()
+) -> str | None:
     """A bundled voice clip in the job wins; else voices_dir/<voice>.wav; else None.
 
     A ``preset:`` voice cannot be resolved to a reference clip here; we warn so the
-    request is not silently downgraded to Chatterbox's built-in default (the
-    backend will also refuse a preset it is handed).
+    request is not silently downgraded to Chatterbox's built-in default (the backend
+    will also refuse a preset it is handed). Render outputs (``episode.wav``,
+    ``*.raw.wav``) are skipped so a re-render never adopts its own previous output as
+    the reference clip.
     """
     for p in sorted(Path(job_dir).glob("*.wav")):
+        if p.name in exclude or p.name.endswith(".raw.wav"):
+            continue
         return str(p)
     if voices_dir and ir.voice and not ir.voice.startswith("preset:"):
         cand = Path(voices_dir) / f"{ir.voice}.wav"
@@ -57,6 +63,7 @@ def _render_chunk(backend, text, params, base_seed, seg_id, ci, ref, *,
     n = 1 if fast_preview else max(1, candidates)
     best: np.ndarray | None = None
     best_score = -1.0
+    last_exc: Exception | None = None
     for k in range(n):
         seed = None if base_seed is None else int(base_seed) + seg_id * 1000 + ci * 10 + k
         try:
@@ -70,7 +77,9 @@ def _render_chunk(backend, text, params, base_seed, seg_id, ci, ref, *,
                 audio_prompt_path=ref,
                 voice=voice,
             )
-        except Exception:
+        except Exception as exc:  # noqa: BLE001 - try the next candidate, but never silently
+            last_exc = exc
+            logger.warning("segment %d chunk %d candidate %d failed: %s", seg_id, ci, k, exc)
             continue
         if fast_preview or validator is None:
             return wav
@@ -79,7 +88,14 @@ def _render_chunk(backend, text, params, base_seed, seg_id, ci, ref, *,
             best, best_score = wav, score
         if score >= SIM_THRESHOLD:
             break
-    return best if best is not None else np.zeros(0, dtype=np.float32)
+    if best is not None:
+        return best
+    # Every candidate failed. Returning np.zeros() here would splice SILENCE into the
+    # episode and still let the job be marked "done" — fail loudly so it's quarantined.
+    raise RuntimeError(
+        f"segment {seg_id} chunk {ci}: all {n} generation attempt(s) failed"
+        + (f" — {last_exc}" if last_exc is not None else "")
+    )
 
 
 def render_job(
@@ -108,7 +124,13 @@ def render_job(
         backend = ChatterboxBackend()
     backend.load()
     sr = backend.sample_rate
-    ref = _resolve_voice_ref(ir, job_dir, voices_dir)
+    out_path = Path(out_path)
+    if not out_path.suffix:
+        out_path = out_path.with_suffix(".wav")
+    ref = _resolve_voice_ref(
+        ir, job_dir, voices_dir,
+        exclude=frozenset({out_path.name, out_path.with_suffix(".raw.wav").name}),
+    )
     if validator is None and not fast_preview:
         from prosodia.render.quality import WhisperValidator
 
@@ -149,13 +171,10 @@ def render_job(
         if on_progress:
             on_progress((i + 1) / total)
 
-    out_path = Path(out_path)
-    if not out_path.suffix:
-        out_path = out_path.with_suffix(".wav")
     out_path.parent.mkdir(parents=True, exist_ok=True)
     raw = out_path.with_suffix(".raw.wav")
     A.write_wav(raw, out, sr)
-    if not A.loudness_normalize(raw, out_path, target_lufs):
+    if not A.loudness_normalize(raw, out_path, target_lufs, sr=sr):
         A.write_wav(out_path, A.peak_normalize(out), sr)  # fallback if ffmpeg missing
     raw.unlink(missing_ok=True)
     return out_path

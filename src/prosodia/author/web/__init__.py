@@ -1,12 +1,11 @@
-"""Local authoring dashboard (Phase 1 — read-only).
+"""Local authoring dashboard (``prosodia ui``).
 
-A dependency-free web UI over the authoring workspace: browse projects and their
-episodes, and open the plan outline and per-episode run traces the pipeline already
-produces. Standard-library only (``http.server``) — no torch, no framework, no build
-step — so it stays inside the authoring boundary (see ``docs/authoring-ui.md``).
-
-Phase 1 is read-only. Triggering jobs, live status, and in-browser editing arrive in
-later phases; htmx is introduced with the live job console (Phase 2).
+A dependency-free web UI over the authoring workspace: browse projects and episodes;
+run the planner/writer as background jobs; compile, edit transcripts, repetition-lint,
+diagnose, and package render jobs; and open the plan outline and per-episode run trace
+(interactive). Standard-library ``http.server`` plus a small in-house htmx-style JS
+layer — no torch, no framework, no build step — so it stays inside the authoring
+boundary (see ``docs/authoring-ui.md``).
 """
 
 from __future__ import annotations

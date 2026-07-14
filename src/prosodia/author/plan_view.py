@@ -69,7 +69,10 @@ def _render_body(md: str) -> str:
             continue
 
         if _HR.match(line):
-            flush_para(); out.append("<hr>"); i += 1; continue
+            flush_para()
+            out.append("<hr>")
+            i += 1
+            continue
 
         m = _HEADING.match(line)
         if m:
@@ -101,7 +104,9 @@ def _render_body(md: str) -> str:
             continue
 
         if not line.strip():
-            flush_para(); i += 1; continue
+            flush_para()
+            i += 1
+            continue
 
         para.append(line.strip())
         i += 1

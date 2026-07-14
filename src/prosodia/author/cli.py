@@ -121,14 +121,14 @@ def _cmd_submit(args: argparse.Namespace) -> int:
 def _cmd_voice_prep(args: argparse.Namespace) -> int:
     try:
         from prosodia.author.voiceprep import prepare_clip
-    except ImportError:
+
+        info = prepare_clip(
+            args.source, args.start, args.out,
+            target_s=args.duration, min_s=args.min_s, max_s=args.max_s,
+        )
+    except ImportError:  # soundfile/numpy are imported lazily inside prepare_clip
         print('voice-prep needs the audio extra: pip install "prosodia[audio]"', file=sys.stderr)
         return 1
-
-    info = prepare_clip(
-        args.source, args.start, args.out,
-        target_s=args.duration, min_s=args.min_s, max_s=args.max_s,
-    )
     for w in info["warnings"]:
         print(f"warning: {w}", file=sys.stderr)
     print(f"wrote {args.out}  ({info['duration']:.1f}s @ {info['sr']} Hz, mono)")
@@ -204,7 +204,11 @@ def _cmd_diagnose(args: argparse.Namespace) -> int:
 
     diags_dir = run.dir / "diagnoses"
     diags_dir.mkdir(parents=True, exist_ok=True)
-    diag_id = f"diag-{len(list(diags_dir.glob('diag-*.json'))) + 1:03d}"
+    # Derive the next id from the max existing number, not the count — a count collides
+    # (and overwrites) after any diagnosis is deleted.
+    _nums = [int(m.group(1)) for p in diags_dir.glob("diag-*.json")
+             if (m := re.match(r"diag-(\d+)", p.stem))]
+    diag_id = f"diag-{(max(_nums) + 1) if _nums else 1:03d}"
     diag = build_diagnosis(
         args.complaint, lineage, events,
         episode=ir.episode, beat=args.beat, diag_id=diag_id,
@@ -464,7 +468,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_pnew.add_argument("--into", help="library dir to create it in (default: the built-in library)")
     p_pnew.add_argument("--project", help="also resolve --from against this project's personas/")
 
-    p_ui = sub.add_parser("ui", help="serve the local authoring dashboard (read-only; no GPU)")
+    p_ui = sub.add_parser("ui", help="serve the local authoring dashboard (run jobs, edit, diagnose; no GPU)")
     p_ui.add_argument("--root", default="projects", help="projects root dir (default: projects)")
     p_ui.add_argument("--host", default="127.0.0.1", help="bind host (default: 127.0.0.1)")
     p_ui.add_argument("--port", type=int, default=8765, help="port (default: 8765)")
