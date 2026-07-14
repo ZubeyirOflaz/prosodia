@@ -2,8 +2,9 @@
 
 [← Docs index](README.md)
 
-> **Status: planned, not built.** This records the agreed architecture and phased
-> plan for a local authoring interface. Design decision is also summarized in
+> **Status: built (Phases 1–4).** `prosodia ui` serves the dashboard, the live job
+> console, the transcript editor, repetition lint, and diagnosis. This document
+> records the architecture and rationale; the decision is also summarized in
 > [DESIGN.md §12](../DESIGN.md).
 
 ## Goal
@@ -36,11 +37,15 @@ to `127.0.0.1`, with route handlers that call the existing orchestrate/CLI funct
 and return HTML built the same way `trace_view.py` already builds it. **Zero new
 dependencies** — the install stays `pydantic + pyyaml`.
 
-**Frontend — vendored htmx.** htmx is a ~14 KB JavaScript file (served *locally* from
-the repo, so it is **not** a Python dependency and needs **no build step**). It is a
-frontend technique, not a backend: the server returns small **HTML fragments** and
-htmx swaps them into the page — no JSON API, no JS framework. It earns its place
-because the app is job-centric, and live job progress is exactly its sweet spot.
+**Frontend — a tiny in-house interactivity layer (htmx-style).** Rather than vendor
+the real ~14 KB `htmx.min.js`, the UI ships a ~60-line dependency-free JS shim
+(`web/assets.py`, served at `/assets/app.js`) using the same attribute-driven model:
+`data-get`/`data-post` fetch and swap an HTML **fragment** into a target, with
+`data-trigger="load"` and interval `data-poll`. No JSON API, no JS framework, no build
+step — and no external file to fetch, so it stays fully self-contained. It is a
+deliberate **drop-in stand-in for htmx** (swap in the real library and rename the
+attributes to `hx-*` later if richer behavior is ever wanted). Live job progress —
+the reason a frontend layer earns its place at all — works the same way.
 
 **Sanctioned upgrade — Flask.** Identical architecture; adopt *only* if hand-rolled
 routing/templating outgrows a comfortable dispatch table. htmx multiplies the number
@@ -80,11 +85,49 @@ polls and swaps it in). Token-level streaming would mean capturing
 `claude -p --output-format stream-json` into an SSE endpoint — a clean later upgrade,
 not needed for the MVP.
 
+## Future: trace & diagnosis as live, integrated views
+
+Today `trace-report` and `diagnose` emit a **single self-contained HTML file**
+(`author/trace_view.py`). That file is genuinely valuable — shareable, offline,
+archival — and **stays**. But as the *working* surface it has three limits: it is a
+**static snapshot** (regenerate to see a re-run), it **inlines everything** (a large
+trace with many rounds/artifacts becomes a heavy file), and it is **disconnected**
+from the running app (read-only; you can't act from it).
+
+Integrating it via htmx removes all three and turns the trace viewer into the UI's
+**live job console**:
+
+- **Live** — while a `plan`/`write` job runs, the trace panel polls `run.json` and
+  swaps in new stages and Writer↔Editor rounds as they land, instead of a manual
+  regenerate-and-reopen.
+- **Lazy** — heavy artifacts (full drafts, round diffs) load on demand via `hx-get`
+  rather than being inlined up front, so a big trace stays fast.
+- **Actionable & navigable** — trigger *re-run this stage with notes*, *diagnose
+  this*, or *open the transcript at this segment* inline; click a lineage segment to
+  jump to the round that produced it, or a diagnosis candidate to the implicated
+  stage.
+- **Unified** — it renders inside the dashboard shell (theme, nav, project context)
+  rather than as an orphan file.
+
+The clean way to get both is **one rendering core, two delivery modes** (matching the
+"one store, two readers" philosophy): refactor `trace_view.py` from one monolithic
+page-builder into composable **fragment builders** (timeline, per-stage panel,
+segment-lineage row, diff). The standalone `trace-report` file composes the fragments
+into a self-contained page (unchanged for users); the web server serves the same
+fragments to htmx. Diagnosis follows the same split.
+
+This lands across the phases: the fragment refactor + live trace is part of **Phase
+2** (job console); the actionable/navigable trace is **Phase 3**. The exportable
+self-contained file is kept throughout. *(Shipped so far: the `render_trace_fragment`
+refactor and the live trace embedded in the running `write` job panel. The fully
+actionable/navigable trace — click a segment to the round that produced it, re-run a
+stage from the trace — remains future.)*
+
 ## Architecture
 
 A new torch-free package `prosodia.author.web`, launched by a
-`prosodia ui --project <dir> --port 8765` subcommand. It adds a layer; it changes
-nothing beneath it.
+`prosodia ui --root <projects-dir> --port 8765` subcommand (defaults to `projects/`).
+It adds a layer; it changes nothing beneath it.
 
 ```
   Browser (127.0.0.1)                     server-rendered HTML + vendored htmx.js
@@ -130,7 +173,8 @@ nothing beneath it.
 
 ## Phased build
 
-Each phase is independently useful and shippable, front-loading value:
+Each phase is independently useful and shippable, front-loading value. **All four are
+now implemented** (`prosodia ui`):
 
 1. **Read-only dashboard.** Browse projects, personas, and the episode table with
    computed status; serve the existing trace / diagnosis / outline HTML. No job

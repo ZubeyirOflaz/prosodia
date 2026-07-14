@@ -386,6 +386,13 @@ def _cmd_write(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_ui(args: argparse.Namespace) -> int:
+    from prosodia.author.web import serve
+
+    serve(args.root, host=args.host, port=args.port, open_browser=not args.no_browser)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="prosodia",
@@ -456,6 +463,12 @@ def build_parser() -> argparse.ArgumentParser:
                         help="persona to copy from (default: hardcore-history)")
     p_pnew.add_argument("--into", help="library dir to create it in (default: the built-in library)")
     p_pnew.add_argument("--project", help="also resolve --from against this project's personas/")
+
+    p_ui = sub.add_parser("ui", help="serve the local authoring dashboard (read-only; no GPU)")
+    p_ui.add_argument("--root", default="projects", help="projects root dir (default: projects)")
+    p_ui.add_argument("--host", default="127.0.0.1", help="bind host (default: 127.0.0.1)")
+    p_ui.add_argument("--port", type=int, default=8765, help="port (default: 8765)")
+    p_ui.add_argument("--no-browser", action="store_true", help="do not open a browser window")
     return parser
 
 
@@ -471,6 +484,7 @@ _DISPATCH = {
     "diagnose": _cmd_diagnose,
     "personas": _cmd_personas,
     "persona-new": _cmd_persona_new,
+    "ui": _cmd_ui,
 }
 
 

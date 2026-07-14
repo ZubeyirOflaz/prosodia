@@ -301,8 +301,9 @@ compiled).
 
 A single, barebones **local** interface unifying the authoring commands (plan,
 write, compile, trace, diagnose, persona/transcript management) so the pipeline
-isn't driven by CLI flags alone. Decision recorded here; full rationale and the
-options comparison in [`docs/authoring-ui.md`](docs/authoring-ui.md):
+isn't driven by CLI flags alone. **Built** as `prosodia ui` (Phases 1–4). Decision
+recorded here; full rationale and the options comparison in
+[`docs/authoring-ui.md`](docs/authoring-ui.md):
 
 - **Backend: Python standard-library `http.server`** (a `ThreadingHTTPServer` bound
   to `127.0.0.1`) — **zero new dependencies**, so the torch-free authoring install
@@ -310,9 +311,10 @@ options comparison in [`docs/authoring-ui.md`](docs/authoring-ui.md):
   emits (`author/trace_view.py`, `plan-view`) and reads status straight from the
   existing `Run` trace store. A small thread-based job runner **serializes** the
   long `claude -p` jobs (concurrent sessions contend) and runs fast ops inline.
-- **Frontend: vendored htmx** — one ~14 KB file served locally (not a Python
-  dependency, no build step) — for live job progress and inline actions via partial
-  HTML swaps, which the plain full-page-reload model handles poorly.
+- **Frontend: a tiny in-house interactivity layer** — htmx-style `data-*` attributes,
+  ~60 lines served at `/assets/app.js` (not a Python dependency, no build step, no
+  external file) — for live job progress and inline actions via partial HTML swaps. A
+  deliberate drop-in stand-in for htmx.
 - **Sanctioned upgrade: Flask** — identical architecture; adopt only if hand-rolled
   routing/templating outgrows a comfortable dispatch table (htmx's many small
   endpoints are the likely trigger). FastAPI/Textual are situational;

@@ -8,7 +8,7 @@ Two commands: **`prosodia`** (authoring, any machine) and **`prosodia-render`**
 ## `prosodia` (authoring)
 
 ```
-prosodia [--version] {plan, write, compile, submit, voice-prep, plan-view, trace-report, diagnose, personas, persona-new} ...
+prosodia [--version] {plan, write, compile, submit, voice-prep, plan-view, trace-report, diagnose, personas, persona-new, ui} ...
 ```
 
 ### `prosodia plan`
@@ -136,6 +136,23 @@ from a full role set + tone table to edit).
 | `--from NAME` | no | persona to copy from (default: `hardcore-history`) |
 | `--into DIR` | no | library dir to create it in (default: the built-in library) |
 | `--project DIR` | no | resolve `--from` against a project's `personas/` too |
+
+### `prosodia ui`
+
+Serve the local authoring **dashboard** — a web view over the projects workspace:
+browse projects and episodes (with drafted/compiled/traced status); run the planner
+and writer as **live background jobs**; compile, edit transcripts (save + recompile),
+repetition-lint, run deterministic diagnosis, and package render jobs; and open the
+plan outline and each episode's run trace. Standard-library server plus a tiny
+in-house JS layer (no GPU, no extra deps); binds to loopback. See the
+[Authoring UI](authoring-ui.md) plan. `Ctrl-C` stops it.
+
+| Option | Req | Meaning |
+|---|---|---|
+| `--root DIR` | no | projects root directory (default: `projects`) |
+| `--host H` | no | bind host (default: `127.0.0.1`) |
+| `--port N` | no | port (default: `8765`) |
+| `--no-browser` | no | don't open a browser window on start |
 
 ## `prosodia-render` (GPU box)
 

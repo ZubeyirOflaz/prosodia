@@ -122,7 +122,13 @@ def render_diagnosis_html(diag: Diagnosis) -> str:
     return _page(f"Diagnosis · {diag.id}", "\n".join(parts), f"Prosodia · diagnosis · {diag.id}")
 
 
-def render_trace_html(index: RunIndex, lineage: Lineage | None = None) -> str:
+def render_trace_fragment(index: RunIndex, lineage: Lineage | None = None) -> str:
+    """The trace body — timeline + stages + segments — WITHOUT page chrome.
+
+    Shared rendering core: :func:`render_trace_html` composes this into a
+    self-contained file, and the authoring UI serves the same markup as a live
+    (poll-refreshed) fragment. One store, two readers.
+    """
     title = index.title or (f"Episode {index.episode}" if index.episode is not None else "Run")
     parts = [
         f"<h1>{_esc(title)}</h1>",
@@ -174,5 +180,12 @@ def render_trace_html(index: RunIndex, lineage: Lineage | None = None) -> str:
             )
         parts.append("</tbody></table></div>")
 
+    return "\n".join(parts)
+
+
+def render_trace_html(index: RunIndex, lineage: Lineage | None = None) -> str:
+    title = index.title or (f"Episode {index.episode}" if index.episode is not None else "Run")
     ep = index.episode if index.episode is not None else ""
-    return _page(f"Trace · {title}", "\n".join(parts), f"Prosodia · trace · ep{ep}")
+    return _page(
+        f"Trace · {title}", render_trace_fragment(index, lineage), f"Prosodia · trace · ep{ep}"
+    )

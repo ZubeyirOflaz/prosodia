@@ -23,6 +23,11 @@ decisions are [DESIGN.md §11](../DESIGN.md); tracked fixes are
   [research docket](configuration.md#research-docket) and honors a series-level
   `scope:`. First `thinkers` series `projects/political_thinkers/` ("The Long
   Argument") — a 20-episode outline plus episodes 1–2 authored and compiled.
+- **Authoring UI** (`prosodia ui`): a dependency-free local dashboard — browse
+  projects/episodes with status, run planner/writer as live serialized jobs, compile,
+  edit transcripts (save + recompile), repetition-lint, and run deterministic
+  diagnosis; reuses the existing trace/outline HTML. Std-lib server + a ~60-line
+  in-house htmx-style JS layer, no new deps. See [Authoring UI](authoring-ui.md).
 - **Delivery-quality pass**: an LLM **tone specialist** ([`roles/tone.md`](../src/prosodia/author/personas/hardcore-history/roles/tone.md))
   run with a word-invariance check, plus a retuned `voice_profiles.yaml` — raised
   `exaggeration` to cure flatness, mid-clause digest pauses — applied to
@@ -46,9 +51,8 @@ decisions are [DESIGN.md §11](../DESIGN.md); tracked fixes are
 - **Chapter metadata & per-episode output filenames** (today: a flat `episode.wav`).
 - **`rate` as true time-stretch** (today: coupled onto `cfg_weight`).
 - **Coverage lint** (today: the Planner produces the map; no automated checker).
-- **Authoring UI (planned)**: a barebones local dashboard unifying plan/write/
-  compile/trace/diagnose — stdlib server + vendored htmx, no new dependencies. See
-  [Authoring UI](authoring-ui.md).
+- **Actionable trace** (future): click a lineage segment to the round that produced
+  it, and re-run a stage from the trace view — see [Authoring UI](authoring-ui.md).
 
 ## Later (behind the pluggable interface)
 
