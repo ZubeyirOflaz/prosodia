@@ -26,6 +26,20 @@ class Lexicon:
         keys = sorted(self.entries, key=len, reverse=True)
         return re.compile(r"\b(" + "|".join(re.escape(k) for k in keys) + r")\b")
 
+    def _compile_reverse(self) -> tuple[re.Pattern | None, dict[str, str]]:
+        """Build the inverse (respelling -> source) matcher. When two sources map to
+        the same respelling the last one wins (harmless for scoring). Respellings need
+        not be \b-bounded on both sides (they may start/end with '-' or spaces), so we
+        match them literally, longest-first."""
+        if not self.entries:
+            return None, {}
+        rev: dict[str, str] = {}
+        for src, resp in self.entries.items():
+            rev[resp] = src
+        keys = sorted(rev, key=len, reverse=True)
+        pattern = re.compile("|".join(re.escape(k) for k in keys))
+        return pattern, rev
+
     @classmethod
     def load(cls, path: Path | None) -> "Lexicon":
         if path is None or not Path(path).exists():
@@ -38,3 +52,13 @@ class Lexicon:
         if not self._compiled:
             return text
         return self._compiled.sub(lambda m: self.entries[m.group(1)], text)
+
+    def reverse(self, text: str) -> str:
+        """Map respellings back to their source spellings. Used to build a
+        Whisper-comparable reference for the render-side STT gate: a correct
+        pronunciation of a respelled name is transcribed as the ORIGINAL name, so
+        the gate must score against the original spelling, not the respelling."""
+        pattern, rev = self._compile_reverse()
+        if pattern is None:
+            return text
+        return pattern.sub(lambda m: rev[m.group(0)], text)

@@ -99,14 +99,22 @@ reference's *style and emotion leak into the output*, and stability/artifacts va
 
 ### Audition candidate voices
 
-Render the **same text** with several clips (so the clip is the only variable), then A/B them:
+By default this renders each clip across the **full delivery range** — a built-in suite of
+short passages spanning the tonal registers (measured → warm → wry → tense → urgent →
+dramatic → reverent → somber → grave) and cadences (fast enumerations, long flowing
+sentences, slow deliberate lines, a posed question). Each passage uses the **real
+parameters the pipeline would apply** for its tone and rate, so a clip that sounds perfect
+grave-and-slow but falls apart wry-and-fast is caught here, not in a finished episode:
 
 ```powershell
-.venv-render\Scripts\prosodia-render.exe audition --voices .\voices --out .\voice_audition --takes 2
-# or compare specific files, with your own line:
-.venv-render\Scripts\prosodia-render.exe audition --voices a.wav b.wav c.wav --text "Your test line." --takes 3
+.venv-render\Scripts\prosodia-render.exe audition --voices .\voices --out .\voice_audition
+# single-passage mode with your own line (optionally a tone/rate to speak it with):
+.venv-render\Scripts\prosodia-render.exe audition --voices a.wav b.wav --text "Your test line." --tone grave --rate slow
+# audition against a specific persona's tone table (name, or a path to a voice_profiles.yaml):
+.venv-render\Scripts\prosodia-render.exe audition --voices .\voices --persona thinkers
 ```
 
-It writes one `.wav` per clip×take plus an `index.html` with audio players — open it in a
-browser to compare. Uses the renderer's slow-narration defaults; override with
+It writes one `.wav` per passage×clip×take plus an `index.html` (grouped by passage, showing
+the resolved parameters) with audio players — open it in a browser to compare. Add `--takes N`
+for seed-to-seed variance, or force a single setting across every passage with
 `--exaggeration` / `--cfg` / `--temperature`.

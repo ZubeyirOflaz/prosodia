@@ -74,15 +74,53 @@ def build_parser() -> argparse.ArgumentParser:
     p_watch.add_argument("--once", action="store_true", help="process the current inbox once and exit")
     p_watch.add_argument("--no-title", action="store_true", help="don't speak the episode title at the start")
 
-    p_aud = sub.add_parser("audition", help="render the SAME text with several voice clips, side by side (A/B)")
+    p_aud = sub.add_parser(
+        "audition",
+        help="A/B voice clips across the full delivery range (or a single custom text)",
+    )
     p_aud.add_argument("--voices", nargs="+", required=True, help="a voices/ dir and/or .wav files to compare")
     p_aud.add_argument("--out", default="voice_audition", help="output directory (default: ./voice_audition)")
-    p_aud.add_argument("--text", help="text to speak (default: a short built-in narration sample)")
-    p_aud.add_argument("--text-file", help="read the text from a file instead of --text")
-    p_aud.add_argument("--takes", type=int, default=2, help="takes per clip, seeds matched across clips (default 2)")
-    p_aud.add_argument("--exaggeration", type=float, default=0.4)
-    p_aud.add_argument("--cfg", type=float, default=0.45, dest="cfg_weight")
-    p_aud.add_argument("--temperature", type=float, default=0.75)
+    p_aud.add_argument(
+        "--text",
+        help="single-passage mode: speak this one text instead of the built-in range suite",
+    )
+    p_aud.add_argument("--text-file", help="read the single-passage text from a file instead of --text")
+    p_aud.add_argument("--tone", default="measured", help="tone for --text mode (default: measured)")
+    p_aud.add_argument("--rate", default="normal", help="rate for --text mode (default: normal)")
+    p_aud.add_argument(
+        "--voice-profiles", "--persona", dest="voice_profiles",
+        help="persona NAME (e.g. thinkers) or path to a voice_profiles.yaml whose tone table "
+             "drives the params (default: the built-in persona's)",
+    )
+    p_aud.add_argument("--takes", type=int, default=1, help="takes per cell, seeds matched across clips (default 1)")
+    p_aud.add_argument(
+        "--exaggeration", type=float, default=None,
+        help="override exaggeration for every passage (default: from the tone table)",
+    )
+    p_aud.add_argument(
+        "--cfg", type=float, default=None, dest="cfg_weight",
+        help="override cfg_weight for every passage (default: from the tone table)",
+    )
+    p_aud.add_argument(
+        "--temperature", type=float, default=None,
+        help="override temperature for every passage (default: from the tone table)",
+    )
+
+    p_lex = sub.add_parser(
+        "lexicon-audition",
+        help="hear each lexicon respelling across seeds to pick stable pronunciations",
+    )
+    p_lex.add_argument("--voices", nargs="+", required=True, help="a voices/ dir and/or .wav files")
+    p_lex.add_argument("--lexicon", required=True, help="path to a project lexicon.yaml")
+    p_lex.add_argument("--out", default="lexicon_audition", help="output directory (default: ./lexicon_audition)")
+    p_lex.add_argument("--names", nargs="+", help="only audition these source names (default: all)")
+    p_lex.add_argument(
+        "--variants",
+        help="YAML mapping {name: [respelling, ...]} of candidate respellings to A/B",
+    )
+    p_lex.add_argument("--frame", default=None, help="carrier sentence with a '{}' placeholder for the name")
+    p_lex.add_argument("--takes", type=int, default=3, help="seeds per variant (default 3)")
+    p_lex.add_argument("--no-raw", action="store_true", help="skip the raw-name baseline take")
     return parser
 
 
@@ -129,18 +167,39 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "audition":
-        from prosodia.render.audition import DEFAULT_TEXT, audition
+        from prosodia.render.audition import audition
 
+        # None => render the full built-in range suite; a value => single-passage mode.
         if args.text_file:
             text = Path(args.text_file).read_text(encoding="utf-8")
         else:
-            text = args.text or DEFAULT_TEXT
+            text = args.text
         written = audition(
-            text, args.voices, args.out, takes=args.takes,
+            args.voices, args.out, text=text, tone=args.tone, rate=args.rate,
+            takes=args.takes, voice_profiles_path=args.voice_profiles,
             exaggeration=args.exaggeration, cfg_weight=args.cfg_weight, temperature=args.temperature,
         )
-        print(f"rendered {len(written)} sample(s) -> {args.out}")
+        mode = "custom text" if text is not None else "full range suite"
+        print(f"rendered {len(written)} sample(s) ({mode}) -> {args.out}")
         print(f"open {Path(args.out) / 'index.html'} to A/B the voices")
+        return 0
+
+    if args.command == "lexicon-audition":
+        import yaml
+
+        from prosodia.render.lexicon_audition import DEFAULT_FRAME, lexicon_audition
+
+        variants = None
+        if args.variants:
+            loaded = yaml.safe_load(Path(args.variants).read_text(encoding="utf-8")) or {}
+            variants = loaded if isinstance(loaded, dict) else None
+        written = lexicon_audition(
+            args.voices, args.out, lexicon_path=args.lexicon, names=args.names,
+            variants=variants, frame=args.frame or DEFAULT_FRAME, include_raw=not args.no_raw,
+            takes=args.takes,
+        )
+        print(f"rendered {len(written)} sample(s) -> {args.out}")
+        print(f"open {Path(args.out) / 'index.html'} to pick stable respellings")
         return 0
 
     return 2

@@ -223,6 +223,13 @@ def compile_text(
         if not authored:
             return
         spoken = lexicon.apply(normalize_text(authored))
+        chunks = chunk_text(spoken, max_chars)
+        # De-respelled per-chunk reference for the render STT gate (see Segment docs).
+        # Only carried when a respelling was actually applied here — otherwise it would
+        # duplicate `chunks` verbatim and bloat the IR.
+        score_chunks = [lexicon.reverse(c) for c in chunks]
+        if score_chunks == chunks:
+            score_chunks = []
         segments.append(
             Segment(
                 id=state["seg_id"],
@@ -234,7 +241,8 @@ def compile_text(
                 authored_text=authored,
                 spoken_text=spoken,
                 emphasis=list(emph),
-                chunks=chunk_text(spoken, max_chars),
+                chunks=chunks,
+                score_chunks=score_chunks,
             )
         )
         state["seg_id"] += 1

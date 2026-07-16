@@ -205,17 +205,52 @@ Watch an exchange root and render jobs as they arrive (model kept warm).
 
 ### `prosodia-render audition`
 
-Render the **same text** with several reference clips side by side (content held
-constant, so the clip is the only variable) to A/B candidate voices. Writes one `.wav`
-per clip×take plus an `index.html` player. See [Renderer setup → Voices](../scripts/RENDERER_SETUP.md).
+A/B candidate voices across the **full delivery range**. By default it renders a built-in
+*suite* of short passages spanning the tonal registers (measured → warm → wry → tense →
+urgent → dramatic → reverent → somber → grave) and cadences (brisk enumerations, long
+flowing sentences, a posed question with a beat, slow deliberate lines) — so you hear each
+clip everywhere it will have to work, not just in calm narration. Each passage is spoken
+with the **real engine parameters the pipeline would use** for that tone and rate (from the
+persona's `voice_profiles.yaml` tone table + `pace` dial), so the audition matches
+production. Content is held constant per row, so the reference clip is the only variable.
+Writes one `.wav` per passage×clip×take plus an `index.html` player grouped by passage. See
+[Renderer setup → Voices](../scripts/RENDERER_SETUP.md).
 
 | Argument / option | Req | Meaning |
 |---|---|---|
 | `--voices ...` | yes | a `voices/` dir and/or `.wav` files to compare |
 | `--out DIR` | no | output directory (default: `./voice_audition`) |
-| `--text STR` / `--text-file F` | no | text to speak (default: a built-in narration sample) |
-| `--takes N` | no | takes per clip, seeds matched across clips (default 2) |
-| `--exaggeration` / `--cfg` / `--temperature` | no | delivery overrides |
+| `--text STR` / `--text-file F` | no | single-passage mode: speak this one text instead of the range suite |
+| `--tone` / `--rate` | no | delivery intent for `--text` mode (default: `measured` / `normal`) |
+| `--voice-profiles X` (alias `--persona`) | no | persona **name** (e.g. `thinkers`) or path to a `voice_profiles.yaml` whose tone table drives the params (default: the built-in persona's) |
+| `--takes N` | no | takes per cell, seeds matched across clips (default 1) |
+| `--exaggeration` / `--cfg` / `--temperature` | no | override that param for **every** passage (default: from the tone table) |
+
+### `prosodia-render lexicon-audition`
+
+Hear each lexicon respelling in the chosen voice **across N seeds**, to pick forms that
+render *stably*. A respelling is only a hint to a neural TTS (no phoneme API) and every
+occurrence in an episode is an independent generation, so an unstable respelling comes out
+differently seed to seed — this surfaces that so you can replace it. Renders each entry
+inside a carrier sentence and A/Bs it against the raw name and any candidate variants;
+writes an `index.html` grouped by name. Workflow: audition → keep the stable respellings →
+edit `lexicon.yaml` → recompile.
+
+| Argument / option | Req | Meaning |
+|---|---|---|
+| `--voices ...` | yes | a `voices/` dir and/or `.wav` files |
+| `--lexicon F` | yes | path to a project `lexicon.yaml` |
+| `--out DIR` | no | output directory (default: `./lexicon_audition`) |
+| `--names ...` | no | only audition these source names (default: all) |
+| `--variants F` | no | YAML `{name: [respelling, …]}` of candidate respellings to A/B |
+| `--frame STR` | no | carrier sentence with a `{}` placeholder for the name |
+| `--takes N` | no | seeds per variant (default 3) |
+| `--no-raw` | no | skip the raw-name baseline take |
+
+> **Note (`--final` STT gate):** the render quality gate scores against a *de-respelled*
+> reference (respellings mapped back to source spellings), so a correctly-pronounced take
+> is rewarded, not the spelled-out one. This takes effect once an episode is **recompiled**
+> (the de-respelled reference is embedded in `ir.json`).
 
 ## See also
 

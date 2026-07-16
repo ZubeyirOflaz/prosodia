@@ -59,8 +59,15 @@ def _resolve_voice_ref(
 
 
 def _render_chunk(backend, text, params, base_seed, seg_id, ci, ref, *,
-                  fast_preview, candidates, validator, sr, voice=None) -> np.ndarray:
+                  fast_preview, candidates, validator, sr, voice=None,
+                  score_text=None) -> np.ndarray:
+    # ``text`` is what the engine SPEAKS (lexicon-respelled); ``score_text`` is what the
+    # STT gate compares against (respellings mapped back to source spellings). They differ
+    # only for chunks containing a respelled name — and scoring against the respelling is
+    # exactly what made the gate pick the WORSE, spelled-out pronunciation. Default to
+    # ``text`` when no score reference is supplied (no lexicon token in this chunk).
     n = 1 if fast_preview else max(1, candidates)
+    score_ref = score_text if score_text is not None else text
     best: np.ndarray | None = None
     best_score = -1.0
     last_exc: Exception | None = None
@@ -83,7 +90,7 @@ def _render_chunk(backend, text, params, base_seed, seg_id, ci, ref, *,
             continue
         if fast_preview or validator is None:
             return wav
-        score = validator.score(wav, sr, text)
+        score = validator.score(wav, sr, score_ref)
         if score > best_score:
             best, best_score = wav, score
         if score >= SIM_THRESHOLD:
@@ -153,12 +160,15 @@ def render_job(
             )
             p = _FALLBACK
         for ci, chunk in enumerate(seg.chunks):
+            # De-respelled reference for the STT gate, when this segment carries one.
+            score_text = seg.score_chunks[ci] if ci < len(seg.score_chunks) else None
             wav = _render_chunk(
                 backend, chunk, p, ir.seed, seg.id, ci, ref,
                 fast_preview=fast_preview, candidates=candidates, validator=validator, sr=sr,
                 # If a reference clip resolved, cloning wins; otherwise hand the
                 # voice id to the backend so a preset request fails loudly.
                 voice=None if ref else (ir.voice or None),
+                score_text=score_text,
             )
             wav = A.trim_silence(wav, sr)
             if not out.size:

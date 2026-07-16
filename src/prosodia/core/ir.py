@@ -36,6 +36,12 @@ class Segment(BaseModel):
     # Renderers must not assume an emphasis span is locatable inside spoken_text.
     emphasis: list[str] = Field(default_factory=list)  # v0.1: informational
     chunks: list[str] = Field(default_factory=list)  # spoken_text split for the engine cap
+    # Per-chunk reference text for the render-side STT quality gate, with lexicon
+    # respellings mapped BACK to their source spellings (what Whisper writes for a
+    # correct pronunciation). Populated only when it differs from ``chunks`` (i.e. a
+    # respelling was applied in this segment); empty otherwise, and the renderer then
+    # scores against ``chunks``. Parallel to ``chunks`` when present.
+    score_chunks: list[str] = Field(default_factory=list)
 
 
 class EpisodeIR(BaseModel):

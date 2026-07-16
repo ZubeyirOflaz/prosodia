@@ -194,3 +194,33 @@ def test_pause_max_merge():  # finding 21
     txt2 = "## A\nOne.\n\n{pause: 2.0} Two."
     ir2, _ = compile_text(txt2)
     assert ir2.segments[1].pause_before_ms == 2000
+
+
+def test_compile_populates_score_chunks_only_when_respelled():
+    src = """---
+voice: narrator
+title: "T"
+episode: 1
+---
+
+## A
+The historian Thucydides wrote it down.
+
+## B
+Nothing tricky here at all.
+"""
+    ir, _ = compile_text(src, lexicon=Lexicon({"Thucydides": "Thoo-sid-ih-deez"}))
+    s_name, s_plain = ir.segments[0], ir.segments[1]
+    # The segment WITH a respelling carries a parallel, de-respelled score reference...
+    assert "Thoo-sid-ih-deez" in " ".join(s_name.chunks)
+    assert s_name.score_chunks and len(s_name.score_chunks) == len(s_name.chunks)
+    assert "Thucydides" in " ".join(s_name.score_chunks)
+    assert "Thoo-sid-ih-deez" not in " ".join(s_name.score_chunks)
+    # ...the plain segment carries none (no bloat), so the renderer scores against chunks.
+    assert s_plain.score_chunks == []
+
+
+def test_compile_no_lexicon_no_score_chunks():
+    src = "---\nvoice: n\nepisode: 1\n---\n\n## A\nPlain text only.\n"
+    ir, _ = compile_text(src, lexicon=Lexicon({}))
+    assert all(s.score_chunks == [] for s in ir.segments)

@@ -111,3 +111,55 @@ def test_render_job_final_picks_best_and_stops_early(tmp_path):
     )
     # Stops at the 0.9 candidate (>= SIM_THRESHOLD), so only 2 generates, not 3.
     assert len(backend.calls) == 2
+
+
+class RecordingValidator:
+    """Records the reference text the gate scored against; always scores high."""
+
+    def __init__(self):
+        self.seen = []
+
+    def score(self, wav, sr, text):
+        self.seen.append(text)
+        return 0.99
+
+
+def test_gate_scores_against_derespelled_reference():
+    """The engine SPEAKS the respelling but the STT gate must score against the source
+    spelling (what Whisper writes for a correct take) — otherwise it prefers the
+    spelled-out mispronunciation."""
+    ir = EpisodeIR(
+        episode=1, voice="", seed=7,
+        segments=[Segment(
+            id=0, spoken_text="he said Thoo-sid-ih-deez",
+            chunks=["he said Thoo-sid-ih-deez"],
+            score_chunks=["he said Thucydides"],
+        )],
+    )
+    backend = FakeBackend()
+    val = RecordingValidator()
+    import tempfile
+    from pathlib import Path
+    d = Path(tempfile.mkdtemp())
+    _write_job(d, ir, _simple_plan())
+    R.render_job(d, d / "episode.wav", backend=backend,
+                 fast_preview=False, candidates=1, validator=val)
+    assert backend.calls[0][0] == "he said Thoo-sid-ih-deez"  # engine speaks the respelling
+    assert "he said Thucydides" in val.seen  # gate scores against the source spelling
+    assert "Thoo-sid-ih-deez" not in " ".join(val.seen)  # never the respelling
+
+
+def test_gate_falls_back_to_chunk_when_no_score_chunks():
+    ir = EpisodeIR(
+        episode=1, voice="", seed=7,
+        segments=[Segment(id=0, spoken_text="plain words", chunks=["plain words"])],
+    )
+    backend = FakeBackend()
+    val = RecordingValidator()
+    import tempfile
+    from pathlib import Path
+    d = Path(tempfile.mkdtemp())
+    _write_job(d, ir, _simple_plan())
+    R.render_job(d, d / "episode.wav", backend=backend,
+                 fast_preview=False, candidates=1, validator=val)
+    assert val.seen == ["plain words"]  # no score_chunks -> score against the chunk itself
