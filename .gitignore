@@ -226,7 +226,11 @@ __marimo__/
 *.ogg
 /outputs/
 /renders/
-/experiments/
+# Experiments are scratch by default, but the lexicon-norm study is a durable,
+# long-lived reference — track its source, ignore its (heavy) render output.
+/experiments/*
+!/experiments/lexicon_norms/
+/experiments/lexicon_norms/out/
 
 # TTS model weights / caches (downloaded on first run; large)
 /models/

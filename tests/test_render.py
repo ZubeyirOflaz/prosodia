@@ -163,3 +163,74 @@ def test_gate_falls_back_to_chunk_when_no_score_chunks():
     R.render_job(d, d / "episode.wav", backend=backend,
                  fast_preview=False, candidates=1, validator=val)
     assert val.seen == ["plain words"]  # no score_chunks -> score against the chunk itself
+
+
+# --- lexicon fallback (unassisted-first, per-occurrence, binary) ---
+
+def _respelled_ir():
+    return EpisodeIR(
+        episode=1, voice="", seed=7,
+        segments=[Segment(
+            id=0, spoken_text="he said Thoo-sid-ih-deez",
+            chunks=["he said Thoo-sid-ih-deez"],
+            score_chunks=["he said Thucydides"],
+        )],
+    )
+
+
+def _render(tmp_path, ir, backend, validator, **kw):
+    _write_job(tmp_path, ir, _simple_plan())
+    return R.render_job(tmp_path, tmp_path / "episode.wav", backend=backend,
+                        validator=validator, **kw)
+
+
+def test_lexicon_fallback_off_speaks_respelling(tmp_path):
+    """Flag off (default): the engine speaks the respelling, as before."""
+    backend, val = FakeBackend(), RecordingValidator()
+    _render(tmp_path, _respelled_ir(), backend, val, fast_preview=False, candidates=1)
+    assert [t for t, _ in backend.calls] == ["he said Thoo-sid-ih-deez"]
+
+
+def test_lexicon_fallback_prefers_unassisted_when_it_clears_gate(tmp_path):
+    """Flag on: speak the raw name first; if it clears the gate, the respelling is
+    never generated. The gate scores against the (de-respelled) source spelling."""
+    backend = FakeBackend()
+    val = ScriptedValidator([0.95])  # the unassisted take clears SIM_THRESHOLD
+    _render(tmp_path, _respelled_ir(), backend, val,
+            fast_preview=False, candidates=1, lexicon_fallback=True)
+    assert [t for t, _ in backend.calls] == ["he said Thucydides"]  # unassisted only
+    assert not any("Thoo-sid-ih-deez" in t for t, _ in backend.calls)  # never respelled
+
+
+def test_lexicon_fallback_rescues_with_respelling(tmp_path):
+    """Flag on: when the unassisted take fails the gate, escalate to the respelling
+    and keep the better take. Order: unassisted THEN respelled."""
+    backend = FakeBackend()
+    val = ScriptedValidator([0.5, 0.95])  # unassisted fails, respelling clears
+    _render(tmp_path, _respelled_ir(), backend, val,
+            fast_preview=False, candidates=1, lexicon_fallback=True)
+    assert [t for t, _ in backend.calls] == [
+        "he said Thucydides",        # 1) unassisted first
+        "he said Thoo-sid-ih-deez",  # 2) respelled rescue
+    ]
+
+
+def test_lexicon_fallback_noop_without_score_chunks(tmp_path):
+    """Flag on but the segment carries no respelling -> single spelling, unchanged."""
+    ir = EpisodeIR(
+        episode=1, voice="", seed=7,
+        segments=[Segment(id=0, spoken_text="plain words", chunks=["plain words"])],
+    )
+    backend = FakeBackend()
+    val = ScriptedValidator([0.5, 0.5])  # low, but there's nothing to fall back to
+    _render(tmp_path, ir, backend, val,
+            fast_preview=False, candidates=1, lexicon_fallback=True)
+    assert [t for t, _ in backend.calls] == ["plain words"]
+
+
+def test_lexicon_fallback_disabled_in_fast_preview(tmp_path):
+    """Fallback is a final-mode feature; fast preview speaks the primary chunk once."""
+    backend = FakeBackend()
+    _render(tmp_path, _respelled_ir(), backend, None,
+            fast_preview=True, lexicon_fallback=True)
+    assert [t for t, _ in backend.calls] == ["he said Thoo-sid-ih-deez"]

@@ -189,6 +189,7 @@ lead/tail silence, and (unless `--no-title`) opens with the spoken episode title
 | `--final` | no | final mode: N candidates + STT quality gate (default: fast preview) |
 | `--voices DIR` | no | directory of voice reference `.wav` files |
 | `--no-title` | no | don't speak the episode title at the start |
+| `--lexicon-fallback` | no | final mode only: speak each respelled name **unassisted first**, falling back to the lexicon respelling only if the plain name fails the STT gate (default off) |
 
 ### `prosodia-render watch`
 
@@ -202,6 +203,7 @@ Watch an exchange root and render jobs as they arrive (model kept warm).
 | `--interval SEC` | no | poll interval seconds (default 5.0) |
 | `--once` | no | process the current inbox once and exit |
 | `--no-title` | no | don't speak the episode title at the start |
+| `--lexicon-fallback` | no | final mode only: unassisted-first pronunciation with the respelling as a rescue (see `render` above) |
 
 ### `prosodia-render audition`
 
@@ -250,7 +252,9 @@ edit `lexicon.yaml` → recompile.
 > **Note (`--final` STT gate):** the render quality gate scores against a *de-respelled*
 > reference (respellings mapped back to source spellings), so a correctly-pronounced take
 > is rewarded, not the spelled-out one. This takes effect once an episode is **recompiled**
-> (the de-respelled reference is embedded in `ir.json`).
+> (the de-respelled reference is embedded in `ir.json`). `--lexicon-fallback` reuses that same
+> de-respelled text as the *unassisted* spelling to try first, respelling only on a gate miss;
+> the run logs how many respelled chunks actually needed the respelling.
 
 ## See also
 

@@ -60,47 +60,64 @@ def _resolve_voice_ref(
 
 def _render_chunk(backend, text, params, base_seed, seg_id, ci, ref, *,
                   fast_preview, candidates, validator, sr, voice=None,
-                  score_text=None) -> np.ndarray:
-    # ``text`` is what the engine SPEAKS (lexicon-respelled); ``score_text`` is what the
-    # STT gate compares against (respellings mapped back to source spellings). They differ
-    # only for chunks containing a respelled name — and scoring against the respelling is
-    # exactly what made the gate pick the WORSE, spelled-out pronunciation. Default to
-    # ``text`` when no score reference is supplied (no lexicon token in this chunk).
+                  score_text=None, fallback_texts: tuple[str, ...] = ()) -> tuple[np.ndarray, bool]:
+    # ``text`` is what the engine SPEAKS first; ``score_text`` is what the STT gate compares
+    # against (lexicon respellings mapped back to source spellings). They differ only for
+    # chunks containing a respelled name — scoring against the respelling is exactly what
+    # made the gate pick the WORSE, spelled-out pronunciation. Default to ``text`` when no
+    # score reference is supplied (no lexicon token in this chunk).
+    #
+    # ``fallback_texts`` are alternate spellings to try, in order, ONLY when the current
+    # spelling's best-of-N stays under SIM_THRESHOLD (see render_job's lexicon_fallback).
+    # All spellings are scored against the same ``score_ref``, so the comparison is fair.
+    # Returns (wav, fell_back) where fell_back is True when a fallback spelling won.
     n = 1 if fast_preview else max(1, candidates)
     score_ref = score_text if score_text is not None else text
+    variants = (text, *fallback_texts)
     best: np.ndarray | None = None
     best_score = -1.0
+    best_vi = 0
     last_exc: Exception | None = None
-    for k in range(n):
-        seed = None if base_seed is None else int(base_seed) + seg_id * 1000 + ci * 10 + k
-        try:
-            wav = backend.generate(
-                text,
-                exaggeration=params[0],
-                cfg_weight=params[1],
-                temperature=params[2],
-                rate_multiplier=params[3],
-                seed=seed,
-                audio_prompt_path=ref,
-                voice=voice,
+    for vi, variant in enumerate(variants):
+        # Keep variant 0 on the original seed formula so flag-off renders stay
+        # bit-identical; offset fallback variants far enough to avoid seed reuse.
+        vbase = vi * 100000
+        for k in range(n):
+            seed = None if base_seed is None else int(base_seed) + vbase + seg_id * 1000 + ci * 10 + k
+            try:
+                wav = backend.generate(
+                    variant,
+                    exaggeration=params[0],
+                    cfg_weight=params[1],
+                    temperature=params[2],
+                    rate_multiplier=params[3],
+                    seed=seed,
+                    audio_prompt_path=ref,
+                    voice=voice,
+                )
+            except Exception as exc:  # noqa: BLE001 - try the next candidate, but never silently
+                last_exc = exc
+                logger.warning("segment %d chunk %d variant %d candidate %d failed: %s", seg_id, ci, vi, k, exc)
+                continue
+            if fast_preview or validator is None:
+                return wav, vi > 0
+            score = validator.score(wav, sr, score_ref)
+            if score > best_score:
+                best, best_score, best_vi = wav, score, vi
+            if score >= SIM_THRESHOLD:
+                return best, vi > 0
+        # This spelling cleared nothing above threshold; escalate to the next fallback.
+        if vi + 1 < len(variants):
+            logger.info(
+                "segment %d chunk %d: spelling %d best score %.2f < %.2f, trying fallback spelling",
+                seg_id, ci, vi, max(best_score, 0.0), SIM_THRESHOLD,
             )
-        except Exception as exc:  # noqa: BLE001 - try the next candidate, but never silently
-            last_exc = exc
-            logger.warning("segment %d chunk %d candidate %d failed: %s", seg_id, ci, k, exc)
-            continue
-        if fast_preview or validator is None:
-            return wav
-        score = validator.score(wav, sr, score_ref)
-        if score > best_score:
-            best, best_score = wav, score
-        if score >= SIM_THRESHOLD:
-            break
     if best is not None:
-        return best
+        return best, best_vi > 0
     # Every candidate failed. Returning np.zeros() here would splice SILENCE into the
     # episode and still let the job be marked "done" — fail loudly so it's quarantined.
     raise RuntimeError(
-        f"segment {seg_id} chunk {ci}: all {n} generation attempt(s) failed"
+        f"segment {seg_id} chunk {ci}: all {n * len(variants)} generation attempt(s) failed"
         + (f" — {last_exc}" if last_exc is not None else "")
     )
 
@@ -119,6 +136,7 @@ def render_job(
     edge_silence_ms: int = 4000,
     speak_title: bool = True,
     title_gap_ms: int = 1000,
+    lexicon_fallback: bool = False,
 ) -> Path:
     job_dir = Path(job_dir)
     ir = EpisodeIR.from_json((job_dir / "ir.json").read_text(encoding="utf-8"))
@@ -148,6 +166,8 @@ def render_job(
 
     out = np.zeros(0, dtype=np.float32)
     total = max(1, len(ir.segments))
+    fb_covered = 0  # respelled chunks eligible for the unassisted-first fallback
+    fb_used = 0     # ... of those, how many actually needed the respelling
     for i, seg in enumerate(ir.segments):
         just_paused = seg.pause_before_ms > 0
         if just_paused:
@@ -162,14 +182,25 @@ def render_job(
         for ci, chunk in enumerate(seg.chunks):
             # De-respelled reference for the STT gate, when this segment carries one.
             score_text = seg.score_chunks[ci] if ci < len(seg.score_chunks) else None
-            wav = _render_chunk(
-                backend, chunk, p, ir.seed, seg.id, ci, ref,
+            # lexicon_fallback (final mode only): speak the UNASSISTED name first (the
+            # de-respelled score_text), and only fall back to the respelled ``chunk`` if
+            # the unassisted take fails the gate. Both are scored against score_text.
+            use_fb = lexicon_fallback and not fast_preview and score_text is not None
+            if use_fb:
+                primary, fallbacks = score_text, (chunk,)
+                fb_covered += 1
+            else:
+                primary, fallbacks = chunk, ()
+            wav, fell_back = _render_chunk(
+                backend, primary, p, ir.seed, seg.id, ci, ref,
                 fast_preview=fast_preview, candidates=candidates, validator=validator, sr=sr,
                 # If a reference clip resolved, cloning wins; otherwise hand the
                 # voice id to the backend so a preset request fails loudly.
                 voice=None if ref else (ir.voice or None),
-                score_text=score_text,
+                score_text=score_text, fallback_texts=fallbacks,
             )
+            if use_fb and fell_back:
+                fb_used += 1
             wav = A.trim_silence(wav, sr)
             if not out.size:
                 out = wav
@@ -184,6 +215,12 @@ def render_job(
         if on_progress:
             on_progress((i + 1) / total)
 
+    if fb_covered:
+        logger.info(
+            "lexicon fallback: %d/%d respelled chunk(s) needed the respelling "
+            "(the rest rendered fine unassisted)", fb_used, fb_covered,
+        )
+
     # QoL: speak the episode title at the top (best-effort — a title glitch must never
     # fail an otherwise-good render), then bookend the whole thing with lead/tail silence
     # so it doesn't start or end abruptly.
@@ -191,7 +228,7 @@ def render_job(
     if speak_title and ir.title:
         tparams = (params.get(ir.segments[0].id) if ir.segments else None) or _FALLBACK
         try:
-            tw = _render_chunk(
+            tw, _ = _render_chunk(
                 backend, ir.title, tparams, ir.seed, -1, 0, ref,
                 fast_preview=fast_preview, candidates=candidates, validator=None, sr=sr,
                 voice=None if ref else (ir.voice or None),

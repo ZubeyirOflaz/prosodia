@@ -65,6 +65,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_render.add_argument("--final", action="store_true", help="final mode (N candidates + STT gate)")
     p_render.add_argument("--voices", help="directory of voice reference .wav files")
     p_render.add_argument("--no-title", action="store_true", help="don't speak the episode title at the start")
+    p_render.add_argument(
+        "--lexicon-fallback", action="store_true",
+        help="final mode only: speak each respelled name UNASSISTED first and fall back to "
+             "the lexicon respelling only if the plain name fails the STT gate",
+    )
 
     p_watch = sub.add_parser("watch", help="watch an exchange root and render jobs as they arrive")
     p_watch.add_argument("root", help="synced exchange root (holds inbox/ processing/ outbox/ failed/)")
@@ -73,6 +78,11 @@ def build_parser() -> argparse.ArgumentParser:
     p_watch.add_argument("--interval", type=float, default=5.0, help="poll interval seconds")
     p_watch.add_argument("--once", action="store_true", help="process the current inbox once and exit")
     p_watch.add_argument("--no-title", action="store_true", help="don't speak the episode title at the start")
+    p_watch.add_argument(
+        "--lexicon-fallback", action="store_true",
+        help="final mode only: speak each respelled name UNASSISTED first and fall back to "
+             "the lexicon respelling only if the plain name fails the STT gate",
+    )
 
     p_aud = sub.add_parser(
         "audition",
@@ -153,6 +163,7 @@ def main(argv: list[str] | None = None) -> int:
         out = render_job(
             args.job, Path(args.job) / "episode.wav", fast_preview=not args.final,
             voices_dir=args.voices, speak_title=not args.no_title,
+            lexicon_fallback=args.lexicon_fallback,
         )
         print(f"rendered -> {out}")
         return 0
@@ -163,6 +174,7 @@ def main(argv: list[str] | None = None) -> int:
         watch(
             args.root, interval=args.interval, fast_preview=not args.final,
             voices_dir=args.voices, once=args.once, speak_title=not args.no_title,
+            lexicon_fallback=args.lexicon_fallback,
         )
         return 0
 
