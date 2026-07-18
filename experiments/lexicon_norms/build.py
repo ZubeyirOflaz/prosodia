@@ -1,27 +1,23 @@
-"""Generate the lexicon-norm study inputs (lexicon.yaml + variants.yaml).
+"""Generate the lexicon-norm study v2 (lexicon.yaml + scoresheet.md).
 
-Goal: a broad, cross-cultural corpus of "second-tier" names — the kind an educated
-listener recognizes but a layperson (and Chatterbox) tends to mangle — rendered in
-three competing RESPELLING NOTATIONS so we can find which convention holds up.
-Deliberately excludes the truly famous (Socrates/Plato/Aristotle/Confucius/…) since
-Chatterbox already says those right and a respelling can only hurt.
+v1 result: syllable-notation respellings (hyphens / ALL-CAPS stress / spaces) LOSE to
+the raw name — Chatterbox reads hyphens & spaces as separate words and ALL-CAPS as an
+acronym. See archive/ for that run and its filled scoresheet.
 
-Each name is one source, encoded as a compact pronunciation string:
+v2 tests a single, cleaner idea: does a NATURAL, real-word respelling — the same
+phonetic content written as a plausible run-on word with NO hyphens, NO CAPS, and spaces
+ONLY between genuine words — beat the unassisted spelling? Just two columns per name:
+
+  as-written : the raw name (unassisted)          -> Thucydides
+  natural    : run-on real-word respelling         -> Thoosidihdeez
+
+Respelling source: if ``natural_respellings.yaml`` is present (produced by wiki_pron.py +
+the lexicographer agent from Wikipedia pronunciations) it is used verbatim — the strongest,
+sourced version of the respelling. Otherwise the respellings are derived mechanically from
+the syllable DATA below, encoded as a compact pronunciation string (unchanged from v1):
   - words separated by SPACE, syllables by "-", the stressed syllable prefixed "*".
-  e.g. "thoo-*sid-ih-deez"  ->  syllables thoo / sid(stressed) / ih / deez
-       "ib-un khal-*doon"   ->  two words, stress on "doon"
-
-From that single source of truth we emit three notations, so the audition renders
-four columns per name (as-written + A + B + C):
-
-  A  plain-hyphen : capitalized, hyphens, NO stress mark   -> Thoo-sid-ih-deez   (lexicon.yaml)
-  B  stress-caps  : A but stressed syllable ALL-CAPS       -> Thoo-SID-ih-deez   (variants.yaml #1)
-  C  spaced       : A but spaces instead of hyphens        -> Thoo sid ih deez   (variants.yaml #2)
-
-Contrasts the audition then isolates:
-  as-written -> A : does the name even need help?
-  A -> B          : does marking stress (CAPS) help or hurt?
-  A -> C          : hyphens vs. spaces as the syllable separator?
+  e.g. "thoo-*sid-ih-deez"  ->  syllables thoo / sid(stressed) / ih / deez  ->  "Thoosidihdeez"
+       "ib-un khal-*doon"   ->  two words -> "Ibun Khaldoon" (space kept between real words)
 
 Run:  python experiments/lexicon_norms/build.py
 """
@@ -161,47 +157,106 @@ def _cap(word: str) -> str:
     return word[:1].upper() + word[1:] if word else word
 
 
-def notations(pron: str) -> tuple[str, str, str]:
-    """(A plain-hyphen, B stress-caps, C spaced) from one pronunciation string."""
-    words, (sw, ss) = _parse(pron)
-    a_words, b_words, c_words = [], [], []
-    for wi, sylls in enumerate(words):
-        a_words.append(_cap("-".join(sylls)))
-        c_words.append(_cap(" ".join(sylls)))
-        b = [s.upper() if (wi == sw and si == ss) else s for si, s in enumerate(sylls)]
-        b_words.append(_cap("-".join(b)))
-    return " ".join(a_words), " ".join(b_words), " ".join(c_words)
+def natural(pron: str) -> str:
+    """A run-on, real-word respelling: syllables concatenated with NO hyphens and NO
+    stress CAPS (only an initial capital), spaces kept ONLY between genuine words. Same
+    phonetic content as v1's hyphenated notation, minus the formatting Chatterbox
+    mis-reads as separate words / an acronym.
+      "thoo-*sid-ih-deez" -> "Thoosidihdeez"   |   "ib-un khal-*doon" -> "Ibun Khaldoon"
+    """
+    words, _ = _parse(pron)
+    return " ".join(_cap("".join(sylls)) for sylls in words)
+
+
+def respellings() -> dict[str, str]:
+    """Name -> natural respelling. Prefer the Wikipedia+agent-sourced file
+    (``natural_respellings.yaml``, produced via wiki_pron.py + the lexicographer) if it
+    exists; otherwise derive them mechanically from the syllable DATA."""
+    src = HERE / "natural_respellings.yaml"
+    if src.exists():
+        import yaml
+
+        loaded = yaml.safe_load(src.read_text(encoding="utf-8")) or {}
+        if isinstance(loaded, dict):
+            return {str(k): str(v) for k, v in loaded.items()}
+    return {name: natural(pron) for _, names in DATA for name, pron in names}
+
+
+METHODS = [
+    ("as-written", "the raw name, no lexicon (unassisted)"),
+    ("natural", "run-on real-word respelling: no hyphens, no CAPS, spaces only between real words"),
+]
+
+
+def _scoresheet() -> str:
+    """A scoring sheet as GitHub task-list checkboxes: one `###` heading per name (so
+    Ctrl+Shift+O / the Outline panel jump straight to it) and one checkbox per render
+    method (toggle `[ ]`->`[x]` from the keyboard, or click it in the VSCode/Cursor
+    preview). Mark every method that sounded correct AND stable across the seeds."""
+    n = sum(len(names) for _, names in DATA)
+    out = [
+        "# Lexicon-norm scoresheet",
+        "",
+        f"_{n} names. Listen to each name's takes in `out/index.html`, then tick the "
+        "method(s) that came out **correct AND stable across the seeds**._",
+        "",
+        "**Navigate:** `Ctrl+Shift+O` (Go to Symbol) then type a name to jump; or use the "
+        "Outline panel. **Mark:** toggle `[ ]`→`[x]` (keyboard), `Alt+C` with the "
+        "*Markdown All in One* extension, or click the box in the Markdown preview.",
+        "",
+        "Rules:",
+        "- Tick **as-written** ⇒ the name needs **no lexicon entry** (Chatterbox nails it unaided).",
+        "- Tick **natural** ⇒ the run-on respelling was clearly more accurate/reliable than raw.",
+        "- Tick **both** if they're equally good; leave **both blank** + add a note if neither works.",
+        "",
+        "Method legend — " + "; ".join(f"**{m}** = {d}" for m, d in METHODS) + ".",
+        "",
+        "> Generated by `build.py`; it will NOT overwrite this file once it exists, so your",
+        "> marks are safe across regenerations. Delete it to regenerate a blank sheet.",
+        "",
+    ]
+    resp = respellings()
+    for category, names in DATA:
+        out.append(f"## {category}")
+        out.append("")
+        for src, pron in names:
+            spellings = [src, resp.get(src) or natural(pron)]
+            out.append(f"### {src}")
+            for (label, _desc), spelling in zip(METHODS, spellings):
+                out.append(f"- [ ] {label} · `{spelling}`")
+            out.append("- notes: ")
+            out.append("")
+    return "\n".join(out) + "\n"
 
 
 def main() -> None:
     lex_lines = [
-        "# Lexicon-norm study — Style A (plain-hyphen): capitalized, hyphen syllables, no stress mark.",
+        "# Lexicon-norm study v2 — NATURAL run-on respellings (no hyphens, no CAPS,",
+        "# spaces only between real words). Auditioned against the as-written baseline.",
         "# Generated by build.py — edit the pronunciations there, not here.",
         "lexicon:",
     ]
-    var_lines = [
-        "# Candidate respellings A/B'd against Style A (lexicon.yaml) and the as-written baseline.",
-        "#   - #1 = Style B (stress-caps)   - #2 = Style C (spaced)",
-        "# Generated by build.py — edit the pronunciations there, not here.",
-    ]
+    resp = respellings()
     total = 0
     for category, names in DATA:
         lex_lines.append(f"  # --- {category} ---")
-        var_lines.append(f"# --- {category} ---")
         for src, pron in names:
-            a, b, c = notations(pron)
             total += 1
             key = f'"{src}"' if (" " in src or "-" in src) else src
-            lex_lines.append(f'  {key}: "{a}"')
-            var_lines.append(f"{key}:")
-            var_lines.append(f'  - "{b}"   # B stress-caps')
-            var_lines.append(f'  - "{c}"   # C spaced')
-        var_lines.append("")
+            lex_lines.append(f'  {key}: "{resp.get(src) or natural(pron)}"')
 
     (HERE / "lexicon.yaml").write_text("\n".join(lex_lines) + "\n", encoding="utf-8")
-    (HERE / "variants.yaml").write_text("\n".join(var_lines) + "\n", encoding="utf-8")
-    print(f"wrote lexicon.yaml + variants.yaml — {total} names")
-    print(f"render count = {total} names x 4 columns x N takes")
+    # v2 is a two-way test (raw vs natural) — no A/B/C variants file. Remove any stale one.
+    (HERE / "variants.yaml").unlink(missing_ok=True)
+    print(f"wrote lexicon.yaml — {total} natural respellings (removed stale variants.yaml)")
+    print(f"render count = {total} names x 2 columns (as-written + natural) x N takes")
+
+    sheet = HERE / "scoresheet.md"
+    if sheet.exists():
+        print("scoresheet.md exists — leaving your marks untouched (delete it to regenerate)")
+    else:
+        sheet.write_text(_scoresheet(), encoding="utf-8")
+        print("wrote scoresheet.md (blank — tick as-written / natural per name)")
 
 
 if __name__ == "__main__":

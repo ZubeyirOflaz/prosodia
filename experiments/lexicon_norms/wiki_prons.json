@@ -1,0 +1,821 @@
+[
+  {
+    "name": "Thucydides",
+    "title": "Thucydides",
+    "ipa": "/θjuːˈsɪdɪˌdiːz/",
+    "respell": "thew-SID-ih-deez",
+    "url": "https://en.wikipedia.org/wiki/Thucydides",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Polybius",
+    "title": "Polybius",
+    "ipa": "/pəˈlɪbiəs/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Polybius",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Thrasymachus",
+    "title": "Thrasymachus",
+    "ipa": "/θrəˈsɪməkəs/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Thrasymachus",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Xenophon",
+    "title": "Xenophon",
+    "ipa": "/ˈzɛnəfən,_-ˌfɒn/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Xenophon",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Anaximander",
+    "title": "Anaximander",
+    "ipa": "/æˌnæksɪˈmændər/",
+    "respell": "an-AK-sih-MAN-dər",
+    "url": "https://en.wikipedia.org/wiki/Anaximander",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Anaxagoras",
+    "title": "Anaxagoras",
+    "ipa": "/ˌænækˈsægərəs/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Anaxagoras",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Parmenides",
+    "title": "Parmenides",
+    "ipa": "/pɑːrˈmɛnɪdiːz...ˈɛliə/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Parmenides",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Empedocles",
+    "title": "Empedocles",
+    "ipa": "/ɛmˈpɛdəkliːz/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Empedocles",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Heraclitus",
+    "title": "Heraclitus",
+    "ipa": "/ˌhɛrəˈklaɪtəs/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Heraclitus",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Epictetus",
+    "title": "Epictetus",
+    "ipa": "/ˌɛpɪkˈtiːtəs/",
+    "respell": "EH-pick-TEE-təss",
+    "url": "https://en.wikipedia.org/wiki/Epictetus",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Alcibiades",
+    "title": "Alcibiades",
+    "ipa": "/ˌælsɪˈbaɪədiːz/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Alcibiades",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Isocrates",
+    "title": "Isocrates",
+    "ipa": "/aɪˈsɒkrətiːz/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Isocrates",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Antisthenes",
+    "title": "Antisthenes",
+    "ipa": "/ænˈtɪsθᵻniːz/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Antisthenes",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Protagoras",
+    "title": "Protagoras",
+    "ipa": "/prəʊˈtægərəs,_-æs/",
+    "respell": "proh-TAG-ər-əs, _-ass",
+    "url": "https://en.wikipedia.org/wiki/Protagoras",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Diogenes",
+    "title": "Diogenes",
+    "ipa": "/daɪˈɒdʒɪniːz/",
+    "respell": "dy-OJ-in-eez",
+    "url": "https://en.wikipedia.org/wiki/Diogenes",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Lucretius",
+    "title": "Lucretius",
+    "ipa": "/ˈtaɪtəs luːˈkriːʃəsaudio=LL-Q1860 (eng)-Sumxr-Lucretius.wav/",
+    "respell": "TY-tuhs loo-KREE-shuhs",
+    "url": "https://en.wikipedia.org/wiki/Lucretius",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Tacitus",
+    "title": "Tacitus",
+    "ipa": "/ˈtæsɪtəs/",
+    "respell": "TAS-it-əs",
+    "url": "https://en.wikipedia.org/wiki/Tacitus",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Quintilian",
+    "title": "Quintilian",
+    "ipa": "/kwɪnˈtɪliən/",
+    "respell": "kwin-TIL-ee-ən",
+    "url": "https://en.wikipedia.org/wiki/Quintilian",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Boethius",
+    "title": "Boethius",
+    "ipa": "/boʊˈiːθiəs/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Boethius",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Diocletian",
+    "title": "Diocletian",
+    "ipa": "/ˌdaɪ.əˈkliːʃən/",
+    "respell": "DY-ə-KLEE-shən",
+    "url": "https://en.wikipedia.org/wiki/Diocletian",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Scipio",
+    "title": "Scipio",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Scipio",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Sallust",
+    "title": "Sallust",
+    "ipa": "/ˈsæləstaudio=LL-Q1860 (eng)-Sumxr-Sallust.wav/",
+    "respell": "SAL-əst",
+    "url": "https://en.wikipedia.org/wiki/Sallust",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Gracchus",
+    "title": "Gracchi brothers",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Gracchi_brothers",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Catullus",
+    "title": "Catullus",
+    "ipa": "/kəˈtʌləsaudio=LL-Q1860 (eng)-Sumxr-Catullus.wav/",
+    "respell": "kə-TUL-əs",
+    "url": "https://en.wikipedia.org/wiki/Catullus",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Juvenal",
+    "title": "Juvenal",
+    "ipa": "/ˈdʒuːvənəlaudio=LL-Q1860 (eng)-Sumxr-Juvenal.wav/",
+    "respell": "JOO-vən-əl",
+    "url": "https://en.wikipedia.org/wiki/Juvenal",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Aquinas",
+    "title": "Thomas Aquinas",
+    "ipa": "/əˈkwaɪnəsaudio=En-us-Aquinas.oga/",
+    "respell": "ə-KWY-nəs",
+    "url": "https://en.wikipedia.org/wiki/Thomas_Aquinas",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Marsilius",
+    "title": "Marsilius",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Marsilius",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Averroes",
+    "title": "Averroes",
+    "ipa": "/əˈvɛroʊiːz/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Averroes",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Avicenna",
+    "title": "Avicenna",
+    "ipa": "/ˌævɪˈsɛnə,_ˌɑːv-/",
+    "respell": "A(H)V-ih-SEN-ə",
+    "url": "https://en.wikipedia.org/wiki/Avicenna",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Al-Farabi",
+    "title": "Al-Farabi",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Al-Farabi",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Al-Ghazali",
+    "title": "Al-Ghazali",
+    "ipa": "/UKælˈɡɑːzɑːli/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Al-Ghazali",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Ibn Khaldun",
+    "title": "Ibn Khaldun",
+    "ipa": "/ˈɪbən hælˈduːn/",
+    "respell": "IB-ən hal-DOON",
+    "url": "https://en.wikipedia.org/wiki/Ibn_Khaldun",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Maimonides",
+    "title": "Maimonides",
+    "ipa": "/maɪˈmɒnɪdiːz/",
+    "respell": "my-MON-ih-deez",
+    "url": "https://en.wikipedia.org/wiki/Maimonides",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Duns Scotus",
+    "title": "Duns Scotus",
+    "ipa": "/ˈdʌnz ˈskoʊtəs/",
+    "respell": "dunz SKOH-təs",
+    "url": "https://en.wikipedia.org/wiki/Duns_Scotus",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Ockham",
+    "title": "Ockham",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Ockham",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Abelard",
+    "title": "Peter Abelard",
+    "ipa": "/ˈæbəlɑrd/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Peter_Abelard",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Anselm",
+    "title": "Anselm",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Anselm",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Montesquieu",
+    "title": "Montesquieu",
+    "ipa": "/usˈmɒntəskjuː/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Montesquieu",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Rousseau",
+    "title": "Jean-Jacques Rousseau",
+    "ipa": "/UKˈruːsoʊ/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Jean-Jacques_Rousseau",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Machiavelli",
+    "title": "Niccolò Machiavelli",
+    "ipa": "/ˈnɪkələʊ ˌmækiəˈvɛli/",
+    "respell": "nik-ə-LOH MAK-ee-ə-VEL-ee",
+    "url": "https://en.wikipedia.org/wiki/Niccol%C3%B2_Machiavelli",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Grotius",
+    "title": "Hugo Grotius",
+    "ipa": "/ˈgroʊʃiəs/",
+    "respell": "GROH-shee-əss",
+    "url": "https://en.wikipedia.org/wiki/Hugo_Grotius",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Nietzsche",
+    "title": "Friedrich Nietzsche",
+    "ipa": "/ˈniːtʃə,_ˈniːtʃi/",
+    "respell": "NEE-chuh, NEE-chee",
+    "url": "https://en.wikipedia.org/wiki/Friedrich_Nietzsche",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Tocqueville",
+    "title": "Alexis de Tocqueville",
+    "ipa": "/ˈtɒkvɪl,_ˈtoʊkvɪl/",
+    "respell": "TO(H)K-vil",
+    "url": "https://en.wikipedia.org/wiki/Alexis_de_Tocqueville",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Foucault",
+    "title": "Michel Foucault",
+    "ipa": "/UKˈfuːkoʊ/",
+    "respell": "FOO-koh",
+    "url": "https://en.wikipedia.org/wiki/Michel_Foucault",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Habermas",
+    "title": "Jürgen Habermas",
+    "ipa": "/UKˈhɑːbərmæs/",
+    "respell": "HAH-bər-mass",
+    "url": "https://en.wikipedia.org/wiki/J%C3%BCrgen_Habermas",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Weber",
+    "title": "Weber",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Weber",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Proudhon",
+    "title": "Pierre-Joseph Proudhon",
+    "ipa": "/ˈpruːdɒ̃/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Pierre-Joseph_Proudhon",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Gramsci",
+    "title": "Antonio Gramsci",
+    "ipa": "/UKˈɡræmʃi/",
+    "respell": "GRAM-shee",
+    "url": "https://en.wikipedia.org/wiki/Antonio_Gramsci",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Hegel",
+    "title": "Georg Wilhelm Friedrich Hegel",
+    "ipa": "/ˈheɪgəl/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Georg_Wilhelm_Friedrich_Hegel",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Goethe",
+    "title": "Johann Wolfgang von Goethe",
+    "ipa": "/ˈɡɜːrtə/",
+    "respell": "GUR-tə",
+    "url": "https://en.wikipedia.org/wiki/Johann_Wolfgang_von_Goethe",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Kierkegaard",
+    "title": "Søren Kierkegaard",
+    "ipa": "/ˈsɒrən ˈkɪərkəɡɑːrd/",
+    "respell": "SORR-ən KEER-kə-gard",
+    "url": "https://en.wikipedia.org/wiki/S%C3%B8ren_Kierkegaard",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Spinoza",
+    "title": "Baruch Spinoza",
+    "ipa": "/bəˈruːk spɪˈnoʊzə/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Baruch_Spinoza",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Leibniz",
+    "title": "Gottfried Wilhelm Leibniz",
+    "ipa": "/langˈlaɪbnɪts/",
+    "respell": "LYBE-nits",
+    "url": "https://en.wikipedia.org/wiki/Gottfried_Wilhelm_Leibniz",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Schopenhauer",
+    "title": "Arthur Schopenhauer",
+    "ipa": "/ˈʃoʊpənhaʊər/",
+    "respell": "SHOH-pən-how-ər",
+    "url": "https://en.wikipedia.org/wiki/Arthur_Schopenhauer",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Diderot",
+    "title": "Denis Diderot",
+    "ipa": "/ˈdiːdəroʊ/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Denis_Diderot",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Durkheim",
+    "title": "Émile Durkheim",
+    "ipa": "/ˈdɜrkhaɪm/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/%C3%89mile_Durkheim",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Vico",
+    "title": "Vico",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Vico",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Pareto",
+    "title": "Pareto",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Pareto",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Voltaire",
+    "title": "Voltaire",
+    "ipa": "/vɒlˈtɛər,_voʊl-/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Voltaire",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Adorno",
+    "title": "Theodor W. Adorno",
+    "ipa": "/əˈdɔːrnoʊ/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Theodor_W._Adorno",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Marcuse",
+    "title": "Herbert Marcuse",
+    "ipa": "/mɑːrˈkuːzə/",
+    "respell": "mar-KOO-zə",
+    "url": "https://en.wikipedia.org/wiki/Herbert_Marcuse",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Althusser",
+    "title": "Louis Althusser",
+    "ipa": "/ukˌæltʊˈsɛər/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Louis_Althusser",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Derrida",
+    "title": "Jacques Derrida",
+    "ipa": "/ˈdɛriːdɑː/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Jacques_Derrida",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Deleuze",
+    "title": "Gilles Deleuze",
+    "ipa": "/dəˈluːz/",
+    "respell": "də-LOOZ",
+    "url": "https://en.wikipedia.org/wiki/Gilles_Deleuze",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Bourdieu",
+    "title": "Pierre Bourdieu",
+    "ipa": "/UKbʊərˈdjɜː/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Pierre_Bourdieu",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Beauvoir",
+    "title": "Beauvoir",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Beauvoir",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Condorcet",
+    "title": "Marquis de Condorcet",
+    "ipa": "/kɒndɔrˈseɪ/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Marquis_de_Condorcet",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Bakunin",
+    "title": "Mikhail Bakunin",
+    "ipa": "/bəˈkuːnɪn/",
+    "respell": "bə-KOO-nin",
+    "url": "https://en.wikipedia.org/wiki/Mikhail_Bakunin",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Kropotkin",
+    "title": "Peter Kropotkin",
+    "ipa": "/kroʊˈpɒtkɪn/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Peter_Kropotkin",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Herzen",
+    "title": "Herzen",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Herzen",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Plekhanov",
+    "title": "Plekhanov",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Plekhanov",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Berdyaev",
+    "title": "Berdyaev",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Berdyaev",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Solzhenitsyn",
+    "title": "Aleksandr Solzhenitsyn",
+    "ipa": "/UKˌsɒlʒəˈnɪtsɪn/",
+    "respell": "SOL-zhə-NIT-sin",
+    "url": "https://en.wikipedia.org/wiki/Aleksandr_Solzhenitsyn",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Luxemburg",
+    "title": "Luxembourg",
+    "ipa": "/audio=en-us-Luxembourg.oggˈlʌksəmbɜːrɡ/",
+    "respell": "LUK-səm-burg",
+    "url": "https://en.wikipedia.org/wiki/Luxembourg",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Mencius",
+    "title": "Mencius",
+    "ipa": null,
+    "respell": "MEN-shee-əs",
+    "url": "https://en.wikipedia.org/wiki/Mencius",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Xunzi",
+    "title": "Xunzi",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Xunzi",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Mozi",
+    "title": "Mozi",
+    "ipa": "/ˈmoʊˈtsiː/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Mozi",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Laozi",
+    "title": "Laozi",
+    "ipa": "/ˌlau.ˈtsʌ/",
+    "respell": "low-TSUH",
+    "url": "https://en.wikipedia.org/wiki/Laozi",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Zhuangzi",
+    "title": "Zhuangzi",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Zhuangzi",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Han Feizi",
+    "title": "Han Feizi",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Han_Feizi",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Sun Tzu",
+    "title": "Sun Tzu",
+    "ipa": "/,sUnˈsuː/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Sun_Tzu",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Kautilya",
+    "title": "Arthashastra",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Arthashastra",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Nagarjuna",
+    "title": "Nagarjuna",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Nagarjuna",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Ashoka",
+    "title": "Ashoka",
+    "ipa": "/@'shouk@/",
+    "respell": "ə-SHOH-kə",
+    "url": "https://en.wikipedia.org/wiki/Ashoka",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Ambedkar",
+    "title": "B. R. Ambedkar",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/B._R._Ambedkar",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Wollstonecraft",
+    "title": "Mary Wollstonecraft",
+    "ipa": "/ˈwʊlstənkræft/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Mary_Wollstonecraft",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Oakeshott",
+    "title": "Oakeshott",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Oakeshott",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Hayek",
+    "title": "Hayek",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Hayek",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  },
+  {
+    "name": "Arendt",
+    "title": "Hannah Arendt",
+    "ipa": "/ˈɛərənt,_ˈɑːrənt/",
+    "respell": "A(I)R-ənt",
+    "url": "https://en.wikipedia.org/wiki/Hannah_Arendt",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Fanon",
+    "title": "Frantz Fanon",
+    "ipa": "/ˈfænən/",
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Frantz_Fanon",
+    "found": true,
+    "note": ""
+  },
+  {
+    "name": "Bentham",
+    "title": "Bentham",
+    "ipa": null,
+    "respell": null,
+    "url": "https://en.wikipedia.org/wiki/Bentham",
+    "found": false,
+    "note": "article found but no pronunciation in lead"
+  }
+]

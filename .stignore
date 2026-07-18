@@ -31,7 +31,14 @@ __pycache__
 /building
 /jobs
 
-// Prompt-refinement audit logs — authoring-side only
+// Experiments are authoring-side scratch, EXCEPT the lexicon-norm study, which the
+// render box needs (it runs the audition). First match wins, so the includes and the
+// heavy render-output exclusion must precede the broad /experiments ignore.
+// NOTE: .stignore is not synced — mirror this block in the render box's .stignore too.
+/experiments/lexicon_norms/out/**
+/experiments/lexicon_norms/out
+!/experiments/lexicon_norms/**
+!/experiments/lexicon_norms
 /experiments
 
 // TTS model weights / caches — downloaded on the render box; huge; one-way clutter

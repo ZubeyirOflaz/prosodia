@@ -1,53 +1,57 @@
 # Lexicon-norm study
 
-**Goal.** Find out *which respelling notation Chatterbox honors best*, so we can write
-lexicon norms instead of guessing per name. We render a broad, cross-cultural corpus of
-**second-tier names** — recognizable to an educated listener but routinely mangled by a
-layperson and by the TTS (the *Thucydides* tier) — in three competing notations, and
-listen for which one comes out right *and stable across seeds*.
+**Goal.** Find a respelling notation Chatterbox actually honors — or confirm that none
+does and the raw spelling should win. Second-tier names (recognized but easily mangled,
+the *Thucydides* tier), across cultures. The truly famous (Socrates, Plato, Confucius…)
+are excluded — Chatterbox already says those right.
 
-Deliberately **excluded**: the truly famous (Socrates, Plato, Aristotle, Confucius,
-Caesar, …). Chatterbox already pronounces those correctly, and a respelling can only
-introduce drift. If a name in this list turns out to render fine "as written," that's a
-result too — it means it never needed a lexicon entry.
+## v1 (archived) — syllable notations lost
 
-## The experiment
+v1 auditioned three syllable notations against the raw name:
+`Thoo-sid-ih-deez` (hyphens) · `Thoo-SID-ih-deez` (stress CAPS) · `Thoo sid ih deez` (spaces).
 
-One pronunciation per name is the source of truth (in `build.py`); from it we emit three
-notations, so each name is auditioned in **four columns**:
+**Result: the raw name almost always won.** Chatterbox is a grapheme-input model with a
+learned pronunciation and no phoneme API, so the formatting backfired: **hyphens and
+spaces are read as word breaks** (the name comes out as separate words) and **ALL-CAPS is
+read as an acronym** (spelled out letter by letter). The stress-caps notation was the
+worst. The v1 inputs and the filled scoresheet are in [`archive/`](archive/).
+
+## v2 (current) — does a *natural* run-on respelling help?
+
+v2 keeps only the idea that might survive the above: the same phonetic content written as
+a **natural, real-word run-on** — **no hyphens, no CAPS**, spaces only between genuine
+words — so there's nothing for the model to mis-segment. Two columns per name:
 
 | column | example (`Thucydides`) | what it is |
 |---|---|---|
-| as-written | `Thucydides` | baseline — does it even need help? |
-| **A** plain-hyphen | `Thoo-sid-ih-deez` | capitalized, hyphens, **no** stress mark |
-| **B** stress-caps | `Thoo-SID-ih-deez` | A **+ stressed syllable in ALL-CAPS** |
-| **C** spaced | `Thoo sid ih deez` | A but **spaces** instead of hyphens |
+| as-written | `Thucydides` | the raw name (unassisted) |
+| **natural** | `Thoosidihdeez` | run-on real-word respelling |
 
-The contrasts are designed to isolate one variable each:
+Other examples: `Xenophon`→`Zenuhfon`, `Nietzsche`→`Neechuh`, `Foucault`→`Fookoh`,
+`Ibn Khaldun`→`Ibun Khaldoon`, `Machiavelli`→`Mahkeeuhvelee`.
 
-- **as-written → A** — is a respelling needed at all?
-- **A → B** — does marking stress (CAPS) help, hurt, or do nothing?
-- **A → C** — hyphen vs. space as the syllable separator?
+The one question: **does the natural respelling read more accurately/reliably than the raw
+name, or does the run-on itself confuse the model too?** If natural wins on a meaningful
+share of names, respelling is viable (just in this format) and worth per-name hand-tuning;
+if it doesn't beat raw, respelling is the wrong tool for Chatterbox and we drop the lexicon.
 
-(For names whose words are all single-syllable — e.g. *Sun Tzu* — A and C collapse to the
-same string; that's expected, just fewer distinct columns for that name.)
-
-## Corpus
-
-91 names across seven groups: Ancient Greek · Roman/Latin · Medieval & Islamic Golden Age
-· Continental Europe · Russian/Slavic · Non-Western (China/India) · Modern English-tricky.
-The grouping lets you look for **per-culture patterns** (e.g. "German -sche endings need
-X", "Chinese pinyin needs Y") rather than only per-name results.
+> The natural spellings are **Wikipedia-sourced**: `wiki_pron.py` pulls each name's IPA +
+> respelling from Wikipedia, and the lexicographer agent converts them to natural run-ons per
+> `src/prosodia/author/roles/RESPELL_GUIDELINES.md` (see `natural_respellings.yaml` +
+> `wiki_prons.json`). This gives the respelling idea its *strongest* form — so if natural
+> still loses to raw, respelling is genuinely the wrong tool, not just badly spelled.
+> (`build.py` falls back to mechanically stripping v1's syllable DATA if that file is absent.)
 
 ## Files
 
-- `build.py` — the source of truth. Edit a pronunciation here (`"thoo-*sid-ih-deez"`,
-  `*` marks the stressed syllable) and re-run to regenerate both YAMLs consistently.
-- `lexicon.yaml` — Style **A** (the "lexicon" column).
-- `variants.yaml` — Styles **B** and **C** (variant 1 / variant 2).
-- `out/` — render output + `index.html` (created by the run; git-ignored).
+- `build.py` — source of truth. Edit a pronunciation (`"thoo-*sid-ih-deez"`, `*` marks
+  stress) and re-run to regenerate `lexicon.yaml` + `scoresheet.md`.
+- `lexicon.yaml` — the natural respellings (the `natural` column).
+- `scoresheet.md` — GitHub-checkbox sheet; won't overwrite once you start marking.
+- `out/` — render output + `index.html` (created by the run; git/sync-ignored).
+- `archive/` — the v1 inputs and the filled v1 scoresheet.
 
-Regenerate the inputs after editing `build.py`:
+Regenerate inputs after editing `build.py`:
 
 ```
 python experiments/lexicon_norms/build.py
@@ -55,41 +59,24 @@ python experiments/lexicon_norms/build.py
 
 ## Running the audition (GPU box)
 
-Runs on the renderer (needs the render extra + Chatterbox). Point `--voices` at the
-narrator clip you're actually shipping — pronunciation stability is voice-dependent, so
-audition against the real reference, not a placeholder.
+Runs on the renderer. Point `--voices` at the real narrator clip. **No `--variants` now**
+— the raw baseline (`as written`) plus the `lexicon` (natural) column give the two takes.
 
 ```
 python -m prosodia.render.cli lexicon-audition \
-  --voices <path-to-narrator.wav-or-voices-dir> \
-  --lexicon  experiments/lexicon_norms/lexicon.yaml \
-  --variants experiments/lexicon_norms/variants.yaml \
-  --out      experiments/lexicon_norms/out \
+  --voices <narrator.wav-or-dir> \
+  --lexicon experiments/lexicon_norms/lexicon.yaml \
+  --out     experiments/lexicon_norms/out \
   --takes 3
 ```
 
-Then open `experiments/lexicon_norms/out/index.html` and A/B the columns by ear.
+**Render count** = 91 names × 2 columns × `takes` (≈ 546 at `--takes 3`). Scope a first
+pass with `--names Thucydides Nietzsche Ibn\ Khaldun Xunzi …`.
 
-**Render count** = 91 names × 4 columns × `takes`. At `--takes 3` that's ~1092 clips —
-a long batch. To triage first, cut with `--takes 2`, or scope to one group with
-`--names Thucydides Polybius …` (space-separated source names). A first pass at `--takes 2`
-on one or two groups is enough to sanity-check the notations before the full run.
+Then open `out/index.html`, A/B each pair, and tick in `scoresheet.md`:
+- **as-written** ⇒ raw wins (no entry needed).
+- **natural** ⇒ the run-on respelling is clearly more accurate/reliable.
+- **both** ⇒ a tie; **neither** + a note ⇒ neither is acceptable.
 
-## Reading the results → norms
-
-For each name, note per column: **correct?** and **stable across the seeds?** (an unstable
-respelling drifts seed-to-seed even when one take sounds right — that's a reject). Then
-roll up across the corpus:
-
-- Does **A** beat as-written often enough to justify respelling at all, or only for
-  certain phonetic shapes?
-- Does **B** (stress caps) actually move stress, or does Chatterbox ignore case?
-- Do **hyphens or spaces** read more reliably as syllable breaks?
-- Any **per-culture** rule (French nasal endings, German *ei/eu*, pinyin *zi/zhi*, Greek
-  *-ides/-oras*)?
-
-The winning conventions become the lexicon-authoring norms; feed them back into the
-per-project `lexicon.yaml` files and the writer/compile guidance.
-
-> This directory lives under `/experiments/` which is git-ignored — it's a research
-> workspace, not shipped source.
+> This directory lives under `/experiments/`, carved out of `.gitignore`/`.stignore` so the
+> study source is tracked and syncs to the render box; `out/` stays local.
