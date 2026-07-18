@@ -136,7 +136,7 @@ def render_job(
     edge_silence_ms: int = 4000,
     speak_title: bool = True,
     title_gap_ms: int = 1000,
-    lexicon_fallback: bool = False,
+    lexicon_fallback: bool = True,
 ) -> Path:
     job_dir = Path(job_dir)
     ir = EpisodeIR.from_json((job_dir / "ir.json").read_text(encoding="utf-8"))

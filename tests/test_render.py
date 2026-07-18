@@ -142,8 +142,10 @@ def test_gate_scores_against_derespelled_reference():
     from pathlib import Path
     d = Path(tempfile.mkdtemp())
     _write_job(d, ir, _simple_plan())
+    # lexicon_fallback=False: exercise the respelling-first path (speak the respelling, score
+    # against the de-respelled reference). The default path is covered separately below.
     R.render_job(d, d / "episode.wav", backend=backend,
-                 fast_preview=False, candidates=1, validator=val)
+                 fast_preview=False, candidates=1, validator=val, lexicon_fallback=False)
     assert backend.calls[0][0] == "he said Thoo-sid-ih-deez"  # engine speaks the respelling
     assert "he said Thucydides" in val.seen  # gate scores against the source spelling
     assert "Thoo-sid-ih-deez" not in " ".join(val.seen)  # never the respelling
@@ -185,10 +187,20 @@ def _render(tmp_path, ir, backend, validator, **kw):
 
 
 def test_lexicon_fallback_off_speaks_respelling(tmp_path):
-    """Flag off (default): the engine speaks the respelling, as before."""
+    """Opt-out (--no-lexicon-fallback): the engine speaks the respelling directly."""
     backend, val = FakeBackend(), RecordingValidator()
-    _render(tmp_path, _respelled_ir(), backend, val, fast_preview=False, candidates=1)
+    _render(tmp_path, _respelled_ir(), backend, val,
+            fast_preview=False, candidates=1, lexicon_fallback=False)
     assert [t for t, _ in backend.calls] == ["he said Thoo-sid-ih-deez"]
+
+
+def test_lexicon_fallback_on_by_default(tmp_path):
+    """Default (no flag) is unassisted-first: the raw name is spoken first and, when it clears
+    the gate, the respelling is never generated."""
+    backend = FakeBackend()
+    val = ScriptedValidator([0.95])  # raw take clears SIM_THRESHOLD
+    _render(tmp_path, _respelled_ir(), backend, val, fast_preview=False, candidates=1)
+    assert [t for t, _ in backend.calls] == ["he said Thucydides"]  # raw only, no respelling
 
 
 def test_lexicon_fallback_prefers_unassisted_when_it_clears_gate(tmp_path):

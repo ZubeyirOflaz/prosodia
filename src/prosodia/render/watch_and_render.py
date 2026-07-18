@@ -29,7 +29,7 @@ def _move(src: Path, dst_root: Path, name: str) -> Path:
 
 
 def render_one(job_dir, root, *, fast_preview=True, voices_dir=None, backend=None,
-               speak_title=True, lexicon_fallback=False) -> Path:
+               speak_title=True, lexicon_fallback=True) -> Path:
     job_dir, root = Path(job_dir), Path(root)
     name = job_dir.name
     proc = _move(job_dir, root / protocol.PROCESSING, name)  # claim
@@ -54,7 +54,7 @@ def render_one(job_dir, root, *, fast_preview=True, voices_dir=None, backend=Non
 
 
 def watch(root, *, interval: float = 5.0, fast_preview: bool = True, voices_dir=None,
-          once: bool = False, speak_title: bool = True, lexicon_fallback: bool = False):
+          once: bool = False, speak_title: bool = True, lexicon_fallback: bool = True):
     root = Path(root)
     inbox = root / protocol.INBOX
     backend = None

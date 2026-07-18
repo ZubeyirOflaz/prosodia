@@ -66,9 +66,10 @@ def build_parser() -> argparse.ArgumentParser:
     p_render.add_argument("--voices", help="directory of voice reference .wav files")
     p_render.add_argument("--no-title", action="store_true", help="don't speak the episode title at the start")
     p_render.add_argument(
-        "--lexicon-fallback", action="store_true",
-        help="final mode only: speak each respelled name UNASSISTED first and fall back to "
-             "the lexicon respelling only if the plain name fails the STT gate",
+        "--lexicon-fallback", action=argparse.BooleanOptionalAction, default=True,
+        help="final mode only (default ON): speak each respelled name UNASSISTED first and "
+             "fall back to the lexicon respelling only if the plain name fails the STT gate. "
+             "Pass --no-lexicon-fallback to always speak the respelling instead.",
     )
 
     p_watch = sub.add_parser("watch", help="watch an exchange root and render jobs as they arrive")
@@ -79,9 +80,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_watch.add_argument("--once", action="store_true", help="process the current inbox once and exit")
     p_watch.add_argument("--no-title", action="store_true", help="don't speak the episode title at the start")
     p_watch.add_argument(
-        "--lexicon-fallback", action="store_true",
-        help="final mode only: speak each respelled name UNASSISTED first and fall back to "
-             "the lexicon respelling only if the plain name fails the STT gate",
+        "--lexicon-fallback", action=argparse.BooleanOptionalAction, default=True,
+        help="final mode only (default ON): unassisted-first pronunciation with the respelling "
+             "as a rescue (see `render`). Pass --no-lexicon-fallback to always speak the respelling.",
     )
 
     p_aud = sub.add_parser(
