@@ -104,3 +104,55 @@ episodes:
       Aquinas makes authority answerable to a reason above it; Marsilius to the people below it. The
       two great later strands — natural rights and popular sovereignty — are both already here in
       embryo, inside a Christian frame neither man has yet left.
+  - n: 7
+    slug: ep07-rise-and-fall
+    title: "The Science of Rise and Fall"
+    target_minutes: 40
+    scope: >
+      Ibn Khaldun — the non-Western pillar and the series' first true social scientist of politics.
+      Asabiyyah (group solidarity) as the engine of power; the cyclical rise and fall of dynasties
+      over three-to-four generations; the Muqaddimah (1377) and 'ilm al-'umran, a new "science of
+      civilization." A deliberately self-contained standalone. Boundary: not a bridge to Europe (that
+      transmission line is Aristotle-into-Aquinas, Ep 6) — a parallel, naturalistic answer European
+      thought largely missed.
+    tension: >
+      What actually drives the rise and fall of states — ideas, law, and divine will, or something
+      more brutal and measurable: the solidarity that binds a rising group and the luxury that
+      dissolves it?
+  - n: 8
+    slug: ep08-effectual-truth
+    title: "The Effectual Truth"
+    target_minutes: 40
+    scope: >
+      Machiavelli and the divorce of politics from morality. The Prince (1513): virtù vs. fortuna,
+      the "effectual truth" of how men do live vs. how they ought to, and the autonomy of political
+      action. Boundary: this episode severs politics from the cosmic/moral order; Ep 9 (Hobbes)
+      rebuilds order from scratch on that cleared ground.
+    tension: >
+      Must a founder be willing to do genuine evil to achieve public good — is politics a realm with
+      its own rules, autonomous from private morality?
+  - n: 9
+    slug: ep09-war-of-all
+    title: "The War of All Against All"
+    target_minutes: 40
+    scope: >
+      Hobbes — the founding move of the modern social contract. The state of nature as a "war of all
+      against all"; the covenant; the absolute, undivided sovereign whose legitimacy is protection
+      alone; sovereignty by institution vs. acquisition. Boundary: Hobbes founds the contract
+      tradition; Locke (Ep 10) is the rival strand, and every difference is set up here.
+    tension: >
+      To escape the war of all against all, must we hand a single sovereign absolute, undivided
+      power — is unlimited authority the only real alternative to chaos?
+  - n: 10
+    slug: ep10-consent-and-resistance
+    title: "Consent and the Right to Resist"
+    target_minutes: 40
+    scope: >
+      Locke — the rival strand of the contract. Natural rights (life, liberty, property); the labour
+      theory of property and its two limits; consent as the ground of legitimate government; and the
+      most radical move, the right of revolution. Doubles as the series' method exemplar (the
+      Cambridge School / Laslett's re-dating). Boundary: the consent branch running forward to Kant
+      and Rawls; Rousseau (Ep 11) attacks its foundation — property.
+    tension: >
+      When does a government forfeit its right to rule, and who gets to decide? And deeper: does
+      property have natural limits, or did Locke quietly license unlimited accumulation?
