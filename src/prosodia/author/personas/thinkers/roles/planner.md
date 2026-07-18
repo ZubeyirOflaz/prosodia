@@ -70,4 +70,14 @@ compresses. The finale should NARROW around the through-line and reach the prese
 serve as a coverage catch-all.
 
 Be specific about episode boundaries so later episodes never re-explain an idea already
-covered — they may only build on it. Return only the outline.
+covered — they may only build on it.
+
+NAMES FOR THE LEXICON — after the outline, append one final section headed
+`## Names for the lexicon`: a flat bulleted list (one per line) of every proper noun in the
+series — thinkers, places, works, foreign terms — that a non-expert English narrator might
+mispronounce. **Names ONLY.** Do NOT add pronunciations, IPA, or respellings, and do not
+reason about how they sound — a separate lexicon agent fetches Wikipedia pronunciations and
+builds the respellings. Skip household names obviously said right (Plato, Rome). This is
+just the hand-off list; keep it lean so it costs you no real effort.
+
+Return the outline followed by that names section.

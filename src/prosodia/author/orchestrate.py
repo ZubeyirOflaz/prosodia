@@ -114,6 +114,56 @@ def plan_series(
     return outline
 
 
+def _extract_lexicon_yaml(raw: str) -> str:
+    """Recover the bare lexicon YAML from a lexicographer response (drop a stray code
+    fence or preamble; ensure a top-level ``lexicon:`` key)."""
+    t = raw.strip()
+    fence = re.search(r"```[A-Za-z0-9]*\s*\n(.*?)\n```", t, re.DOTALL)
+    if fence:
+        t = fence.group(1).strip()
+    m = re.search(r"(?m)^lexicon:\s*$", t)
+    if m:
+        return t[m.start():].strip() + "\n"
+    # The agent may have emitted a bare mapping without the wrapper key — wrap it.
+    return "lexicon:\n" + t + "\n" if t else "lexicon: {}\n"
+
+
+def build_lexicon(
+    names: list[str],
+    *,
+    runner,
+    prons=None,
+    existing_lexicon: str | None = None,
+    trace: Trace | None = None,
+) -> str:
+    """Run the Lexicographer: fetch each name's Wikipedia pronunciation (unless ``prons``
+    is supplied), hand it plus the respelling guidelines to a dedicated agent, and return
+    the lexicon YAML it produces (source spelling -> natural respelling). This is the
+    delegated pronunciation step — the Planner emits the name list; it does NOT do this."""
+    from dataclasses import asdict
+
+    if prons is None:
+        from prosodia.author.wiki_pron import fetch_pronunciations
+
+        prons = fetch_pronunciations(names)
+    rows = [p if isinstance(p, dict) else asdict(p) for p in prons]
+    guidelines = _load_role("RESPELL_GUIDELINES")  # roles/RESPELL_GUIDELINES.md
+    prompt = (
+        "RESPELLING GUIDELINES (authoritative — follow exactly):\n\n"
+        f"{guidelines}\n\n"
+        + (f"EXISTING PROJECT LEXICON (preserve good entries):\n{existing_lexicon}\n\n"
+           if existing_lexicon else "")
+        + "NAMES + WIKIPEDIA PRONUNCIATION DATA (from wiki_pron.py):\n"
+        + json.dumps(rows, ensure_ascii=False, indent=2)
+        + "\n\nProduce the lexicon YAML now (only names that genuinely need help)."
+    )
+    text, _ = runner.run(prompt, system=_load_role("lexicographer"))
+    yaml_text = _extract_lexicon_yaml(text)
+    if trace:
+        trace.append("lexicon", "lexicographer", names=len(names), chars=len(yaml_text))
+    return yaml_text
+
+
 def author_episode(
     brief: str,
     *,

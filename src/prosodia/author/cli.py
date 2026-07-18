@@ -118,6 +118,66 @@ def _cmd_submit(args: argparse.Namespace) -> int:
     return 0
 
 
+def _names_from_outline(text: str) -> list[str]:
+    """Pull names from a 'Names for the lexicon' section the Planner emits — bullet items
+    (one name each, or a comma list), stopping at the next same-or-higher heading."""
+    lines = text.replace("\r\n", "\n").split("\n")
+    names: list[str] = []
+    grab, level = False, 0
+    for ln in lines:
+        h = re.match(r"^(#{1,6})\s+(.*)$", ln)
+        if h:
+            title = h.group(2).strip().lower()
+            if "names for the lexicon" in title or "lexicon names" in title:
+                grab, level = True, len(h.group(1))
+                continue
+            if grab and len(h.group(1)) <= level:
+                break
+        if grab:
+            m = re.match(r"^\s*[-*]\s+(.+)$", ln)
+            if m:
+                # one bullet may hold a comma list; drop any " — annotation" / "(...)"
+                for part in m.group(1).split(","):
+                    nm = re.split(r"\s+[—–]|\s*\(", part)[0].strip().strip("*`\"")
+                    if nm:
+                        names.append(nm)
+    return list(dict.fromkeys(names))
+
+
+def _cmd_lexicon(args: argparse.Namespace) -> int:
+    from prosodia.author.orchestrate import ClaudeRunner, build_lexicon
+
+    proj = Path(args.project)
+    names = list(args.names or [])
+    if args.names_file:
+        names += [ln.strip() for ln in open(args.names_file, encoding="utf-8") if ln.strip()]
+    if not names:
+        outline = proj / "plan" / "outline.md"
+        if outline.exists():
+            names = _names_from_outline(outline.read_text(encoding="utf-8"))
+    names = list(dict.fromkeys(names))
+    if not names:
+        print(
+            "no names to build a lexicon for. Pass --names/--names-file, or add a "
+            "'## Names for the lexicon' section (bulleted) to plan/outline.md.",
+            file=sys.stderr,
+        )
+        return 1
+
+    out = Path(args.out) if args.out else proj / "lexicon.yaml"
+    existing = out.read_text(encoding="utf-8") if out.exists() else None
+    print(f"building lexicon for {len(names)} name(s) via the lexicographer agent ...")
+    yaml_text = build_lexicon(names, runner=ClaudeRunner(), existing_lexicon=existing)
+    if args.dry_run:
+        print(yaml_text)
+        return 0
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(yaml_text, encoding="utf-8")
+    entries = sum(1 for ln in yaml_text.splitlines() if re.match(r"^\s+\S", ln))
+    print(f"wrote {out}  ({entries} entries from {len(names)} names considered)")
+    return 0
+
+
 def _cmd_voice_prep(args: argparse.Namespace) -> int:
     try:
         from prosodia.author.voiceprep import prepare_clip
@@ -362,14 +422,26 @@ def _cmd_write(args: argparse.Namespace) -> int:
                 f"{section}\n"
             )
     # Feed-forward: warn the writer off openings/phrases already used in earlier
-    # episodes (a fresh writer is otherwise blind to the rest of the series).
+    # episodes (a fresh writer is otherwise blind to the rest of the series). Only the
+    # most RECENT `--prior-episodes` are fed: accumulating "avoid these" constraints
+    # across the whole series over-constrains later episodes into sounding synthetic —
+    # freshness relative to recent neighbours is what a listener actually notices, not a
+    # whole-series ban on every phrase used five episodes ago.
     from prosodia.author.repetition import feedforward_context, load_episode_transcripts
 
-    prior: dict[str, str] = {}
+    earlier: list[tuple[int, str, str]] = []
     for name, md in load_episode_transcripts(proj).items():
         m = re.search(r"(\d+)", name)
         if m and int(m.group(1)) < ep["n"]:
-            prior[name] = md
+            earlier.append((int(m.group(1)), name, md))
+    earlier.sort(key=lambda t: t[0])
+    recent = earlier[-args.prior_episodes:] if args.prior_episodes > 0 else []
+    prior: dict[str, str] = {name: md for _, name, md in recent}
+    if len(earlier) > len(prior):
+        print(
+            f"  prior-episode context: feeding the {len(prior)} most recent of {len(earlier)} "
+            f"earlier episode(s) (--prior-episodes={args.prior_episodes})"
+        )
     ff = feedforward_context(prior)
     if ff:
         brief += "\n\n" + ff + "\n"
@@ -413,6 +485,12 @@ def build_parser() -> argparse.ArgumentParser:
     p_write.add_argument("--project", required=True, help="project dir holding series.yaml")
     p_write.add_argument("--episode", type=int, required=True, help="episode number")
     p_write.add_argument("--max-rounds", type=int, default=3, help="max editorial rounds")
+    p_write.add_argument(
+        "--prior-episodes", type=int, default=3,
+        help="how many of the MOST RECENT earlier episodes feed the writer's 'avoid repetition' "
+             "context (default 3; 0 disables). Capped so accumulating avoid-constraints across the "
+             "whole series don't over-constrain later episodes into sounding synthetic",
+    )
     p_write.add_argument("--persona", help="persona name (default: series.yaml persona: or hardcore-history)")
 
     p_compile = sub.add_parser("compile", help="compile a transcript.md to IR + render plan")
@@ -429,6 +507,19 @@ def build_parser() -> argparse.ArgumentParser:
     p_submit.add_argument("--job-id", help="job id (default: ep<N> or the directory name)")
     p_submit.add_argument("--voice-ref", help="explicit voice .wav to bundle (overrides project voices/)")
     p_submit.add_argument("--voices", help="dir of voice clips (default: <project>/voices)")
+
+    p_lex = sub.add_parser(
+        "lexicon",
+        help="build a pronunciation lexicon for a series (delegates to the lexicographer agent)",
+    )
+    p_lex.add_argument("--project", required=True, help="project dir (writes <project>/lexicon.yaml)")
+    p_lex.add_argument(
+        "--names", nargs="+",
+        help="names to include (default: the 'Names for the lexicon' list in plan/outline.md)",
+    )
+    p_lex.add_argument("--names-file", help="read names from a file, one per line")
+    p_lex.add_argument("--out", help="output path (default: <project>/lexicon.yaml)")
+    p_lex.add_argument("--dry-run", action="store_true", help="print the lexicon YAML instead of writing it")
 
     p_vp = sub.add_parser("voice-prep", help="cut a reference clip from a source .wav")
     p_vp.add_argument("source", help="source .wav file")
@@ -481,6 +572,7 @@ _DISPATCH = {
     "write": _cmd_write,
     "compile": _cmd_compile,
     "submit": _cmd_submit,
+    "lexicon": _cmd_lexicon,
     "voice-prep": _cmd_voice_prep,
     "plan-view": _cmd_plan_view,
     "lint-repetition": _cmd_lint_repetition,

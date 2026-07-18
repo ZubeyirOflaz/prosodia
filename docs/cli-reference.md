@@ -36,7 +36,29 @@ Run the Writer ⇄ Editor loop for one episode. Writes
 | `--project DIR` | yes | project directory holding `series.yaml` |
 | `--episode N` | yes | episode number (must exist in `series.yaml`) |
 | `--max-rounds N` | no | max editorial rounds (default 3) |
+| `--prior-episodes N` | no | how many of the most recent earlier episodes feed the writer's "avoid repetition" context (default 3; `0` disables) — capped so accumulating constraints don't make later episodes sound synthetic |
 | `--persona NAME` | no | persona to author with (default: `series.yaml` `persona:` or `hardcore-history`) |
+
+### `prosodia lexicon`
+
+Build a pronunciation lexicon for a series and write `<project>/lexicon.yaml`. Delegates to
+the **lexicographer agent**: for each name it fetches the Wikipedia pronunciation
+(`wiki_pron.py`, author-side, no GPU) and converts it to a natural, Chatterbox-friendly
+respelling per `roles/RESPELL_GUIDELINES.md` (no hyphens/CAPS — those are read as separate
+words / acronyms). Only genuinely-hard names get an entry; easy names are left raw. The
+**Planner emits the name list** (a `## Names for the lexicon` section in `plan/outline.md`) so
+this pronunciation work never bloats the planner's own context. Requires the `claude` CLI.
+
+| Option | Req | Meaning |
+|---|---|---|
+| `--project DIR` | yes | project dir (writes `<project>/lexicon.yaml`; preserves existing entries) |
+| `--names ...` | no | names to include (default: the `Names for the lexicon` list in `plan/outline.md`) |
+| `--names-file FILE` | no | read names from a file, one per line |
+| `--out PATH` | no | output path (default: `<project>/lexicon.yaml`) |
+| `--dry-run` | no | print the lexicon YAML instead of writing it |
+
+> Standalone, no agent: `python -m prosodia.author.wiki_pron NAME ...` prints the raw
+> Wikipedia IPA + respelling (JSON/TSV) for a name list.
 
 ### `prosodia compile`
 
@@ -189,7 +211,7 @@ lead/tail silence, and (unless `--no-title`) opens with the spoken episode title
 | `--final` | no | final mode: N candidates + STT quality gate (default: fast preview) |
 | `--voices DIR` | no | directory of voice reference `.wav` files |
 | `--no-title` | no | don't speak the episode title at the start |
-| `--lexicon-fallback` | no | final mode only: speak each respelled name **unassisted first**, falling back to the lexicon respelling only if the plain name fails the STT gate (default off) |
+| `--no-lexicon-fallback` | no | **on by default (final mode):** normally each respelled name is spoken **unassisted first**, falling back to the lexicon respelling only if the plain name fails the STT gate. Pass `--no-lexicon-fallback` to always speak the respelling instead. |
 
 ### `prosodia-render watch`
 
@@ -203,7 +225,7 @@ Watch an exchange root and render jobs as they arrive (model kept warm).
 | `--interval SEC` | no | poll interval seconds (default 5.0) |
 | `--once` | no | process the current inbox once and exit |
 | `--no-title` | no | don't speak the episode title at the start |
-| `--lexicon-fallback` | no | final mode only: unassisted-first pronunciation with the respelling as a rescue (see `render` above) |
+| `--no-lexicon-fallback` | no | opt out of the default unassisted-first pronunciation (see `render` above); always speak the respelling |
 
 ### `prosodia-render audition`
 
@@ -252,9 +274,10 @@ edit `lexicon.yaml` → recompile.
 > **Note (`--final` STT gate):** the render quality gate scores against a *de-respelled*
 > reference (respellings mapped back to source spellings), so a correctly-pronounced take
 > is rewarded, not the spelled-out one. This takes effect once an episode is **recompiled**
-> (the de-respelled reference is embedded in `ir.json`). `--lexicon-fallback` reuses that same
-> de-respelled text as the *unassisted* spelling to try first, respelling only on a gate miss;
-> the run logs how many respelled chunks actually needed the respelling.
+> (the de-respelled reference is embedded in `ir.json`). By default (unassisted-first) the
+> renderer reuses that same de-respelled text as the *unassisted* spelling to try first,
+> respelling only on a gate miss; the run logs how many respelled chunks actually needed the
+> respelling. `--no-lexicon-fallback` turns that off and always speaks the respelling.
 
 ## See also
 
