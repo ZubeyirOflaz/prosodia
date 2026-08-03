@@ -156,3 +156,56 @@ episodes:
     tension: >
       When does a government forfeit its right to rule, and who gets to decide? And deeper: does
       property have natural limits, or did Locke quietly license unlimited accumulation?
+  - n: 11
+    slug: ep11-general-will
+    title: "The General Will"
+    target_minutes: 40
+    scope: >
+      Rousseau — the contract turned against itself. The corruption thesis; amour de soi vs.
+      amour-propre; inequality traced to property and society (Second Discourse); popular
+      sovereignty through the general will and the notorious "forced to be free." Boundary:
+      Rousseau rejects the Hobbes/Locke state of nature and hands the general will forward to
+      Kant; the anti-contract institutional thinkers (Ep 12) are the parallel counter-tradition.
+    tension: >
+      Can you legitimately force someone to be free? Is the general will the birth of real
+      self-government — or the birth of totalitarian coercion wearing the mask of freedom?
+  - n: 12
+    slug: ep12-machinery-of-order
+    title: "The Machinery of Order"
+    target_minutes: 45
+    scope: >
+      Three Enlightenment thinkers who ground political order in something other than a founding
+      contract — the counter-tradition to Eps 9-11. Montesquieu: the separation of powers and the
+      sociology of regimes. Hume: justice as an artificial virtue / convention, and the demolition
+      of contract theory itself. Adam Smith: the impartial spectator and moral sentiments as the
+      unplanned glue of society (his economics compressed to a single paragraph, framed morally).
+      Boundary: the grown/engineered order that Kant (Ep 13) rejects as mere "what works."
+    tension: >
+      What actually holds a free society together — a contract we once signed, institutions
+      engineered to check power, or conventions and moral sentiments that grew up on their own,
+      unplanned and unauthored?
+  - n: 13
+    slug: ep13-freedom-under-law
+    title: "Freedom Under Law"
+    target_minutes: 40
+    scope: >
+      Kant — grounding authority in reason, not welfare, feeling, or habit. One innate right
+      (freedom); the Universal Principle of Right; the social contract as an "idea of reason."
+      Boundary: Kant completes the contract tradition's rational wing (forward to Rawls) and adopts
+      Rousseau's general will; Hegel (Ep 14) attacks his abstraction as empty.
+    tension: >
+      Should the state try to make its citizens happy — or only secure everyone's equal freedom
+      under law, even against their happiness? Is right grounded in outcomes (utility, welfare) or
+      in reason itself?
+  - n: 14
+    slug: ep14-spirit-in-history
+    title: "Spirit in History"
+    target_minutes: 40
+    scope: >
+      Hegel — freedom realized, not just willed. Geist actualizing itself in Sittlichkeit (ethical
+      life); the movement Family → Civil Society → State; the "emptiness charge" against Kant's
+      abstract morality. Boundary: Hegel historicizes and deindividualizes Kant's freedom; Marx
+      (Ep 15) will invert Hegel's own method against him.
+    tension: >
+      Is freedom something the lone individual possesses against society — or something only a
+      whole ethical community, with its institutions and its history, can make real?

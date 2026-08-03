@@ -46,6 +46,10 @@ class Lexicon:
             return cls({})
         data = yaml.safe_load(Path(path).read_text(encoding="utf-8")) or {}
         entries = data.get("lexicon", data) if isinstance(data, dict) else {}
+        # A bare ``lexicon:`` key with no children parses to None — treat it as empty
+        # rather than crashing the whole compile.
+        if not isinstance(entries, dict):
+            return cls({})
         return cls({str(k): str(v) for k, v in entries.items()})
 
     def apply(self, text: str) -> str:

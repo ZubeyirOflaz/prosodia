@@ -30,3 +30,12 @@ def test_reverse_longest_respelling_first():
 
 def test_reverse_empty_lexicon_is_identity():
     assert Lexicon({}).reverse("untouched Thoo-sid-ih-deez") == "untouched Thoo-sid-ih-deez"
+
+
+def test_load_bare_lexicon_key_is_empty(tmp_path):
+    # A `lexicon:` key with no children parses to None — must load as empty, not crash.
+    p = tmp_path / "lex.yaml"
+    p.write_text("# header\nlexicon:\n", encoding="utf-8")
+    lex = Lexicon.load(p)
+    assert lex.entries == {}
+    assert lex.apply("Thucydides stays") == "Thucydides stays"
