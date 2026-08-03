@@ -1,19 +1,11 @@
-lexicon:
-  Montesquieu: "Montuhskew"
-  Rousseau: "Roosoh"
-  Machiavelli: "Makiavelli"
-  Aquinas: "Uhkwynus"
-  "Ibn Khaldun": "Ibun Khaldoon"
-  Grotius: "Grohsheeus"
-  Nietzsche: "Neecha"
-  Tocqueville: "Tokvil"
-  Bakunin: "Bakoonin"
-  Proudhon: "Proodon"
-  Gramsci: "Gramshee"
-  Foucault: "Fookoh"
-  Habermas: "Hahbermass"
-  Thucydides: "Thoosidadeez"
-  Polybius: "Puhlibeeus"
-  Thrasymachus: "Thruhsimmuhkus"
-  Beauvoir: "Bohvwar"
-  Fanon: "Fannon"
+# Pronunciation lexicon — INTENTIONALLY EMPTY.
+#
+# The lexicon-norm audition (experiments/lexicon_norms/) found that for Chatterbox no
+# respelling scheme reliably beats leaving the raw name to the model: the raw spelling is
+# usually more accurate and, when it errs, far less jarring than a mangled respelling.
+# So this series ships with NO respellings — pronunciation is left to the engine.
+#
+# Do NOT auto-populate this file. If a specific name is genuinely unusable raw, add just
+# that one entry (natural run-on spelling, no hyphens/CAPS — see the study), and prefer
+# rendering with the default unassisted-first fallback so raw is still tried first.
+lexicon: {}
