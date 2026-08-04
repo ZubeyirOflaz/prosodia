@@ -1,7 +1,7 @@
 ---
 format_version: "0.1"
 style: thinkers
-episode: 16
+episode: 17
 title: "The Greatest Happiness"
 defaults: { tone: measured, rate: normal }
 pauses: { paragraph: 0.4, beat: 0.9 }
@@ -460,7 +460,7 @@ But we are not one life. Nobody experiences the total. There is no being anywher
 
 That objection, made with a rigour that will take an entire episode to unfold, is what a philosopher in the twentieth century will use to knock utilitarianism off the throne it had occupied in the English-speaking world for a hundred and fifty years. He will accuse it of failing to take seriously the distinction between persons, and he will spend a very large book constructing an alternative. He is where this series is going, and he is a long way off yet.
 
-## The man in the case   {tone: contemplative, note: "ENDING — bookend to the drawing via the auto-icon; the verdict; recast as beginning; handover to Tocqueville as a RETURN — the listener met him last episode in 1848; we now go back to the young magistrate on the prison mission"}
+## The man in the case   {tone: contemplative, note: "ENDING — bookend to the drawing via the auto-icon; the verdict; recast as beginning; handover to Tocqueville as a RETURN — the listener met him two episodes back, in 1848; we now go back to the young magistrate on the prison mission"}
 
 Bentham died in June of 1832, at eighty-four, in the house in Westminster. The day after he died, the Great Reform Act — the first serious widening of the British franchise, the thing he and his radicals had hammered at for decades — received the royal assent. He missed it by about a day.
 
@@ -492,7 +492,7 @@ And there's one more thing in this episode that opens a door.
 
 The Panopticon was never built, but the century that followed was obsessed with prisons — with the idea that you could design a building that would remake a soul. Which is why, in 1831, the French government sent two young magistrates across the Atlantic on an official mission to study the American penitentiary system: the new prisons where inmates were kept in silence and solitude, which the whole of Europe wanted to hear about.
 
-You already know one of those two men, though you met him at the wrong end of his life and in the wrong street. Last episode he was a deputy in his forties in the National Assembly in the summer of 1848 — the awkward witness, the liberal who voted for the state of siege and walked among the government's troops while Paris was taken street by street. Alexis de Tocqueville. That is where he ends up.
+You already know one of those two men, though you met him at the wrong end of his life and in the wrong street. Two episodes back he was a deputy in his forties in the National Assembly in the summer of 1848 — the awkward witness, the liberal who voted for the state of siege and walked among the government's troops while Paris was taken street by street. Alexis de Tocqueville. That is where he ends up.
 
 Go back seventeen years and he is twenty-five: a junior magistrate on a boat, with a prison report to write, and something else entirely on his mind.
 
