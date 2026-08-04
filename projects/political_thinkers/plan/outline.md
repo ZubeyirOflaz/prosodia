@@ -463,9 +463,9 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 ---
 
 ## EP 15 — The World Turned Right-Side Up
-**Scope:** Marx & Engels — Hegel's method turned against Hegel, and against liberalism. **Historical materialism**; **alienation**; the critique of liberal rights ("**political emancipation**" vs. "**human emancipation**"); the debt to classical political economy and the **labour theory of value**. Boundary: this closes the German idealist chain (Kant→Hegel→Marx); Ep 16 jumps "meanwhile, in Britain" to the utilitarians.
+**Scope:** Marx — Hegel's method turned against Hegel, and against liberalism. **Historical materialism**; **alienation**; the critique of liberal rights ("**political emancipation**" vs. "**human emancipation**"); the debt to classical political economy and the **labour theory of value**. Boundary: **Marx the theorist, in his own words** (not the 20th-century states built in his name); his collaborator, financier and systematizer **Engels gets his own episode next (Ep 16)** — keep Engels to a passing named presence here, save his independent work for Ep 16. This closes the German idealist chain (Kant→Hegel→Marx).
 
-**Opening — a SCENE:** Manchester, 1842. A young factory-owner's son named Friedrich Engels walks the courts and cellars of the world's first industrial city and writes down what he sees: children in the mills, families in the flooded basements, the average worker dead decades early — all of it *legal*, all of it the byproduct of a booming economy the philosophers called free. Open in that Manchester, not in a library; then ask what kind of "freedom" produces this, and whether the liberal rights everyone celebrates reach down into that cellar at all.
+**Opening — a SCENE:** London, the 1850s. In the Reading Room of the British Museum, a stateless exile — expelled from Prussia, then France, then Belgium — sits day after day filling notebooks for a book on capital, while at home in two rented rooms in Soho his family lives in poverty and several of his children die young. The man the world will remember as a prophet of the workers spent his life as a penniless refugee scribbling in a library. Open there — on the gap between the enormity of the theory and the smallness of the room — then ask what he thought he was seeing that everyone else had missed.
 
 **The live question:** Are the liberties and rights the whole series has been building toward — Locke's property, Kant's freedom, the rule of law — *real* emancipation? Or are they a beautifully painted superstructure resting on, and disguising, the brute question of who owns the means of production?
 
@@ -477,12 +477,12 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 **Central tension (facet):** Marx turns the series' central question inside out: maybe "what makes authority legitimate?" is the wrong question, a piece of superstructure — and the real question is *who owns what*, with legitimacy just the story the owners tell. If he's right, most of this series has been describing the ideology, not the base. That accusation hangs over everything after.
 
-**Handover:** Marx measured every society by production and class and promised history was heading somewhere. But a rival British tradition had a completely different yardstick, one that had been quietly running the whole time — not class, not spirit, not rights, but a single sum: the total amount of human happiness. Meanwhile, in Britain, someone had tried to turn that into a *calculus*.
+**Handover:** Marx measured every society by production and class and promised history was heading somewhere — but he did it as a near-solitary exile, and the movement, the label, even the finished volumes of *Capital*, would fall to another man: the friend who paid his rent, walked him through the factories, and would spend the next fifty years turning a mountain of difficult manuscripts into a marching doctrine. Before Britain answers Marx, meet the co-author who made "Marxism" — and who may have changed it.
 
 **Raw material:**
-- **Marx & Engels**
-  - *Context / human anchor:* the **industrial revolution** and the failed revolutions of **1848**; Marx the exiled radical journalist, expelled from Prussia, France, and Belgium, writing *Capital* in poverty in the **British Museum Reading Room** while several of his children died young; **Engels**, his collaborator and financier, running his family's **Manchester cotton firm** by day to bankroll the critique of capitalism by night — a genuine, documented irony.
-  - *Real figures (carriers):* **Engels** himself (the capitalist funding communism); the Manchester workers of his *Condition of the Working Class in England* (1845) as the human ground of the theory; writer may source specific 1848 figures (e.g., the June Days) as the "class split" Marx analyzed.
+- **Marx** (Engels is a named presence here; his own work is Ep 16)
+  - *Context / human anchor:* the **industrial revolution** and the failed revolutions of **1848**; Marx the exiled radical journalist, expelled from Prussia, France, and Belgium, writing *Capital* in poverty in the **British Museum Reading Room** while several of his children died young; **Engels** named as the collaborator and financier bankrolling him from Manchester — but hold Engels's *Condition of the Working Class*, *Utopian and Scientific*, etc. for Ep 16.
+  - *Real figures (carriers):* the Manchester workers as the human ground of the theory; writer may source specific 1848 figures (e.g., the June Days) as the "class split" Marx analyzed.
   - *Core ideas / key terms:* **historical materialism** (development + primacy theses); **alienation** (four dimensions, *contingent*); inversion of the Hegelian dialectic; **political vs. human emancipation** / "rights of separation"; **labour theory of value** (socially necessary labour time).
   - *Contested/uncertain (preserve):* whether the "primacy of the base" is a strict determinism or a looser tendency is itself contested (Cohen's technological reading vs. others); and the gap between Marx's *own* texts and later "Marxism" is a live issue — flag that we're reading Marx, not the 20th-century states built in his name (which are reserved for the later expansion). *(Src: SEP "marx.")*
 - **Dwell on:** historical materialism (base/superstructure) and the political-vs-human-emancipation critique of rights. **Compress:** the economics of *Capital* (surplus value in one careful pass); the details of 19th-century socialist factions.
@@ -490,7 +490,33 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 16 — The Greatest Happiness
+## EP 16 — The Second Fiddle
+**Scope:** Friedrich Engels out of Marx's shadow — the co-author who named the whole fight. The mill-owner's son who ran Manchester cotton by day and bankrolled the critique of capital by night; ***The Condition of the Working Class in England*** (1845) and "**social murder**"; ***Socialism: Utopian and Scientific*** (1880) — the hinge text that split socialism into "utopian" dreamers and "scientific" law; the state that "**withers away**"; ***The Origin of the Family, Private Property and the State*** (1884). Boundary: Engels's *independent* contribution and his role packaging Marx into "**Marxism**"; the utopian socialists and anarchists he framed (Owen, Fourier, Saint-Simon; Proudhon, Bakunin) are held for a later episode — touch them here only as the dreamers he defined "scientific" socialism *against*.
+
+**Opening — a SCENE:** Manchester, the early 1840s. The son of a wealthy German mill-owner, sent to England to learn the family cotton trade, spends his evenings away from the counting-house being led through the city's courts and cellars by an Irish factory worker, Mary Burns. What he writes down — children in the mills, whole families in flooded basements, the worker dead decades early — he refuses to call an accident: he calls it "social murder." Open on the paradox of the man himself: a capitalist building the case against capitalism, who will call himself the "second fiddle" to a friend he bankrolled for forty years — and who, in the end, may have shaped what the word "Marxism" means more than Marx ever did.
+
+**The live question:** Was Engels the indispensable partner who made Marx legible — who turned a chaos of unfinished manuscripts into a living movement — or the man who flattened Marx's subtle, historically-specific critique into a rigid "science" of iron laws, and so helped lay the road to twentieth-century dogma?
+
+**The argument / core ideas:**
+- *The witness — "social murder":* **The Condition of the Working Class in England** (1845), written at **24**, from direct observation, *before* the full partnership with Marx. His most independent achievement; it helped turn Marx toward political economy. The human ground the whole theory stands on.
+- *The hinge — "utopian vs. scientific":* **Socialism: Utopian and Scientific** (1880, drawn from *Anti-Dühring*), the era's best-selling popularization of Marxism. Engels **honours** Owen, Saint-Simon and Fourier as brilliant critics — then buries them on **method**: they sought socialism "in men's brains," in eternal reason and justice, an ideal to be *invented and preached*. What makes socialism "scientific" is that it is grounded in the **actual laws of history** (the materialist conception of history + surplus value — Engels credits both to Marx), not a wish. (Keep the utopians LIGHT — they get their own episode; here they are only the foil.)
+- *The state:* "**The State is not 'abolished'. It dies out.**" — it *withers away* as it becomes superfluous; "the government of persons is replaced by the administration of things." (Flag: that crisp phrasing is Engels channelling Saint-Simon.) Note forward that this is exactly the claim the anarchists will reject — a hook, not a detour.
+- *The late work:* **The Origin of the Family, Private Property and the State** (1884), built on Marx's notes on Lewis Morgan; family, property and state given a *historical origin* (so all three can pass away); the rise of monogamy framed as "the world-historical defeat of the female sex" — foundational for socialist feminism. **[Flag on air: its evolutionary anthropology — a primitive matriarchy stage — is now largely superseded.]**
+
+**Central tension (facet):** the "**Engels problem**." It was largely Engels — in *Anti-Dühring* and the posthumous *Dialectics of Nature* — who packaged Marx into a coherent "-ism," extending the dialectic into **nature** (which Marx never did) and handing the Second International and later the Soviet state its "**dialectical materialism**." Faithful popularization, or distortion? Present it as a **live debate**, not a verdict: **Levine** (*The Tragic Deception*) and **Carver** argue Engels turned a supple critique into positivist determinism ("the pimp of positivism"); defenders note Marx **read and contributed to** *Anti-Dühring* and approved the project. Leave the listener holding it.
+
+**Handover:** Engels drew the border of the movement — dreamers on one side, science on the other — and he drew it to *win*, filing everyone who disagreed under "pre-scientific." But two whole worlds stood on the far side of that line: the socialists who wanted to **build** the new world rather than wait for history to deliver it, and the anarchists who warned that Engels's own plan — seize the state, then let it wither — would forge a new tyranny instead. (Those are for later.) For now the series crosses the Channel: while Germany argued about history and revolution, Britain had been quietly running a completely different answer to the same misery — not class, not spirit, but a single sum, the greatest happiness of the greatest number.
+
+**Raw material:** see `research/10_socialism_alternatives.md` (the Engels entry) and the existing Marx docket.
+- *Context / human anchor:* **Ermen & Engels**, the Manchester family firm; **Mary Burns** as his guide to working-class Manchester; the lifelong financing of Marx; "the second fiddle."
+- *Core ideas / key terms:* **social murder**; **utopian vs. scientific** (method, not kindness, is the dividing line); **materialist conception of history + surplus value** as Marx's "two great discoveries"; the state **withering away** / "administration of things"; *Origin of the Family* (historical origin of family/property/state; "defeat of the female sex").
+- *Contested/uncertain (preserve):* the **"Engels distorted Marx" debate** (Levine/Carver vs. defenders) — the centrepiece tension, present as unsettled; *Origin of the Family*'s superseded anthropology; the "administration of things" attribution (Saint-Simon's idea, Engels's phrasing).
+- **Dwell on:** the "utopian vs. scientific" move and the "Engels problem." **Compress:** the utopians themselves (foil only); the details of *Anti-Dühring*.
+- *Length note:* **medium** — a focused portrait of one man and one live controversy; do not pad to Marx's length.
+
+---
+
+## EP 17 — The Greatest Happiness
 **Scope:** The British utilitarians. **Bentham:** the **principle of utility**, the **felicific calculus**, "the greatest happiness of the greatest number." **J. S. Mill:** the reviser — qualitative "**higher pleasures**," and (verify) the **harm principle** / *On Liberty*. Boundary: the "whatever maximizes happiness" answer to legitimacy; its collision with rights sets up the finale, and its worry about the majority hands directly to Tocqueville (Ep 17).
 
 **Opening — a PARADOX:** The philosophy that promised "the greatest happiness of the greatest number" — the most humane-sounding principle anyone in this series ever proposed — produced, from the same pen, the blueprint for the perfect prison: Bentham's **Panopticon**, a building where a single hidden guard could watch every inmate at every moment, and no one could ever be sure they weren't being watched. How does the philosophy of maximizing happiness generate a machine for total surveillance? Open on that contradiction; it's the key to what's powerful *and* dangerous in the whole idea.
@@ -519,7 +545,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 17 — The Tyranny of the Majority
+## EP 18 — The Tyranny of the Majority
 **Scope:** Tocqueville — the liberal who feared *equality* itself. **Democracy in America**: equality of conditions, the **tyranny of the majority**, **civil associations** as democracy's antidote, and **democratic despotism** (soft, administrative). Boundary: the last thinker who still argues *within* the moral tradition about better and worse orders; Nietzsche (Ep 18) blows up the ground under all of them.
 
 **Opening — a SCENE:** 1831. Two young French aristocrats step off a boat in New York with an official commission to study American *prisons*. They tour the penitentiaries dutifully — and one of them, Alexis de Tocqueville, becomes fascinated by something far larger: a whole society running, for the first time in history, on the assumption that everyone is *equal*. He came to inspect jails and left with the book that still defines how we argue about democracy. Open on the mismatch between the errand and the discovery.
@@ -545,7 +571,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 18 — The Genealogy of Morality
+## EP 19 — The Genealogy of Morality
 **Scope:** Nietzsche — the demolition of morality's foundations. The **genealogy of morality** (method); **master vs. slave morality** and **ressentiment**; the anti-egalitarian assault on "**herd morality**." Boundary: Nietzsche attacks the *entire* moral-political tradition; Weber (Ep 19) inherits the disenchanted world Nietzsche diagnosed but answers it soberly, not incendiarily. The honest handling of the **Nazi appropriation** is mandatory here.
 
 **Opening — a PARADOX:** Somewhere in the ancient world, the weak won. Not on the battlefield — there the strong always win — but in the dictionary. The powerless, unable to strike back at their masters, performed a spiritual revolution: they declared that meekness was "good," that strength and pride were "evil," that the last shall be first. And their new morality was so successful that today it feels simply *obvious* — it feels like morality itself. Nietzsche called this the "slave revolt in morality," and he meant it as an accusation. Open on the paradox: our deepest moral instincts might be the fossilized victory of resentment.
@@ -571,7 +597,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 19 — Authority and the Iron Cage
+## EP 20 — Authority and the Iron Cage
 **Scope:** Weber — the sociologist of legitimacy for a disenchanted world. The **state** as monopoly on legitimate force; the **three pure types of legitimate domination**; the **iron cage / disenchantment**; the **Protestant-ethic thesis** and its tension with Marx. Boundary: the last thinker before the capstone; Weber leaves modernity diagnosed but with *no exit*, which is exactly the condition Rawls (Ep 20) tries to answer from first principles.
 
 **Opening — a HARD QUESTION:** Think of every authority you actually obey — a police officer, a tax bill, a manager, a court. Now ask yourself, honestly, *why* you obey. Not whether you should — why you *do*. Weber said every answer in human history reduces to just three: because it's always been done this way; because *this* person is extraordinary and I'm swept up in them; or because there's a rule and the rule was made properly. Put the question to the listener first and let them sort their own obediences into the three boxes — because those three boxes are Weber's map of all political authority.
@@ -597,7 +623,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 20 (FINALE) — Behind the Veil
+## EP 21 (FINALE) — Behind the Veil
 **Scope:** The capstone rivalry — **Rawls vs. Nozick** — as the modern re-staging of the entire long argument, narrowed to a single question and carried to the present. Rawls's **justice as fairness** (original position, veil of ignorance, the two principles); Nozick's **entitlement theory** and side-constraints. Boundary: this is the *finale* — it narrows around the through-line and reaches the present; it is **not** a coverage catch-all, and it explicitly leaves the door open to the reserved 20th-century expansion.
 
 **Opening — a THOUGHT EXPERIMENT:** You are going to help design the basic rules of a society — its laws, its economy, who gets what. There's only one condition: you must choose from behind a **veil of ignorance**. You don't know who you'll be in that society. Rich or poor, brilliant or disabled, majority or despised minority, born to privilege or born with nothing — all of it hidden. Now choose the rules. Rawls bets that if you're truly ignorant of your own place, you'll choose very differently than if you knew you'd be on top. Put the listener behind the veil in the first thirty seconds and make them decide before a single name is spoken.

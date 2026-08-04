@@ -209,3 +209,50 @@ episodes:
     tension: >
       Is freedom something the lone individual possesses against society — or something only a
       whole ethical community, with its institutions and its history, can make real?
+  - n: 15
+    slug: ep15-world-right-side-up
+    title: "The World Turned Right-Side Up"
+    target_minutes: 40
+    scope: >
+      Marx — Hegel's method turned against Hegel, and against liberalism. Historical materialism
+      (base/superstructure, the development and fettering theses); alienation (four dimensions,
+      historically contingent); the critique of liberal rights ("political emancipation" vs. "human
+      emancipation," "rights of separation"); the labour theory of value; the debt to Smith and
+      Ricardo. Boundary: Marx the theorist in his own words (not the 20th-century states built in
+      his name); his collaborator, financier and systematizer Engels gets his own episode next
+      (Ep 16) — keep Engels a passing named presence here.
+    tension: >
+      Are the liberties the series has built toward — Locke's property, Kant's freedom, the rule of
+      law — real emancipation? Or a painted superstructure resting on, and disguising, the brute
+      question of who owns the means of production?
+  - n: 16
+    slug: ep16-second-fiddle
+    title: "The Second Fiddle"
+    target_minutes: 35
+    scope: >
+      Friedrich Engels out of Marx's shadow — the co-author who named the whole fight. The
+      mill-owner's son who ran Manchester cotton by day and bankrolled the critique of capital by
+      night; The Condition of the Working Class in England (1845) and "social murder"; Socialism:
+      Utopian and Scientific (1880) — how Engels split socialism into "utopian" dreamers and
+      "scientific" law (the utopians touched only as his foil; they get their own later episode);
+      the state that "withers away"; The Origin of the Family (1884). Boundary: Engels's independent
+      contribution and his role packaging Marx into "Marxism" — the utopians and anarchists he framed
+      are reserved for a later episode.
+    tension: >
+      Was Engels the loyal partner who made Marx legible and kept the movement alive — or the man who
+      flattened Marx's subtle, historical critique into a rigid "science" of iron laws that helped
+      lay the road to twentieth-century dogma?
+  - n: 17
+    slug: ep17-greatest-happiness
+    title: "The Greatest Happiness"
+    target_minutes: 40
+    scope: >
+      The British utilitarians. Bentham: the principle of utility, the felicific calculus, "the
+      greatest happiness of the greatest number." J. S. Mill: the reviser — qualitative "higher
+      pleasures," and the harm principle / On Liberty. Boundary: the "whatever maximizes happiness"
+      answer to legitimacy, and Mill's liberty carve-out — the liberal counterweight to Ep 15's
+      collectivism; forward to the rights-based reply (Rawls, the finale).
+    tension: >
+      Should we judge laws and governments purely by the happiness they produce — and can happiness
+      even be measured and summed across people? And Mill's twist: are some pleasures genuinely
+      higher than others, or is that snobbery smuggled into a supposedly democratic calculus?
