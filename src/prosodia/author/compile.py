@@ -40,7 +40,10 @@ _TOKEN = re.compile(
     r"(?P<para>\n[ \t]*\n)"
     r"|(?P<speaker>(?<![^\n])@[A-Za-z0-9_]+)"
     r"|(?P<directive>(?<!\\)\{[^{}]*\})"
-    r"|(?P<emph>(?<!\\)\*[^*\n]+\*)"
+    # Emphasis: any asterisk fence — *emph*, **strong**, ***both***. All fence asterisks
+    # are stripped so none leak into spoken_text; writers reach for **bold**/***x*** and a
+    # fixed-count rule left literal '*' in the audio. (?<!\\) keeps escaped \* literal.
+    r"|(?P<emph>(?<!\\)\*+[^*\n]+\*+)"
 )
 _INTENT_KEYS = {"tone", "rate", "note"}
 
@@ -283,7 +286,7 @@ def compile_text(
                         warnings.append(f"beat {bi}: bad pause value {d['pause']!r}")
                 cur_intent = {**cur_intent, **_intent_keys(d, warnings, f"beat {bi} inline")}
             elif kind == "emph":
-                phrase = _unescape(m.group()[1:-1])
+                phrase = _unescape(m.group().strip("*"))  # handles both ** and *
                 buf.append(phrase)
                 emph.append(phrase)
             pos = m.end()

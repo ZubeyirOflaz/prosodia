@@ -141,6 +141,16 @@ def test_escapes():  # finding 18
     assert "{x}" in ir2.segments[0].spoken_text  # not parsed as a directive
 
 
+def test_double_asterisk_emphasis_leaves_no_literal_stars():
+    # Writers reach for **strong**; the old single-* rule matched only the inner pair and
+    # left literal '*' in spoken_text (and thus in the audio). Both ** and * must be stripped.
+    ir, _ = compile_text("## A\nthe **greatest happiness** of the *greatest* number, ***virtù***")
+    s = ir.segments[0]
+    assert "*" not in s.spoken_text  # single, double, AND triple fences all stripped
+    assert s.spoken_text == "the greatest happiness of the greatest number, virtù"
+    assert s.emphasis == ["greatest happiness", "greatest", "virtù"]
+
+
 def test_bad_pause_warns_and_ignored():  # finding 19
     ir, warns = compile_text("## A\nBefore. {pause: abc} After.")
     assert any("bad pause value" in w for w in warns)
