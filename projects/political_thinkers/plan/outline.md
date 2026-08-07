@@ -516,7 +516,32 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 17 — The Greatest Happiness
+## EP 17 — The Roads Not Taken
+**Scope:** The socialists who were *not* Marx — the two roads past capitalism that the Marxist road buried or beat. The **utopians** (Owen, Saint-Simon, Fourier): *build the model now* — design a rational community, demonstrate it, convert the world by example. The **anarchists** (Proudhon, Bakunin, Kropotkin): *abolish the state now* — federate from the bottom up, never seize a central power. Framed by the three-way contrast Eps 15–16 set up (utopian / "scientific"-Marxist / anarchist). A **SURVEY**, not a deep-dive: six figures in compressed portraits held together by one argument about **method**. Boundary: this closes the socialist arc (15–17); Ep 18 crosses the Channel to a completely different yardstick — happiness.
+
+**Opening — a SCENE (pick one):** Fourier, an obscure clerk in Besançon, coming home at noon for years to wait for the rich benefactor who would fund his perfect community — a man who never came; OR New Harmony, Indiana, 1827, a community of equality dissolving into faction two years after a self-made millionaire sank four-fifths of his fortune into it. Open on the pathos of the blueprint reason drew and the world would not build — then ask why these humane, brilliant men were dismissed by their own successors as "dreamers," and who did the dismissing.
+
+**The live question:** If everyone agrees capitalism is unjust, the argument that splits the socialists is **method**: do you **build** the just society as a working model and let it spread, **seize** the state and drive history toward it, or **smash** the state and let people federate from below? Three answers, all socialist, all incompatible — and the fight between them was as bitter as the fight against capitalism itself.
+
+**The three roads (the spine — keep the contrast load-bearing):**
+- *The utopians — build the model:* **Owen** (New Lanark's humane, *profitable* mill; New Harmony's collapse; character is *made*, so change the conditions, don't punish the man). **Saint-Simon** (rule by scientists and industrialists; "the government of men" gives way to "the administration of things"; the parable of the 3,000 producers vs. the idle great). **Fourier** (the phalanx, the twelve passions, "attractive labour" — plus the extravagant cosmology, the seas turning to lemonade, that made him a byword for socialist lunacy). Their shared flaw, per Engels last episode: they sought the answer "in men's heads," an ideal to be preached, not read off history.
+- *The anarchists — abolish the state:* **Proudhon** (the first man to call himself an anarchist; "property is theft" = *unearned income*, not possession; mutualism and free credit; Marx's *Poverty of Philosophy* demolition — the origin of the libertarian-vs-authoritarian split). **Bakunin** (collectivist anarchism; the First International duel with Marx to the **Hague Congress, 1872**; the **prophecy** that a "dictatorship of the proletariat" becomes a dictatorship *over* the proletariat — a red bureaucracy). **Kropotkin** (the prince-geographer who turned Bakunin's collectivism into *communism* — "to each according to need" — and grounded anarchism in **biology**: *Mutual Aid*, cooperation as a real factor of evolution, against the Social-Darwinist "gladiator" picture of nature).
+- *Against Marx (the climax):* the **Marx–Bakunin split** — seize the state vs. abolish it. Bakunin **lost** (expelled 1872; the International wrecked) but arguably **won the argument**: the twentieth century delivered the red bureaucracy he foresaw. Land that irony, and leave open whether it vindicates anarchism or only shows how hard *any* revolution is.
+
+**Central tension (facet):** the same disagreement that ran the last two episodes, now seen from the losing sides. Marx called the utopians pre-scientific and the anarchists reckless — and history was kinder to some of their warnings than to his confidence. Was the anarchist right that the cure (a workers' state) becomes the disease? Or is refusing a transitional state just a recipe for the revolution being crushed in its cradle? Do not resolve it.
+
+**Handover:** All three roads — build it, seize it, smash it — share one faith: that the deep question is *who owns the means of production*, and justice follows from getting that right. Meanwhile, across the Channel, a very different English tradition had been quietly running a completely different measure of a good society — not ownership, not class, not the state, but a single quantity you could, in principle, add up. Happiness. And one man had built a machine to calculate it.
+
+**Raw material:** `research/10_socialism_alternatives.md` (Owen, Saint-Simon, Fourier, Proudhon, Bakunin, Kropotkin, the structuring contrast, the Marx–Bakunin table) + Engels's "utopian vs. scientific" framing from Ep 16.
+- *Human anchors (one vivid beat each, then move):* New Lanark / New Harmony (Owen); Saint-Simon's operatic life (Yorktown, the 1823 pistol and lost eye, dying poor); Fourier's noon vigil; Proudhon the printer-artisan in the 1848 Assembly; Bakunin on the Dresden barricades with Wagner, the Siberian escape via Japan and the US; Kropotkin the prince who refused the title, the Siberian geographer, the 1876 escape.
+- *Core terms:* environmental character-formation; technocracy / "administration of things"; the phalanx & attractive labour; "property is theft" (unearned income) & mutualism; collectivist anarchism & the Hague split; anarchist-communism & mutual aid.
+- *Contested/uncertain (preserve, don't smooth):* "administration of things" is Engels's phrasing, the idea Saint-Simon's; Owen didn't quite *coin* "socialism"; Fourier's "feminism" coinage is "commonly credited"; **Proudhon's antisemitism and misogyny** (name them, don't airbrush); "red bureaucracy" may be a later gloss — quote *Statism and Anarchy* for the real wording; Kropotkin's leap from mutual-aid *zoology* to *politics* is a value judgment; his **Manifesto of the Sixteen** (1916, pro-Allied) split the movement. Verify any quotation before airing.
+- **Dwell on:** the three-way method contrast (the spine) and the Marx–Bakunin split + prophecy. **Compress:** every individual biography (one anecdote each, then move); Fourier's cosmology is colour, not a section. Do NOT re-explain Marx or Engels (Eps 15–16) — reference them.
+- *Length note:* **survey** — breadth over depth; six figures means compressed portraits carried by the contrast. Resist letting any one swell into its own episode; if it drifts toward Marx's length, cut biography, never the contrast.
+
+---
+
+## EP 18 — The Greatest Happiness
 **Scope:** The British utilitarians. **Bentham:** the **principle of utility**, the **felicific calculus**, "the greatest happiness of the greatest number." **J. S. Mill:** the reviser — qualitative "**higher pleasures**," and (verify) the **harm principle** / *On Liberty*. Boundary: the "whatever maximizes happiness" answer to legitimacy; its collision with rights sets up the finale, and its worry about the majority hands directly to Tocqueville (Ep 17).
 
 **Opening — a PARADOX:** The philosophy that promised "the greatest happiness of the greatest number" — the most humane-sounding principle anyone in this series ever proposed — produced, from the same pen, the blueprint for the perfect prison: Bentham's **Panopticon**, a building where a single hidden guard could watch every inmate at every moment, and no one could ever be sure they weren't being watched. How does the philosophy of maximizing happiness generate a machine for total surveillance? Open on that contradiction; it's the key to what's powerful *and* dangerous in the whole idea.
@@ -545,7 +570,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 18 — The Tyranny of the Majority
+## EP 19 — The Tyranny of the Majority
 **Scope:** Tocqueville — the liberal who feared *equality* itself. **Democracy in America**: equality of conditions, the **tyranny of the majority**, **civil associations** as democracy's antidote, and **democratic despotism** (soft, administrative). Boundary: the last thinker who still argues *within* the moral tradition about better and worse orders; Nietzsche (Ep 18) blows up the ground under all of them.
 
 **Opening — a SCENE:** 1831. Two young French aristocrats step off a boat in New York with an official commission to study American *prisons*. They tour the penitentiaries dutifully — and one of them, Alexis de Tocqueville, becomes fascinated by something far larger: a whole society running, for the first time in history, on the assumption that everyone is *equal*. He came to inspect jails and left with the book that still defines how we argue about democracy. Open on the mismatch between the errand and the discovery.
@@ -571,7 +596,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 19 — The Genealogy of Morality
+## EP 20 — The Genealogy of Morality
 **Scope:** Nietzsche — the demolition of morality's foundations. The **genealogy of morality** (method); **master vs. slave morality** and **ressentiment**; the anti-egalitarian assault on "**herd morality**." Boundary: Nietzsche attacks the *entire* moral-political tradition; Weber (Ep 19) inherits the disenchanted world Nietzsche diagnosed but answers it soberly, not incendiarily. The honest handling of the **Nazi appropriation** is mandatory here.
 
 **Opening — a PARADOX:** Somewhere in the ancient world, the weak won. Not on the battlefield — there the strong always win — but in the dictionary. The powerless, unable to strike back at their masters, performed a spiritual revolution: they declared that meekness was "good," that strength and pride were "evil," that the last shall be first. And their new morality was so successful that today it feels simply *obvious* — it feels like morality itself. Nietzsche called this the "slave revolt in morality," and he meant it as an accusation. Open on the paradox: our deepest moral instincts might be the fossilized victory of resentment.
@@ -597,7 +622,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 20 — Authority and the Iron Cage
+## EP 21 — Authority and the Iron Cage
 **Scope:** Weber — the sociologist of legitimacy for a disenchanted world. The **state** as monopoly on legitimate force; the **three pure types of legitimate domination**; the **iron cage / disenchantment**; the **Protestant-ethic thesis** and its tension with Marx. Boundary: the last thinker before the capstone; Weber leaves modernity diagnosed but with *no exit*, which is exactly the condition Rawls (Ep 20) tries to answer from first principles.
 
 **Opening — a HARD QUESTION:** Think of every authority you actually obey — a police officer, a tax bill, a manager, a court. Now ask yourself, honestly, *why* you obey. Not whether you should — why you *do*. Weber said every answer in human history reduces to just three: because it's always been done this way; because *this* person is extraordinary and I'm swept up in them; or because there's a rule and the rule was made properly. Put the question to the listener first and let them sort their own obediences into the three boxes — because those three boxes are Weber's map of all political authority.
@@ -623,7 +648,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 21 (FINALE) — Behind the Veil
+## EP 22 (FINALE) — Behind the Veil
 **Scope:** The capstone rivalry — **Rawls vs. Nozick** — as the modern re-staging of the entire long argument, narrowed to a single question and carried to the present. Rawls's **justice as fairness** (original position, veil of ignorance, the two principles); Nozick's **entitlement theory** and side-constraints. Boundary: this is the *finale* — it narrows around the through-line and reaches the present; it is **not** a coverage catch-all, and it explicitly leaves the door open to the reserved 20th-century expansion.
 
 **Opening — a THOUGHT EXPERIMENT:** You are going to help design the basic rules of a society — its laws, its economy, who gets what. There's only one condition: you must choose from behind a **veil of ignorance**. You don't know who you'll be in that society. Rich or poor, brilliant or disabled, majority or despised minority, born to privilege or born with nothing — all of it hidden. Now choose the rules. Rawls bets that if you're truly ignorant of your own place, you'll choose very differently than if you knew you'd be on top. Put the listener behind the veil in the first thirty seconds and make them decide before a single name is spoken.

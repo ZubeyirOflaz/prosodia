@@ -243,15 +243,33 @@ episodes:
       flattened Marx's subtle, historical critique into a rigid "science" of iron laws that helped
       lay the road to twentieth-century dogma?
   - n: 17
-    slug: ep17-greatest-happiness
+    slug: ep17-roads-not-taken
+    title: "The Roads Not Taken"
+    target_minutes: 45
+    scope: >
+      The socialists who were not Marx — the two roads past capitalism the Marxist road buried or
+      beat. The utopians (Owen, Saint-Simon, Fourier): build the model now and convert the world by
+      example. The anarchists (Proudhon, Bakunin, Kropotkin): abolish the state now, federating from
+      below. A survey held together by the three-way contrast from Eps 15-16 (utopian /
+      scientific-Marxist / anarchist), climaxing in the Marx-Bakunin split (Hague, 1872) and
+      Bakunin's prophecy of a "red bureaucracy." Boundary: closes the socialist arc; Ep 18 crosses
+      to Britain and the utilitarian measure of happiness. A breadth-over-depth survey — compressed
+      portraits, not six full treatments.
+    tension: >
+      If everyone agrees capitalism is unjust, the fight is over method: build the just society as a
+      model, seize the state and drive history toward it, or smash the state and federate from below?
+      Bakunin lost the fight and may have won the argument — the century delivered the tyranny he
+      predicted. Vindication of anarchism, or proof that any revolution is this hard?
+  - n: 18
+    slug: ep18-greatest-happiness
     title: "The Greatest Happiness"
     target_minutes: 40
     scope: >
       The British utilitarians. Bentham: the principle of utility, the felicific calculus, "the
       greatest happiness of the greatest number." J. S. Mill: the reviser — qualitative "higher
       pleasures," and the harm principle / On Liberty. Boundary: the "whatever maximizes happiness"
-      answer to legitimacy, and Mill's liberty carve-out — the liberal counterweight to Ep 15's
-      collectivism; forward to the rights-based reply (Rawls, the finale).
+      answer to legitimacy, and Mill's liberty carve-out — the liberal counterweight to the
+      socialist arc; forward to the rights-based reply (Rawls, the finale).
     tension: >
       Should we judge laws and governments purely by the happiness they produce — and can happiness
       even be measured and summed across people? And Mill's twist: are some pleasures genuinely
