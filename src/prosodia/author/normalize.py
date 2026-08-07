@@ -89,6 +89,9 @@ _ERA_BEFORE = re.compile(r"\b(BCE|BC|CE|AD)\s+(?=\d)")
 _YEAR_RANGE = re.compile(r"\b(\d{3,4})\s*[–—-]\s*(\d{3,4})\b")
 _SECTION = re.compile(r"§\s*(\d+)([a-zA-Z])?")
 _YEAR = re.compile(r"\b(1[0-9]{3}|2[0-9]{3})\b")
+# Decades like "1820s": _YEAR's trailing \b fails between the digit and the "s", so these
+# would otherwise reach the engine as raw digits. Handle them explicitly, before _YEAR.
+_DECADE = re.compile(r"\b(1[0-9]{3}|2[0-9]{3})s\b")
 _DECIMAL = re.compile(r"\b(\d+)\.(\d+)\b")
 _INT = re.compile(r"\b\d{1,3}(?:,\d{3})+\b|\b\d+\b")
 
@@ -99,6 +102,14 @@ def _looks_like_year(s: str) -> bool:
 
 def _num_or_year(s: str) -> str:
     return year_to_words(int(s)) if _looks_like_year(s) else int_to_words(int(s))
+
+
+def _decade_to_words(year: int) -> str:
+    """1820 -> 'eighteen twenties'; pluralise the trailing word of the spoken year form
+    (twenty->twenties, hundred->hundreds, ten->tens)."""
+    head, _, last = year_to_words(year).rpartition(" ")
+    plural = last[:-1] + "ies" if last.endswith("y") else last + "s"
+    return f"{head} {plural}".strip()
 
 
 def _decimal_to_words(whole: str, frac: str) -> str:
@@ -120,6 +131,7 @@ def normalize_text(text: str) -> str:
         + (f" {m.group(2).lower()}" if m.group(2) else ""),
         text,
     )
+    text = _DECADE.sub(lambda m: _decade_to_words(int(m.group(1))), text)
     text = _YEAR.sub(lambda m: year_to_words(int(m.group(1))), text)
     text = text.replace("%", " percent").replace("&", " and ")
     text = _INT.sub(lambda m: int_to_words(int(m.group(0).replace(",", ""))), text)

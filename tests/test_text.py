@@ -67,6 +67,16 @@ def test_normalize_year_boundaries():  # findings 5, 13
     assert normalize_text("2150") == "two thousand one hundred fifty"
 
 
+def test_normalize_decades():
+    # "1820s" matched neither _YEAR (trailing \b fails before the 's') nor _INT, so it
+    # reached the engine as raw digits. Decades now spell out.
+    assert normalize_text("the late 1820s") == "the late eighteen twenties"
+    assert normalize_text("the 1890s") == "the eighteen nineties"
+    assert normalize_text("the 1900s") == "the nineteen hundreds"
+    assert normalize_text("the 1860s were loud") == "the eighteen sixties were loud"
+    assert "1820" not in normalize_text("1820s")  # no raw digits leak through
+
+
 def test_normalize_year_ranges():  # finding 14
     assert normalize_text("1990–2010") == "nineteen ninety to twenty ten"
     assert normalize_text("300-400") == "three hundred to four hundred"
