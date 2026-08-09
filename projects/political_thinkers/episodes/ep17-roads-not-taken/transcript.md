@@ -440,18 +440,16 @@ Every road in this episode assumes the same master question. Who owns the means 
 
 The argument is still yours to carry, and you will find it is not really about cotton mills. It is live every time somebody tells you that a decision is too technical for a vote — that is Saint-Simon. Every time somebody says that if you want a better institution you should go and build one rather than complain — that is Owen. Every time a movement wins power and explains that the emergency measures are temporary — that is the Hague, and you already know how the vote went.
 
-## A completely different sum   {tone: measured, note: "HANDOVER — pivot hard on the MEASURE, not the ownership; distinct from Ep 16's handover pitch; end on the man with the machine"}
+## The road that kept the diagnosis   {tone: measured, note: "HANDOVER — the fourth road out of Marx: reform. Name the reformist wing that took the diagnosis and refused the barricade; hook to Bernstein without spending his reveals"}
 
-Step across the Channel, because a tradition was running there that would have listened to this entire argument with polite bafflement.
+There is one more road out of the argument this episode has been mapping, and it is the one most of the people listening actually live on.
 
-Not because it disagreed about the mill. Because it did not think ownership was the question.
+Go back to the fork we started from. Marx said: capture the state, and ride the laws of history to the other side. The anarchists said: smash the state now, before it devours the revolution that built it. Both of those are revolutionary answers. Both take it for granted that the existing order has to be broken before anything better can stand on the ground.
 
-Ask an English reformer of these decades what makes a law or a government legitimate, and you will not get class, or spirit, or history, or federation, or the means of production. You will get a quantity. Add up the pleasure an arrangement produces. Subtract the suffering. Count everybody in — one person's pain weighing exactly as much as anybody else's, no rank, no station, no exceptions, which in the eighteen-twenties was a genuinely explosive thing to say. Then choose whichever arrangement produces the larger total.
+But there was a fourth group, inside Marx's own movement, who looked at the same mill and the same misery, accepted a great deal of the same diagnosis — and then asked a heretical question. What if you did not have to break it? What if the vote, the union, the eight-hour law, the factory inspector we met a few episodes ago, could be *added up* — not into a revolution, but into a slow, unglamorous transformation that arrived without a single barricade?
 
-On that measure, the question of who holds the title deed to the mill is not fundamental at all. It is an engineering detail, to be settled by whichever answer produces the bigger number. The owner can keep it, if the sum works out. Everything is negotiable, because there is only one thing that finally counts.
+To the revolutionaries, that was surrender wearing the mask of strategy. To the people who believed it, it was the only version of socialism that ever actually put bread on a living worker's table. Reform or revolution — the ballot or the barricade — would split the left for a hundred years, and one side of that quarrel, quietly, patiently, would go on to build the world a great many of us grew up inside.
 
-And the man who built that idea into a system was not content to leave it as a sentiment. He wanted it *calculated*. He drew up the dimensions along which a pleasure or a pain could be measured and compared — how intense, how long, how certain, how soon, how many people — and set out to make the moral evaluation of a law into something you could, in principle, work out on paper, the way you work out a load-bearing beam.
+And the man who lit the fuse on that quarrel was no outsider taking pot-shots at Marx. He had been Engels's own protégé — the executor of his will, trusted with his papers — turning, in grief and in good faith, against the prediction at the heart of the whole system.
 
-He also thought that when he died his body should be dissected and then preserved, because a corpse that merely rots is a waste of a perfectly good resource.
-
-His name was Jeremy Bentham. And he is next time.
+His name was Eduard Bernstein. And he is next time.

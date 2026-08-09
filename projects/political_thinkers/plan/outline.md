@@ -541,7 +541,33 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 18 — The Greatest Happiness
+## EP 18 — The Ballot or the Barricade
+**Scope:** The socialists who kept Marx's diagnosis but refused his revolution — the reform wing of Marx's own movement, and the tradition that actually *governed*. **Bernstein**: the first *theoretical* revision of Marx from inside (no coming collapse; no immiseration — wages rise, ownership *disperses* through shareholding; the dialectic as a misleading Hegelian residue; socialism as an ethical *ought*, not a historical *is*). **Kautsky**: the centrist between Bernstein and Lenin — keep the revolutionary goal, reject the authoritarian means; his break with Lenin ("socialism without democracy is unthinkable"). **The Fabians** (Webbs, Shaw): reform without the metaphysics — permeation, "the inevitability of gradualness," the welfare-state machine. Plus the **neo-Kantian ethical socialists** who supplied the moral "ought." Boundary: closes the socialist arc (15–18); reserves Lenin/Luxemburg (the revolutionary pole) as named foils; the vindication (Beveridge 1942, Godesberg 1959) points forward, and then the series crosses the Channel to the utilitarians.
+
+**Opening — an IRONY (a betrayal that wasn't one):** When Engels died in 1895 he left his papers to a trusted disciple — the man who had matured "under his watchful eye," named an executor of his will, the keeper of the flame. Four years later that same man published a book telling the movement its central prophecy was *empirically false*: capitalism was not collapsing, the workers were not being ground down, the revolution was not coming. To the faithful it looked like the ultimate treason, from the last person who should have committed it. Open on that — the loyal heir who told the church its gospel had been overtaken by the evidence — and ask the question it forces: if the prophecy is wrong, is the cause wrong too, or has it just been set free?
+
+**The live question:** Given Marx's diagnosis, do you *wait for the revolution* or *work for reform*? Can you reach socialism through the ballot box — and if you take power inside a system, does the system end up changing you more than you change it?
+
+**The argument (the spine — reform vs. revolution):**
+- *Bernstein — reform, honestly:* the four-front revision (collapse theory, immiseration, the dialectic, the ethical grounding). The line everyone quotes — "the movement is everything, the final goal nothing" — with its *actual* fuller sentence and the note that the slogan is a clip. "Kant against cant": socialism must be *chosen* as right, not awaited as inevitable.
+- *Kautsky — the man in the middle:* revolutionary in doctrine, democratic in method; against Bernstein he defends the goal, against Lenin he defends democracy — the condition-vs-form-of-government distinction, "socialism without democracy is unthinkable," and Lenin's furious "renegade" reply that embraced exactly what Kautsky called the betrayal ("dictatorship... unrestricted by any laws").
+- *The Fabians — reform, empirically:* no dialectic, no class war — permeation, gas-and-water municipal socialism, "the inevitable gradualness," and the institution-building (LSE, the Labour Party, the Minority Report → Beveridge). Reform as engineering.
+- *The moral spine:* the neo-Kantians who grounded socialism in the kingdom of ends — the "ought" a dead-determinist Marxism could not supply, and (as a *thematic parallel only*, not a documented line) the shape Rawls will later complete.
+
+**Central tension (facet):** the SPD **condemned** Bernstein (Hanover 1899, Dresden 1903) and then spent sixty years quietly **becoming** him, until Godesberg (1959) said so out loud. The revisionists lost the argument on paper and won it in practice — the welfare state is Bernstein's posthumous victory. So: was that socialism's triumph, or its quiet surrender? Did they civilize capitalism, or get absorbed by it? Leave it open — the addendum (Przeworski) answers it with a model.
+
+**Handover (the relocated Bentham pivot):** every road so far — Marx's, the anarchists', Bernstein's — still assumes the deep question is *who owns the means of production*. Cross the Channel now, because a tradition was running there that would have heard this whole century-long quarrel with polite bafflement — not because it took a side on the mill, but because it did not think ownership was the question at all. It measured a law or a government by a single quantity: add up the pleasure, subtract the suffering, count every person exactly once. And one man wanted that *calculated* — reduced to something you could work out on paper like a load-bearing beam, right down to willing his own body to be dissected and preserved, because a corpse that merely rots is a waste of a good resource. His name was Jeremy Bentham.
+
+**Raw material:** `research/11_social_democracy.md` (Bernstein, Kautsky, the Fabians, the neo-Kantian strand, the era section) + the already-docketed Marx/Engels as the orthodoxy being revised.
+- *Human anchors (one beat each):* Bernstein the self-taught journalist, Anti-Socialist-Law exile in Zurich then London, Engels's executor; Kautsky the "Pope of Marxism" editing *Die Neue Zeit* — the very journal Bernstein's heresy ran in — later branded Lenin's "renegade"; the Fabians named for **Fabius the Delayer**, the Webbs and Shaw, permeation and the LSE.
+- *Core terms:* collapse theory (*Zusammenbruchstheorie*), immiseration (*Verelendung*), joint-stock dispersal of ownership, "movement is everything," "Kant against cant," dictatorship as *condition* vs *form of government*, permeation, "the inevitable gradualness," Beveridge's "five giants," Godesberg.
+- *Contested/uncertain (preserve, don't smooth):* quote Bernstein's "Endziel/Bewegung" sentence in full and flag the clip; Fabian influence on Bernstein is **reinforcing, not originating** (he denied it); "Pope of Marxism" origin uncertain; the Webbs' 1935 *Soviet Communism: A New Civilisation?* (2nd ed. dropped the "?") — name it honestly as a failure of Fabian empiricism; **Beveridge was a Liberal, not a socialist** (welfare state = Fabian + New Liberal convergence); the neo-Kantian→Rawls link is a **parallel, not a documented influence**. Several quotes are translation/edition-dependent — verify before airing.
+- **Dwell on:** Bernstein's theoretical revision and the "condemned him / became him" irony. **Compress:** the intra-SPD faction detail and the Fabian institutional inventory (name, then move); do NOT re-explain Marx (Eps 15–16) — reference him.
+- *Length note:* **survey** — three figures plus a strand; compressed portraits carried by the reform-vs-revolution spine. Keep it tight; do not let any one figure swell.
+
+---
+
+## EP 19 — The Greatest Happiness
 **Scope:** The British utilitarians. **Bentham:** the **principle of utility**, the **felicific calculus**, "the greatest happiness of the greatest number." **J. S. Mill:** the reviser — qualitative "**higher pleasures**," and (verify) the **harm principle** / *On Liberty*. Boundary: the "whatever maximizes happiness" answer to legitimacy; its collision with rights sets up the finale, and its worry about the majority hands directly to Tocqueville (Ep 17).
 
 **Opening — a PARADOX:** The philosophy that promised "the greatest happiness of the greatest number" — the most humane-sounding principle anyone in this series ever proposed — produced, from the same pen, the blueprint for the perfect prison: Bentham's **Panopticon**, a building where a single hidden guard could watch every inmate at every moment, and no one could ever be sure they weren't being watched. How does the philosophy of maximizing happiness generate a machine for total surveillance? Open on that contradiction; it's the key to what's powerful *and* dangerous in the whole idea.
@@ -570,7 +596,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 19 — The Tyranny of the Majority
+## EP 20 — The Tyranny of the Majority
 **Scope:** Tocqueville — the liberal who feared *equality* itself. **Democracy in America**: equality of conditions, the **tyranny of the majority**, **civil associations** as democracy's antidote, and **democratic despotism** (soft, administrative). Boundary: the last thinker who still argues *within* the moral tradition about better and worse orders; Nietzsche (Ep 18) blows up the ground under all of them.
 
 **Opening — a SCENE:** 1831. Two young French aristocrats step off a boat in New York with an official commission to study American *prisons*. They tour the penitentiaries dutifully — and one of them, Alexis de Tocqueville, becomes fascinated by something far larger: a whole society running, for the first time in history, on the assumption that everyone is *equal*. He came to inspect jails and left with the book that still defines how we argue about democracy. Open on the mismatch between the errand and the discovery.
@@ -596,7 +622,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 20 — The Genealogy of Morality
+## EP 21 — The Genealogy of Morality
 **Scope:** Nietzsche — the demolition of morality's foundations. The **genealogy of morality** (method); **master vs. slave morality** and **ressentiment**; the anti-egalitarian assault on "**herd morality**." Boundary: Nietzsche attacks the *entire* moral-political tradition; Weber (Ep 19) inherits the disenchanted world Nietzsche diagnosed but answers it soberly, not incendiarily. The honest handling of the **Nazi appropriation** is mandatory here.
 
 **Opening — a PARADOX:** Somewhere in the ancient world, the weak won. Not on the battlefield — there the strong always win — but in the dictionary. The powerless, unable to strike back at their masters, performed a spiritual revolution: they declared that meekness was "good," that strength and pride were "evil," that the last shall be first. And their new morality was so successful that today it feels simply *obvious* — it feels like morality itself. Nietzsche called this the "slave revolt in morality," and he meant it as an accusation. Open on the paradox: our deepest moral instincts might be the fossilized victory of resentment.
@@ -622,7 +648,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 21 — Authority and the Iron Cage
+## EP 22 — Authority and the Iron Cage
 **Scope:** Weber — the sociologist of legitimacy for a disenchanted world. The **state** as monopoly on legitimate force; the **three pure types of legitimate domination**; the **iron cage / disenchantment**; the **Protestant-ethic thesis** and its tension with Marx. Boundary: the last thinker before the capstone; Weber leaves modernity diagnosed but with *no exit*, which is exactly the condition Rawls (Ep 20) tries to answer from first principles.
 
 **Opening — a HARD QUESTION:** Think of every authority you actually obey — a police officer, a tax bill, a manager, a court. Now ask yourself, honestly, *why* you obey. Not whether you should — why you *do*. Weber said every answer in human history reduces to just three: because it's always been done this way; because *this* person is extraordinary and I'm swept up in them; or because there's a rule and the rule was made properly. Put the question to the listener first and let them sort their own obediences into the three boxes — because those three boxes are Weber's map of all political authority.
@@ -648,7 +674,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 
 ---
 
-## EP 22 (FINALE) — Behind the Veil
+## EP 23 (FINALE) — Behind the Veil
 **Scope:** The capstone rivalry — **Rawls vs. Nozick** — as the modern re-staging of the entire long argument, narrowed to a single question and carried to the present. Rawls's **justice as fairness** (original position, veil of ignorance, the two principles); Nozick's **entitlement theory** and side-constraints. Boundary: this is the *finale* — it narrows around the through-line and reaches the present; it is **not** a coverage catch-all, and it explicitly leaves the door open to the reserved 20th-century expansion.
 
 **Opening — a THOUGHT EXPERIMENT:** You are going to help design the basic rules of a society — its laws, its economy, who gets what. There's only one condition: you must choose from behind a **veil of ignorance**. You don't know who you'll be in that society. Rich or poor, brilliant or disabled, majority or despised minority, born to privilege or born with nothing — all of it hidden. Now choose the rules. Rawls bets that if you're truly ignorant of your own place, you'll choose very differently than if you knew you'd be on top. Put the listener behind the veil in the first thirty seconds and make them decide before a single name is spoken.
@@ -686,3 +712,37 @@ Ibn Khaldun (Ep 7) was the docket's flagged open gap and was **web-verified** th
 - Biography — Andalusian family (fled Seville), Black Death of 1348 killing his parents at 17, and the 1400–1401 parley with **Timur** at besieged Damascus (lowered down the wall): [Ibn Khaldun — Wikipedia](https://en.wikipedia.org/wiki/Ibn_Khaldun); [Encyclopedia.com](https://www.encyclopedia.com/people/history/historians-miscellaneous-biographies/ibn-khaldun); [Ibn Khaldun and Tamerlane, Damascus 1401 (Oman Library / MEI)](https://catalog.mei.edu/cgi-bin/koha/opac-detail.pl?biblionumber=7118).
 
 All other episodes are built from the verified research docket as instructed; every biographical lead marked **[verify]** above is drawn from the docket's own "STILL NEEDED / verify, don't fabricate" flags and must be confirmed before scripting.
+
+---
+
+# ADDENDA — companion episodes (separate but related)
+
+> These are **not** chapters in the numbered arc. Each is a standalone **companion** — usually a
+> closer look at a modern theorist — that sits *alongside* the series rather than inside its
+> chronological line. Convention: numbered **101+** (Addendum I, II, …), slug `axNN-…`, marked
+> `kind: addendum` in `series.yaml`, and each **opens by situating itself as a companion, not the
+> next step**, so it can be heard on its own. They can be added or reordered without disturbing
+> Eps 1–23.
+
+## EP 101 — The Rational Reformist   (Addendum I · Adam Przeworski)
+**Scope:** The modern theorist who answered the question the socialist arc left open: *why* did the workers of the richest capitalist countries — the very ones Marx expected to revolt — choose the ballot over the barricade, and why can that choice civilize capitalism but never quite transcend it? Przeworski takes Bernstein's empirical hunch and Kautsky's democratic instinct and gives them a **rigorous, game-theoretic microfoundation** — then draws the sober boundary the early revisionists were too hopeful to see. A companion to Ep 18, not a sequel to it.
+
+**Opening — SITUATE IT AS A COMPANION, then a SCENE:** first, one clean sentence telling the listener what this is — *a companion piece, a closer look alongside the series at one question the socialist episodes kept circling, not the next chapter in the story.* Then the scene: a man born in **Nazi-occupied Warsaw in 1940**, whose father — a conscripted army doctor taken by the Soviets — was killed in the **Katyn massacre** "at about the time I was born." A life that begins on the exact seam where the two great 20th-century tyrannies met, who grows up to ask the coldest possible version of the socialist question: *why was there no revolution in the West?*
+
+**The live question:** if Marx was right that capitalism exploits, why did the workers with the most reason to overthrow it instead vote, bargain, and settle? Was that false consciousness, betrayal — or the rational move? And if it was rational, what did it permanently cost the socialist project?
+
+**The argument (one model, two edges):**
+- *Reform is rational — the positive-sum class compromise.* Workers and capitalists can strike a bargain both prefer to open conflict: workers exercise **wage restraint** (leaving profits intact) and in return capitalists **invest**, producing **growth, rising future wages, and the welfare state**; the state **enforces the terms**. "By exercising wage restraint, workers induce capitalists to invest… hence workers end up ahead." Revolution means crossing a **"transition trough"** — falling consumption now for an uncertain payoff — so when reform reliably delivers, revolution is simply not the rational bet. Hence, against the Leninist charge: **"social democrats were not traitors; they did as well as they could under the circumstances."**
+- *Reform is self-limiting — the investment veto.* Because **investment is privately controlled**, every government's growth, jobs and revenue depend on business confidence; policies that threaten profits risk **capital flight and crisis** — constraining even a socialist government **without capital lifting a political finger**. So social democracy can **redistribute and civilize capitalism, but not abolish it.** (Nuance to preserve: Przeworski's 1988 paper actually *tests and partly deflates* the strongest form of this — a democratic state has more room to tax and redistribute than the hard thesis claims. Present the ceiling as real but not absolute.)
+- *The electoral dilemma:* manual workers were never going to be an outright majority, so a pure workers' party cannot win — it must become a **catch-all party**, which dilutes the very program that defined it. Class purity and electoral majorities pull against each other.
+
+**Central tension (facet):** the same logic that makes the ballot rational is the logic that caps what the ballot can win. Reform is neither treason nor triumph — it is the rational equilibrium of workers inside a democracy who have more to gain from improving capitalism than from gambling everything to end it. Whether that is a settlement to defend or a trap to escape is the question to leave the listener holding.
+
+**Handover (addendum-style — no next chapter):** close by handing the question *back* to the series (Bakunin feared the red bureaucracy, Bernstein bet on the ballot, and Przeworski shows why the ballot won and what it could not do) and *forward* to the modern political economy of democracy — Przeworski's own later minimalist creed that a democracy is simply **"a system in which parties lose elections."**
+
+**Raw material:** `research/11_social_democracy.md` (the ADDENDUM section) — self-contained.
+- *Human anchor:* Warsaw 1940 / Katyn; Kołakowski's student; the accidental émigré; Chile under Allende (1970–71) making the question urgent; the **September Group / "No-Bullshit Marxism"** (Cohen, Elster, Roemer, Wright).
+- *Core terms:* class compromise, wage restraint → investment, the transition trough, structural dependence / investment veto, the catch-all dilemma; key works *Capitalism and Social Democracy* (1985) and *Paper Stones* (1986, from Engels's "ballots became paper stones").
+- *Contested/flag:* the 1988 paper **partly deflates** the strong structural-dependence thesis — don't overstate it; "won elections but governed by the logic of capitalism" and "improve capitalism, not abolish it" are **paraphrases, not verbatim**; the first-person Munck-interview lines ("reformism was a rational strategy…," "why was there no revolution in the West?") **are** verbatim; "transition trough" — concept his, exact phrase [verify].
+- **Dwell on:** the class-compromise model and the investment-veto ceiling. **Compress:** the analytical-Marxism biography (name it, move on).
+- *Length note:* **short companion** (~35 min) — one theorist, one model; do not pad.

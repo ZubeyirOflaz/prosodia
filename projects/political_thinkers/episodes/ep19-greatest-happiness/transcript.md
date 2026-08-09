@@ -1,7 +1,7 @@
 ---
 format_version: "0.1"
 style: thinkers
-episode: 18
+episode: 19
 title: "The Greatest Happiness"
 defaults: { tone: measured, rate: normal }
 pauses: { paragraph: 0.4, beat: 0.9 }

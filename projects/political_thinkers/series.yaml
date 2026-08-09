@@ -261,7 +261,27 @@ episodes:
       Bakunin lost the fight and may have won the argument — the century delivered the tyranny he
       predicted. Vindication of anarchism, or proof that any revolution is this hard?
   - n: 18
-    slug: ep18-greatest-happiness
+    slug: ep18-ballot-or-barricade
+    title: "The Ballot or the Barricade"
+    target_minutes: 45
+    scope: >
+      The socialists who kept Marx's diagnosis but refused his revolution — the reform wing of his
+      own movement, and the tradition that actually governed. Bernstein: the first theoretical
+      revision of Marx (no coming collapse; wages rise and ownership disperses through shareholding;
+      the dialectic a Hegelian residue; socialism as an ethical ought, not a historical is).
+      Kautsky: the centrist between Bernstein and Lenin — keep the goal, reject the dictatorship
+      ("socialism without democracy is unthinkable"). The Fabians: reform without metaphysics —
+      permeation, "the inevitable gradualness," the welfare-state machine. Plus the neo-Kantian
+      ethical socialists who supplied the moral "ought." Boundary: closes the socialist arc;
+      reserves Lenin/Luxemburg as foils; the vindication (Beveridge 1942, Godesberg 1959) points
+      forward before the series crosses to the utilitarians.
+    tension: >
+      Given Marx's diagnosis, do you wait for the revolution or work for reform? Can you reach
+      socialism through the ballot — and if you take power inside a system, does the system change
+      you more than you change it? The SPD condemned Bernstein and then spent sixty years becoming
+      him: triumph, or quiet surrender?
+  - n: 19
+    slug: ep19-greatest-happiness
     title: "The Greatest Happiness"
     target_minutes: 40
     scope: >
@@ -274,3 +294,25 @@ episodes:
       Should we judge laws and governments purely by the happiness they produce — and can happiness
       even be measured and summed across people? And Mill's twist: are some pleasures genuinely
       higher than others, or is that snobbery smuggled into a supposedly democratic calculus?
+  # ── ADDENDA — companion episodes (separate but related; numbered 101+, kind: addendum). ──
+  # Standalone companions that sit alongside the arc, not inside it; each opens by situating
+  # itself as a companion. Added/reordered without touching Eps 1-23.
+  - n: 101
+    kind: addendum
+    slug: ax101-przeworski
+    title: "Addendum I — The Rational Reformist"
+    target_minutes: 35
+    scope: >
+      Companion to Ep 18. Adam Przeworski — the analytical Marxist who explained, with game theory,
+      WHY the workers Marx expected to revolt chose the ballot: democratic capitalism as a
+      positive-sum class compromise (wage restraint induces investment, which yields growth, rising
+      wages, and the welfare state), so revolution — which means crossing a "transition trough" of
+      falling consumption for an uncertain payoff — is not the rational bet. And the ceiling:
+      because investment is privately controlled, the state depends on business confidence, so
+      social democracy can civilize capitalism but not abolish it (the 1988 paper partly deflates
+      the strongest form of this — a real but not absolute limit). Presented as a standalone
+      companion, not a chapter.
+    tension: >
+      If reform was the rational choice and not a betrayal, what did it permanently cost the
+      socialist project? Reform is neither treason nor triumph but the rational equilibrium of
+      workers inside a democracy — a settlement to defend, or a trap to escape?
