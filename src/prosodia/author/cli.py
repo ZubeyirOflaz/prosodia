@@ -451,7 +451,8 @@ def _cmd_write(args: argparse.Namespace) -> int:
     epdir.mkdir(parents=True, exist_ok=True)
     run = Run(epdir / "run")
     transcript = author_episode(
-        brief, runner=ClaudeRunner(extra_dirs=(str(proj),)), persona=persona,
+        # 30-min per-role timeout: long episodes' writer passes can exceed the 20-min default.
+        brief, runner=ClaudeRunner(extra_dirs=(str(proj),), timeout=1800), persona=persona,
         run=run, max_rounds=args.max_rounds,
     )
     out = epdir / "transcript.md"
