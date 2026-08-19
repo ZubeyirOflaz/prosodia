@@ -294,6 +294,46 @@ episodes:
       Should we judge laws and governments purely by the happiness they produce — and can happiness
       even be measured and summed across people? And Mill's twist: are some pleasures genuinely
       higher than others, or is that snobbery smuggled into a supposedly democratic calculus?
+  - n: 20
+    slug: ep20-tyranny-of-the-majority
+    title: "The Tyranny of the Majority"
+    target_minutes: 40
+    scope: >
+      Tocqueville — the liberal who feared equality itself. Democracy in America: equality of
+      conditions, the tyranny of the majority, civil associations as democracy's antidote, and
+      democratic despotism (soft, administrative — the people are the tyrant and do not feel the
+      chains). Boundary: the last thinker who still argues within the moral tradition about how to
+      make democracy safe for liberty; after him its foundations come under attack (Nietzsche, Ep 21).
+    tension: >
+      Does equality set us free — or breed a new, softer despotism that no revolution can overthrow,
+      because the people are the tyrant and they don't even feel the chains?
+  - n: 21
+    slug: ep21-genealogy-of-morality
+    title: "The Genealogy of Morality"
+    target_minutes: 40
+    scope: >
+      Nietzsche — the demolition of morality's foundations. The genealogy of morality (method);
+      master vs. slave morality and ressentiment; the anti-egalitarian assault on "herd morality."
+      Boundary: Nietzsche attacks the entire moral-political tradition the series has built; Weber
+      (Ep 22) inherits the disenchanted world he leaves behind.
+    tension: >
+      Are our moral values discoveries of something real and binding — or the historical residue of
+      an ancient power struggle, the weak's revenge dressed up as eternal truth? And if it's the
+      latter, do they still hold any claim on us?
+  - n: 22
+    slug: ep22-iron-cage
+    title: "Authority and the Iron Cage"
+    target_minutes: 40
+    scope: >
+      Weber — the sociologist of legitimacy for a disenchanted world. The state as the monopoly on
+      legitimate force; the three pure types of legitimate domination (traditional, charismatic,
+      legal-rational); the iron cage / disenchantment; the Protestant-ethic thesis and its tension
+      with Marx. Boundary: the last thinker before the capstone; Weber frames the modern condition
+      the finale (Rawls, Ep 23) must answer within.
+    tension: >
+      In a disenchanted world — the old gods, natural law, divine right all gone — what is left to
+      make power legitimate? And is the bureaucratic rationality that answers freedom's triumph, or
+      its cage?
   # ── ADDENDA — companion episodes (separate but related; numbered 101+, kind: addendum). ──
   # Standalone companions that sit alongside the arc, not inside it; each opens by situating
   # itself as a companion. Added/reordered without touching Eps 1-23.
