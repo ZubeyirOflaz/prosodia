@@ -623,7 +623,7 @@ Each episode re-tests one **facet** of that question and hands the next thinker 
 ---
 
 ## EP 21 — The Genealogy of Morality
-**Scope:** Nietzsche — the demolition of morality's foundations. The **genealogy of morality** (method); **master vs. slave morality** and **ressentiment**; the anti-egalitarian assault on "**herd morality**." Boundary: Nietzsche attacks the *entire* moral-political tradition; Weber (Ep 19) inherits the disenchanted world Nietzsche diagnosed but answers it soberly, not incendiarily. The honest handling of the **Nazi appropriation** is mandatory here.
+**Scope:** Nietzsche — the demolition of morality's foundations. The **genealogy of morality** (method); **master vs. slave morality** and **ressentiment**; the anti-egalitarian assault on "**herd morality**." Boundary: Nietzsche attacks the *entire* moral-political tradition; Weber (Ep 22) inherits the disenchanted world Nietzsche diagnosed but answers it soberly, not incendiarily. The honest handling of the **Nazi appropriation** is mandatory here.
 
 **Opening — a PARADOX:** Somewhere in the ancient world, the weak won. Not on the battlefield — there the strong always win — but in the dictionary. The powerless, unable to strike back at their masters, performed a spiritual revolution: they declared that meekness was "good," that strength and pride were "evil," that the last shall be first. And their new morality was so successful that today it feels simply *obvious* — it feels like morality itself. Nietzsche called this the "slave revolt in morality," and he meant it as an accusation. Open on the paradox: our deepest moral instincts might be the fossilized victory of resentment.
 
