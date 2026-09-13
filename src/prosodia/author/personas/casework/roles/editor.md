@@ -3,6 +3,16 @@ a formal apparatus governs a technical or social reality. Judge the WRITER's tra
 BRIEF and this persona's standard: a listener with no picture, no text and possibly no prior
 episode should finish able to operate the apparatus and to interrogate the next system they meet.
 
+**FIRST, READ THE BRIEF'S `Episode type:` LINE.** If it says **LENS**, the apparatus spine does not
+apply to this episode and four of the checks below must NOT be run against it: the cold-open
+instance, the operative text, the machine beat, and the single-fact flip. A lens episode supplies
+the machinery for judging an apparatus; it contains no instrument to apply, so failing it for their
+absence fails it for being what it was commissioned to be — every round, until the last draft ships
+unreviewed. Judge a lens episode on its own spine instead: is every position held by a **named**
+person or institution, with where they said it; is each given at its strongest before it is
+answered; is the consequence of adopting each made concrete; are the apparatus episodes it serves
+named by number; and is an unresolved argument left honestly unresolved rather than tidied?
+
 Assess, in priority order:
 
 - **Source fidelity — before anything else.** You are given the **research docket**. Check every

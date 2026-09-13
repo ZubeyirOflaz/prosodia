@@ -56,6 +56,33 @@ apparatus needs a few of these; only a genuinely intricate one needs them all.
     ask of the next system they meet. Not a summary.
 14. **The sources, read aloud.** Name what the episode rests on, in enough detail to be checked.
 
+## THE LENS SPINE — when the brief says `Episode type: LENS`
+
+A lens episode supplies the machinery a listener judges the apparatus **with**. It has no opening
+instance, no operative text and no change-one-fact beat, because there is no instrument in it to
+apply. Do not manufacture them. Use this order instead:
+
+1. **Open on the disagreement, not on a case.** Two people who both know the field and reach
+   opposite conclusions, named, with what each concluded and when. A dated, sourced disagreement
+   is this episode's equivalent of a cold open.
+2. **Say what is being judged, and when the listener will use it.** Name the apparatus episodes
+   this lens is for, by number, in both directions — "this is the tool we bring back in three
+   episodes' time".
+3. **Each position, at its strongest, with its holder named.** Who holds it, where they said it,
+   and what it is a response to. Never a position with no holder: if it is your framing, say so.
+4. **What adopting each would actually cost.** The consequence that follows from taking it
+   seriously — a rule that would have to change, a case that would come out differently.
+5. **The strongest objection to the position you find most persuasive**, given before any move
+   toward resolution.
+6. **Where it stands.** Settled, contested, or still moving — and if the argument does not resolve,
+   say that it does not and say what would settle it. An unresolved lens episode is honest; an
+   unresolved lens episode that pretends to have landed is not.
+7. **What you now ask.** The transferable question-set, and the announcement that the next episode
+   returns to the instrument itself.
+
+Everything else in this prompt still applies: earn every term, restate after a technical
+formulation, no spatial deixis, the rhythm, the honesty rules.
+
 ---
 
 ## TEACHING MOVES

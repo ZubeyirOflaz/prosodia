@@ -111,3 +111,34 @@ def parse_episode_index(outline_md: str) -> list[dict]:
             entry["target_minutes"] = mins
         out.append(entry)
     return sorted(out, key=lambda e: e["n"])
+
+
+_LEXICON_HEADING = re.compile(r"(?i)^#{1,6}\s+names for the lexicon\b")
+
+
+def extract_series_sections(outline_md: str) -> str | None:
+    """Everything in the outline that is NOT one episode's section.
+
+    ``extract_episode_section`` hands the writer only its own ``## Episode N`` block, so
+    every series-level decision the Planner made was dropped on the way: the through-line
+    the writer must place the episode against, the list of explainer tics banned across the
+    series, the material reserved for a later series that must be named aloud rather than
+    covered, and which episode lands the held verdict. The writer was then asked to honour
+    all four and given none of them.
+
+    The lexicon name-list is left out: it is a different agent's input, and it is long.
+    """
+    lines = outline_md.replace("\r\n", "\n").split("\n")
+    keep: list[str] = []
+    skipping = False
+    skip_level = 0
+    for line in lines:
+        lvl = _heading_level(line)
+        if lvl is not None:
+            if skipping and lvl <= skip_level:
+                skipping = False
+            if not skipping and (_heading_episode(line) is not None or _LEXICON_HEADING.match(line)):
+                skipping, skip_level = True, lvl
+        if not skipping:
+            keep.append(line)
+    return "\n".join(keep).strip() or None

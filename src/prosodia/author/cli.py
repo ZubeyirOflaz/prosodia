@@ -463,10 +463,21 @@ def _cmd_write(args: argparse.Namespace) -> int:
         or cfg.get("target_minutes")
         or persona.defaults.target_minutes
     )
+    etype = ep.get("type") or "apparatus"
     brief = (
         f"Series: {cfg.get('series', '')}\n"
         f"Episode {ep['n']}: {ep.get('title', '')}\n"
-        f"Scope: {ep.get('scope', '')}\n"
+        # The episode TYPE decides which spine applies. A lens episode has no opening
+        # instance, no operative text and no single-fact flip; judged against the apparatus
+        # spine it fails for being what it is, every round, and ships as the last draft.
+        f"Episode type: {etype.upper()}"
+        + (
+            "  — this is a LENS episode: no opening instance, no operative text, no "
+            "change-one-fact beat. Follow the LENS SPINE, not the apparatus spine.\n"
+            if etype == "lens"
+            else "\n"
+        )
+        + f"Scope: {ep.get('scope', '')}\n"
         f"Tension: {ep.get('tension', '')}\n"
         f"Target length: about {target_minutes} minutes of narration "
         "(long-form; write to that depth, not a summary).\n"
@@ -476,9 +487,20 @@ def _cmd_write(args: argparse.Namespace) -> int:
     # than invents. Falls back to the coarse brief above if there's no outline yet.
     outline_path = proj / "plan" / "outline.md"
     if outline_path.exists():
-        from prosodia.author.planparse import extract_episode_section
+        from prosodia.author.planparse import extract_episode_section, extract_series_sections
 
-        section = extract_episode_section(outline_path.read_text(encoding="utf-8"), ep["n"])
+        outline_md = outline_path.read_text(encoding="utf-8")
+        series_rules = extract_series_sections(outline_md)
+        if series_rules:
+            brief += (
+                "\n--- SERIES-WIDE RULES FROM THE PLAN (binding on every episode) ---\n"
+                "The through-line this episode re-tests a facet of; what each other episode\n"
+                "teaches, so you neither re-teach nor borrow it; the material reserved for a\n"
+                "later series, which you NAME aloud rather than cover; the explainer tics that\n"
+                "are off-limits series-wide; and which episode lands the held verdict.\n\n"
+                f"{series_rules}\n"
+            )
+        section = extract_episode_section(outline_md, ep["n"])
         if not section:
             print(
                 f"warning: plan/outline.md exists but no section for episode {ep['n']} could be "

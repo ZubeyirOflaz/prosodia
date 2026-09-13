@@ -76,3 +76,34 @@ def test_parse_episode_index_bridges_the_plan_to_series_yaml():
     assert "target_minutes" not in eps[2]
     # non-episode headings are not episodes
     assert all("lexicon" not in e["title"].lower() for e in eps)
+
+
+def test_extract_series_sections_keeps_the_rules_and_drops_the_episodes():
+    """The writer only ever received its own episode's block.
+
+    Every series-level decision — the through-line, the banned explainer tics, the material
+    reserved for a later series, which episode lands the held verdict — was dropped on the
+    way, while the writer prompt went on requiring all four.
+    """
+    from prosodia.author.planparse import extract_series_sections
+
+    outline = (
+        "# Outline\n\n## The through-line\n\nOne organising question.\n\n"
+        "## Episode 1 — The Gate\n\nepisode body that must not leak\n\n"
+        "## Voice and variation\n\n**Off-limits:** here's the thing\n\n"
+        "## Episode 2 — The Ladder\n\nmore episode body\n\n"
+        "## The question ledger\n\n- a question\n\n"
+        "## Names for the lexicon\n\n- Belastingdienst\n"
+    )
+    out = extract_series_sections(outline)
+    assert "One organising question." in out
+    assert "Off-limits" in out and "a question" in out
+    assert "episode body" not in out and "more episode body" not in out
+    # the lexicon list is a different agent's input, and long
+    assert "Belastingdienst" not in out
+
+
+def test_series_sections_returns_none_when_there_is_nothing_but_episodes():
+    from prosodia.author.planparse import extract_series_sections
+
+    assert extract_series_sections("## Episode 1 — A\n\nbody\n") is None

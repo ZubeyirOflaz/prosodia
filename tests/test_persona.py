@@ -214,3 +214,59 @@ def test_casework_write_brief_carries_the_research_docket(tmp_path, monkeypatch)
     src = inspect.getsource(cli._cmd_write)
     assert 'proj / "research"' in src, "the write brief must read the docket"
     assert "RESEARCH DOCKET" in src
+
+
+def test_casework_handles_lens_episodes_in_every_role_that_sees_one():
+    """A lens episode has no instance, no operative text and no single-fact flip.
+
+    The planner defines the type and expects one episode in four to be one; for a while
+    the word appeared in no other prompt. The writer had a single spine whose every beat a
+    lens episode lacks, and the editor hard-failed exactly those absences — so a quarter of
+    the series would either fake an instance or fail every round and ship unreviewed.
+    """
+    p = Persona.resolve("casework")
+    assert "LENS SPINE" in p.role("writer")
+    assert "Open on the disagreement, not on a case" in p.role("writer")
+    editor = p.role("editor")
+    assert "Episode type:" in editor and "LENS" in editor
+    # the editor must be told which checks to suspend, not merely that lenses exist
+    assert "must NOT be run against it" in editor
+
+
+def test_write_brief_declares_the_episode_type_and_series_rules(tmp_path):
+    """Both are computed in the CLI, so guard the prompt the writer actually receives."""
+    import argparse
+    from unittest.mock import patch
+
+    from prosodia.author import cli
+
+    proj = tmp_path / "proj"
+    (proj / "plan").mkdir(parents=True)
+    (proj / "series.yaml").write_text(
+        "series: S\npersona: casework\ntarget_minutes: 27\n", encoding="utf-8"
+    )
+    (proj / "plan" / "outline.md").write_text(
+        "# Outline\n\n## Voice and variation\n\n**Off-limits:** SENTINEL_RULE\n\n"
+        "## Episode 2 — [LENS] The Pacing Problem\n\n**Length:** 24 min\n\nSENTINEL_PLAN\n",
+        encoding="utf-8",
+    )
+    seen = {}
+
+    def spy(brief, **kw):
+        seen["brief"] = brief
+        raise SystemExit
+
+    args = argparse.Namespace(project=str(proj), episode=2, persona=None,
+                              prior_episodes=0, max_rounds=1)
+    with patch("prosodia.author.orchestrate.author_episode", side_effect=spy):
+        try:
+            cli._cmd_write(args)
+        except SystemExit:
+            pass
+    brief = seen["brief"]
+    assert "Episode type: LENS" in brief
+    assert "Follow the LENS SPINE" in brief
+    assert "SENTINEL_RULE" in brief          # series-wide rules reach the writer
+    assert "SENTINEL_PLAN" in brief          # and so does the episode's own plan
+    # the planner's length wins over the series default, and is the number stated
+    assert "about 24 minutes" in brief
