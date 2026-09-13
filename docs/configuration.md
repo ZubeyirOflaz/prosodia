@@ -60,7 +60,13 @@ the Planner**, so it builds the outline from your material instead of researchin
 every topic from the open web (slower and less accurate); it web-searches only to
 fill a gap the docket explicitly flags. The docket is treated as scratch and is
 **gitignored** by default — the distilled, verified result lives in the tracked
-`plan/outline.md`.
+`plan/outline.md`. A project can opt out with a `!projects/<proj>/research/` negation when
+its docket stops being scratch: `ai_act`'s carries operative text extracted from EUR-Lex
+with a completeness check, and a gap register recording what was checked and what failed,
+which nothing can regenerate.
+
+`prosodia plan-lint` checks a plan against this directory — see
+[plan review](reference/plan-review.md).
 
 ## Personas
 

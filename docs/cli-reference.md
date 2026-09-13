@@ -8,7 +8,7 @@ Two commands: **`prosodia`** (authoring, any machine) and **`prosodia-render`**
 ## `prosodia` (authoring)
 
 ```
-prosodia [--version] {plan, write, compile, submit, voice-prep, plan-view, lint-repetition, trace-report, diagnose, personas, persona-new, ui} ...
+prosodia [--version] {plan, write, compile, submit, voice-prep, plan-lint, plan-view, lint-repetition, trace-report, diagnose, personas, persona-new, ui} ...
 ```
 
 ### `prosodia plan`
@@ -101,6 +101,32 @@ natural pause and downmixed to mono. Needs the `audio` extra
 | `--start TS` | yes | start timestamp: seconds (`12.5`) or `M:SS` (`1:30`) |
 | `--out WAV` | yes | output path (e.g. `projects/<proj>/voices/narrator.wav`) |
 | `--duration S` | no | target clip length in seconds (default 10) |
+
+### `prosodia plan-lint`
+
+Check a plan outline against the research docket and the persona's structural rules —
+deterministically, with no model call. Runs automatically at the end of `prosodia plan`
+(reporting only); this command re-runs it and **exits non-zero on errors**.
+
+It is the cheap half of reviewing a plan: everything settled by counting or by string
+comparison. The judgement half — is the difficulty curve right, is the contested material
+steelmanned — wants an independent read, not another turn of the same model. See
+[plan review](reference/plan-review.md).
+
+| Argument / option | Req | Meaning |
+|---|---|---|
+| `--project DIR` | yes | project directory (reads `plan/outline.md` and `research/*.md`) |
+| `--warn-only` | no | always exit 0; report findings without failing |
+
+**Errors** (things the plan asserts that nothing in `research/` supports):
+`cite-not-in-docket`, `quote-not-verbatim`, `bare-range`, `forward-prereq`,
+`outside-docket`, `no-section`.
+**Warnings** (judgement calls a human should confirm): `applied-coverage`, `unsayable`,
+`verify-budget`, `docket-veto`, `opening-repeat`, `runtime`, `missing-field`.
+
+An error usually means the **docket** is short, not the plan: either add the material, or
+mark the item `[OUTSIDE DOCKET: <what would confirm it>]` so the writer knows not to trust
+it. Checks needing a docket are skipped, with a note, when `research/` is absent.
 
 ### `prosodia plan-view`
 

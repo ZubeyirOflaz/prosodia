@@ -289,3 +289,9 @@ projects/**/trace.jsonl
 projects/**/run/
 # Bulky deep-research scratch (dossier + per-segment notes)
 projects/**/research/
+# ...except where a docket has stopped being scratch. ai_act's is verified primary source:
+# operative text extracted from EUR-Lex with a completeness check, and a gap register that
+# records what was checked, what failed and why. The operative text is regenerable from
+# experiments/eurlex/consolidate.py; the gap register is not regenerable by anything.
+!projects/ai_act/research/
+!projects/ai_act/research/*.md

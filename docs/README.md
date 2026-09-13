@@ -40,3 +40,8 @@ and decisions: [DESIGN.md](../DESIGN.md).
 
 - [Carlin craft](reference/carlin-craft.md) — the Hardcore-History gold standard (plan- & prose-level)
 - [Optimization lessons](reference/optimization-lessons.md) — what the prompt-refinement loops taught + the (do-not-run-yet) next-research proposal
+- [Craft sourcing](reference/craft-sourcing.md) — the repeatable process for analysing a teacher's corpus into a dossier
+- [Casework synthesis](reference/casework-synthesis.md) — how four dossiers were merged into the `casework` persona, and what was rejected
+- [Casework series roadmap](reference/casework-series-roadmap.md) — Series B, C and D, scoped but not planned
+- [Plan review](reference/plan-review.md) — how a Planner outline gets checked: `plan-lint` for the counting, an independent read for the judgement, and the standing ledger for Series A
+- Craft dossiers: [Fisher](reference/fisher-craft.md) · [Hildebrandt](reference/hildebrandt-craft.md) · [Harford](reference/harford-craft.md) · [Sapolsky](reference/sapolsky-craft.md)
