@@ -1,0 +1,106 @@
+{
+  "slug": "hildebrandt",
+  "person": "Mireille Hildebrandt (VUB / Radboud) \u2014 Law for Computer Scientists, COHUBICOL",
+  "hired_for": "gaze: how to look at a legal question when the object is computational \u2014 what a legal norm is, and what happens to it when it meets code and data",
+  "permission_note": "Open-access book (OUP) plus the project's own public publications; fetched for private style/frame analysis. Raw corpus stays gitignored and uncommitted.",
+  "items": [
+    {
+      "type": "html",
+      "slug": "01-introduction-textbook-and-essay",
+      "title": "1. Introduction: Textbook and Essay",
+      "group": "Law for Computer Scientists and Other Folk (OUP, open access)",
+      "url": "https://lawforcomputerscientists.pubpub.org/pub/8dogehp7"
+    },
+    {
+      "type": "html",
+      "slug": "02-law-democracy-and-the-rule-of-law",
+      "title": "2. Law, Democracy, and the Rule of Law",
+      "group": "Law for Computer Scientists and Other Folk (OUP, open access)",
+      "url": "https://lawforcomputerscientists.pubpub.org/pub/hx1s8lbt"
+    },
+    {
+      "type": "html",
+      "slug": "03-domains-of-law",
+      "title": "3. Domains of Law: Private, Public, and Criminal Law",
+      "group": "Law for Computer Scientists and Other Folk (OUP, open access)",
+      "url": "https://lawforcomputerscientists.pubpub.org/pub/d3mzwako"
+    },
+    {
+      "type": "html",
+      "slug": "04-international-and-supranational-law",
+      "title": "4. International and Supranational Law",
+      "group": "Law for Computer Scientists and Other Folk (OUP, open access)",
+      "url": "https://lawforcomputerscientists.pubpub.org/pub/gpk4tqae"
+    },
+    {
+      "type": "html",
+      "slug": "05-privacy-and-data-protection",
+      "title": "5. Privacy and Data Protection",
+      "group": "Law for Computer Scientists and Other Folk (OUP, open access)",
+      "url": "https://lawforcomputerscientists.pubpub.org/pub/doreuiyy"
+    },
+    {
+      "type": "html",
+      "slug": "06-cybercrime",
+      "title": "6. Cybercrime",
+      "group": "Law for Computer Scientists and Other Folk (OUP, open access)",
+      "url": "https://lawforcomputerscientists.pubpub.org/pub/pq3xqd3k"
+    },
+    {
+      "type": "html",
+      "slug": "07-copyright-in-cyberspace",
+      "title": "7. Copyright in Cyberspace",
+      "group": "Law for Computer Scientists and Other Folk (OUP, open access)",
+      "url": "https://lawforcomputerscientists.pubpub.org/pub/yjwfiwk5"
+    },
+    {
+      "type": "html",
+      "slug": "08-private-law-liability-for-faulty-ict",
+      "title": "8. Private Law Liability for Faulty ICT",
+      "group": "Law for Computer Scientists and Other Folk (OUP, open access)",
+      "url": "https://lawforcomputerscientists.pubpub.org/pub/cbjjftn9"
+    },
+    {
+      "type": "html",
+      "slug": "09-legal-personhood-for-ai",
+      "title": "9. Legal Personhood for AI?",
+      "group": "Law for Computer Scientists and Other Folk (OUP, open access)",
+      "url": "https://lawforcomputerscientists.pubpub.org/pub/4swyxhx5"
+    },
+    {
+      "type": "html",
+      "slug": "10-legal-by-design-or-legal-protection-by-design",
+      "title": "10. 'Legal by Design' or 'Legal Protection by Design'?",
+      "group": "Law for Computer Scientists and Other Folk (OUP, open access)",
+      "url": "https://lawforcomputerscientists.pubpub.org/pub/gfzd6k0g"
+    },
+    {
+      "type": "html",
+      "slug": "11-closure-on-ethics-code-and-law",
+      "title": "11. Closure: on ethics, code and law",
+      "group": "Law for Computer Scientists and Other Folk (OUP, open access)",
+      "url": "https://lawforcomputerscientists.pubpub.org/pub/nx5zv2ux"
+    },
+    {
+      "type": "html",
+      "slug": "meta-cohubicol-master-course",
+      "title": "COHUBICOL master course: Critical Reflections on Computational Law",
+      "group": "COHUBICOL",
+      "url": "https://publications.cohubicol.com/typology/teaching-and-training/master-course-syllabus"
+    },
+    {
+      "type": "html",
+      "slug": "meta-code-driven-law",
+      "title": "Code-Driven Law: Scaling the Past and Freezing the Future",
+      "group": "COHUBICOL",
+      "url": "https://www.cohubicol.com/news/Code-Driven-Law/"
+    },
+    {
+      "type": "html",
+      "slug": "meta-cohubicol-about",
+      "title": "COHUBICOL \u2014 project description",
+      "group": "COHUBICOL",
+      "url": "https://www.cohubicol.com/about/"
+    }
+  ]
+}

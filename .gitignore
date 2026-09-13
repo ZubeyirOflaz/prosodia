@@ -231,6 +231,11 @@ __marimo__/
 /experiments/*
 !/experiments/lexicon_norms/
 /experiments/lexicon_norms/out/
+!/experiments/craft_sourcing/
+/experiments/craft_sourcing/corpus/
+/experiments/craft_sourcing/out/
+!/experiments/eurlex/
+/experiments/eurlex/cache/
 
 # TTS model weights / caches (downloaded on first run; large)
 /models/

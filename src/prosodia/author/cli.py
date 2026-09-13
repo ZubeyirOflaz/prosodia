@@ -363,9 +363,9 @@ def _cmd_plan(args: argparse.Namespace) -> int:
     )
     if docket:
         prompt += (
-            "\n\nRESEARCH DOCKET — verified, cited source material. BUILD THE OUTLINE FROM THIS; do "
-            "NOT re-research thinkers it already covers. Use web search ONLY to fill a gap the docket "
-            "explicitly flags (e.g. Ibn Khaldun) or to check a single doubtful anecdote:\n\n"
+            "\n\nRESEARCH DOCKET — verified, cited source material. BUILD THE OUTLINE FROM THIS; "
+            "do NOT re-research what it already covers. Use web search ONLY to fill a gap the "
+            "docket explicitly flags, or to check a single doubtful claim:\n\n"
             + "\n\n".join(docket)
         )
     prompt += "\n\nProduce the series outline and coverage map."
@@ -413,6 +413,15 @@ def _cmd_write(args: argparse.Namespace) -> int:
         from prosodia.author.planparse import extract_episode_section
 
         section = extract_episode_section(outline_path.read_text(encoding="utf-8"), ep["n"])
+        if not section:
+            print(
+                f"warning: plan/outline.md exists but no section for episode {ep['n']} could be "
+                "found, so the writer gets only the coarse brief — every per-episode plan "
+                "(instance, cast, operative text, contested points) is being dropped. The parser "
+                "locates an episode by a heading carrying its number, e.g. "
+                f"'## Episode {ep['n']} — Title'.",
+                file=sys.stderr,
+            )
         if section:
             brief += (
                 "\n--- PLAN FOR THIS EPISODE (from the Planner — follow it) ---\n"
@@ -446,6 +455,28 @@ def _cmd_write(args: argparse.Namespace) -> int:
     if ff:
         brief += "\n\n" + ff + "\n"
 
+    # The research docket goes to the WRITER AND THE EDITOR (orchestrate passes the brief to
+    # both). Without it the editor's hardest rule — "any invented case, citation, holding,
+    # quotation or date is a hard fail" — is unenforceable, because it has no corpus to check
+    # against. An independent review of the first generated plan found the planner had supplied
+    # ~49 article numbers and ~15 scholarly citations from model memory, and in one place labelled
+    # them as coming from the docket; nothing downstream could have caught that.
+    research_dir_w = proj / "research"
+    if research_dir_w.is_dir():
+        docket_w = [
+            f"===== research/{f.name} =====\n{f.read_text(encoding='utf-8')}"
+            for f in sorted(research_dir_w.glob("*.md"))
+        ]
+        if docket_w:
+            brief += (
+                "\n\n--- RESEARCH DOCKET (the source of truth for facts) ---\n"
+                "This is the verified material this series is built from. Use it to CHECK every\n"
+                "case, date, figure, citation and quotation: anything asserted that is not here and\n"
+                "not marked in the plan as verified is unsourced, and anything the docket marks\n"
+                "'do not use' must not be used. It is a checking corpus, not a licence to import\n"
+                "material the plan did not select for this episode.\n\n"
+                + "\n\n".join(docket_w)
+            )
     brief += "\nWrite the full episode transcript in the Prosodia hybrid format."
     epdir = proj / "episodes" / ep.get("slug", f"ep{ep['n']}")
     epdir.mkdir(parents=True, exist_ok=True)

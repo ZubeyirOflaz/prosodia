@@ -1,0 +1,60 @@
+# Tone specialist table for the `casework` persona (deterministic, stage 1).
+#
+# Register: precise and engaged, never theatrical. This persona explains machinery, and drama
+# over machinery is the failure mode. The dramatic tones that other personas carry are
+# deliberately ABSENT (see the note at the foot) so the vocabulary itself enforces the register.
+#
+# Delivery targets derived in docs/reference/casework-synthesis.md §4.3, by ranking the craft
+# sources on how close their medium is to single-narrator audio with no visual aid:
+#   * speech rate ~130 wpm  (the audio-native source sits at 127; the slide-aided one at 137)
+#   * sentence median ~12 words, a third at eight or fewer
+#   * second person ~6.5 per 1,000 words (two independent sources converged at 6.3 and 6.7)
+#
+# Chatterbox levers: exaggeration = monotone <-> expressive (higher = less flat, also faster);
+# cfg_weight = pace/deliberateness (lower = slower, more deliberate). The global `pace` dial
+# scales every cfg_weight show-wide.
+
+engine: chatterbox
+
+# Slower than a conversational read: this material is dense and the listener has no text in
+# front of them. Tune this dial first if the show feels rushed.
+pace: 0.93
+
+# Baseline gaps. Deliberate long pauses at the retrieval beats are the tone specialist's job
+# (explicit {pause}); these are only the floor.
+pauses:
+  paragraph_ms: 550
+  beat_ms: 1100
+
+default_tone: measured
+
+tones:
+  # -- exposition register (the persona's core voice) --
+  measured:       { exaggeration: 0.48, cfg_weight: 0.44, temperature: 0.76 }
+  neutral:        { exaggeration: 0.44, cfg_weight: 0.46, temperature: 0.76 }
+  precise:        { exaggeration: 0.46, cfg_weight: 0.38, temperature: 0.70 }  # definitions, tests, the recap path
+  lucid:          { exaggeration: 0.50, cfg_weight: 0.48, temperature: 0.76 }  # even, unhurried clarity
+  curious:        { exaggeration: 0.58, cfg_weight: 0.46, temperature: 0.82 }  # posing the problem, thinking aloud
+  contemplative:  { exaggeration: 0.44, cfg_weight: 0.36, temperature: 0.72 }  # after a hard step lands
+  warm:           { exaggeration: 0.55, cfg_weight: 0.46, temperature: 0.80 }  # owning a difficulty
+  wry:            { exaggeration: 0.56, cfg_weight: 0.48, temperature: 0.84 }  # the reset aside
+  # -- the two marked registers this persona adds --
+  quoting:        { exaggeration: 0.38, cfg_weight: 0.34, temperature: 0.66 }  # the text's own words: flat, slow,
+  # audibly not the narrator, and a low temperature so the engine improvises as little as possible
+  # on statutory phrasing.
+  pointed:        { exaggeration: 0.66, cfg_weight: 0.36, temperature: 0.78 }  # THE load-bearing sentence: marked
+  # and slow together. Prosodic-signalling research finds raised dynamics plus slower pace improves
+  # both retention and transfer, and beats either alone — this is that finding as a knob.
+  # -- reserved for the human stakes of a real case, never for the machinery --
+  somber:         { exaggeration: 0.50, cfg_weight: 0.34, temperature: 0.72 }
+  grave:          { exaggeration: 0.50, cfg_weight: 0.30, temperature: 0.72 }
+  tense:          { exaggeration: 0.64, cfg_weight: 0.40, temperature: 0.82 }
+  urgent:         { exaggeration: 0.74, cfg_weight: 0.44, temperature: 0.85 }
+  dramatic:       { exaggeration: 0.78, cfg_weight: 0.30, temperature: 0.84 }
+
+# ON `dramatic`. It is available and it is the persona's rarest tone — a handful of uses across a
+# whole series, and only where a real human consequence peaks: the moment a right is actually
+# lost, a surveillance power is actually upheld, a person is actually refused. NEVER for the
+# machinery. Pitched slightly below the dramatist personas (0.78 rather than 0.84) because even at
+# its peak this show is explaining something. If an episode reaches for it more than once, the
+# tone is doing work the prose should be doing.

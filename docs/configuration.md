@@ -65,6 +65,7 @@ persona in a local `personas/<name>/` dir, which wins over the built-in library.
 |---|---|
 | `hardcore-history` | Dan-Carlin dramatic historical narrative (the original voice) |
 | `thinkers` | thinkers and their ideas — Carlin's narrative × Sandel's argue-both-sides, explaining hard theory accurately |
+| `casework` | technical social science by fact pattern — an apparatus built from one instance, applied out loud, stress-tested by changing a fact, and judged. Distilled from four sourced craft references (`docs/reference/casework-synthesis.md`) |
 
 ```
 prosodia personas                              # list available personas

@@ -1,0 +1,183 @@
+{
+  "slug": "sapolsky",
+  "person": "Robert M. Sapolsky (Stanford) \u2014 Human Behavioral Biology, BIO 150",
+  "hired_for": "device: explaining one phenomenon at several interacting levels of causation, and refusing single-cause accounts",
+  "permission_note": "Publicly posted Stanford course lectures; captions fetched for private style analysis only. Raw corpus stays gitignored and uncommitted.",
+  "items": [
+    {
+      "type": "youtube",
+      "id": "NNnIGh9g6fA",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Introduction to Human Behavioral Biology",
+      "slug": "01-introduction-to-human-behavioral-biology"
+    },
+    {
+      "type": "youtube",
+      "id": "Y0Oa4Lp5fLE",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Behavioral Evolution",
+      "slug": "02-behavioral-evolution"
+    },
+    {
+      "type": "youtube",
+      "id": "oKNAzl-XN4I",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Behavioral Evolution II",
+      "slug": "03-behavioral-evolution-ii"
+    },
+    {
+      "type": "youtube",
+      "id": "_dRXA1_e30o",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Molecular Genetics I",
+      "slug": "04-molecular-genetics-i"
+    },
+    {
+      "type": "youtube",
+      "id": "dFILgg9_hrU",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Molecular Genetics II",
+      "slug": "05-molecular-genetics-ii"
+    },
+    {
+      "type": "youtube",
+      "id": "e0WZx7lUOrY",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Behavioral Genetics I",
+      "slug": "06-behavioral-genetics-i"
+    },
+    {
+      "type": "youtube",
+      "id": "RG5fN6KrDJE",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Behavioral Genetics II",
+      "slug": "07-behavioral-genetics-ii"
+    },
+    {
+      "type": "youtube",
+      "id": "P388gUPSq_I",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Recognizing Relatives",
+      "slug": "08-recognizing-relatives"
+    },
+    {
+      "type": "youtube",
+      "id": "ISVaoLlW104",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Ethology",
+      "slug": "09-ethology"
+    },
+    {
+      "type": "youtube",
+      "id": "5031rWXgdYo",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Introduction to Neuroscience I",
+      "slug": "10-introduction-to-neuroscience-i"
+    },
+    {
+      "type": "youtube",
+      "id": "uqU9lmFztOU",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Introduction to Neuroscience II",
+      "slug": "11-introduction-to-neuroscience-ii"
+    },
+    {
+      "type": "youtube",
+      "id": "yETVsV4zfFw",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Endocrinology",
+      "slug": "12-endocrinology"
+    },
+    {
+      "type": "youtube",
+      "id": "kAfz0yAcOyQ",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Advanced Neurology and Endocrinology",
+      "slug": "13-advanced-neurology-and-endocrinology"
+    },
+    {
+      "type": "youtube",
+      "id": "CAOnSbDSaOw",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Limbic System",
+      "slug": "14-limbic-system"
+    },
+    {
+      "type": "youtube",
+      "id": "LOY3QH_jOtE",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Human Sexual Behavior I",
+      "slug": "15-human-sexual-behavior-i"
+    },
+    {
+      "type": "youtube",
+      "id": "95OP9rSjxzw",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Human Sexual Behavior II",
+      "slug": "16-human-sexual-behavior-ii"
+    },
+    {
+      "type": "youtube",
+      "id": "JPYmarGO5jM",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Human Sexual Behavior III & Aggression I",
+      "slug": "17-human-sexual-behavior-iii-aggression-i"
+    },
+    {
+      "type": "youtube",
+      "id": "wLE71i4JJiM",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Aggression II",
+      "slug": "18-aggression-ii"
+    },
+    {
+      "type": "youtube",
+      "id": "EtVfoIkVSu8",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Aggression III",
+      "slug": "19-aggression-iii"
+    },
+    {
+      "type": "youtube",
+      "id": "BqP4_4kr7-0",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Aggression IV",
+      "slug": "20-aggression-iv"
+    },
+    {
+      "type": "youtube",
+      "id": "_njf8jwEGRo",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Chaos and Reductionism",
+      "slug": "21-chaos-and-reductionism"
+    },
+    {
+      "type": "youtube",
+      "id": "o_ZuWbX-CyE",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Emergence and Complexity",
+      "slug": "22-emergence-and-complexity"
+    },
+    {
+      "type": "youtube",
+      "id": "SIOQgY1tqrU",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Language",
+      "slug": "23-language"
+    },
+    {
+      "type": "youtube",
+      "id": "nEnklxGAmak",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Schizophrenia",
+      "slug": "24-schizophrenia"
+    },
+    {
+      "type": "youtube",
+      "id": "-PpDq1WUtAw",
+      "group": "Human Behavioral Biology (Stanford BIO 150, 2010)",
+      "title": "Individual Differences",
+      "slug": "25-individual-differences"
+    }
+  ]
+}

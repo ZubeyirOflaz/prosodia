@@ -1,0 +1,38 @@
+name: casework
+title: "Casework"
+description: >
+  Technical social science taught by fact pattern. An apparatus — a statute, a framework, a
+  doctrinal test, a measurement instrument — is built out of one concrete instance, applied out
+  loud, stress-tested by changing a single fact, and judged. Built to form a way of looking at a
+  question, not to drill a syllabus: the listener should finish able to say what the rule does,
+  what it assumes about the machine it governs, where its boundary lies, and what they would now
+  ask of a system they have never met.
+  Distilled from four sourced craft references — see docs/reference/casework-synthesis.md.
+defaults:
+  target_minutes: 27   # one apparatus per episode; the real range runs 15-45. Measured from a
+  # teacher who published a whole legal apparatus as ~27-minute segments. Length follows the
+  # apparatus: a simple instrument gets a short episode, an intricate one runs long.
+  host_mode: single
+  voice: narrator
+  # BAN LIST ONLY. This persona's frequent phrases are load-bearing devices, not filler —
+  # "in other words" is the single most common sentence opener in the architecture source, where
+  # it marks the plain-language restatement after a technical formulation. Require the MOVE and
+  # vary the wording; never ban it. What is banned is filler and anything that lies to a listener
+  # who has no picture in front of them.
+  freshness_watchlist:
+    - "however"
+    - "as you can see"
+    - "as we can see"
+    - "here we see"
+    - "at the top"
+    - "shown below"
+    - "in this diagram"
+    - "at its core"
+    - "essentially"
+    - "it's worth noting"
+    - "the key takeaway"
+    - "let's dive in"
+    - "deep dive"
+    - "to summarise"
+    - "to summarize"
+    - "in conclusion"

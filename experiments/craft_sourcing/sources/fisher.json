@@ -1,0 +1,318 @@
+{
+  "slug": "fisher",
+  "person": "William W. Fisher III (Harvard Law) \u2014 CopyrightX",
+  "hired_for": "architecture: how a legal apparatus is decomposed, sequenced and illustrated",
+  "permission_note": "Lectures are CC-licensed per copyx.org/permission; captions fetched for private style analysis only. Raw corpus stays gitignored and uncommitted.",
+  "items": [
+    {
+      "type": "youtube",
+      "id": "CqkonSY__ic",
+      "group": "The Foundations of Copyright Law",
+      "title": "Introduction",
+      "slug": "01-the-foundations-of-copyright-law-introduction"
+    },
+    {
+      "type": "youtube",
+      "id": "CvifyxfVmOE",
+      "group": "The Foundations of Copyright Law",
+      "title": "Originality",
+      "slug": "02-the-foundations-of-copyright-law-originality"
+    },
+    {
+      "type": "youtube",
+      "id": "Fw6yBGH9RDc",
+      "group": "The Foundations of Copyright Law",
+      "title": "The Idea/Expression Distinction",
+      "slug": "03-the-foundations-of-copyright-law-the-idea-expression-dis"
+    },
+    {
+      "type": "youtube",
+      "id": "00Bq5n7wYn0",
+      "group": "The Foundations of Copyright Law",
+      "title": "The System of Multilateral Treaties",
+      "slug": "04-the-foundations-of-copyright-law-the-system-of-multilate"
+    },
+    {
+      "type": "youtube",
+      "id": "nKyWusznRgQ",
+      "group": "The Foundations of Copyright Law",
+      "title": "Introduction",
+      "slug": "05-the-foundations-of-copyright-law-introduction"
+    },
+    {
+      "type": "youtube",
+      "id": "HYJuhPf9s5k",
+      "group": "Fairness and Personality Theories",
+      "title": "Fairness",
+      "slug": "06-fairness-and-personality-theories-fairness"
+    },
+    {
+      "type": "youtube",
+      "id": "hsAcrcveg6k",
+      "group": "Fairness and Personality Theories",
+      "title": "Personality",
+      "slug": "07-fairness-and-personality-theories-personality"
+    },
+    {
+      "type": "youtube",
+      "id": "zBNsrX7TFIM",
+      "group": "The Subject Matter of Copyright",
+      "title": "Literary Works (and software)",
+      "slug": "08-the-subject-matter-of-copyright-literary-works-and-softw"
+    },
+    {
+      "type": "youtube",
+      "id": "M4gD1WSo5mA",
+      "group": "The Subject Matter of Copyright",
+      "title": "Dramatic Works (and choreography)",
+      "slug": "09-the-subject-matter-of-copyright-dramatic-works-and-chore"
+    },
+    {
+      "type": "youtube",
+      "id": "2GGE_ToREPw",
+      "group": "The Subject Matter of Copyright",
+      "title": "Music",
+      "slug": "10-the-subject-matter-of-copyright-music"
+    },
+    {
+      "type": "youtube",
+      "id": "fNMuzM-C14c",
+      "group": "The Subject Matter of Copyright",
+      "title": "Audiovisual Works",
+      "slug": "11-the-subject-matter-of-copyright-audiovisual-works"
+    },
+    {
+      "type": "youtube",
+      "id": "stKbHeByAd4",
+      "group": "The Subject Matter of Copyright",
+      "title": "Fictional Characters",
+      "slug": "12-the-subject-matter-of-copyright-fictional-characters"
+    },
+    {
+      "type": "youtube",
+      "id": "n5SlotcmGD0",
+      "group": "The Subject Matter of Copyright",
+      "title": "Visual and Architectural Works",
+      "slug": "13-the-subject-matter-of-copyright-visual-and-architectural"
+    },
+    {
+      "type": "youtube",
+      "id": "3ISstJYsCWs",
+      "group": "Welfare Theory",
+      "title": "The Utilitarian Framework",
+      "slug": "14-welfare-theory-the-utilitarian-framework"
+    },
+    {
+      "type": "youtube",
+      "id": "t9wqQNCC-Vs",
+      "group": "Welfare Theory",
+      "title": "The Incentive Theory of Copyright",
+      "slug": "15-welfare-theory-the-incentive-theory-of-copyright"
+    },
+    {
+      "type": "youtube",
+      "id": "_xHEcRFlLok",
+      "group": "Welfare Theory",
+      "title": "Applications and Assessment",
+      "slug": "16-welfare-theory-applications-and-assessment"
+    },
+    {
+      "type": "youtube",
+      "id": "turx88kpgBc",
+      "group": "Authorship",
+      "title": "Sole Authorship",
+      "slug": "17-authorship-sole-authorship"
+    },
+    {
+      "type": "youtube",
+      "id": "MIjhv9Wmpdk",
+      "group": "Authorship",
+      "title": "Joint Authorship",
+      "slug": "18-authorship-joint-authorship"
+    },
+    {
+      "type": "youtube",
+      "id": "4-2qLmmDBnE",
+      "group": "Authorship",
+      "title": "Works for Hire",
+      "slug": "19-authorship-works-for-hire"
+    },
+    {
+      "type": "youtube",
+      "id": "BLX65vEVSPQ",
+      "group": "The Mechanics of Copyright",
+      "title": "The Decline of Formalities",
+      "slug": "20-the-mechanics-of-copyright-the-decline-of-formalities"
+    },
+    {
+      "type": "youtube",
+      "id": "HA1LsxeGJFI",
+      "group": "The Mechanics of Copyright",
+      "title": "Duration",
+      "slug": "21-the-mechanics-of-copyright-duration"
+    },
+    {
+      "type": "youtube",
+      "id": "QmStdKU_9qI",
+      "group": "The Mechanics of Copyright",
+      "title": "Protective Provisions",
+      "slug": "22-the-mechanics-of-copyright-protective-provisions"
+    },
+    {
+      "type": "youtube",
+      "id": "_YmnWVDO19o",
+      "group": "The Rights to Reproduce and Modify",
+      "title": "Reproduction",
+      "slug": "23-the-rights-to-reproduce-and-modify-reproduction"
+    },
+    {
+      "type": "youtube",
+      "id": "uP2BnwXabIc",
+      "group": "The Rights to Reproduce and Modify",
+      "title": "Improper Appropriation",
+      "slug": "24-the-rights-to-reproduce-and-modify-improper-appropriatio"
+    },
+    {
+      "type": "youtube",
+      "id": "oJIiZBlAOR8",
+      "group": "The Rights to Reproduce and Modify",
+      "title": "Derivative Works",
+      "slug": "25-the-rights-to-reproduce-and-modify-derivative-works"
+    },
+    {
+      "type": "youtube",
+      "id": "H5owaV5yQ98",
+      "group": "The Rights to Distribute, Perform, and Display",
+      "title": "Distribution",
+      "slug": "26-the-rights-to-distribute-perform-and-display-distributio"
+    },
+    {
+      "type": "youtube",
+      "id": "zvNof9OqH7I",
+      "group": "The Rights to Distribute, Perform, and Display",
+      "title": "Public Performances",
+      "slug": "27-the-rights-to-distribute-perform-and-display-public-perf"
+    },
+    {
+      "type": "youtube",
+      "id": "YK2OXBA4bE4",
+      "group": "The Rights to Distribute, Perform, and Display",
+      "title": "Exceptions and Limitations",
+      "slug": "28-the-rights-to-distribute-perform-and-display-exceptions-"
+    },
+    {
+      "type": "youtube",
+      "id": "KV8dj-7WA4o",
+      "group": "Fair Use",
+      "title": "The History of Fair Use",
+      "slug": "29-fair-use-the-history-of-fair-use"
+    },
+    {
+      "type": "youtube",
+      "id": "Z9q6JA6f5Co",
+      "group": "Fair Use",
+      "title": "Fair Use Today",
+      "slug": "30-fair-use-fair-use-today"
+    },
+    {
+      "type": "youtube",
+      "id": "sgY_lmxJwUg",
+      "group": "Fair Use",
+      "title": "Other Approaches",
+      "slug": "31-fair-use-other-approaches"
+    },
+    {
+      "type": "youtube",
+      "id": "sFiKtoE9huA",
+      "group": "Cultural Theory",
+      "title": "Premises",
+      "slug": "32-cultural-theory-premises"
+    },
+    {
+      "type": "youtube",
+      "id": "I7eDSRnJKq0",
+      "group": "Cultural Theory",
+      "title": "Implications",
+      "slug": "33-cultural-theory-implications"
+    },
+    {
+      "type": "youtube",
+      "id": "UXHJFcyxvbM",
+      "group": "Cultural Theory",
+      "title": "Supplements and Concerns",
+      "slug": "34-cultural-theory-supplements-and-concerns"
+    },
+    {
+      "type": "youtube",
+      "id": "0izqmst4FQI",
+      "group": "Supplements to Copyright",
+      "title": "Secondary Liability",
+      "slug": "35-supplements-to-copyright-secondary-liability"
+    },
+    {
+      "type": "youtube",
+      "id": "XtWow-tYHwU",
+      "group": "Supplements to Copyright",
+      "title": "Dual-Use Technologies",
+      "slug": "36-supplements-to-copyright-dual-use-technologies"
+    },
+    {
+      "type": "youtube",
+      "id": "QVe6dCuJ4M0",
+      "group": "Supplements to Copyright",
+      "title": "Technological Protection Measures",
+      "slug": "37-supplements-to-copyright-technological-protection-measur"
+    },
+    {
+      "type": "youtube",
+      "id": "kYUloapzo5U",
+      "group": "Remedies",
+      "title": "Equitable Relief",
+      "slug": "38-remedies-equitable-relief"
+    },
+    {
+      "type": "youtube",
+      "id": "8fv5FF0zugU",
+      "group": "Remedies",
+      "title": "Damages",
+      "slug": "39-remedies-damages"
+    },
+    {
+      "type": "youtube",
+      "id": "K0M-oUuh7iY",
+      "group": "Remedies",
+      "title": "Criminal Penalties",
+      "slug": "40-remedies-criminal-penalties"
+    },
+    {
+      "type": "pdf",
+      "slug": "meta-lessons-from-copyrightx",
+      "title": "Lessons from CopyrightX (2015)",
+      "url": "https://cyber.harvard.edu/people/tfisher/cx/Fisher_CopyrightX_2015.pdf"
+    },
+    {
+      "type": "pdf",
+      "slug": "meta-exam-2020",
+      "title": "CopyrightX final exam 2020",
+      "url": "https://ipxcourses.org/C/CopyrightX_Exam_2020.pdf"
+    },
+    {
+      "type": "html",
+      "slug": "meta-lectures-index",
+      "title": "Lecture index (structure)",
+      "url": "https://copyx.org/lectures/"
+    },
+    {
+      "type": "html",
+      "slug": "meta-syllabus-2013",
+      "title": "Copyright syllabus",
+      "url": "https://cyber.harvard.edu/people/tfisher/CopyrightX_SyllabusB_2013.htm"
+    },
+    {
+      "type": "html",
+      "slug": "meta-maps",
+      "title": "Maps of intellectual property",
+      "url": "https://copyx.org/maps-of-intellectual-property/"
+    }
+  ]
+}
