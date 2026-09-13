@@ -64,6 +64,15 @@ this series as reserved, with the later series that takes it.
 only by part count. An episode holding three times its neighbours' material is a planning error
 even when every part is assigned exactly once.
 
+**NEVER ASSIGN BY A BARE RANGE.** "Arts. 74–87" is not a coverage decision; it is a way of
+appearing to have made one. A range silently covers whatever is inside it — including provisions
+you have never read, and provisions inserted by an amendment after your training. Write out the
+parts you are actually teaching, individually. Where a run genuinely is a block, give the range AND
+name what is in it, so a reader can see what you believe the range contains. On the first plan for
+the EU AI Act this mattered exactly as you would expect: a map that assigned two thirds of the
+statute by range reported itself complete, while six articles inserted by the governing amendment
+were named nowhere in the document and one of them silently reversed the episode on enforcement.
+
 **Close the map with an arithmetic check.** State the **total number of parts listed** and the
 **total assigned**, and confirm they match. For a statute, **walk the chapters in order and name
 every one, including those you are not teaching** — a chapter missing from the map is a planning

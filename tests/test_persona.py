@@ -270,3 +270,16 @@ def test_write_brief_declares_the_episode_type_and_series_rules(tmp_path):
     assert "SENTINEL_PLAN" in brief          # and so does the episode's own plan
     # the planner's length wins over the series default, and is the number stated
     assert "about 24 minutes" in brief
+
+
+def test_casework_planner_forbids_covering_the_apparatus_by_range():
+    """A range in a coverage map is the appearance of a decision, not a decision.
+
+    The first ai_act plan assigned 77 of 110 articles only inside ranges like "Arts. 74-87",
+    reported itself complete, and thereby "covered" six articles inserted by the governing
+    amendment that appear nowhere in its 854 lines — one of which reversed what the plan
+    taught about who may fine whom.
+    """
+    planner = Persona.resolve("casework").role("planner")
+    assert "NEVER ASSIGN BY A BARE RANGE" in planner
+    assert "name what is in it" in planner
