@@ -6,7 +6,9 @@ candidates (retry-on-bad). Catches Chatterbox's hallucinations / repeats /
 off-prompt continuation that crossfading cannot fix.
 
 ``similarity`` is pure-Python (no torch), so it is unit-testable on any machine;
-``WhisperValidator`` imports faster-whisper lazily (GPU box only).
+``WhisperValidator`` imports faster-whisper lazily (render box only). It runs on
+CPU too — the STT gate is cheap next to synthesis (~0.07x realtime), so a
+CPU-only renderer pays almost nothing for it.
 """
 
 from __future__ import annotations
@@ -27,9 +29,23 @@ def similarity(a: str, b: str) -> float:
 
 
 class WhisperValidator:
-    def __init__(self, model_size: str = "base.en", device: str = "cuda", compute_type: str = "float16"):
+    """faster-whisper wrapper. ``device``/``compute_type`` default to the best
+    available: fp16 on a GPU, int8 on CPU (faster-whisper has no fp16 CPU path).
+    """
+
+    def __init__(
+        self,
+        model_size: str = "base.en",
+        device: str | None = None,
+        compute_type: str | None = None,
+    ):
         from faster_whisper import WhisperModel
 
+        from prosodia.render.device import resolve_device
+
+        device = resolve_device(device)
+        if compute_type is None:
+            compute_type = "float16" if device.startswith("cuda") else "int8"
         self._model = WhisperModel(model_size, device=device, compute_type=compute_type)
 
     def transcribe(self, wav, sr: int) -> str:

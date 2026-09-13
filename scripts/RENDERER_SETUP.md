@@ -1,47 +1,123 @@
-# Renderer setup (Windows 11 + NVIDIA GPU)
+# Renderer setup
 
-The renderer runs on the GPU box. The authoring side never needs any of this.
+The renderer runs on the render box. The authoring side never needs any of this.
 
-## Prerequisite: Python 3.11 or 3.12
+A GPU is **preferred, not required**: with no usable GPU the renderer falls back
+to CPU and produces identical output, just slower (see *Performance* below).
 
-The TTS stack needs **Python 3.11 or 3.12** (torch/Chatterbox wheels lag newer
-versions; 3.13+ is not supported). If `setup.ps1` reports *"No suitable Python
-found"* / *"no suitable runtime found"*, install it and re-run:
+## Prerequisite: Python 3.11–3.14
+
+Python **3.14 is now supported and preferred**: `chatterbox-tts` >= 0.1.7
+declares `torch>=2.9` for 3.14, whereas on 3.11–3.13 it pins `torch==2.6.0`
+*exactly* — which fights any non-default wheel and is the root of the repair-B1
+conflict below. Prefer 3.14 unless something else forces an older one.
 
 ```powershell
-winget install -e --id Python.Python.3.11
-# open a NEW terminal, then confirm:
-py --list          # should list 3.11 (or 3.12)
+# Windows, if the py launcher has nothing suitable:
+winget install -e --id Python.Python.3.14
+py --list
 ```
 
 ## One-time setup
 
-```powershell
-# from the repo root, on the GPU machine:
-scripts\setup.ps1            # ffmpeg + Python 3.11 venv + CUDA torch + prosodia[render]
+**Linux / macOS:**
+
+```bash
+# from the repo root, on the render machine:
+scripts/setup.sh                   # ffmpeg check + venv + torch + prosodia[render]
+scripts/setup.sh --flavor cpu      # force the lean CPU install (~1.9 GB)
+scripts/setup.sh --flavor cu128    # force a CUDA tag
 ```
 
-`setup.ps1` installs, in order (this order matters — repair B1):
-1. **ffmpeg** via `winget install Gyan.FFmpeg` (a system dependency; not a pip package).
-2. A **Python 3.11/3.12** venv (`.venv-render`) — it auto-detects whichever the `py` launcher has (repair B2).
+`setup.sh` picks the torch flavour from what it finds: CUDA if `nvidia-smi`
+works, otherwise CPU. It does **not** default to ROCm even when it sees an AMD
+GPU — see *AMD GPUs* below.
+
+**Windows:**
+
+```powershell
+# from the repo root, on the GPU machine:
+scripts\setup.ps1            # ffmpeg + venv + CUDA torch + prosodia[render]
+```
+
+Both scripts install, in order (this order matters — repair B1):
+1. **ffmpeg** (a system dependency; not a pip package) — `winget install Gyan.FFmpeg` on Windows, your package manager on Linux (`sudo dnf install ffmpeg`).
+2. A venv (`.venv-render`) on the newest suitable Python it can find (repair B2).
 3. A **CUDA PyTorch** wheel from `--index-url .../whl/cu126` **before** the render extra, so `chatterbox-tts` doesn't pull a CPU build. Verify the CUDA tag (cu126/cu128) for your driver at <https://pytorch.org/get-started/locally/>.
 4. `pip install -e .[render]` (chatterbox-tts, faster-whisper, soundfile).
 
 Then it runs the environment check:
 
 ```powershell
-.venv-render\Scripts\prosodia-render.exe doctor
+.venv-render\Scripts\prosodia-render.exe doctor     # Windows
+.venv-render/bin/prosodia-render doctor              # Linux/macOS
 ```
 
-`doctor` must print **"Render environment OK"** before you render. If not, it lists exactly what's missing (Python version, torch/CUDA, chatterbox, ffmpeg).
+`doctor` must print **"Render environment OK"** before you render. If not, it lists exactly what's missing (Python version, torch, chatterbox, ffmpeg). It then reports which **device** it will use and why, e.g.:
 
-### `torch.cuda.is_available()` is False (CPU torch slipped in)
+```
+Render environment OK (Python, torch, chatterbox, ffmpeg).
+  device: cpu (auto)
+  GPU unusable: no GPU visible to torch (CPU-only build, or no driver)
+  CPU rendering works but is far slower than a discrete GPU - expect roughly 3x realtime ...
+```
 
-If `doctor` says CUDA is unavailable on a machine that has an NVIDIA GPU and
+Force a device with `--device cpu|cuda` on any subcommand, or by exporting
+`PROSODIA_DEVICE`.
+
+## Performance: what to expect
+
+Chatterbox splits into an autoregressive token stage (**~62%** of the time) and a
+vocoder stage (~37%). The autoregressive stage is **memory-bandwidth-bound**,
+which is what makes device choice matter so much.
+
+Measured on an 8-core Ryzen AI 7 350 laptop (no discrete GPU), rendering as
+compute-seconds per second of audio:
+
+| Device | Realtime factor | 36-minute episode, fast preview |
+| --- | --- | --- |
+| CPU (16 threads) | ~3.0–3.4x | ~2 hours |
+| Radeon 860M iGPU (ROCm) | ~9.2x | ~5.5 hours |
+
+`--final` mode multiplies generation by `DEFAULT_CANDIDATES` (2). The STT gate
+itself is nearly free even on CPU (~0.07x realtime).
+
+So a CPU-only box is a viable *overnight* renderer, not an interactive one.
+
+## AMD GPUs
+
+A ROCm/HIP build of torch reports AMD hardware through the **same
+`torch.cuda` API** — there is no `torch.rocm` — so `torch.cuda.is_available()`
+is True on an AMD GPU. Two traps follow:
+
+1. **Missing kernels.** A HIP wheel carries kernels only for the gfx targets it
+   was built for. On anything else, every kernel launch dies with
+   `HIP error: invalid device function` at the first matmul, long after model
+   load. `prosodia.render.device` checks `torch.cuda.get_arch_list()` up front
+   and falls back to CPU with a readable reason instead. As of ROCm 7.0 the
+   wheels ship gfx1150/gfx1151 but **not gfx1152** (Krackan Point / Radeon
+   860M); `HSA_OVERRIDE_GFX_VERSION=11.0.0` makes it run anyway.
+2. **An integrated GPU is often slower than the CPU.** It shares one memory
+   controller with the CPU, so it has no bandwidth advantage on the
+   bandwidth-bound autoregressive stage, and few CUs to help on the rest.
+   Measured here: the iGPU was **3x slower** than the CPU. Native kernels would
+   not change that much — forcing the architecturally-native gfx1151 kernels was
+   *slower* than the gfx1100 ones (3.27 vs 3.61 TFLOPS fp16), so kernel
+   selection is not the bottleneck; bandwidth and 8 CUs are.
+
+Hence `setup.sh` defaults an AMD box to the CPU wheel. Use
+`--flavor rocm6.4` only for a discrete Radeon, and measure both.
+
+### `doctor` says the GPU is unusable (CPU torch slipped in)
+
+This is only a problem on a box that *has* a usable GPU — on a CPU-only machine
+it is the expected, working state.
+
+If `doctor` reports no GPU on a machine that has an NVIDIA GPU and
 current drivers, the installed torch is almost certainly a **CPU-only build** (the
 `[render]` extra reinstalled torch from PyPI over the CUDA wheel — repair B1).
-`setup.ps1` now detects and re-fixes this automatically (step 4b); to repair an
-existing venv by hand:
+Both setup scripts detect and re-fix this automatically (step 4b/5b); to repair
+an existing venv by hand:
 
 ```powershell
 .venv-render\Scripts\python.exe -c "import torch; print(torch.__version__, torch.version.cuda)"
@@ -55,6 +131,24 @@ for that runtime — try the `.../whl/cu121` index instead.
 ## Running
 
 Point the renderer at the **synced exchange root** (the folder Syncthing/Dropbox keeps in sync; it will contain `inbox/ processing/ outbox/ failed/`):
+
+**Linux / macOS:**
+
+```bash
+# run in the foreground (fast-preview mode by default):
+scripts/start_renderer.sh --root ~/Sync/prosodia
+
+# final quality, with a voices folder:
+scripts/start_renderer.sh --root ~/Sync/prosodia --final --voices ./voices
+
+# or install a systemd --user service that restarts on failure:
+scripts/start_renderer.sh --root ~/Sync/prosodia --install
+#   status: systemctl --user status prosodia-renderer
+#   logs:   journalctl --user -u prosodia-renderer -f
+# to keep it running while logged out: sudo loginctl enable-linger $USER
+```
+
+**Windows:**
 
 ```powershell
 # run in the foreground (fast-preview mode by default):

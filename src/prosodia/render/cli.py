@@ -1,45 +1,52 @@
 """Command-line entry point for the rendering side (``prosodia-render``).
 
-Requires the ``render`` extra (torch + Chatterbox), a CUDA GPU, and ffmpeg on
-PATH. Heavy imports are deferred so a base, torch-free install fails with a
-helpful message instead of an opaque ImportError. ``doctor`` reports what's
-missing (repair B1/B2).
+Requires the ``render`` extra (torch + Chatterbox) and ffmpeg on PATH. A GPU is
+preferred but no longer mandatory: with none available the renderer falls back
+to CPU (slower, but it produces identical output). Heavy imports are deferred so
+a base, torch-free install fails with a helpful message instead of an opaque
+ImportError. ``doctor`` reports what's missing and which device will be used.
 """
 
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 import sys
 from pathlib import Path
 
 
+def _ffmpeg_hint() -> str:
+    if sys.platform == "win32":
+        return "install with `winget install Gyan.FFmpeg`"
+    if sys.platform == "darwin":
+        return "install with `brew install ffmpeg`"
+    return "install with your package manager, e.g. `sudo dnf install ffmpeg` / `sudo apt install ffmpeg`"
+
+
 def check_render_env() -> list[str]:
-    """Return human-readable problems with the render environment (empty == OK)."""
+    """Return human-readable problems with the render environment (empty == OK).
+
+    A missing GPU is NOT a problem — it is a performance note (see
+    ``render_env_notes``). Only genuinely blocking conditions belong here.
+    """
     problems: list[str] = []
 
-    if sys.version_info >= (3, 13):
+    # 3.14 is fine: chatterbox-tts >= 0.1.7 declares torch >= 2.9 for it. The gate
+    # exists only to catch a Python the TTS wheels genuinely do not build for yet.
+    if sys.version_info >= (3, 15):
         problems.append(
-            f"Python {sys.version_info.major}.{sys.version_info.minor} is too new for the "
-            "TTS stack; use Python 3.11 or 3.12 on the render box."
+            f"Python {sys.version_info.major}.{sys.version_info.minor} is newer than the "
+            "TTS stack supports; use Python 3.11-3.14 on the render box."
         )
 
     try:
-        import torch
+        import torch  # noqa: F401
     except Exception:
         problems.append(
-            "PyTorch is not installed. Install a CUDA wheel FIRST, then "
-            "`pip install prosodia[render]` (see scripts/setup.ps1)."
+            "PyTorch is not installed. Install the right wheel FIRST, then "
+            "`pip install prosodia[render]` (see scripts/RENDERER_SETUP.md)."
         )
-    else:
-        try:
-            if not torch.cuda.is_available():
-                problems.append(
-                    "torch.cuda.is_available() is False - no usable CUDA GPU detected "
-                    "(check the NVIDIA driver and that torch is a CUDA build, not CPU-only)."
-                )
-        except Exception as exc:  # pragma: no cover - defensive
-            problems.append(f"Could not query CUDA: {exc}")
 
     try:
         import chatterbox  # noqa: F401  (provided by the chatterbox-tts package)
@@ -47,20 +54,62 @@ def check_render_env() -> list[str]:
         problems.append("chatterbox-tts is not installed (`pip install prosodia[render]`).")
 
     if shutil.which("ffmpeg") is None:
-        problems.append("ffmpeg is not on PATH (install with `winget install Gyan.FFmpeg`).")
+        problems.append(f"ffmpeg is not on PATH ({_ffmpeg_hint()}).")
 
     return problems
 
 
+def render_env_notes() -> list[str]:
+    """Non-blocking notes about the render environment (device choice, speed)."""
+    notes: list[str] = []
+    try:
+        from prosodia.render.device import advice_for, describe_gpu, gpu_status, resolve_device
+    except Exception:
+        return notes
+
+    device = resolve_device()
+    forced = os.environ.get("PROSODIA_DEVICE")
+    usable, reason = gpu_status()
+
+    if forced:
+        notes.append(f"device: {device} (forced by PROSODIA_DEVICE)")
+    else:
+        notes.append(f"device: {device} (auto)")
+    notes.append(f"GPU: {describe_gpu()}" if usable else f"GPU unusable: {reason}")
+    if device == "cpu":
+        notes.append(
+            "CPU rendering works but is far slower than a discrete GPU - expect "
+            "roughly 3x realtime (3 s of compute per second of audio) on a modern "
+            "8-core laptop, so budget hours per episode."
+        )
+    advice = advice_for(device)
+    if advice:
+        notes.append(f"note: {advice}")
+    return notes
+
+
 def build_parser() -> argparse.ArgumentParser:
+    # Shared options, accepted either before or after the subcommand. SUPPRESS is
+    # load-bearing: with a normal default the subparser parses last and would
+    # clobber a value given before the subcommand with None.
+    common = argparse.ArgumentParser(add_help=False)
+    common.add_argument(
+        "--device", default=argparse.SUPPRESS,
+        help="force the torch device ('cuda' or 'cpu'); default: auto-detect. "
+             "Equivalent to setting PROSODIA_DEVICE.",
+    )
     parser = argparse.ArgumentParser(
         prog="prosodia-render",
-        description="Render Prosodia jobs to audio on a CUDA GPU (Chatterbox).",
+        parents=[common],
+        description="Render Prosodia jobs to audio (Chatterbox); GPU if available, else CPU.",
     )
     sub = parser.add_subparsers(dest="command")
-    sub.add_parser("doctor", help="check the render environment (Python, torch/CUDA, ffmpeg)")
+    sub.add_parser(
+        "doctor", parents=[common],
+        help="check the render environment (Python, torch, device, ffmpeg)",
+    )
 
-    p_render = sub.add_parser("render", help="render a single job directory")
+    p_render = sub.add_parser("render", parents=[common], help="render a single job directory")
     p_render.add_argument("job", help="path to a job directory (holds ir.json + render_plan.json)")
     p_render.add_argument("--final", action="store_true", help="final mode (N candidates + STT gate)")
     p_render.add_argument("--voices", help="directory of voice reference .wav files")
@@ -72,7 +121,10 @@ def build_parser() -> argparse.ArgumentParser:
              "Pass --no-lexicon-fallback to always speak the respelling instead.",
     )
 
-    p_watch = sub.add_parser("watch", help="watch an exchange root and render jobs as they arrive")
+    p_watch = sub.add_parser(
+        "watch", parents=[common],
+        help="watch an exchange root and render jobs as they arrive",
+    )
     p_watch.add_argument("root", help="synced exchange root (holds inbox/ processing/ outbox/ failed/)")
     p_watch.add_argument("--final", action="store_true", help="final mode (N candidates + STT gate)")
     p_watch.add_argument("--voices", help="directory of voice reference .wav files")
@@ -86,7 +138,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     p_aud = sub.add_parser(
-        "audition",
+        "audition", parents=[common],
         help="A/B voice clips across the full delivery range (or a single custom text)",
     )
     p_aud.add_argument("--voices", nargs="+", required=True, help="a voices/ dir and/or .wav files to compare")
@@ -118,7 +170,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     p_lex = sub.add_parser(
-        "lexicon-audition",
+        "lexicon-audition", parents=[common],
         help="hear each lexicon respelling across seeds to pick stable pronunciations",
     )
     p_lex.add_argument("--voices", nargs="+", required=True, help="a voices/ dir and/or .wav files")
@@ -142,6 +194,9 @@ def main(argv: list[str] | None = None) -> int:
         parser.print_help()
         return 0
 
+    if getattr(args, "device", None):
+        os.environ["PROSODIA_DEVICE"] = args.device
+
     problems = check_render_env()
     if args.command == "doctor":
         if problems:
@@ -149,7 +204,9 @@ def main(argv: list[str] | None = None) -> int:
             for p in problems:
                 print(f"  - {p}")
             return 1
-        print("Render environment OK (Python, torch/CUDA, chatterbox, ffmpeg).")
+        print("Render environment OK (Python, torch, chatterbox, ffmpeg).")
+        for note in render_env_notes():
+            print(f"  {note}")
         return 0
 
     if problems:

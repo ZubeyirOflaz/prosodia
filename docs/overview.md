@@ -35,13 +35,14 @@ verbatim. See the [Transcript format](../formats/SPEC.md).
 
 ```
 Author a transcript            →     Render to audio
-(any machine, no GPU)                (Windows + NVIDIA GPU)
+(any machine, no GPU)                (GPU box, or CPU overnight)
 plan · write · compile · submit      watch · render → episode.wav
             └──────────  synced folder (inbox/ … outbox/)  ──────────┘
 ```
 
 - **Authoring** runs anywhere — pure-Python, no torch.
-- **Rendering** runs on a machine with an NVIDIA GPU (Chatterbox first).
+- **Rendering** wants an NVIDIA GPU (Chatterbox first), but degrades to CPU at
+  roughly 3x realtime when none is available.
 - The two exchange jobs through a [cloud-synced folder](HANDOFF.md), so you can
   write remotely and render on the GPU box.
 

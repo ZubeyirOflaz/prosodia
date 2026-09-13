@@ -4,8 +4,9 @@
 
 Prosodia has two sides that never share a process and exchange work through a
 synced folder. The **authoring** side is pure-Python (no GPU); the **render**
-side needs an NVIDIA GPU. The boundary is enforced in packaging: the base install
-has no torch, and the render dependencies live in a `[render]` extra.
+side needs torch — an NVIDIA GPU for useful speed, but it falls back to CPU
+(~3x realtime) when there is none. The boundary is enforced in packaging: the
+base install has no torch, and the render dependencies live in a `[render]` extra.
 
 ## Data flow
 

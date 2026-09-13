@@ -17,8 +17,9 @@ NVIDIA box and has its own one-time setup — see [Renderer setup](../scripts/RE
 (The render extra is `pip install prosodia[render]`, but install a CUDA torch
 wheel first; `setup.ps1` does this in the right order.)
 
-> Python: authoring works on 3.11–3.14. The render box should use **3.11 or 3.12**
-> (torch/Chatterbox wheels lag newer Python).
+> Python: authoring works on 3.11–3.14. The render box works on 3.11–3.14 too,
+> and **3.14 is preferred** — on 3.11–3.13 `chatterbox-tts` pins `torch==2.6.0`
+> exactly, which fights any non-default wheel.
 
 ## Run the worked example
 

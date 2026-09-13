@@ -1,9 +1,13 @@
 """Chatterbox TTS backend.
 
-Runs on the GPU box (requires the ``render`` extra). Loads the model once and
-keeps it warm in VRAM; each call renders one short chunk. A fixed seed gives
+Runs on the render box (requires the ``render`` extra). Loads the model once and
+keeps it warm; each call renders one short chunk. A fixed seed gives
 reproducible-ish output (Chatterbox does not enable cuDNN-deterministic mode, so
 it is perceptually identical, not bit-identical).
+
+The device comes from ``prosodia.render.device.resolve_device`` — a GPU when one
+is genuinely usable, otherwise CPU, overridable with ``$PROSODIA_DEVICE`` or
+``--device``.
 """
 
 from __future__ import annotations
@@ -15,6 +19,7 @@ import torch
 from chatterbox.tts import ChatterboxTTS
 
 from prosodia.render.backends.base import TTSBackend
+from prosodia.render.device import resolve_device
 from prosodia.render.pacing import rate_adjusted_cfg
 
 
@@ -28,7 +33,7 @@ def _set_seed(seed: int) -> None:
 
 class ChatterboxBackend(TTSBackend):
     def __init__(self, device: str | None = None):
-        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = resolve_device(device)
         self._model: ChatterboxTTS | None = None
 
     @property
