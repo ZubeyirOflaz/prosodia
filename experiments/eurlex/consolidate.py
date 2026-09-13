@@ -226,6 +226,14 @@ def render_grid(grid, indent: str) -> list[str]:
     return out
 
 
+# --select "Article 9,Article 10-15,ANNEX III" emits just those subdivisions as Markdown,
+# ready to drop into a research docket, instead of the whole act as plain text.
+SELECT = None
+if "--select" in sys.argv:
+    i = sys.argv.index("--select")
+    SELECT = sys.argv[i + 1]
+    del sys.argv[i:i + 2]
+
 arg = sys.argv[1] if len(sys.argv) > 1 else "02024R1689-20260727"
 OUT = sys.argv[2] if len(sys.argv) > 2 else "consolidated.txt"
 SRC = arg if arg.endswith(".html") else fetch(arg)
@@ -279,6 +287,37 @@ for sub in subs:
     chunks.append(f"===== {head} =====\n{body}\n")
 
 text = "\n".join(chunks)
+def _expand(spec: str) -> list[str]:
+    """'Article 9,Article 10-15,ANNEX III' -> a flat list of subdivision names."""
+    out = []
+    for part in spec.split(","):
+        part = part.strip()
+        m = re.fullmatch(r"(Article|ANNEX)\s+(\w+)\s*-\s*(\w+)", part, re.IGNORECASE)
+        if m and m.group(2).isdigit() and m.group(3).isdigit():
+            out += [f"Article {n}" for n in range(int(m.group(2)), int(m.group(3)) + 1)]
+        elif part:
+            out.append(part)
+    return out
+
+
+if SELECT:
+    blocks = {}
+    for m in re.finditer(r"^===== (.+?) =====\n(.*?)(?=^===== |\Z)", text, re.M | re.S):
+        blocks[m.group(1).split(" — ")[0].strip().lower()] = (m.group(1), m.group(2).rstrip())
+    md, missing = [], []
+    for name in _expand(SELECT):
+        hit = blocks.get(name.lower())
+        if not hit:
+            missing.append(name)
+            continue
+        md.append(f"\n## {hit[0]}\n\n```text\n{hit[1]}\n```")
+    with open(OUT, "w", encoding="utf-8") as fh:
+        fh.write("\n".join(md) + "\n")
+    print(f"selected {len(md)} subdivision(s) -> {OUT}")
+    if missing:
+        print("  NOT FOUND: " + ", ".join(missing), file=sys.stderr)
+    raise SystemExit(0)
+
 with open(OUT, "w", encoding="utf-8") as fh:
     fh.write(text)
 print(f"{len(subs)} subdivisions, {len(text.split())} words -> {OUT}")

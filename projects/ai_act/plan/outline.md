@@ -47,7 +47,9 @@ The series' own verdict on that choice is **held until Episode 12**, and the lis
 
 *Chapter IX* — Art. 72 post-market monitoring · 73 serious incident reporting · 74 market surveillance · 75–78 · 79–83 procedures for systems presenting a risk and formal non-compliance · 84 testing support structures · 85 right to lodge a complaint · 86 right to explanation of individual decision-making · 87 whistleblower protection
 
-*Chapter X* — Arts. 88–94 Commission enforcement over GPAI providers (monitoring, alerts, requests for information, evaluations, measures, procedural rights)
+*Chapter IX §5* — Arts. 88, 89, 90, 91, 92, 93, 94 Commission enforcement over GPAI providers (monitoring, alerts, requests for information, evaluations, measures, procedural rights)
+
+*Chapter X — Codes of conduct and guidelines* — Art. 95 codes of conduct for voluntary application of specific requirements · Art. 96 Commission guidelines on implementation
 
 *Chapter XI* — Arts. 97–98 delegated acts and comitology
 
@@ -66,14 +68,14 @@ Every part below is **taught in exactly one episode**. Other episodes may refer 
 
 | Part | Taught in |
 |---|---|
-| Arts. 1, 2 (all limbs and exclusions), 3(1); Commission definition guidelines (Feb 2025) | **Ep 1** |
-| Arts. 3(3), 3(4), 3(6), 3(7), 3(11), 22, 23, 24, 25 | **Ep 3** |
-| Arts. 6, 7, 3(12), 3(13); Annex I (A and B); Annex III; Arts. 102–110 (named and compressed) | **Ep 4** |
+| Arts. 1, 2 (all limbs and exclusions), 3(1), **3(9) placing on the market, 3(10) making available on the market**; Commission definition guidelines (Feb 2025) | **Ep 1** |
+| Arts. 3(3), 3(4), 3(6), 3(7), 3(11), 4a, 22, 23, 24, 25 | **Ep 3** |
+| Arts. 6, 7, 3(12), 3(13); Annex I (A and B); Annex III; Arts. 102, 103, 104, 105, 106, 107, 108, 109, 110 (named as a block and compressed — they amend other Union product legislation and are not taught individually) | **Ep 4** |
 | Art. 5 in full incl. (ba), (bb) and 5(2)–(7); Annex II; prohibited-practices guidelines (4 Feb 2025) | **Ep 5** |
-| Arts. 4, 8–15, 16–21, 26, 27, 57–63; Annexes IV, IX | **Ep 7** |
-| Arts. 28–39, 40–48, 67, 97–98; Annexes V, VI, VII; Reg. (EU) 2026/1744 as the deferral decision | **Ep 8** |
-| Arts. 50, 51–56, 68, 69, 88–94, 101; Annexes XI, XII, XIII; both Codes of Practice | **Ep 9** |
-| Arts. 64, 65, 66, 70, 71, 72, 73, 74, **75 and 75a–75d**, 76–87, 99, 100, 111, 113; Art. 49(4) (restricted registration); Annex VIII; Annex X (the large-scale IT systems list, reached through Art. 111) | **Ep 11** |
+| Arts. 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 26, 27, 57, 58, 59, 60, 60a, 61, 62, 63; Annexes IV, IX | **Ep 7** |
+| Arts. 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 67, 97, 98; Annexes V, VI, VII, **XIV (notified-body designation codes, Art. 30)**; Reg. (EU) 2026/1744 as the deferral decision | **Ep 8** |
+| Arts. 50, 51, 52, 53, 54, 55, 56, 68, 69, 88, 89, 90, 91, 92, 93, 94, 101, **95, 96**; Annexes XI, XII, XIII; both Codes of Practice | **Ep 9** |
+| Arts. 64, 65, 66, 70, 71, 72, 73, 74, **75, 75a, 75b, 75c, 75d**, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 99, 100, 111, 113; Art. 49(4) (restricted registration); Annex VIII; Annex X (the large-scale IT systems list, reached through Art. 111) | **Ep 11** |
 | Art. 112 (review clause) | **Ep 12** |
 | Lens material — no operative text taught | **Eps 2, 6, 10** |
 
@@ -151,6 +153,10 @@ Called thereafter: **the gate** (Art. 3(1)) and **the reach** (Art. 2).
 **As written against as enforced:** nobody assessed CAS under the AI Act, because the high-risk regime did not apply and now applies from **2 December 2027** for Annex III systems. The instrument that actually produced public knowledge about CAS was a **voluntary national algorithm register**, not this Regulation.
 
 **Deliberately compressed, and to be said aloud:** the Art. 2 exclusions are named and not explored — national security, defence, pure scientific R&D, personal non-professional use, free and open-source (with its exceptions). Each is a hole shaped like an argument, and the episode says that it is leaving them.
+
+**The second gate, and the series' organising concept — teach it here, because three later episodes assume it:** the Act does not attach duties to *building* a system. It attaches them to **placing it on the market** (Art. 3(9): "the first making available of an AI system or a general-purpose AI model on the Union market", where making available is in turn "the supply of an AI system or a general-purpose AI model for distribution or use on the Union market in the course of a commercial activity, whether in return for payment or free of charge" — Art. 3(10)) and to **putting it into service** (Art. 3(11)). Give both in plain words: the duty bites at the moment the thing is handed to someone else, or first used for its own purpose. Name the consequence out loud — a system built and used inside one organisation and never supplied to anyone reaches the Act by a different route than one sold. *This is the concept the series' through-line rests on and the one the verdict episode turns on; Eps 3, 5 and 12 currently assume it, so it must be earned here.*
+
+**Say that the verdict is being held, and why — in this episode, out loud.** One short beat near the close: the series will end by asking whether regulating artificial intelligence as a **product** was the right choice; that question is not answerable yet, because the listener has not seen the machinery; Episode 12 lands it. *This is a promise the listener must hear in Episode 1 for Episode 12 to be able to keep it — it belongs inside this episode, not only in the series preamble.*
 
 **Handover:** we now know what the Act *counts*. We do not know why anyone thought a law could be written in time for a technology that moves this fast. **Next episode we step away from the instrument for one episode only — Episode 2 — and we are back inside the text in Episode 3.**
 
@@ -344,10 +350,13 @@ Called thereafter: **the red lines**.
 **Why this rule and not another:** a legal order whose whole instinct is to regulate rather than forbid drew eight absolute lines. The Commission's stated rationale for (f) is worth quoting: workplaces and schools are **asymmetric environments with a fundamental power imbalance** — a worker or a student cannot meaningfully decline. That is a *consent* rationale, not an accuracy one. The road not taken: the **EDPB–EDPS Joint Opinion 5/2021** attacked the "positive list" method itself and wanted a **general ban on biometric identification in publicly accessible spaces**. It did not get one; it got Art. 5(1)(h) with three exceptions and a judicial-authorisation regime. **Ep 6 is that argument.**
 
 **The variants — the load-bearing words are the qualifiers:**
-1. **Budapest Bank, changed by one fact.** The people whose emotions were inferred were **customers**; the purpose included **rating employees**. Art. 5(1)(f) prohibits inference "in the areas of workplace and education institutions." **Whose workplace — and does the prohibition follow the data subject or the setting?** This case sits exactly on that seam, and the honest answer is that nobody knows yet. *(The docket previously said "employees and customers" — imprecise. It was customers' emotions, employees' evaluation.)*
-2. Delete *solely* from (d) and every human-in-the-loop predictive policing tool in Europe changes category.
-3. Delete *untargeted* from (e) and targeted scraping — building a database of one suspect's images — becomes prohibited too.
-4. The same emotion system, sold for detecting driver drowsiness. **"Safety reasons"** — out of the prohibition, and straight into Annex III.
+*The case as it stands: customers' emotions were inferred, and the output was used to evaluate employees. Art. 5(1)(f) prohibits inference "in the areas of workplace and education institutions" — so the seam is whether the prohibition follows the data subject or the setting, and nobody knows yet. Each variant below changes ONE fact from that starting point and can be reasoned about with what this episode has taught.*
+
+1. **Drop the employee-evaluation purpose.** The same cameras, the same inference, but the output goes only to marketing: no worker is rated by it. The subjects are customers, the place is still a workplace for the staff standing in it. **Does (f) still bite?** If the answer is no, the prohibition is about *whose* emotions; if yes, it is about *where*.
+2. **Move it to the interview room.** The same system, inferring emotion from candidates during job interviews. Squarely workplace, squarely a person whose treatment turns on the output — and the clearest case in the whole prohibition. Use it to show what the easy end of the rule looks like, so the Budapest seam is audible as a hard case rather than a typical one.
+3. **The same emotion system, sold for detecting driver drowsiness.** "Medical or safety reasons" — out of the prohibition, and straight into Annex III. The capability did not change; the stated purpose did.
+
+**A different exercise, and say so before doing it — find the load-bearing word.** These are not fact changes; they change the statute and ask what the word was holding up. Announce the switch so the listener does not think a rule was amended. Delete *solely* from (d) and every human-in-the-loop predictive policing tool in Europe changes category. Delete *untargeted* from (e) and building a database of one suspect's images becomes prohibited too.
 
 **The levels:** *technical* — a classifier over acoustic features with contested validity; *organisational* — a performance-management tool aimed at staff via customers; *institutional* — a data-protection regulator reaching a use case before any AI law existed; *economic* — call-centre productivity; *rights-based* — the power asymmetry the Commission names.
 
@@ -457,6 +466,25 @@ Called thereafter: **the requirements** (8–15), **the file** (Annex IV), and *
 **What the rule assumes about the machine — the heart of this episode:** Art. 14 assumes a system whose outputs a trained person can **understand in the time available**, and whose failure modes that person has been told about. It assumes the human is a **control**. Boeing's safety assessment made the same assumption in aviation's own vocabulary: the crew is the mitigation. What the requirement cannot reach is the case where the system's behaviour is unexpected *to the organisation that built it*, and where the overseer's information comes from the provider's own instructions for use. **The Act requires the provider to tell the deployer what the system's limitations are. It has no mechanism for limitations the provider does not know about — which is the category that produces the accidents.**
 
 **As written against as enforced:** none of Chapter III applies before **2 December 2027** for Annex III systems and **2 August 2028** for Annex I. Whether the requirements will be assessed against harmonised standards, and by whom, is **Episode 8** — and the answer, as of June 2026, is that no such standard exists.
+
+⚠ **THIS EPISODE NEEDS A SECOND INSTANCE, AND IS NOT FULLY WRITABLE WITHOUT ONE.** The Boeing/FAA
+audit reaches exactly one of this episode's provisions — Art. 14, human oversight — and the plan
+says so. Everything from Art. 9 to Art. 21 therefore arrives as assertion in a single enumerated
+paragraph: thirteen obligations, no instance, nothing to apply them to, and three variants that all
+circle back to the three articles the Boeing case already reached. `research/03_cases_and_instances.md`
+records this as a known hole ("the weight of high risk — **weak**, needs a documented
+conformity-assessment story"); it has not been filled.
+
+**What would fill it** — one documented deployment, with a named organisation and a date, where a
+**data-governance or record-keeping** duty is the hinge: a system whose training data was
+unrepresentative in a way somebody established on the record, or one whose logs could not answer
+the question an investigation put to them. It must be decidable under Arts. 10 and 12 specifically,
+not merely adjacent to them. Placed mid-episode, the way Ep 8 places Dieselgate.
+
+**Until it exists**, do not pad: say in the plan and in the script that this chapter is being
+surveyed rather than worked, name the two obligations that carry the most weight (Arts. 10 and 14),
+and let the rest be explicitly a map rather than a lesson. A stretch of statute read aloud with
+nothing at stake is the one failure this persona cannot absorb.
 
 **Deliberately compressed, and said aloud:** Annex IV is characterised, not enumerated. Arts. 18–21 are grouped. Chapter VI (sandboxes, real-world testing, SME measures) gets three minutes and is named as a whole chapter compressed — with the honest note that sandboxes are the part of the Act industry likes most and the part with the least evidence behind it. **Post-market monitoring (Art. 72) and serious-incident reporting (Art. 73) are deliberately not taught here: they are the enforcement loop, and Episode 11 has them.**
 
@@ -579,6 +607,26 @@ Called thereafter: **the model regime** (as against the system regime), and **th
 
 **As written against as enforced:** AI Office enforcement powers live from **2 August 2026**. The AI Office reportedly sent its first **requests for information** to frontier GPAI providers around **29 August 2026** — *secondary and unconfirmed*. **No confirmed penalty under the Act has been established as of 13 September 2026.** And Europe's most famous enforcement action against a general-purpose model — the Garante's €15 million — **was annulled by a court, on the ground that the regulator was not allowed to decide.**
 
+⚠ **THE OPENING INSTANCE TEACHES NONE OF THIS EPISODE'S APPARATUS.** The Garante's ChatGPT block
+and €15m fine were about training-data legal basis, transparency, age verification and breach
+notification — four GDPR questions, and the GDPR is reserved to Series 2. The episode teaches
+Chapter V, Art. 50 and Arts. 88–94, and the case touches none of them. The tell is variant 3, which
+has to borrow Episode 3's Air Canada chatbot to get a single genuine application of Art. 50.
+`research/03_cases_and_instances.md` records GPAI as "**nothing documented yet** — the biggest hole
+in the docket".
+
+**Two ways to close it, in order of preference.** (a) A documented instance where a **general-purpose
+model's own provider obligations** were actually at issue — a Commission request for information
+under Arts. 88–89, a systemic-risk designation under Art. 51, or a dispute over a downstream
+provider's duties under Art. 53(1) and Annex XII. (b) Failing that, **keep the Garante case but
+demote it**: use it for ninety seconds as the *pre-history* — what regulators reached for when there
+was no AI-specific regime — disclose that every limb of it was GDPR, and build the episode instead
+on the **compute threshold** (Art. 51(2), 10^25 FLOP) as its own instance, since a rebuttable
+presumption that can be moved by delegated act is a decidable, arguable thing in its own right.
+
+Under (b) the episode must not open on the block. Opening on a case the episode cannot use teaches
+the listener that the apparatus is about something it is not about.
+
 **Deliberately compressed:** Art. 54 (authorised representatives for non-EU model providers) is named only. Annexes XI, XII and XIII are characterised rather than enumerated. The Code of Practice's Copyright chapter is described and its substance handed to Series 3, aloud.
 
 **Handover:** a regime that reaches 5–15 companies, most of them outside the Union, raises a question the Act cannot answer from inside itself: does any of this travel? **We step back for one episode — Episode 10 — and then Episode 11 asks who is actually watching.**
@@ -658,12 +706,22 @@ Plus: the **AI Office** (Art. 64), inside the Commission; the **European AI Boar
 > **Art. 85** — the right of any natural or legal person to **lodge a complaint** with a market surveillance authority. **Art. 86** — a right to an explanation of individual decision-making for certain Annex III decisions. **Art. 87** — whistleblower protection.
 > **Art. 99** — penalties, **laid down and applied by Member States**:
 
-| Infringement | Ceiling |
-|---|---|
-| Prohibited practices (Art. 5) | **€35m or 7%** of worldwide annual turnover, whichever is higher |
-| Other obligations — Arts. 16, 22, 23, 24, 25, 26, 31, 33, 34, 50 | **€15m or 3%** |
-| Incorrect, incomplete or misleading information to authorities | **€7.5m or 1%** |
-| SMEs and start-ups (Art. 99(6)) | the **lower** of the percentage or the amount |
+**The spoken path through the tiers — three numbers, in this order, and no table.** There is no
+picture; a listener cannot scan four rows. Say the *shape* first, then two figures, then the twist.
+
+1. **The shape.** Three ceilings, and which one applies depends on which rule you broke — not on how
+   much harm you did. That is the sentence the beat exists for; say it before any number.
+2. **The top of the scale**, once: a prohibited practice under Art. 5 — **seven per cent of
+   worldwide turnover, or thirty-five million euro, whichever is higher**. Say "whichever is
+   higher" aloud; it is the half people drop.
+3. **The middle**, once: breaching an ordinary obligation — a provider's duties, a deployer's, the
+   transparency rules — **three per cent, or fifteen million**. Do not enumerate which articles;
+   say "the obligations this series has spent nine episodes on".
+4. **Then the twist, which is the teachable part.** Give the wrong information to an authority and
+   the ceiling is **one per cent, or seven and a half million** — the smallest number in the Act
+   attaches to lying to the regulator. And under **Art. 99(6)** an SME or start-up pays the
+   **lower** of the two figures, not the higher: the same infringement is priced differently by who
+   committed it. End the beat there.
 
 > **Art. 100** — fines on Union institutions, imposed by the EDPS. **Art. 111** — legacy systems already on the market. **Art. 113** — the staged application dates.
 
@@ -742,9 +800,12 @@ Open on the empty Official Journal citation list, and the date on the calendar.
 - **On the narrow standardisation question, the critics have been vindicated by events, and this should be stated without hedging.** The prediction was made in 2021; by June 2026 no deliverable conferred the presumption; the law moved to fit the standards. That is not a matter of opinion.
 - **On the broad question of instrument shape, the record is not in, and the episode must say so rather than close the series with a manufactured conclusion.** What it should do instead is name the fact that would settle it: **whether EN 18286 and the deliverables behind it are cited in the Official Journal in time for 2 December 2027, and whether the deadline holds or moves a second time.** If the substance arrives, the product frame will have been slow and workable. If the deadline moves again, the critics' structural claim — that this machinery cannot carry this subject matter — stops being a prediction.
 
-**The Act's own answer to the question:** **Art. 112**, the evaluation and review clause. The instrument contains a scheduled moment for asking whether it worked. The episode should end on what that clause requires and when, because the honest close to a series about an unfinished instrument is a date, not a verdict about the future.
+**THE ORDER OF THE CLOSE — these two beats were previously given as alternatives, and the writer was told to end on both.** They are a sequence, not a choice:
 
-**What the writer must say out loud:** that the series held this question deliberately, since Episode 1; that the holding was so the listener would have the machinery before the argument; and which of the five answers the narrator finds strongest, with the reason — and what would change their mind.
+1. **The verdict, named.** The series comes down on answer **4** — that what was regulated was neither a product nor a right but a **market**, and that the Act's operative concept is placing on the market and putting into service (Art. 3(9) and 3(11), taught in Episode 1). Three facts decide it, all established earlier in the series and each named again here: the duty attaches at supply rather than at use or at harm; the substance of the high-risk obligations was delegated to standards bodies, and as of June 2026 not one deliverable has been cited in the Official Journal (Ep 8); and the person harmed gets Art. 85 and Art. 86 and no damages route at all (Ep 11). State it as the narrator's own position, earned, and say plainly what would change it — a cited harmonised standard, or a first enforcement action against a deployer rather than a provider.
+2. **Then the date, as the last word.** **Art. 112** is the Act's own scheduled moment for asking whether it worked. Close on what that clause requires and when. The verdict is the argument's landing; the date is the reminder that the instrument is unfinished and the listener will be able to check.
+
+**What the writer must also say out loud:** that the series held this question deliberately, since Episode 1 — where the promise was made — and that the holding was so the listener would have the machinery before the argument.
 
 **Deliberately compressed:** no new apparatus is taught except Art. 112.
 
