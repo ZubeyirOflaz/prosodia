@@ -1,0 +1,39 @@
+# Series A of the `casework` production — see docs/reference/casework-synthesis.md §6.
+# Standalone: a listener needs no course, no textbook and no other series to follow it.
+# The coverage map and per-episode plans are produced by the Planner into plan/outline.md,
+# seeded by research/. This file holds series-level config and the organising angle.
+series: "The Instrument"     # working title — the Planner may refine it
+description: >
+  How Europe decided to regulate a machine: the first comprehensive AI law, built up from
+  scratch as a working instrument, and the ways of judging it that were available at the time.
+style: casework
+persona: casework            # authoring voice; see `prosodia personas`
+
+angle: >
+  Build the EU AI Act from the ground up as a working instrument rather than a list of
+  obligations: what it counts as an AI system at all, how it sorts systems by risk, what it
+  forbids outright, what it demands of everything else, and who — if anyone — enforces it.
+  Every stretch of machinery is followed by a LENS episode supplying a way of judging what was
+  just built: the pacing problem, risk-based against rights-based regulation, regulation by
+  architecture, the Brussels effect. The series' own verdict — whether regulating artificial
+  intelligence as a *product* was the right choice — is held until late, and the listener is
+  told it is being held.
+
+scope: >
+  FIRST series. Cover the conceptual apparatus needed to judge any technology regulation, and
+  the AI Act itself end to end: scope and the definition of an AI system; the actors it names;
+  the risk tiers; prohibited practices; the high-risk regime and its obligations; general-purpose
+  models and systemic risk; the governance architecture and standardisation; enforcement,
+  penalties and the applicability timeline; and the standing critiques of the product-safety
+  framing. Target roughly 10-12 episodes, of which about one in four is a lens episode.
+  DO NOT cover, and explicitly reserve for later series: the GDPR interface and Article 22;
+  liability, the DSA, the DMA and copyright; fundamental rights, proportionality and the
+  surveillance jurisprudence; comparative and global governance; and governance inside
+  organisations. Where those are needed, name the later series that takes them up.
+
+engine: chatterbox
+voice: narrator              # add a clip at voices/narrator.wav (see voices/README.txt)
+lexicon: lexicon.yaml
+target_minutes: 27           # one apparatus per episode; the Planner sets per-episode lengths
+
+# Episodes are seeded from plan/outline.md once the Planner has run.
