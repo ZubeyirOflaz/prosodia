@@ -195,6 +195,27 @@ def _cmd_voice_prep(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_plan_lint(args: argparse.Namespace) -> int:
+    from prosodia.author.planlint import ERROR, WARN, lint_project
+
+    proj = Path(args.project)
+    cfg = _load_series(proj)
+    findings = lint_project(proj, target_minutes=cfg.get("target_minutes"))
+    for f in findings:
+        print(f.render())
+    errors = sum(1 for f in findings if f.level == ERROR)
+    warns = sum(1 for f in findings if f.level == WARN)
+    print(f"\n{errors} error(s), {warns} warning(s) in {proj / 'plan' / 'outline.md'}")
+    if errors:
+        print(
+            "Errors are things the plan asserts that nothing in research/ supports. Either add\n"
+            "the material to the docket, or mark the item [OUTSIDE DOCKET: <what would confirm\n"
+            "it>] in the plan so the writer knows not to trust it.",
+            file=sys.stderr,
+        )
+    return 1 if (errors and not args.warn_only) else 0
+
+
 def _cmd_plan_view(args: argparse.Namespace) -> int:
     from prosodia.author.plan_view import render_file
 
@@ -410,6 +431,20 @@ def _cmd_plan(args: argparse.Namespace) -> int:
     )
     print(f"wrote {out}  ({len(episodes)} episodes, persona: {persona.name})")
     print(f"wrote {index}")
+
+    # Lint immediately, while the plan is still cheap to change. Reporting only: a plan
+    # worth keeping can have open citations, and the fix may be to extend the docket rather
+    # than the plan. `prosodia plan-lint` re-runs this and exits non-zero on errors.
+    from prosodia.author.planlint import ERROR, WARN, lint_project
+
+    findings = lint_project(proj, target_minutes=cfg.get("target_minutes"))
+    if findings:
+        print("\nplan-lint:")
+        for f in findings:
+            print(f.render())
+        e = sum(1 for f in findings if f.level == ERROR)
+        w = sum(1 for f in findings if f.level == WARN)
+        print(f"\n  {e} error(s), {w} warning(s) — `prosodia plan-lint --project {proj}` to re-run")
     return 0
 
 
@@ -660,6 +695,16 @@ def build_parser() -> argparse.ArgumentParser:
     p_vp.add_argument("--min-s", type=float, help="min clip length for the pause search (default: 0.8x duration)")
     p_vp.add_argument("--max-s", type=float, help="max clip length for the pause search (default: 1.35x duration)")
 
+    p_pl = sub.add_parser(
+        "plan-lint",
+        help="check a plan outline against the research docket and this persona's structural rules",
+    )
+    p_pl.add_argument("--project", required=True)
+    p_pl.add_argument(
+        "--warn-only", action="store_true",
+        help="always exit 0; report findings without failing the command",
+    )
+
     p_pv = sub.add_parser("plan-view", help="render a plan outline to a lightweight HTML review page")
     p_pv.add_argument("plan", help="path to a plan .md (the Planner's outline)")
     p_pv.add_argument("--out", help="output .html (default: alongside the plan)")
@@ -704,6 +749,7 @@ _DISPATCH = {
     "submit": _cmd_submit,
     "lexicon": _cmd_lexicon,
     "voice-prep": _cmd_voice_prep,
+    "plan-lint": _cmd_plan_lint,
     "plan-view": _cmd_plan_view,
     "lint-repetition": _cmd_lint_repetition,
     "trace-report": _cmd_trace_report,
