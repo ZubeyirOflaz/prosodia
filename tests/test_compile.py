@@ -234,3 +234,28 @@ def test_compile_no_lexicon_no_score_chunks():
     src = "---\nvoice: n\nepisode: 1\n---\n\n## A\nPlain text only.\n"
     ir, _ = compile_text(src, lexicon=Lexicon({}))
     assert all(s.score_chunks == [] for s in ir.segments)
+
+
+def test_emphasis_never_leaks_a_marker_into_the_audio():
+    """Emphasis that wraps across a line, and underscore emphasis, used to reach the engine.
+
+    The asterisk rule excluded newlines, so a phrase that happened to wrap in the source
+    fell through with a literal '*' in front of it; underscore emphasis was not handled at
+    all. Both are silent — nothing warns, and the marker is spoken.
+    """
+    ir, warnings = compile_text(
+        "---\nepisode: 1\n---\n\n## Beat\n\n"
+        "A rule about *placing on the\nmarket* and _lex informatica_ here.\n\n"
+        "A second paragraph.\n"
+    )
+    spoken = [s.spoken_text for s in ir.segments]
+    assert spoken[0] == "A rule about placing on the market and lex informatica here."
+    assert not any("*" in t or "_" in t for t in spoken)
+    # the blank line still ends the segment — emphasis may cross a wrap, never a paragraph
+    assert spoken[1] == "A second paragraph."
+    assert warnings == []
+
+
+def test_snake_case_is_not_treated_as_emphasis():
+    ir, _ = compile_text("---\nepisode: 1\n---\n\n## Beat\n\nThe field is target_minutes here.\n")
+    assert "target_minutes" in ir.segments[0].spoken_text

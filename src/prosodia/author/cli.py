@@ -335,9 +335,11 @@ def _cmd_persona_new(args: argparse.Namespace) -> int:
 
 
 def _cmd_plan(args: argparse.Namespace) -> int:
+    import yaml
+
     from prosodia.author.orchestrate import ClaudeRunner, plan_series
     from prosodia.author.persona import Persona
-    from prosodia.core.trace import Trace
+    from prosodia.core.trace import Run, Trace
 
     proj = Path(args.project)
     cfg = _load_series(proj)
@@ -375,11 +377,39 @@ def _cmd_plan(args: argparse.Namespace) -> int:
     runner = ClaudeRunner(
         extra_dirs=(str(proj),), allowed_tools=("WebSearch", "WebFetch"), timeout=1800
     )
-    outline = plan_series(prompt, runner=runner, persona=persona, trace=trace)
+    from prosodia.author.planparse import parse_episode_index
+
     out = proj / "plan" / "outline.md"
     out.parent.mkdir(parents=True, exist_ok=True)
+    # `run=` archives the outline content-addressed, the way every writer draft already is.
+    # Without it the ONLY copy of a plan is out.write_text() below, and a re-run that comes
+    # back empty replaces hours of planning with nothing.
+    run = Run(proj / "plan" / "run")
+    outline = plan_series(prompt, runner=runner, persona=persona, trace=trace, run=run)
+
+    episodes = parse_episode_index(outline)
+    if not outline.strip() or not episodes:
+        # Refuse rather than overwrite. An empty or refusal result used to be written
+        # straight over the previous outline, print "wrote ...", and exit 0.
+        print(
+            f"planner returned {len(outline)} chars containing no episode heading; "
+            f"{out} left unchanged. The archived result is under {run.root}.",
+            file=sys.stderr,
+        )
+        return 1
+
     out.write_text(outline, encoding="utf-8")
-    print(f"wrote {out}  (persona: {persona.name})")
+    index = proj / "plan" / "episodes.yaml"
+    index.write_text(
+        "# Episodes as the Planner defined them, parsed from outline.md.\n"
+        "# `write` reads this when series.yaml lists no matching episode, so a freshly\n"
+        "# planned series is writable without hand-transcribing twelve entries. Anything\n"
+        "# you put in series.yaml wins over this file.\n"
+        + yaml.safe_dump({"episodes": episodes}, sort_keys=False, allow_unicode=True),
+        encoding="utf-8",
+    )
+    print(f"wrote {out}  ({len(episodes)} episodes, persona: {persona.name})")
+    print(f"wrote {index}")
     return 0
 
 
@@ -388,15 +418,51 @@ def _cmd_write(args: argparse.Namespace) -> int:
     from prosodia.author.persona import Persona
     from prosodia.core.trace import Run
 
+    import yaml
+
     proj = Path(args.project)
     cfg = _load_series(proj)
-    eps = {e.get("n"): e for e in cfg.get("episodes", [])}
-    ep = eps.get(args.episode)
-    if not ep:
-        print(f"episode {args.episode} not found in {proj / 'series.yaml'}", file=sys.stderr)
+    # Two sources, merged per field. The Planner's episodes live in plan/episodes.yaml and
+    # series.yaml is the human override, empty on a freshly planned series — so `write` used
+    # to fail outright for every episode of a plan that had just been generated, and a
+    # hand-transcribed entry silently dropped whatever it left out (most often the length).
+    index = proj / "plan" / "episodes.yaml"
+    outline_file = proj / "plan" / "outline.md"
+    planned: dict[int, dict] = {}
+    if index.is_file():
+        doc = yaml.safe_load(index.read_text(encoding="utf-8")) or {}
+        planned = {e["n"]: e for e in (doc.get("episodes") or []) if e.get("n") is not None}
+    elif outline_file.is_file():
+        # An outline planned before the index existed: derive it rather than fail.
+        from prosodia.author.planparse import parse_episode_index
+
+        derived = parse_episode_index(outline_file.read_text(encoding="utf-8"))
+        planned = {e["n"]: e for e in derived}
+        if planned:
+            print(f"  derived {len(planned)} episodes from {outline_file} (no episodes.yaml yet)")
+    listed = {e["n"]: e for e in (cfg.get("episodes") or []) if e.get("n") is not None}
+    if args.episode not in planned and args.episode not in listed:
+        where = f"{proj / 'series.yaml'}" + (f" or {index}" if index.is_file() else "")
+        print(f"episode {args.episode} not found in {where}", file=sys.stderr)
         return 1
+    ep = {
+        **planned.get(args.episode, {}),
+        **{k: v for k, v in listed.get(args.episode, {}).items() if v is not None},
+    }
+    if args.episode not in listed:
+        src = index if index.is_file() else outline_file
+        print(f"  episode {args.episode} taken from {src} (not listed in series.yaml)")
     persona = Persona.resolve(args.persona or cfg.get("persona"), project=proj)
-    target_minutes = ep.get("target_minutes", cfg.get("target_minutes", persona.defaults.target_minutes))
+    # Precedence: an explicit per-episode length in series.yaml (a human override) beats the
+    # length the Planner chose for THIS episode, which beats the series default. The plan
+    # used to be left out of this chain entirely, so an episode the Planner sized at 38
+    # minutes was commissioned at the series default of 27 — and the wrong number was stated
+    # first and imperatively, a thousand words ahead of the plan's own figure.
+    target_minutes = (
+        ep.get("target_minutes")
+        or cfg.get("target_minutes")
+        or persona.defaults.target_minutes
+    )
     brief = (
         f"Series: {cfg.get('series', '')}\n"
         f"Episode {ep['n']}: {ep.get('title', '')}\n"
@@ -487,6 +553,16 @@ def _cmd_write(args: argparse.Namespace) -> int:
         run=run, max_rounds=args.max_rounds,
     )
     out = epdir / "transcript.md"
+    # Refuse to overwrite a good transcript with a degenerate one. An empty or refusal
+    # result used to be written straight out with "wrote ..." and exit 0; every draft the
+    # round loop produced is archived under run/, so nothing is lost by stopping here.
+    if not transcript.strip() or "##" not in transcript:
+        print(
+            f"writer returned {len(transcript)} chars with no beat heading; {out} left "
+            f"unchanged. Drafts from this attempt are under {run.root}.",
+            file=sys.stderr,
+        )
+        return 1
     out.write_text(transcript, encoding="utf-8")
     run.write_index(episode=ep["n"], title=ep.get("title"))
     print(f"wrote {out}  (persona: {persona.name})")

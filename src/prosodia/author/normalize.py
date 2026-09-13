@@ -49,6 +49,23 @@ def int_to_words(n: int) -> str:
     return " ".join(p for p in parts if p)
 
 
+_ORDINAL = {
+    "one": "first", "two": "second", "three": "third", "five": "fifth", "eight": "eighth",
+    "nine": "ninth", "twelve": "twelfth", "twenty": "twentieth", "thirty": "thirtieth",
+    "forty": "fortieth", "fifty": "fiftieth", "sixty": "sixtieth", "seventy": "seventieth",
+    "eighty": "eightieth", "ninety": "ninetieth",
+}
+
+
+def ordinal_to_words(n: int) -> str:
+    """25 -> 'twenty-fifth'. Only the final word takes the ordinal form."""
+    words = int_to_words(n)
+    head, sep, last = words.rpartition(" ")
+    stem, dash, tail = last.rpartition("-")
+    base = _ORDINAL.get(tail, tail + "th")
+    return f"{head}{sep}{stem}{dash}{base}"
+
+
 def year_to_words(y: int) -> str:
     # Two-pair reading ("ten sixty-six", "nineteen forty-five") covers historical
     # narration from the year 1000 onward; this is the documented era coverage.
@@ -94,6 +111,33 @@ _YEAR = re.compile(r"\b(1[0-9]{3}|2[0-9]{3})\b")
 _DECADE = re.compile(r"\b(1[0-9]{3}|2[0-9]{3})s\b")
 _DECIMAL = re.compile(r"\b(\d+)\.(\d+)\b")
 _INT = re.compile(r"\b\d{1,3}(?:,\d{3})+\b|\b\d+\b")
+# Space-grouped thousands. EU legal texts write "EUR 35 000 000", not "35,000,000",
+# so _INT's comma-only rule read it as three separate numbers and said
+# "thirty-five zero zero" — a different number, from a transcript that looked right.
+# Covers the ordinary, non-breaking and narrow no-break spaces EUR-Lex emits.
+_GROUPED_INT = re.compile(r"\b\d{1,3}(?:[ \u00a0\u202f]\d{3})+\b")
+# Exponents: "10^25" was spoken as "ten caret twenty-five".
+_POWER = re.compile(r"\b(\d+)\s*\^\s*(\d+)\b")
+# "Art. 6(3)" was spoken as "Art. six three" with the abbreviation intact and the
+# paragraph unnamed. Expand the abbreviation, then name the subdivisions the way the
+# instrument names them itself.
+_ART_ABBREV = re.compile(r"\bArts\.\s*(?=\d)")
+_ART_ABBREV_1 = re.compile(r"\bArt\.\s*(?=\d)")
+_REC_ABBREV = re.compile(r"\bRecs?\.\s*(?=\d)")
+_ART_PARA = re.compile(r"\b(Article|Articles)\s+(\d+[a-z]?)\((\d+[a-z]?)\)(?:\(([a-z]{1,3})\))?")
+# Ranges between small numbers, but only in a citation context: a bare "51-56"
+# elsewhere is as likely to be a dash as a range. _YEAR_RANGE needs 3-4 digits and
+# so never fired on "Articles 51-56".
+# Day-month dates. "2 August 2026" was spoken as "two August twenty twenty-six";
+# every date in a regulatory series reads as a cardinal unless the day is made an
+# ordinal. "the" is only added when the text does not already supply it.
+_MONTHS = (
+    "January|February|March|April|May|June|July|August|September|October|November|December"
+)
+_DAY_MONTH = re.compile(rf"(?<!\w)(the\s+)?(\d{{1,2}})\s+({_MONTHS})\b")
+_CITE_RANGE = re.compile(
+    r"\b(Articles|Recitals|Annexes|paragraphs|points|pages)\s+(\d+)\s*[\u2010-\u2015-]\s*(\d+)\b"
+)
 
 
 def _looks_like_year(s: str) -> bool:
@@ -120,6 +164,22 @@ def _decimal_to_words(whole: str, frac: str) -> str:
 def normalize_text(text: str) -> str:
     for k in sorted(_ABBREV, key=len, reverse=True):
         text = re.sub(rf"\b{re.escape(k)}\b", _ABBREV[k], text)
+    text = _ART_ABBREV.sub("Articles ", text)
+    text = _ART_ABBREV_1.sub("Article ", text)
+    text = _REC_ABBREV.sub("Recital ", text)
+    text = _CITE_RANGE.sub(lambda m: f"{m.group(1)} {m.group(2)} to {m.group(3)}", text)
+    text = _ART_PARA.sub(
+        lambda m: f"{m.group(1)} {m.group(2)}, paragraph {m.group(3)}"
+        + (f", point {m.group(4)}" if m.group(4) else ""),
+        text,
+    )
+    text = _DAY_MONTH.sub(
+        lambda m: f"the {ordinal_to_words(int(m.group(2)))} of {m.group(3)}", text
+    )
+    # Powers and space-grouped thousands resolve to words here, before any rule that
+    # would otherwise see their digits as separate numbers.
+    text = _POWER.sub(lambda m: f"{int_to_words(int(m.group(1)))} to the {ordinal_to_words(int(m.group(2)))}", text)
+    text = _GROUPED_INT.sub(lambda m: int_to_words(int(re.sub(r"[\s\u00a0\u202f]", "", m.group(0)))), text)
     # Era markers only in number-adjacent context (avoids corrupting "CE marked").
     text = _ERA_AFTER.sub(lambda m: " " + _ERA[m.group(1)], text)
     text = _ERA_BEFORE.sub(lambda m: _ERA[m.group(1)] + " ", text)

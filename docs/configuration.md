@@ -10,7 +10,7 @@ projects/eu_history/
   lexicon.yaml           # pronunciation respellings
   voices/                # narrator reference clips: <name>.wav  (you add these)
   research/              # verified source docket the Planner reads  (optional; gitignored)
-  plan/                  # Planner output: outline.md, trace.jsonl  (generated)
+  plan/                  # Planner output: outline.md, episodes.yaml, trace.jsonl (generated)
   episodes/
     ep1/
       transcript.md      # the source of truth (authored)
@@ -34,13 +34,23 @@ Series-level config and the coverage map (goal #4). Fields:
 | `lexicon` | path to the pronunciation lexicon, relative to this file |
 | `target_minutes` | long-form length the Writer aims for (per-episode `target_minutes` overrides) |
 | `scope` | *(optional)* series-level coverage scope for the Planner — what THIS plan covers and what to reserve for a later expansion |
-| `episodes` | list of `{ n, slug, title, scope, tension, target_minutes? }` — every topic assigned to exactly one episode |
+| `episodes` | list of `{ n, slug, title, scope, tension, target_minutes? }` — every topic assigned to exactly one episode. **Optional**: `prosodia plan` writes `plan/episodes.yaml` from the outline, and `write` falls back to it, so a freshly planned series is writable without transcribing anything here. Fields you do set win over the plan's. |
 
 An episode's `scope` defines its boundaries (so later episodes don't re-explain
 earlier material); `tension` is the dramatic hook the Writer emphasizes. The
 *series-level* `scope` field is different: it lets you plan a subset now (e.g.
 "cover classical Athens → the 1970s; reserve the rest for a later plan") and the
 Planner is told to cover only it.
+
+### `plan/episodes.yaml` (generated)
+
+The Planner defines its episodes in `plan/outline.md`; `write` looks them up by number.
+`prosodia plan` bridges the two by writing `plan/episodes.yaml` — `n`, `slug`, `title`,
+`type` (`apparatus` / `lens` / `verdict`, from a `[LENS]`-style marker in the heading) and
+the `target_minutes` the Planner chose for that episode.
+
+Length precedence is: an explicit `target_minutes` on the `series.yaml` episode → the
+Planner's length for that episode → the series `target_minutes` → the persona default.
 
 ## Research docket
 

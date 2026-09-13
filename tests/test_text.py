@@ -110,3 +110,35 @@ def test_lexicon():
     out = lex.apply("Monnet signed at Maastricht.")
     assert "Moh-nay" in out and "Mahs-trikt" in out
     assert Lexicon({}).apply("unchanged") == "unchanged"
+
+
+def test_space_grouped_thousands_are_one_number():
+    """EU legal texts group thousands with spaces, not commas.
+
+    `_INT` understood only the comma form, so "EUR 35 000 000" was read as three
+    separate numbers and spoken as "thirty-five zero zero" — a different figure,
+    from a transcript that looked correct. The Act's own penalty amounts are
+    written this way, so the docket supplies them in exactly this shape.
+    """
+    assert normalize_text("EUR 35 000 000") == "EUR thirty-five million"
+    assert normalize_text("EUR 7 500 000") == "EUR seven million five hundred thousand"
+    assert "1 000" not in normalize_text("1 000 words")
+
+
+def test_exponents_are_spoken_as_powers():
+    # "10^25" was read as "ten caret twenty-five"; it is the GPAI systemic-risk threshold.
+    assert "ten to the twenty-fifth" in normalize_text("greater than 10^25 operations")
+
+
+def test_article_citations_are_spoken_as_citations():
+    assert normalize_text("Art. 6(3)") == "Article six, paragraph three"
+    assert normalize_text("Art. 5(1)(g)") == "Article five, paragraph one, point g"
+    assert normalize_text("Arts. 51-56") == "Articles fifty-one to fifty-six"
+    # a bare hyphenated pair outside a citation context is left alone (it may be a dash)
+    assert "to" not in normalize_text("51-56")
+
+
+def test_day_month_dates_take_an_ordinal():
+    # "2 August 2026" was spoken as "two August"; a regulatory series says dates constantly.
+    assert normalize_text("on 2 August 2026") == "on the second of August twenty twenty-six"
+    assert normalize_text("the 31 July 2026") == "the thirty-first of July twenty twenty-six"

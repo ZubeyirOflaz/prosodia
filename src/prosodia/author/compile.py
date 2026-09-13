@@ -43,7 +43,13 @@ _TOKEN = re.compile(
     # Emphasis: any asterisk fence — *emph*, **strong**, ***both***. All fence asterisks
     # are stripped so none leak into spoken_text; writers reach for **bold**/***x*** and a
     # fixed-count rule left literal '*' in the audio. (?<!\\) keeps escaped \* literal.
-    r"|(?P<emph>(?<!\\)\*+[^*\n]+\*+)"
+    # The span may cross a single newline — an emphasised phrase that happened to wrap in
+    # the source used to fall through and put a literal '*' in front of the engine — but
+    # never a blank line, which is the paragraph delimiter.
+    r"|(?P<emph>(?<!\\)\*+(?:[^*\n]|\n(?![ \t]*\n))+\*+)"
+    # Underscore emphasis was not handled at all, so _like this_ reached spoken_text with
+    # its underscores. Guarded on both sides so snake_case words are left alone.
+    r"|(?P<uemph>(?<!\\)(?<![\w])_+(?:[^_\n]|\n(?![ \t]*\n))+_+(?![\w]))"
 )
 _INTENT_KEYS = {"tone", "rate", "note"}
 
@@ -155,7 +161,7 @@ def split_beats(body: str) -> list[tuple[str | None, dict, str]]:
 
 
 def _unescape(t: str) -> str:
-    return t.replace(r"\{", "{").replace(r"\}", "}").replace(r"\*", "*")
+    return t.replace(r"\{", "{").replace(r"\}", "}").replace(r"\*", "*").replace(r"\_", "_")
 
 
 def _intent_keys(d: dict, warnings: list[str], where: str) -> dict:
@@ -285,8 +291,8 @@ def compile_text(
                     except ValueError:
                         warnings.append(f"beat {bi}: bad pause value {d['pause']!r}")
                 cur_intent = {**cur_intent, **_intent_keys(d, warnings, f"beat {bi} inline")}
-            elif kind == "emph":
-                phrase = _unescape(m.group().strip("*"))  # handles both ** and *
+            elif kind in ("emph", "uemph"):
+                phrase = _unescape(m.group().strip("*_"))  # handles **strong**, *emph*, _emph_
                 buf.append(phrase)
                 emph.append(phrase)
             pos = m.end()
