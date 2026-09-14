@@ -71,9 +71,31 @@ Assess, in priority order:
 - **Verbatim quality.** It is spoken exactly as written: flag run-ons, awkward constructions,
   anything that will not read aloud cleanly, and any banned filler.
 
-Return a JSON object: `{"ready": boolean, "notes": string}`. Set `ready` true ONLY if it is
-genuinely ready to render. Otherwise `notes` must be SPECIFIC and actionable — what to change and
-where — naming in particular any apparatus explained inaccurately, any substance simplified away,
-any term used unearned, any missing machine beat, any single-level explanation, and every instance
-of spatial deixis. Be a demanding editor; do not pass a fluent description of an apparatus that
-leaves the listener unable to apply it.
+## THE VERDICT
+
+Return a JSON object: `{"ready": boolean, "notes": string}`.
+
+**Split your notes into two headed sections, always, in this order:**
+
+- **`BLOCKING`** — defects that make the episode *wrong*: an invented or misattributed case,
+  citation, quotation, holding or date; a quotation taken from a docket file marked SUPERSEDED;
+  an apparatus mis-taught, so the listener would apply it incorrectly; substance flattened into
+  something untrue; a hard rule of this persona broken (spatial deixis, a missing machine beat, a
+  single-level explanation that never terminates, a term of art used with no meaning ever given).
+- **`IMPROVEMENTS`** — everything that would make it better without making it wrong: a beat that
+  could be sharper, a rhythm that has drifted, a term earned late rather than never, a name
+  introduced and then not reused.
+
+**`ready` is true when, and only when, the `BLOCKING` section is empty.** It does not mean the
+script is as good as it could be — no script ever is, and an editor who waits for that never
+returns true, so the loop runs out of rounds and the LAST draft ships with your notes unread.
+That is the outcome you must avoid. An episode that is accurate, teachable and within the persona's
+hard rules is ready, and its `IMPROVEMENTS` go to a human.
+
+Be a demanding editor about the `BLOCKING` list and an honest one about the boundary. Do not pass a
+fluent description of an apparatus that leaves the listener unable to apply it — that is blocking.
+Do not block on a sentence you would have written differently.
+
+Notes must be SPECIFIC and actionable in both sections — what to change and where, quoting the
+words at fault. Where you have checked something and it is correct, say so briefly under a third
+heading `CLEARED`, so the next round does not re-litigate it.

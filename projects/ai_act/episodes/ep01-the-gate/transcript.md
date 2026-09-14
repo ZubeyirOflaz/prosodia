@@ -4,262 +4,235 @@ title: "The Gate"
 defaults: { tone: measured, rate: normal }
 ---
 
-## A system runs for the last time {tone: measured, rate: slow}
-In the middle of December 2025, a piece of software in the Netherlands ran for the last time.
+## A system switched off {tone: measured}
+In the middle of December 2025, the Dutch national police switched off a computer program.
 
-It had run every week for years. Each week it took a map of a Dutch city, already divided into small cells, and gave every cell a score for the days ahead. A high score meant more expected crime. The police called the high cells hotspots, and the hours inside them hot times. Burglary, car theft, bicycle theft, nuisance — those were the four things it looked for.
+It had been running since 2015 — a pilot first, then nationwide from 2017. The Netherlands was the first country in the world to put predictive policing to work across a whole country. The program was called the Criminaliteits Anticipatie Systeem. The Crime Anticipation System. Every week it took the map of a city, cut into small squares, and gave each square a score for the week ahead. Burglary. Car theft. Bicycle theft. Nuisance. The scores came back to officers as two words they used every day: hotspots, and hot times.
 
-Its name was the Criminaliteits Anticipatie Systeem. The Crime Anticipation System. CAS.
+The published descriptions disagree about how big one of those squares was, so I am not going to give you a number.
 
-It was piloted from 2015 and went national in 2017. The Netherlands was the first country in the world to run predictive policing across an entire country, and this was the thing it ran.
+The shutdown was reported in February 2026. And the reason the police gave is the reason this episode exists. Not that a court had struck it down. Not that anyone had sued. They stopped it because they could not say whether it worked. There were no clear goals. There were no measurable success criteria. In Amsterdam, on their own account, roughly one incident in fifty was correctly predicted.
 
-Then the Nederlandse Politie switched it off. There was no announcement at the time. It was reported two months later, in February 2026.
+Ten years. {pause: 1.2}
 
-The reason the police gave was this. The operational value of the system was unclear. There had never been clear goals. There had never been measurable success criteria. And in Amsterdam, roughly one incident in fifty was correctly predicted. {pause: 1.0}
+Nobody had written down what it was for.
 
-One in fifty.
+## Where we are {tone: lucid}
+This is *The Instrument*: twelve episodes on the European Union's Artificial Intelligence Act — Regulation E U twenty twenty-four, sixteen eighty-nine.
 
-Ten years of a national programme, and the people who ran it could not say what it had achieved — because nobody had ever written down what achieving it would look like.
-
-Hold that. The law this series is about has a great deal to say about a system like CAS. But it does not begin by asking whether the thing worked.
-
-Not first. {pause: 1.2}
-
-## Where we are {tone: measured}
-This is *The Instrument*: twelve episodes on a single piece of European law, and on what that law can and cannot see.
-
-The law is Regulation (EU) 2024/1689 — the Artificial Intelligence Act — as amended in 2026. The thing worth understanding about it, before any article number, is the shape Europe chose. Europe decided to regulate artificial intelligence the way it regulates lifts, toys and medical devices. As a product. Something made by someone, placed on a market, carrying obligations from the moment it leaves the workshop.
-
-Whether that was the right choice is the question this series ends on. I am not answering it today, and later in this episode I will tell you exactly why I am holding it back.
+Europe made a particular choice about how to regulate artificial intelligence. It could have been built outward from fundamental-rights law, and for a while it looked as though it might be. What Europe built instead is product law. An AI system is a **product**, placed on a market, the way a lift is placed on a market, or a toy, or a medical device. The whole series builds that instrument from the bottom to see what it can do. Whether that choice was the right one is the question the series ends on, and I will come back to that before we finish today.
 
 You need nothing to start. Every term after this one is earned inside the series.
 
-Today is the first question the Act asks of anything at all: is this an AI system? Get through that, and everything else in the Regulation is waiting on the other side. Fail it, and this law has nothing whatsoever to say about you.
+Today is the first question the Act asks of anything at all. Is this an AI system?
 
-Two habits I need you to put down before we go further.
+You are probably expecting me to answer that with a chatbot. I am not going to. A chatbot is an easy case and easy cases teach you nothing about a boundary. A weekly map of a Dutch city is a hard case, and it is hard in a useful direction: it is dull, it is old, it is statistics, and it is exactly the kind of thing an organisation deploys without ever once asking itself the question this Act now asks.
 
-The first: this Act is not a bag of independent rules you can pick through for the ones that apply to you. It is a sequence. Each part hands work to the next, and any part read alone will mislead you.
+## The system, on its own terms {tone: precise}
+So — before any rule touches it — what did this thing actually do?
 
-The second costs technically-trained listeners the most. The Act is not a decision tree. There is no flowchart at the bottom of it that converts your system into an answer. There are definitions with contested edges, and most of the real work is arguing about which side of an edge you are standing on.
+A weekly cycle. Three sources of data went in. The central police crime database. The municipal population administration. And demographic data from the national statistics office. The police describe those inputs as depersonalised and anonymised. Out of them came a score per square, per crime type, for the coming period.
 
-One more thing. I am not going to open a series about AI regulation on a chatbot. You have heard that example. It is a poor teaching case, because everybody already agrees a chatbot counts — and the interesting part of a definition is never its centre.
+I am going to call this place-based predictive policing — my working description, not a term of art I am handing you on anyone's authority. Statistical technique applied to work out where police attention should go. Places, in this family of systems, rather than people. That distinction is going to do an enormous amount of work in a minute.
 
-## The system, before any rule touches it {tone: precise}
-So: what did CAS actually do, described in the language of the people who build these things rather than the language of the law.
+And one more operational fact, which the Dutch police themselves recorded. It was a closed system. An officer looking at a hot square could not see which data had driven that particular prediction.
 
-Criminology calls this place-based predictive policing. The working formulation — the one that circulates in the field rather than belonging to any single author — runs roughly like this: applying statistical or machine-learning methods to past data in order to identify likely targets for police intervention. Notice what that contains and what it leaves out. It tells you where to look. It says nothing about whether anyone is caught.
-
-CAS drew on three sources. BVI, the central police crime database. GBA, the municipal population administration. And CBS — Statistics Netherlands — for demographics. The data went in depersonalised and anonymised. Out came a number, per cell, per week.
-
-How big was a cell? The public sources give two figures, and they are not close. The official record is the Dutch government's Algorithm Register, and until that settles the point I am not going to give you a number I cannot stand behind.
-
-And one property of CAS matters more than any of its numbers. It was a closed system. An officer sent to a square could not see which data had produced that square. The number arrived. The reasons did not.
+Hold that one next to a distinction worth having early. An **explanation** tells you why a thing happened. A **justification** tells you why it was right. A closed system gives you neither — it gives you an output and a request that you act on it. Whatever else is true of this Act, notice that the machine here could not be argued with, because there was nothing in it to argue against.
 
 ## What the text actually says {tone: quoting, rate: slow}
-These next words are the Act's own. Regulation 2024/1689, Article 3, point 1. It defines the term "AI system", and it reads:
+Now the words themselves. I will read them once, and then never again.
 
-"a machine-based system that is designed to operate with varying levels of autonomy and that may exhibit adaptiveness after deployment, and that, for explicit or implicit objectives, infers, from the input it receives, how to generate outputs such as predictions, content, recommendations, or decisions that can influence physical or virtual environments."
+Article 3, point 1. Quote:
 
-End of definition. {pause: 1.2}
+"'AI system' means a machine-based system that is designed to operate with varying levels of autonomy and that may exhibit adaptiveness after deployment, and that, for explicit or implicit objectives, infers, from the input it receives, how to generate outputs such as predictions, content, recommendations, or decisions that can influence physical or virtual environments." End of quote.
 
-That is the whole of it. From now on I will call it the gate, because that is its function. Everything else in this Act stands on the far side of it.
+From here on I will call that **the gate**.
 
-## The load-bearing word {tone: lucid}
-Said plainly: a machine that works something out for itself, rather than being told the answer step by step — and whose working-out comes back as something that acts on the world. A prediction. Content. A recommendation. A decision.
+And now the other question, because you cannot ask what is covered without asking who is covered. Article 2 sets out who the Act applies to, limb by limb, and three of those limbs do the work today. The first catches providers who place a system on the Union market, or put one into service here — and it says in terms that it makes no difference whether the provider sits inside the Union or in a third country. The second catches deployers whose place of establishment is in the Union, or who are located here. Those two are the baseline, and between them they take in nearly everything you will meet. The third limb closes the gap where neither of those is true, and that one is worth the Act's own words. Article 2, paragraph 1, point (c). The Act applies to, quote, "providers and deployers of AI systems that have their place of establishment or are located in a third country, where the output produced by the AI system is used in the Union." End of quote.
 
-The load-bearing word is *infers*. Almost everything else in that sentence is elastic. "Varying levels of autonomy" includes very little autonomy. "Explicit or implicit objectives" means the objective need never have been written down. "Outputs that can influence physical or virtual environments" is close to everything. Strip the elastic away and one question is left. Does it infer?
+Call the three of them together **the reach**. In everyday terms: build it here, or use it here, or send what it produces here — and the Union claims you.
 
-Let me get that word honest before we use it, on something with nothing at stake.
+## In plain words {tone: lucid}
+The gate, said normally: something built by machine, that works with some independence from a human, that has some goal — whether or not anyone wrote the goal down — and that works out, from what it is given, how to produce something that changes the world. Predictions count. Recommendations count. Content counts.
 
-A thermostat with a bimetallic strip. The metal bends as it warms, and at a certain bend it closes a circuit. Nobody would call that inference. A person chose the temperature and built the choice into the metal.
+The load-bearing word is *infers*. Everything turns on it and the Act does not define it.
 
-Now a different thermostat. This one watches when you come home for three weeks, and starts the heating before you arrive. Nobody wrote your schedule down. It derived your schedule from the pattern of your comings and goings, and then did something in the world about it. That is inference. The rule governing its output was not supplied to it. It was worked out.
+So let me test it on something with nothing at stake. A thermostat. It reads a temperature, compares it to a number you set, and switches a boiler. Does it infer?
 
-The distinction has nothing to do with complexity. A ferociously complicated formula, written out longhand by a human being, is not inference. A very simple regression is — and by regression I mean a formula whose numbers were fitted to past data rather than chosen by a person.
+{pause: 1.6}
 
-So — a payroll system, ten thousand lines long, applying tax rules a legislature wrote. Does it infer? {pause: 1.6}
+No. Nothing was worked out. The relationship between input and output was written down in advance by a person, completely, and the device executes it. Inference, in the sense the gate means, is when the system derives the rule from the data rather than receiving the rule from a human. That is the distinction. It is also — I want to be honest about this now rather than at the end — much blurrier in practice than that sentence makes it sound.
 
-No. Every rule inside it was handed to it by a person. It is enormous, and this definition is not interested in it.
+Two things you might already be assuming about this Act, both wrong, and both the natural assumption for anyone with technical training.
 
-## Working the gate on CAS {tone: measured}
-Now let me do this properly, the way it would be done in practice, because the method is half of what I want you to take from the episode. The moves are: name the issue, name the instrument, state the test, apply it to these facts, put the best case against yourself, then conclude.
+The first is that it is a bag of independent rules you can look up one at a time. Wrong shape entirely. What you have is a sequence of gates, and each one decides which of the following ones you ever reach.
 
-The issue: was CAS an AI system within the meaning of this Act.
+The second is that it is a decision tree — feed in your system, read off your obligations. That fails for a different reason. At nearly every junction the Act asks a question that requires a judgement, and the judgement is yours, made in advance, and defensible later to someone who may disagree.
 
-The instrument: the gate.
+## Why this rule and not another {tone: curious}
+There was an obvious alternative, and the Commission tried it first.
 
-The test has elements, and they run together — all must be present, though several are so wide they cost nothing to satisfy.
+In the original proposal — the document numbered COM twenty twenty-one, two hundred and six final, published in Brussels on the twenty-first of April 2021 — an AI system was defined by reference to a list. An annex enumerating techniques and approaches: machine learning, logic- and knowledge-based approaches, statistical methods. If your system used one of the listed things, you were in.
 
-Now apply them to CAS. It was software running on a computer, so machine-based is satisfied. It produced its weekly scores without a person recomputing them, which clears the autonomy element, and the bar there is very low, because the definition says *varying* levels. It was scoring for expected crime, which is an objective — and notice that the definition will accept an *implicit* one, a point we come back to. Its outputs were predictions, the first thing the definition names. And patrol cars moved on the strength of those outputs, which is influence on a physical environment.
+A list has one enormous virtue. You can read it and know.
 
-That leaves inference. Was the mapping from three databases to a weekly number written down by a person, or fitted from data?
+And one fatal defect. A list ages, and worse, a list can be walked around. Rename the technique, restructure the pipeline, and the annex no longer describes you — while the system does exactly what it did before. A functional definition built on inference names no technique at all, so there is no name to change.
 
-Fitted. It was a model.
+What was traded away for that was legal certainty, and it was a real trade, not a free one. Nobody can read the word "infers" off the page and know where it stops. Which is why, in February 2025, the Commission had to publish guidelines on the definition of an AI system.
 
-Now the counter-argument, and it is a real one — the standard objection from statistics, which you will hear from anyone who has built this kind of thing. CAS is a regression over some crime counts and some census columns. Calling that artificial intelligence is a category error; actuaries have done this sort of work since long before anyone used the phrase. The objection is right about the technology and beside the point in law. The gate does not ask how advanced a method is. It asks whether the output was derived rather than dictated. A regression derives.
+The most quoted thing in those guidelines is a negative. Because the text says a system "*may* exhibit adaptiveness" — may, not shall — adaptiveness is not a requirement. A system that is trained once, shipped, and never learns another thing is still an AI system. That matters here more than anywhere, because a weekly statistical model refreshed on new crime data is precisely the sort of unglamorous machinery people assume is too old-fashioned to be caught.
 
-Conclusion: CAS goes through the gate. Comfortably.
+## Working the gate {tone: precise}
+So let us actually do it, out loud, the way the analysis is really done.
 
-## Why this rule, and not a list {tone: curious}
-Why write the test that way at all? Because an instrument like this can take one of two shapes, and the other shape lost.
+The question is whether the Crime Anticipation System is an AI system within the meaning of the gate. The test has five joints, and all of them have to hold.
 
-The first shape is a list. You name the techniques — machine learning, say, and logic-based systems, and statistical methods — and you say that anything built with one of them is in. Read the list, find your technique, know where you stand.
+Machine-based. Plainly yes.
 
-The second shape names no technique at all. It describes a function, and asks whether your system performs it.
+Varying levels of autonomy. It produced a weekly map without a human recomputing it. Yes — and note the standard is *varying levels*, which is a low bar by design.
 
-A list has one enormous virtue, and it is the virtue of legal certainty: you can read it and know the answer. And it has one fatal flaw. A list ages, and it ages against people with an incentive to age it. Every technique named can be renamed, recombined or superseded, and each time, the law has to be reopened by legislators who move at the speed of legislators. A definition built on inference has nothing in it to rename.
+For explicit or implicit objectives. Here it gets interesting, and I am going to come back to it, so park it. Say for now: implicitly, to predict where crime will occur.
 
-What was traded away is exactly that certainty, and the trade is not small. Nobody can read the word "infers" off the page and know where it stops. Which is why the Commission had to publish guidelines on the definition in February 2025 — a document whose whole job is to say what a single word in a single sentence means. And the most-quoted line in those guidelines is a negative one.
+Infers from input how to generate outputs. The model's weights came from historical data, not from a policy officer's judgement about what a burglary neighbourhood looks like. That is inference.
 
-The text says a system "may exhibit adaptiveness" after deployment. *May.* Not must. So adaptiveness is not required. A system trained once, shipped, and never updated again in its working life is still an AI system under this Act. If you arrived believing that AI means "it keeps learning", set that belief down. It is the commonest mistake made about this definition, and the law is explicit against it.
+Outputs that influence physical environments. A patrol car goes somewhere. Yes.
 
-There is a serious objection to the whole enumerating habit — the charge that an instrument built by listing only ever sees what it listed. That objection was put to the Commission formally, in writing, before this Act existed, and I will come to who put it.
+Now the counter-argument, at its strongest. Someone could say: this is regression. Arithmetic over three databases, of a kind a criminologist could have done with a calculator in 1985, and calling it artificial intelligence is a category error driven by the word in the statute's title.
+
+That objection is real, and it is not a defence. The gate does not ask whether a thing is impressive. It asks whether the relationship between input and output was derived or declared. In this system it was derived.
+
+Conclusion: through the gate. Not close to the line, but not far from it either — and where the line runs is genuinely unsettled, which we will come to.
 
 ## Change one fact {tone: pointed}
-The way to feel the edge of a rule is to stand beside it and move one thing.
+The fastest way to feel a boundary is to move one thing and watch the answer flip.
 
-Change one. Delete the model. Put in its place a rule written by a policy officer in a memo: send a car to any square with three or more burglaries in the last month. Same three databases. Same map. Much the same squares, in practice — high-crime squares stay high-crime squares. Same cars, same streets, and the same residents watching the same patrols go past.
+**One.** Delete the model. Instead, a policy officer at headquarters writes down a rule: send a car to any square with three or more burglaries in the last month. Same map. Same squares. Same cars, same streets, same residents, same effect on the same people.
 
-Is it an AI system? {pause: 1.6}
+Is that an AI system?
 
-Arguably not. Nothing infers. A person chose the rule and wrote it down; the computer only counts. The Commission's guidelines lean the same way — simple rule engines fall outside. So the whole of this Act, with everything in it, governs one of those two systems and stays silent about the other, while the people living in those squares experience no difference at all.
+{pause: 1.6}
 
-That is the first serious thing this episode has to hand you, and it is not yet a criticism. It is a fact about what kind of test this is.
+Almost certainly not. Nothing was inferred — a human declared the rule and the computer applied it. Which means the whole of this Regulation, every obligation in it, is switched off by replacing a statistical model with a policy officer who produces the identical outcome. The harm is untouched. The law is absent.
 
-Change two. Keep the model, change the output. Instead of scoring squares, it ranks named individuals by their likelihood of offending. Still through the gate — nothing about that changed. But it is now standing against a prohibition, and prohibitions are where this law bites hardest. That is episode five's, and I leave it there.
+**Two.** Keep the model, change the output. Instead of scoring squares, it ranks named individuals by their likelihood of committing a burglary. Still through the gate, obviously. But now it is in different territory altogether — the prohibitions in Article 5 — and that is Episode 5's material, not mine.
 
-Change three needs another piece of machinery. Two, in fact. And the first of them is the concept this entire series rests on.
+**Three.** Keep everything, move the builder. The system is used in the Netherlands, on Dutch squares, by the Dutch police — but it was built and is run by an American company with no establishment in Europe. Who does the Act catch?
 
-## The second gate {tone: measured}
-This Act attaches almost no duties to building a system. Build the most alarming thing you can imagine, keep it in the room you built it in, never run it for real and never hand it to anybody — and most of this Regulation stays asleep.
+Both of them, by different limbs, and the difference is worth hearing. The police are a deployer located in the Union, so the second limb has them, and nobody has to think about where the vendor sits. The vendor, supplying that system for use here, is a provider placing it on the Union market — the first limb, which says in terms that an American establishment is irrelevant. And if the vendor arranged matters so that it never handed over the system at all, keeping the model on servers in California and sending Amsterdam nothing but the weekly scores, then the third limb closes behind it anyway, because the output is used in the Union. Three limbs, three different jobs.
 
-Two things wake it. They are separate triggers, and collapsing them into one is the commonest way people get this wrong.
+## What the reach does not cover {tone: neutral}
+I am now going to name several holes and walk past them, because each one is a hole shaped like an argument and none of them fits in this episode.
 
-The first trigger is supply. The Act calls it placing on the market, and defines it through a second term, making available. I am going to paraphrase these two rather than recite them, and I will tell you when I stop paraphrasing. Placing on the market is the first time a system is made available on the Union market. Making it available means supplying it there, for distribution or for use, in the course of a commercial activity — and it counts whether or not anybody pays. Give the thing away, and it is still supply.
+Article 2 excludes systems used exclusively for military, defence or national security purposes, whoever is operating them. It excludes systems developed and put into service for the sole purpose of scientific research and development. It excludes people using AI in a purely personal, non-professional activity. And it excludes systems released under free and open-source licences — unless they are high-risk, or fall under the prohibitions, or under the transparency duties. High-risk, there, is a defined class: a list of uses the Act names, and products it already regulates. It is a classification, not a verdict on how dangerous your system feels. Episode 4 builds it.
 
-The second trigger involves handing the thing to nobody at all. The Act calls it putting into service, and for this one I want the Act's own words, because four of them decide this episode. Article 3, point 11. Putting into service means, and I am quoting: "the supply of an AI system for first use directly to the deployer or for own use in the Union for its intended purpose." End of definition.
+Run back over those exclusions and you will notice that a determined organisation could spend a career living in them. I am naming them, not exploring them. That is a cut, and I would rather tell you I made it.
 
-Two terms in that sentence I owe you a working sense of, and only a working sense, because episode three is where they are properly earned. A provider is the party that puts a system out under its own name. A deployer is the party using a system under its own authority.
+One thing in Article 2 I will not walk past. Its final limb extends the Act to — the Act's own phrase — "affected persons that are located in the Union." End of the phrase. So the residents of those scored squares are in the instrument; the scope article puts them there in terms. What the rest of the instrument hands them is thinner than you would expect. There is a route to complain to an authority. There is, in narrow circumstances, a right to ask for an explanation. Whether that adds up to anything a person can use is Episode 11's question, and that is where you find out how thin.
 
-And the four words that matter here: *or for own use.* You put a system into service when you first use it yourself, for the thing it was built for. Nobody receives it. Nobody buys it. The duty attaches anyway.
+## Levels {tone: contemplative}
+Ask why this system ended the way it did, and you can answer at several different heights.
 
-So: who placed CAS on the market? {pause: 1.4}
+Technically: a weekly regression over three databases, with poor predictive performance.
 
-Nobody. It was never sold, never licensed, never supplied to anyone outside the force. The Dutch police built it and the Dutch police ran it.
+Organisationally: a closed box in a command room, with no channel through which anyone could ask why.
 
-But market placement is not the only road in, and this is the step I want you to make with me rather than take from me. The Act's definition of provider works like this. You develop a system, or have one developed for you. Then you do one of two things with it: you place it on the market, or you put it into service. And a single condition hangs over both of those — you do it under your own name or trademark. Not just the second one. Both.
+Institutionally: a police force that ran a decade-long national programme without ever defining what success would look like.
 
-The Dutch police took the second road. They did not sell it; they ran it themselves, under their own authority, as theirs. Building it was not enough. Running it was. And that is what makes the Nederlandse Politie the provider of the very system it also deploys: one organisation sitting on both sides of a split that the whole Regulation is built around.
+Each of those is true, and each is a description rather than a cause. Push on the institutional one. A force does not define success for a programme because nothing in its environment required it to — which is an economic fact about procurement, about a purchase nobody had to justify against an outcome. Push once more and you are at politics: a visible response to burglary that someone could point at.
 
-What that split does, and why nearly every real dispute in this field lives inside it, is episode three. Today, lodge two things. Both roles can sit in one organisation, and in the public sector they very often do. And a system built and used inside one organisation reaches this law through a different door than a system that is sold. Same software. Different door. The obligations waiting behind each are not identical.
+I am going to stop there, because the point is made. One height remains, and it is the one that matters most today. The rights-based answer says something very specific: geographic scoring is not a decision about a person until an officer acts on it. That is exactly why this system slipped so many nets for so long.
 
-## The reach {tone: measured}
-The second piece is scope: who this law can reach at all. That is Article 2, and I will call it the reach.
+And the gate — the test we just ran — sees one of those heights. The technical one.
 
-What follows is my summary of the list, not its wording. The reach runs to providers who place systems on the Union market or put them into service there — and the text goes out of its way to add that it makes no difference whether those providers sit inside the Union or in a third country. That phrase will come back in a moment, so let me fix it now: in the Union's own drafting language, a third country is simply any state outside the Union. Nothing ordinal about it. Britain is a third country. So is Japan.
+## What the gate assumes about the machine {tone: pointed}
+Which brings me back to the joint I parked.
 
-The reach also runs to deployers located in the Union. To importers and distributors. And at the end of the list it runs to affected persons located in the Union — the residents of those scored squares, who appear in this Regulation as people it applies to, and who, through most of the rest of it, are almost nobody.
+The gate presumes a system that has objectives — explicit or implicit — and whose outputs can be read as inferences *toward* those objectives. That presumption runs through the whole Act. Its risk tiers are built on intended purpose. Its documentation duties describe what a system is for. Its human oversight provisions assume a human who knows what the system is trying to achieve.
 
-Now change three. CAS is built and run for Dutch cities, but by an American vendor with no European establishment, scoring Dutch squares from a server in Virginia.
+So. What was the Crime Anticipation System for?
 
-The reach has a limb for exactly that. Article 2, paragraph 1, point (c). Here the Act speaks for itself, and I am quoting: "providers and deployers of AI systems that have their place of establishment or are located in a third country, where the output produced by the AI system is used in the Union." End of quotation.
+{pause: 1.8}
 
-Output. Not the company's address, and not the server's. What the thing produced, and where that landed. That single word pulls a firm which has never opened a European office or signed a European contract inside European law, because a Dutch patrol car drove somewhere on the strength of what it made.
+The Dutch police answered that question themselves, after ten years, when they turned it off. There were no clear goals. There were no measurable success criteria. There was an output, produced weekly, consumed daily, acted on by officers in cars — and no statement anywhere of what it was supposed to achieve, and no measurement that could have told anyone whether it had.
 
-There is a great deal more in the reach, and I would rather name what I am leaving than let you think it isn't there. Article 2 carries exclusions — whole categories the Act steps back from. National security, and military and defence purposes. Systems developed and put into service for the sole purpose of scientific research and development. Research, testing and development carried out before a system is placed on the market at all. Purely personal, non-professional use. And software released under free and open-source licences, which carries substantial exceptions of its own. Each of those is a hole shaped like an argument. Each deserves more time than this episode has, and I am naming them in order to leave them.
+A law that classifies systems by their intended purpose has no test for a system whose purpose was never operationalised. The gate would still have let it through — implicit objectives are enough to be caught. But the entire apparatus downstream of the gate is built to hold a provider to an account of what their system is for, and here the honest account, after a decade of national deployment, was: nothing that anyone could measure.
 
-## Five levels, and only one of them is the law's {tone: contemplative}
-Now something slightly odd, because it is the habit I most want you to take away.
+{tone: grave} A test that asks only what the machine does has no way to see a failure that size.
 
-When a system goes wrong you can explain it at several levels, and people argue bitterly about which level holds the real explanation. Watch how that works here.
+## Where this is contested {tone: measured}
+Three disagreements, and they are not of the same kind.
 
-The technical level: CAS was a weekly model over three databases with no visibility into its own reasoning. True.
+Whether a deterministic rule engine infers. **Contested.** The Commission's guidance leans toward excluding simple rule systems, and nobody who works on this believes the boundary is clear. The honest position is that the line is unsettled and more guidance than that may not be possible.
 
-But a description is not a cause. What CAS was technically is a record of what an organisation chose to buy and keep. Push back one.
+Whether those February 2025 guidelines bind anyone. **Settled, and the answer is no.** They are non-binding. They tell you what the Commission thinks. The interpretation that will actually bind comes from courts, years from now, on facts nobody has yet.
 
-The organisational level: a closed box sat in a command room, with no channel for anyone to ask why. Better — it explains why nobody inside caught the problem. It still describes rather than causes. Push again.
+And whether a definitional gate is the right architecture at all — as against regulating uses, whatever technique produces them. **Genuinely open**, and I can put names to it. Michael Veale and Frederik Zuiderveen Borgesius, writing in *Computer Law Review International* in 2021, made the diagnosis bluntly. They were writing about the proposal — the same document with the list in its annex, from April of that year — not about the Act that eventually passed, and that matters. Their charge was that the thing takes its structure from four decades of European product-safety law rather than from rights law, and inherits that machinery's assumptions along with it. Begin from the risk to fundamental rights, and you would not have built this.
 
-The institutional level: a police force ran a decade-long national programme without ever defining success for it. Which raises an obvious question — how does that survive ten annual budgets? So there is an economic level underneath as well: a procurement decision nobody ever had to justify against an outcome, because no outcome was ever specified.
+That instinct had institutional backing while the proposal was live. In June 2021 the European Data Protection Board and the European Data Protection Supervisor issued a joint opinion on it. Their target was a different article from today's — they went at the prohibitions, at the method of writing down a positive list of banned practices, and they argued the analysis should start from risk to fundamental rights, aligned with data-protection law. I will not stretch them further than that; they were not attacking the gate. But the family resemblance is mine to point out: a distrust of any method that enumerates first and asks about harm second.
 
-And last, the rights level, where most public argument about predictive policing actually lives. Scoring a patch of ground is not a decision about a person. Not formally. It becomes one when an officer acts on it. Which is precisely why this kind of system slipped so many nets for so long — the effect on people is real, and the paper trail of individual decisions is thin.
-
-The point of that exercise is this. Each level is a convenient way of describing everything upstream of it, rather than a cause in its own right. And the gate — the test we have spent this episode on — sits at the first level only. It is a technical test. It asks what the software does. The other four are invisible to it.
-
-## What the rule assumes about the machine {tone: pointed}
-Which brings me to the thing this series exists to do, and which I will do in every episode: set what a system actually does against what the rule presumes it does.
-
-Take the definition again, and listen for what it takes for granted. It presumes a system that has an objective — explicit or implicit, but an objective — and whose outputs can be read as inferences toward that objective. The whole sentence is built on purposefulness. It defines a thing that is *for* something.
-
-CAS had outputs. CAS had no measurable objective. And we do not have to infer that from outside, because it is the reason the police themselves gave for stopping: no clear goals, no measurable success criteria. Ten years, and the honest answer to "what is this for" turned out to be: nothing anyone could check.
-
-The gate itself survives that. A system with a vague aim still passes; implicit objectives count, and a fuzzy aim is still an aim. The trouble waits downstream. The machinery this Act builds on top of the gate classifies systems by what they are for. Risk tiers key off purpose. Documentation describes purpose. Oversight is oversight of performance against purpose. Every one of those is a measurement taken against a stated aim.
-
-So what does that machinery do with a system whose aim was never made measurable?
-
-Nothing. {pause: 1.2} It has no test for it. You can hold a perfectly compliant file on a system that has never been shown to do anything at all.
-
-And notice what CAS gave the officers who used it, because the distinction is worth keeping. When a square lit up, what arrived was a justification for going there: the system says so. What did not arrive was an explanation: this is what drove the number. Those are different objects. A justification tells you that you may act. An explanation tells you why — and it is the only one of the two you can argue with.
-
-Ask it as three questions, of any automated decision you meet. Can this be contested? By whom? On what basis? For a resident of a scored square in Amsterdam, across those ten years, the answers were no, nobody, and none.
-
-## Where it is contested {tone: neutral}
-Three disagreements, and I want to mark each for what it is, because a listener who cannot tell settled from contested is defenceless in this field.
-
-Does a deterministic system infer? Contested. The Commission's guidance leans toward excluding simple rule engines, and nobody working on this treats the boundary as clear. Real systems are rarely either-or: they are a hand-written rule set with a fitted component somewhere in the middle. The honest position is that we will not know where the line falls until cases are decided.
-
-Do those guidelines bind? Settled. They do not. They are non-binding. They tell you what the Commission thinks, which is worth a great deal in a meeting and nothing in a courtroom. The interpretation that will actually bind comes from courts, years from now, on facts nobody has met yet. More guidance than that may be impossible at the moment — and that is an answer, not a failure to find one.
-
-And the largest. Is a definitional gate the right architecture at all, against the alternative of regulating uses regardless of technique — of saying that scoring people for police attention is governed, whether a model did it or a memo did it?
-
-Here is the objection I promised you, and its holders. On 18 June 2021, the European Data Protection Board and the European Data Protection Supervisor published a joint opinion on the draft Act — Joint Opinion 5/2021. Their specific target was the way the Act handles prohibitions, which they attacked as a "positive list": enumerate the forbidden things, and whatever is not enumerated is permitted by silence. They also argued that risks to *groups* of people should be assessed, not only risks to individuals, which a system that scores neighbourhoods rather than names makes very concrete. The extension from their argument to the definitional gate is mine, not theirs — but it is the same objection, one level up. Build an instrument on enumeration, and you have built something that only sees what it listed.
-
-Where does the weight of opinion lie on that? Genuinely open. I know of no settled answer, and I am not going to manufacture one for the sake of a tidy paragraph.
+Against all of that stands the choice the Union actually made, and it has a real argument behind it. One definition, one entry point, twenty-seven member states, and something a company can be told in a sentence. Which side is right is the subject of Episode 6, and I am not settling it here.
 
 ## As written, as enforced {tone: measured}
-So what did this law actually do about CAS?
+Now the gap that this series will keep returning to.
 
-Nothing at all — and not because of a loophole. Because of a calendar. The heavy part of this Act, the regime for high-risk systems, splits into two streams with two different start dates. One stream is for systems that sit inside a product Europe already regulates: a lift, a toy, a medical device. The other is for systems that stand on their own — software that is not a component of anything, which is what CAS was. For that second stream, the heavy regime applies from 2 December 2027. That date has already moved once, deferred by the 2026 amendment, for reasons that belong to episode eight. CAS was switched off two years before the rules arrived.
+Nobody assessed the Crime Anticipation System under the AI Act. Not once, in the whole of its life.
 
-I will not tell you that CAS would have been a high-risk system, because that is not obvious, and it is worth a clause to see why. The policing categories in this Act are written around natural persons — risks to a person, profiling of a person, assessment of a person. CAS scored patches of ground. Whether a place-scoring system lands inside the heavy regime at all is a real question, and it is the same point I made from the rights side a few minutes ago, arriving from the other direction. Classification is episode four's work, and I leave it there.
+Partly that is timing, and timing here needs its date attached, because this instrument is younger than it sounds and has already been amended. The Act was adopted in 2024 and amended in 2026, by Regulation E U twenty twenty-six, seventeen forty-four, in force from the twenty-seventh of July 2026. That amendment pushed the heavy regime — the one for stand-alone high-risk systems — out to the second of December 2027. The system was switched off two years before that regime arrives.
 
-Something did produce public knowledge about CAS, though, and it was not this Regulation. It was a voluntary national algorithm register, run by the Dutch government, which anyone can read. Nobody compelled the police to describe CAS in it. They described it anyway.
+But I am not going to tell you it would have been caught by it when it did. Whether a weekly score attached to a map square, rather than to a named person, falls inside any of the Act's high-risk categories is itself unsettled — the listed law-enforcement cases are written around assessing a natural person. A grid square is not a natural person. That question belongs to Episode 4, and I am leaving it there.
 
-Date-stamp that whole passage, incidentally. The deadline moves. The shape of the problem — a regime arriving after the systems it was written for have come and gone — does not.
+The prohibitions had been in force since February 2025, for the last ten months of the system's life. None of them reaches a map of squares.
 
-## Where I come down, and what I am holding {tone: pointed}
-Two judgements. One small and mine; one held back.
+So what actually produced public knowledge about this system — its three data sources, its closed architecture, the fact that an officer could not see inside a prediction?
 
-Mine, for today: the gate is the right kind of test wearing the wrong kind of name. What it identifies is systems whose behaviour was derived rather than dictated. That is a real and useful distinction, because derived behaviour is the kind you cannot fully audit by reading the source code. What it does not identify is dangerous systems, and it was never built to. So the word standing at the door is doing engineering work, not moral work. Almost everyone reading this Act for the first time expects the opposite, and the disappointment that follows is usually aimed at the wrong provision.
+A voluntary national algorithm register. The Dutch government's own: a transparency instrument sitting entirely outside this Regulation, that nobody was compelled to file with, and the reason you and I can discuss any of this. The one-in-fifty figure did not come from there. That came from the police, when they explained why they were stopping.
 
-And the one I am holding. This series ends by asking whether treating artificial intelligence as a product placed on a market was the right choice. I am not answering that today, I want you to know that I am not, and I want you to know why. You have not seen the machinery. A verdict on an instrument you have met only the front door of is a prejudice with citations attached. Episode twelve lands it. From episode three onwards, every episode puts one piece of evidence on that table, and I will tell you each time it happens.
+## The second gate {tone: precise}
+One more thing before I let you go, and it is the concept the rest of the series rests on.
+
+The Act does not attach duties to *building* a system. I will say that again, because a technically-minded listener will not believe it the first time. Building is not the trigger.
+
+Two things are. **Placing on the market**, and **putting into service**. Here are the Act's own words for each, and then I will translate.
+
+Placing on the market, at Article 3, point 9, means, quote: "the first making available of an AI system or a general-purpose AI model on the Union market." End of quote.
+
+Making available is itself defined, one point further on. At point 10, quote: "the supply of an AI system or a general-purpose AI model for distribution or use on the Union market in the course of a commercial activity, whether in return for payment or free of charge." End of quote.
+
+And putting into service, at point 11, quote: "the supply of an AI system for first use directly to the deployer or for own use in the Union for its intended purpose." End of quote.
+
+That phrase you have now heard three times — general-purpose AI model — is the Act's name for a model general enough to perform a wide range of distinct tasks competently, whichever downstream system it ends up inside. It has a chapter to itself and an episode to itself, which is Episode 9.
+
+Strip the lawyer's clothing off the rest. The duty bites at the moment the thing is handed to someone else, or first used for the purpose it was made for.
+
+And notice what the second one does. "Or for own use." An organisation that builds a system, never sells it, never gives it to anybody, and simply runs it on its own premises still reaches the Act — not by selling, but by using. Which is why the Dutch police, in this story, would be both things at once: the deployer, because they used it under their own authority, and the provider, because they had it built and put it into service themselves. That doubling is not an edge case. For public-sector AI it is the normal shape, and it is Episode 3's entire subject.
+
+## What I am holding back {tone: contemplative}
+So here is the promise, made now so it can be kept later.
+
+Everything you have heard today follows from one decision: that an AI system is a thing placed on a market. The gate is a product definition. The reach is a market's reach. Placing on the market is a product-safety concept borrowed, almost without alteration, from four decades of European law about physical goods.
+
+Whether that was the right choice is this series' one real verdict, and I am not going to give it to you now, because you have not seen the machinery yet and a verdict on machinery you have not seen is a slogan. Episode 12 lands it. Every episode between here and there puts one piece of the evidence in front of you.
 
 ## What you now ask {tone: lucid}
-Four questions to carry out of this — the things I want in your hands when you meet a system you have never met before.
+Take four questions out of this episode. They are worth more to you than the wording, and they work on any system you are ever handed.
 
-One. Does this system infer, or does it apply rules somebody wrote down? That single distinction decides whether an entire body of European law exists for it.
+Does this thing infer — or does it apply rules that a person wrote down? That single question decides whether an entire body of European law applies to you, and the two cases can produce identical behaviour on the street.
 
-Two. What is its stated objective — and is there a measurement that would tell you whether it met that objective? If the second answer is no, the first answer is decoration.
+What is its stated objective, and is there a measurement that would tell you whether it met it? If there is no such measurement, you are looking at a system that cannot be evaluated — and an instrument that classifies by purpose has nothing to take hold of.
 
-Three. Whose output is used where? That is the thing that carries this law across a border, and it will reach organisations where nobody in the building has read a word of it.
+Whose output is used where? Where the output lands is a different question from where the company is registered, or where the servers sit.
 
-Four, and this one is CAS's own. If this system were switched off tomorrow, could anybody say what was lost?
+And the last one, which is the Dutch police's own question, asked ten years late. If this system were switched off tomorrow, could anyone say what was lost?
 
-For a decade of Dutch predictive policing, the answer to the fourth was no. That does not prove the system was useless. It proves that for ten years, nobody built the means to find out.
-
-## Handover {tone: measured}
-We now know what this Act counts. We do not know why anyone believed a law could be written in time for a technology that moves this quickly, or what it means to aim a document at a moving target.
-
-So next episode we step away from the instrument. Once, and only once. Episode two has no article numbers in it: it asks whether regulating a technology is a coherent thing to attempt at all, and which parts of an instrument can be changed without reopening the statute — and who holds that power. Then we are back inside the text, and we stay there.
-
-Episode three: who you are in the picture.
+Next time we step away from the text for one episode — the only one for a while — to ask why anybody believed a law could be written in time for a technology that moves like this one. We are back inside the instrument in Episode 3.
 
 ## Sources {tone: neutral}
-Four things, if you want to go to the material yourself.
+Four things stand behind this episode.
 
-The Regulation. Regulation (EU) 2024/1689, the Artificial Intelligence Act, as amended by the Digital Omnibus on AI in 2026. Read it in the consolidated version on EUR-Lex, which stitches the amendments into the original; the definition quoted in this episode is Article 3, point 1, and the scope provision is Article 2.
+The Regulation itself — Regulation E U twenty twenty-four, sixteen eighty-nine, Articles 2 and 3, in the consolidated text on EUR-Lex, as amended in 2026.
 
-The European Commission's guidelines on the definition of an AI system, published in February 2025. Short, readable, and non-binding — which is itself the lesson.
+The European Commission's guidelines on the definition of an AI system, published in February 2025.
 
-The joint opinion of the European Data Protection Board and the European Data Protection Supervisor on the draft Act, Joint Opinion 5/2021, dated 18 June 2021. It is the clearest statement of the objection this episode ended on, and it is published on the Supervisor's own website.
+The Dutch government's Algorithm Register, which is the public record of the Crime Anticipation System and a remarkable document in its own right. The entry number is eight one two two, eight nine two two.
 
-And the Dutch government's Algorithm Register, at algoritmes dot overheid dot nl, where the Crime Anticipation System is entry 81228922 — a state describing its own software to the public, voluntarily, with no regulation obliging it to. The police's account of why they stopped comes from the reporting of February 2026.
+And the reporting, in February 2026, of that system's discontinuation, from which the police's own account of why comes.

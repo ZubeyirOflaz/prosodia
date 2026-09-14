@@ -349,3 +349,28 @@ def test_write_brief_states_the_word_budget(tmp_path):
             pass
     assert "3500 spoken words" in seen["b"]
     assert "not more than 4200" in seen["b"]
+
+
+def test_editor_ready_has_a_severity_bar():
+    """Without one, a demanding editor never returns ready and the loop always exhausts.
+
+    Episode 1 ran four rounds and was never marked ready, while source fidelity had gone
+    clean by round 4 and the remaining findings were improvements. The cost is not just
+    wasted rounds: the last verdict is never acted on, so its notes describe defects still
+    in the shipped draft.
+    """
+    editor = Persona.resolve("casework").role("editor")
+    assert "BLOCKING" in editor and "IMPROVEMENTS" in editor
+    assert "`ready` is true when, and only when, the `BLOCKING` section is empty" in editor
+    assert "Do not block on a sentence you would have written differently" in editor
+
+
+def test_unresolved_editor_notes_are_written_beside_the_transcript():
+    """run/ is gitignored, so an unresolved verdict would otherwise be invisible."""
+    import inspect
+
+    from prosodia.author import cli
+
+    src = inspect.getsource(cli._cmd_write)
+    assert "editor-notes.md" in src
+    assert 'if not v.get("ready")' in src

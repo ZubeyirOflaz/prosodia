@@ -643,6 +643,23 @@ def _cmd_write(args: argparse.Namespace) -> int:
         )
         return 1
     out.write_text(transcript, encoding="utf-8")
+    # The last editorial verdict is the one nothing downstream ever acts on: if the loop ran
+    # out of rounds, those notes describe defects still IN the shipped draft, and they live
+    # only under run/, which is gitignored. Put them beside the transcript.
+    last = sorted((run.root / "stages").glob("edit.r*/verdict.json"))
+    if last:
+        import json as _json
+
+        v = _json.loads(last[-1].read_text(encoding="utf-8"))
+        if not v.get("ready"):
+            notes = epdir / "editor-notes.md"
+            notes.write_text(
+                f"# Editor's notes on episode {ep['n']} — NOT marked ready\n\n"
+                f"The writer/editor loop ended at its round limit rather than on a clean verdict, "
+                f"so the defects below are still in `transcript.md`.\n\n{v.get('notes', '')}\n",
+                encoding="utf-8",
+            )
+            print(f"  editor did not mark this ready — its notes are in {notes}")
     run.write_index(episode=ep["n"], title=ep.get("title"))
     print(f"wrote {out}  (persona: {persona.name})")
     print(f"trace: {run.dir}")
