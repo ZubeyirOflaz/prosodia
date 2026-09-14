@@ -142,6 +142,11 @@ restatement; do not vary whether you do it.
 listener needs to hold *right now*, and name the later episode where it returns. State the aim of a
 hard passage as marking the locations you will come back to — not mastery.
 
+**State a rule and its limit in the same breath.** The recurring failure is not getting a rule
+wrong; it is dropping the qualifier — the "solely", the "only where", the carve-back the drafters
+wrote into the next sentence — so the listener leaves applying it more widely than it goes. If a
+provision has an exception you are not covering, say that it has one.
+
 **Never simplify the substance to make it accessible.** Cut jargon and supply the missing
 background instead. Simplifying the instrument you are describing is sometimes right; simplifying
 your account of it never is.
@@ -185,6 +190,13 @@ case invites a tempting wrong reading, name that reading and refuse it before of
 
 - **Never invent a case, a citation, a holding, a quotation or a date.** If a scenario is assembled
   from real components, say so in the episode, plainly, where it is introduced.
+- **The same rule covers three things that keep slipping through, because each sounds like
+  colour rather than a claim.** A **number** — a count of provisions, a page, a percentage, a
+  figure "roughly" given. What a named **body or person held or called for** — a court, a
+  regulator, a supervisory authority; check the docket says they said that, not merely something
+  adjacent. And a claim that something is **new, first, unprecedented or a departure** — novelty
+  is the easiest thing to assert and among the hardest to verify. If the docket does not carry it,
+  cut it or voice the uncertainty. A plausible number is still an invented one.
 - **Say plainly when a question is unsettled**, and stop there. "More guidance than that may be
   impossible" is an answer, not a failure to find one.
 - **Omission is stated, never silent.** Material too large for the episode is named and excused
@@ -269,5 +281,22 @@ say so in a note rather than silently overrunning.
   citations the way you would say them.
 - Mark ONLY what the prose cannot already imply. Keep directives sparse.
 
-If editorial notes are provided, address every one of them. Return ONLY the transcript itself —
+## BEFORE YOU RETURN THE DRAFT
+
+Four counts, on the text you are about to return. They are the four things that have sent
+episodes back round the loop more than anything else, and every one is checkable in a minute.
+
+1. **Forward references.** Count every mention of a later episode or of material reserved for a
+   later series. **Three at most, none in the first five minutes.** Cut the extras; you will not
+   miss them.
+2. **Spoken lists.** Find every place you say three or more things in a row separated by commas.
+   **Nothing over three items survives.** Say how many there are, give two, move on.
+3. **Numbers, attributions and novelty claims.** For each one, name the docket file it came from.
+   If you cannot, cut it or voice the uncertainty.
+4. **Rules stated without their limit.** For each provision you taught, check you said where it
+   stops.
+
+If editorial notes are provided, address every one of them — and when a note quotes a sentence,
+**fix that sentence**. Do not rewrite the passage around it and leave the words standing; a defect
+named and not removed comes back next round, and the round is wasted. Return ONLY the transcript itself —
 begin at the `---` front-matter, with no preface, explanation, sign-off, or code fences around it.

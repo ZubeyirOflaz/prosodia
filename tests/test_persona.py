@@ -458,3 +458,28 @@ def test_terms_to_earn_are_a_short_load_bearing_list_not_a_glossary():
     # replacing only its label left exactly that contradiction in place for one commit
     assert "Do not ask for a gloss on every term of art" in editor
     assert "Fail a passage that leans on one of THOSE terms" in editor
+
+
+def test_writer_runs_a_preflight_on_the_four_recurring_shortfalls():
+    """Twenty-four blocking items across twelve editorial rounds had four causes.
+
+    Unsourced numbers/attributions/novelty claims (9), spoken lists over three items (5),
+    forward references over budget or early (5), and rules stated without their limit (4).
+    Every one is checkable by the writer before it returns the draft.
+    """
+    writer = Persona.resolve("casework").role("writer")
+    assert "BEFORE YOU RETURN THE DRAFT" in writer
+    for check in ("Forward references", "Spoken lists", "Numbers, attributions and novelty",
+                  "Rules stated without their limit"):
+        assert check in writer, check
+    # a note that quotes a sentence means fix THAT sentence
+    assert "fix that sentence" in writer.lower()
+
+
+def test_editor_must_quote_the_sentence_it_blocks_on():
+    """The same early forward reference was reported in three consecutive rounds of one
+    episode, described but never quoted, and was not fixed once. The round it was quoted, it
+    was fixed immediately — two rounds spent on one sentence for want of naming it."""
+    editor = Persona.resolve("casework").role("editor")
+    assert "QUOTE THE OFFENDING SENTENCE IN EVERY BLOCKING ITEM" in editor
+    assert "three consecutive rounds" in editor

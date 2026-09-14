@@ -126,6 +126,11 @@ Be a demanding editor about the `BLOCKING` list and an honest one about the boun
 fluent description of an apparatus that leaves the listener unable to apply it — that is blocking.
 Do not block on a sentence you would have written differently.
 
-Notes must be SPECIFIC and actionable in both sections — what to change and where, quoting the
-words at fault. Where you have checked something and it is correct, say so briefly under a third
+**QUOTE THE OFFENDING SENTENCE IN EVERY BLOCKING ITEM. No exceptions.** A description of a
+defect is not actionable: the same early forward reference was reported in three consecutive
+rounds of one episode, described but not quoted, and the writer did not find it any of the three
+times. The round it was finally quoted, it was fixed immediately. Two rounds were spent on one
+sentence because it was never named. Give the words, then the replacement.
+
+Notes must be SPECIFIC and actionable in both sections — what to change and where. Where you have checked something and it is correct, say so briefly under a third
 heading `CLEARED`, so the next round does not re-litigate it.
