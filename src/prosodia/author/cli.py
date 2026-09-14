@@ -432,7 +432,7 @@ def _cmd_plan(args: argparse.Namespace) -> int:
         # straight over the previous outline, print "wrote ...", and exit 0.
         print(
             f"planner returned {len(outline)} chars containing no episode heading; "
-            f"{out} left unchanged. The archived result is under {run.root}.",
+            f"{out} left unchanged. The archived result is under {run.dir}.",
             file=sys.stderr,
         )
         return 1
@@ -638,7 +638,7 @@ def _cmd_write(args: argparse.Namespace) -> int:
     if not transcript.strip() or "##" not in transcript:
         print(
             f"writer returned {len(transcript)} chars with no beat heading; {out} left "
-            f"unchanged. Drafts from this attempt are under {run.root}.",
+            f"unchanged. Drafts from this attempt are under {run.dir}.",
             file=sys.stderr,
         )
         return 1
@@ -646,7 +646,7 @@ def _cmd_write(args: argparse.Namespace) -> int:
     # The last editorial verdict is the one nothing downstream ever acts on: if the loop ran
     # out of rounds, those notes describe defects still IN the shipped draft, and they live
     # only under run/, which is gitignored. Put them beside the transcript.
-    last = sorted((run.root / "stages").glob("edit.r*/verdict.json"))
+    last = sorted(run.stages_dir.glob("edit.r*/verdict.json"))
     if last:
         import json as _json
 

@@ -365,12 +365,65 @@ def test_editor_ready_has_a_severity_bar():
     assert "Do not block on a sentence you would have written differently" in editor
 
 
-def test_unresolved_editor_notes_are_written_beside_the_transcript():
-    """run/ is gitignored, so an unresolved verdict would otherwise be invisible."""
-    import inspect
+def test_unresolved_editor_notes_are_written_beside_the_transcript(tmp_path):
+    """run/ is gitignored, so an unresolved verdict would otherwise be invisible.
+
+    Exercised for real rather than grepped for: the first version of this code read
+    `run.root`, which does not exist, and a source-substring test passed while every
+    `prosodia write` ended in an AttributeError after the transcript had been written.
+    """
+    import argparse
+    import json
+    from unittest.mock import patch
 
     from prosodia.author import cli
 
-    src = inspect.getsource(cli._cmd_write)
-    assert "editor-notes.md" in src
-    assert 'if not v.get("ready")' in src
+    proj = tmp_path / "p"
+    (proj / "plan").mkdir(parents=True)
+    (proj / "series.yaml").write_text("series: S\npersona: casework\n", encoding="utf-8")
+    (proj / "plan" / "outline.md").write_text(
+        "# O\n\n## Episode 1 — A\n\n**Length:** 27 min\n\nbody\n", encoding="utf-8")
+
+    def fake_author(brief, **kw):
+        # stand in for the loop: leave a not-ready verdict where the real one lands
+        d = proj / "episodes" / "ep01-a" / "run" / "stages" / "edit.r2"
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "verdict.json").write_text(
+            json.dumps({"ready": False, "notes": "BLOCKING\n1. SENTINEL_DEFECT"}), encoding="utf-8")
+        return "---\nepisode: 1\n---\n\n## Beat\n\nSpoken words here.\n"
+
+    args = argparse.Namespace(project=str(proj), episode=1, persona=None,
+                              prior_episodes=0, max_rounds=2)
+    with patch("prosodia.author.orchestrate.author_episode", side_effect=fake_author):
+        assert cli._cmd_write(args) == 0
+
+    notes = proj / "episodes" / "ep01-a" / "editor-notes.md"
+    assert notes.is_file(), "an unresolved verdict must be preserved beside the transcript"
+    assert "SENTINEL_DEFECT" in notes.read_text(encoding="utf-8")
+    assert "NOT marked ready" in notes.read_text(encoding="utf-8")
+
+
+def test_a_ready_verdict_leaves_no_editor_notes(tmp_path):
+    import argparse
+    import json
+    from unittest.mock import patch
+
+    from prosodia.author import cli
+
+    proj = tmp_path / "p"
+    (proj / "plan").mkdir(parents=True)
+    (proj / "series.yaml").write_text("series: S\npersona: casework\n", encoding="utf-8")
+    (proj / "plan" / "outline.md").write_text(
+        "# O\n\n## Episode 1 — A\n\n**Length:** 27 min\n\nbody\n", encoding="utf-8")
+
+    def fake_author(brief, **kw):
+        d = proj / "episodes" / "ep01-a" / "run" / "stages" / "edit.r1"
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "verdict.json").write_text(json.dumps({"ready": True, "notes": "fine"}), encoding="utf-8")
+        return "---\nepisode: 1\n---\n\n## Beat\n\nSpoken words here.\n"
+
+    args = argparse.Namespace(project=str(proj), episode=1, persona=None,
+                              prior_episodes=0, max_rounds=2)
+    with patch("prosodia.author.orchestrate.author_episode", side_effect=fake_author):
+        assert cli._cmd_write(args) == 0
+    assert not (proj / "episodes" / "ep01-a" / "editor-notes.md").exists()
