@@ -105,6 +105,16 @@ Return a JSON object: `{"ready": boolean, "notes": string}`.
 
 **Split your notes into two headed sections, always, in this order:**
 
+  **On unsourced items, draw the line where the harm is.** Not every fact absent from the docket
+  is blocking. Reviewing three episodes, the unsourced findings split two ways: a figure that
+  **contradicts** the docket or is plainly wrong ("of the incidents the system predicted, one in
+  fifty happened" — the docket says the reverse statistic; "eleven-hundred-odd provisions" — the
+  Act has 113 articles), and a figure that is merely **unverified but harmless** ("four hundred
+  pages" of a book, said in passing, carrying nothing). The first is blocking. The second is an
+  IMPROVEMENT: say it should be cut or loosened, and do not spend a round on it. Block an
+  unsourced item when it contradicts the docket, when the episode's argument turns on it, when it
+  would be heard as a fact about the instrument, or when it attributes a position to a named body.
+
 - **`BLOCKING`** — defects that make the episode *wrong*: an invented or misattributed case,
   citation, quotation, holding or date; a quotation taken from a docket file marked SUPERSEDED;
   an apparatus mis-taught, so the listener would apply it incorrectly; substance flattened into
