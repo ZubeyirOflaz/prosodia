@@ -24,6 +24,22 @@ def _load_series(project: Path) -> dict:
     return yaml.safe_load((project / "series.yaml").read_text(encoding="utf-8")) or {}
 
 
+def _discover_series(transcript: Path) -> Path | None:
+    """Walk up from a transcript to its project's ``series.yaml``.
+
+    Without this, `prosodia compile` with no --config resolved the persona to the library
+    default, and silently applied ANOTHER persona's tone table: the tones unique to this
+    persona fall back to `measured` with one warning each, and the nine shared names are
+    re-tuned to different numbers with no warning at all. The project's lexicon was dropped
+    on the same path. Both are invisible in the transcript and audible in the render.
+    """
+    for parent in transcript.resolve().parents:
+        candidate = parent / "series.yaml"
+        if candidate.is_file():
+            return candidate
+    return None
+
+
 def _cmd_compile(args: argparse.Namespace) -> int:
     import yaml
 
@@ -37,11 +53,13 @@ def _cmd_compile(args: argparse.Namespace) -> int:
     text = Path(args.transcript).read_text(encoding="utf-8")
     config: dict = {}
     config_dir: Path | None = None
-    if args.config:
-        config_path = Path(args.config)
+    config_path = Path(args.config) if args.config else _discover_series(Path(args.transcript))
+    if config_path is not None:
         config_dir = config_path.parent
         loaded = yaml.safe_load(config_path.read_text(encoding="utf-8")) or {}
         config = loaded if isinstance(loaded, dict) else {}
+        if not args.config:
+            print(f"  using {config_path} (found by walking up from the transcript)")
 
     # Lexicon precedence: explicit --lexicon, else the config's `lexicon` key
     # (resolved relative to the config dir), else none.

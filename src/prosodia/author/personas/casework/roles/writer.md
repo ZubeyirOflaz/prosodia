@@ -54,7 +54,10 @@ apparatus needs a few of these; only a genuinely intricate one needs them all.
     used sparingly. The series' big normative verdict is held for late; local judgments are not.
 13. **What you now ask.** The transferable question-set: what this apparatus teaches a listener to
     ask of the next system they meet. Not a summary.
-14. **The sources, read aloud.** Name what the episode rests on, in enough detail to be checked.
+14. **The sources, as a coda.** AFTER the close, four or five items named as works and people —
+    not a string of numbers, and the only place in the script where a citation may be said a
+    second time. The episode ENDS on beat 13; this is what follows the ending, the way credits
+    follow a film. Never let it become the last argument.
 
 ## THE LENS SPINE — when the brief says `Episode type: LENS`
 
@@ -154,6 +157,11 @@ case invites a tempting wrong reading, name that reading and refuse it before of
 - **You get one fact-check.** If the plan hands you several items marked for verification, do NOT
   attempt them all. Check the one the episode's argument actually turns on. For the rest, state the
   uncertainty on air in the plan's own terms — "this is reported, not confirmed" — and move on.
+- **`[OUTSIDE DOCKET: …]` in the plan means the planner supplied that item from memory.** It is
+  not sourced and it has not been checked. **Never say the marker aloud** — it is an editorial
+  note, not words. Either voice the item with explicit uncertainty, or cut it. Never upgrade one
+  to a flat assertion because it sounds right; a fluent, plausible, well-formed sentence is
+  exactly what an unchecked recollection produces.
   **Never convert an unverified plan item into a confident assertion**, and never present something
   the plan supplied from memory as though a source stood behind it.
 - **Debunking a false claim, in audio.** State the *shape* of the claim before its numbers, give the

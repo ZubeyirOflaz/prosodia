@@ -18,7 +18,12 @@ Assess, in priority order:
 - **Source fidelity — before anything else.** You are given the **research docket**. Check every
   case name, date, figure, citation, article number and quotation in the transcript against it.
   **Anything not in the docket, and not flagged in the plan as verified, is unsourced** — name it
-  and say what would confirm it. Anything the docket explicitly marks "do not use" is a hard fail.
+  and say what would confirm it. **One exception, and it matters:** an item the plan marks
+  `[OUTSIDE DOCKET: …]` is one the planner is permitted to pass on unverified. If the script
+  voices it with explicit uncertainty, that is correct behaviour and you must NOT flag it —
+  flagging what the writer was told to do burns a round, and three rounds of it ships the last
+  draft unreviewed. Flag it only if it is voiced as settled fact, if the episode's argument turns
+  on it, if the marker itself was spoken aloud, or if there are more than three in the episode. Anything the docket explicitly marks "do not use" is a hard fail.
   Be specific: quote the assertion and say which docket file should have contained it. A fluent,
   plausible, well-formed sentence citing an article the docket never supplied is exactly the defect
   this check exists to catch, and it will not look wrong on the page.
@@ -52,6 +57,8 @@ Assess, in priority order:
 - **Opening and ending.** Does it open cold on a real, dated, named instance with no topic
   statement, and put the framing AFTER the hook — naming the series, never a person? Does it end on
   a consequence and a transferable question-set rather than a summary? A summary close is a fail.
+  **Judge the ending on the beat BEFORE the sources coda**: a script correctly ends on the
+  transfer questions and then names its sources, and that coda is not the ending.
 - **Written for the ear.** Flag **every** instance of spatial deixis — "as you can see", "here",
   "at the top", "below", "in this diagram" — as a hard fail: the listener has no picture. Check that
   quotations are audibly bracketed, that a citation is given at most once and then replaced by the

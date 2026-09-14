@@ -283,3 +283,30 @@ def test_casework_planner_forbids_covering_the_apparatus_by_range():
     planner = Persona.resolve("casework").role("planner")
     assert "NEVER ASSIGN BY A BARE RANGE" in planner
     assert "name what is in it" in planner
+
+
+def test_compile_finds_the_project_persona_without_an_explicit_config(tmp_path):
+    """`compile` with no --config used to resolve the LIBRARY DEFAULT persona.
+
+    That silently applied another persona's tone table: this persona's own registers
+    (`quoting`, `pointed`, `precise`) fall back to `measured` with a warning each, and the
+    nine shared tone names are re-tuned to different numbers with no warning at all —
+    including `dramatic`, which persona.yaml documents as deliberately pitched below the
+    dramatist personas. Invisible in the transcript, audible in the render.
+    """
+    from prosodia.author.cli import _discover_series
+
+    proj = tmp_path / "proj"
+    (proj / "episodes" / "ep01").mkdir(parents=True)
+    (proj / "series.yaml").write_text("series: S\npersona: casework\n", encoding="utf-8")
+    t = proj / "episodes" / "ep01" / "transcript.md"
+    t.write_text("---\nepisode: 1\n---\n\n## Beat\n\nHello.\n", encoding="utf-8")
+
+    found = _discover_series(t)
+    assert found == proj / "series.yaml"
+    cfg = __import__("yaml").safe_load(found.read_text(encoding="utf-8"))
+    assert Persona.resolve(cfg.get("persona"), project=found.parent).name == "casework"
+    # and a transcript outside any project still resolves to nothing rather than guessing
+    loose = tmp_path / "loose.md"
+    loose.write_text("x", encoding="utf-8")
+    assert _discover_series(loose) is None
