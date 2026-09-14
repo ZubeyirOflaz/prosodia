@@ -1,201 +1,227 @@
 ---
 episode: 2
 title: The Pacing Problem
-defaults:
-  tone: measured
-  rate: normal
+defaults: { tone: measured, rate: normal }
 ---
 
-## A judge says the subject does not exist {tone: measured}
+## The law of the horse {tone: measured}
 
-In 1996, an American federal appeals judge published a short essay explaining that the field he had been asked to write about did not exist.
+*Cyberspace and the Law of the Horse*. That is the title, and the author is Frank Easterbrook. Volume 1996 of the University of Chicago Legal Forum, article seven, page two hundred and seven. The argument inside it is short, and it is rude, and thirty years later it has not gone away.
 
-His name was Frank Easterbrook. The essay appeared in the University of Chicago Legal Forum, and it was called *Cyberspace and the Law of the Horse*.
+Start with the horses, because the horses are the whole point.
 
-The argument is about horses. It is very simple.
+A great many lawsuits involve horses. People sell horses, and the sale goes wrong. Horses kick people, and the people sue. Horses get stabled, insured, mortgaged. You could gather every one of those cases into a single volume and call the volume the law of the horse. Easterbrook's point was that you would have learned nothing by doing it. What you actually need to know is the law of sale, and the law of negligence. Those you learn by studying sale and negligence — not by studying horses.
 
-A great many legal disputes involve horses. People buy them and sell them. People are kicked by them. Horses win prizes, and the prizes get argued over. You could gather every one of those cases into a single volume and call it the law of the horse. Easterbrook's point is that you would have learned nothing worth knowing. The buying case is sale of goods. The kicking case is negligence. The prize case is contract. Each one is an ordinary legal principle, wearing a saddle.
+So, he said, there is no more a law of cyberspace than there is a law of the horse. Write your statute about the general thing. Apply it to the new thing when the new thing turns up.
 
-So when he was invited to address the law of cyberspace, he said there was no such thing. The honest response to a new technology, on his account, is to apply the general law you already have — and to resist the urge to name the animal.
+Three years later, in volume 113 of the Harvard Law Review, Lawrence Lessig answered him, and the title of the reply is a deliberate echo — *The Law of the Horse: What Cyberlaw Might Teach*. Lessig's answer was that studying the new thing teaches you something you could not have learned anywhere else. Because the new thing makes visible a force that was always doing the work of law, and was never called law.
 
-Three years later he was answered. By name.
-
-Volume 113 of the Harvard Law Review, 1999. *The Law of the Horse: What Cyberlaw Might Teach*, by Lawrence Lessig. Lessig does not say that Easterbrook is wrong about horses. He says cyberspace is worth studying precisely because it makes visible a regulating force you cannot normally see at all — a force that lives in the material a thing is built out of.
-
-Neither man was arguing about artificial intelligence.
-
-One of them lost anyway.
-
-## What this episode is, and what it is not {tone: lucid}
-
-This is The Instrument. Episode two.
-
-Episode one took you through the definitional gate — what has to be true of a system before any of this law touches it, and the moment duties attach, which is the moment a thing is placed on a market. Hold that. You will need it in about fifteen minutes.
-
-Now a warning, because today is unlike the rest of the series.
-
-There is no statute in this episode. I am not going to read you a line of the Act. Article numbers will come up, but only as addresses — places where an argument you are about to hear ended up in the text, and where a later episode will go and dig it out. Today is about the arguments themselves.
-
-There are four of them. Four answers to a question Europe had to settle before the Act could have a first sentence: should you write law about a technology at all — and if you do, when, and what exactly do you put on the page?
-
-Two things these four are not.
-
-They are not a menu, where a legislature picks one. The Act contains pieces of at least three of them, and the pieces do not agree with each other.
-
-And they are not a spectrum running from more regulation to less. Two of the four argue for acting early and two argue for restraint, but they do it from opposite premises, and if you flatten them onto a line you will mishear the whole episode.
-
-You will use this in three places, and then once more at the very end. Episode four, where the risk tiers are built, and the whole design turns out to rest on one of these bets. Episode eight, where technical standards do work a statute could not. Episode nine, where the general-purpose tier hangs off a single number. And then, separately, episode twelve, where the series finally says whether any of it was the right shape.
-
-## Two documents {tone: precise}
-
-Start with the thing that makes the question concrete.
-
-The first document is the Commission's proposal for a regulation on artificial intelligence, tabled in Brussels on the twenty-first of April 2021. Its file number, for the record, is COM(2021) 206 final. It is the draft Europe began with, and the Act you now have is what that draft became after three years of argument.
-
-The second document is not a document at all. It is a product release. ChatGPT, made publicly available at the end of November 2022 — nineteen months after the proposal was tabled, and roughly halfway through the legislative process it set off.
-
-Now the fact this episode is built on.
-
-The 2021 proposal contains no chapter on general-purpose AI models. Not a thin version of one, not a placeholder. There is nothing there. The provisions that now govern models capable of doing many different things — the chapter running from Article 51 to Article 56, which exists to put duties on the people who build those models — were written into a bill already in front of the Parliament, about a class of system the drafters had not made a category for.
-
-And the proposal's own definition of an AI system worked by pointing at a list of techniques, set out in an annex. Episode one told you that list-based definition was abandoned. This is what it was abandoned in favour of, and this is roughly why.
-
-That is the whole problem in two objects. A law drafted against the technology of 2020, overtaken while it was being passed.
-
-The obvious thing to say next is that the law lags behind technology. I am going to decline that sentence. It is true enough to be useless, it explains nothing about what anyone should have done instead, and it is — as you will hear — also a slogan with a job of its own. What I will give you instead is four serious accounts of why the gap exists and what follows from it.
-
-## Position one: you are too early, and then you are too late {tone: contemplative}
-
-David Collingridge. *The Social Control of Technology*, published in 1980 by Frances Pinter.
-
-Date that. 1980. Collingridge was not writing about software. He was writing in the long shadow of nuclear power, of industrial chemicals, of asbestos — technologies that were regulated properly only after the harm was demonstrated and the industry was too large to move.
-
-His argument is usually given in a single sentence, and the sentence circulates so widely that it has become the name of the idea. It runs, in the form it is always quoted: *when change is easy, the need for it cannot be foreseen; when the need for change is apparent, change has become expensive, difficult and time consuming.* That is his sentence, as the literature carries it. Mine again from here.
-
-Said flatly: control has two windows and neither of them is any good. Early on, while the technology is still soft and you could still steer it, nobody knows what to steer it away from. Later, once the consequences are legible to everyone, the thing is built into supply chains and jobs and municipal budgets, and steering costs more than anyone will pay.
-
-That is the Collingridge dilemma. What he draws from it is a lesson about *design*.
-
-Because if you accept it, there is one move available: regulate anyway, in the knowledge that you are wrong, and build the correction into the instrument from the start. Give yourself the power to amend the list of what counts as high-risk — that is Article 7. Give yourself delegated powers to change the text later without a new statute — Article 97. Write a review clause with hard dates in it — Article 112.
-
-Europe did all three. Those are Collingridge answers whether or not anyone drafting them had read him.
-
-The cost is this. You are choosing to enact rules you expect to be wrong, which is a strange thing for a parliament to do. And the power to fix them afterwards does not sit with the parliament. It sits with the Commission. Every delegated power is a piece of the legislature's authority, lent out in advance, to be exercised on a technology nobody has met yet.
-
-## Position two: two clocks {tone: measured}
-
-The second position has a name of its own, and it is the name of this episode.
-
-Larry Downes, *The Laws of Disruption*, Basic Books, 2009. Downes puts it as a law, and I am giving you his formulation: technology changes exponentially, but social, economic and legal systems change incrementally. That is the law of disruption as he states it. And a collection edited by Gary Marchant, Braden Allenby and Joseph Herkert, published by Springer in 2011, carries the phrase in its subtitle — *The Growing Gap Between Emerging Technologies and Legal-Ethical Oversight: The Pacing Problem*.
-
-Everyone says law is slow and technology is fast. The claim underneath is narrower and stranger: the two run on *different kinds of clock*, so the distance between them widens over time rather than closing. Institutions move at the speed of consultation, drafting, negotiation and ratification. That speed is roughly fixed. It is fixed because legitimacy requires it.
-
-And the policy conclusion is the opposite of Collingridge's.
-
-If a threshold will be obsolete before the ink dries, do not write thresholds. Write principles. Empower a regulator, give them discretion, let them track the field. Anything with a number in it is a hostage.
-
-{pause: 1.0}
-
-Now hold both of those in your head, because this is where the episode earns its keep.
-
-Imagine two ways of deciding which AI models go in the top tier. In the first, a model is in the tier once the computing power used to train it passes a fixed figure written into the statute. In the second, there is no figure at all; each year a regulator assesses capability and says which models are in.
-
-One of those is the Collingridge answer and the other is the pacing-problem answer. Which is which?
+Two named people. Two journals. A published, dated disagreement that nobody has closed.
 
 {pause: 1.4}
 
-The fixed figure is Collingridge. Act now, with the best number you have, and take the wrongness on the chin. The annual judgement is the pacing problem: never write down something a technology can walk past.
+And every legislature that has ever put the name of a technology into the title of a statute has taken Lessig's side without ever saying so.
 
-The Act declines to choose. It does something stranger than either.
+## Where this sits {tone: lucid}
 
-There is a number — ten to the twenty-fifth floating-point operations, a measure of the raw computation spent training a model — and it sits in Article 51, paragraph 2. It is not a line. Cross it, and the model is *presumed* to have the capabilities that put it in the top tier. Presumed, which is a word with a door in it: a provider whose model is over the figure may come back with a substantiated argument that this particular model carries no systemic risk, and ask to be let out. A model that never approached the figure can still be put in the tier by a decision of the Commission. And the figure itself can be moved, by the Commission, by delegated act — that power is the very next paragraph.
+This is The Instrument, and this is the second episode.
 
-So: a number, a presumption that can be argued down, a route in that does not use the number at all, and a lever to move the number. Episode nine takes all of that apart properly, including whether the figure measures anything anyone actually cares about. For now, notice only the shape. That is what a legislature does when it finds both arguments persuasive and cannot bring itself to pick.
+The first one did a piece of work you can carry straight into this one. The European Union's Artificial Intelligence Act is built around a gate; the gate turns on whether a system *infers*; and the duties in the Act bite at the moment something is placed on a market. That is everything you need from Episode 1, and if you have not heard it, nothing today depends on it.
 
-## Position three: the rule is in the machine {tone: lucid}
+Now the warning.
 
-Back to Lessig, because his answer to Easterbrook is the third position and it has the longest reach.
+There is no statute in this episode. No article read out, no operative text, nothing quoted from the Regulation at all. Episodes like this one exist to hand you a tool, and the tool is not part of the machine. It is what you judge the machine with.
 
-Lessig's book is *Code and Other Laws of Cyberspace*, Basic Books, 1999, revised seven years later as *Code: Version 2.0*. The slogan people remember is that code is law. And a year before the book, Joel Reidenberg had made the same structural point under a different name — *Lex Informatica*, in the Texas Law Review, in 1998. The idea has two independent inventors, which is usually a sign it was true before either of them said it.
+Today's tool is a question about timing. Was this thing written at the right moment? And underneath it, a harder question: can a rule about a technology ever be written at the right moment — or is every such rule already wrong on the day it is signed?
 
-The claim is that what actually constrains conduct is the built environment: what the architecture permits, and what it simply does not offer. A written rule argues with you. It threatens, it persuades, it can be broken and then enforced against. Architecture does not argue. The option is absent.
+Four people have serious answers to that, and they disagree with each other. You will have all four by the end, and a way of hearing which one a given rule has quietly adopted.
 
-So the conclusion for a regulator follows directly. If you want effect rather than paperwork, do not only write rules about conduct. Specify the architecture.
+## Nineteen months {tone: precise}
 
-And the Act is full of this in places where it never says the word. A duty that high-risk systems technically allow the automatic recording of events, so that there is a log — that is Article 12. A duty that synthetic content carry machine-readable marking, so a machine downstream can tell what it is looking at — Article 50. A duty to hold technical documentation to a specified content — Article 11. Episodes seven and nine will work all three.
+The expected move at this point is the history lecture. The printing press, the motor car, the telephone — each arriving before the law that governed it, each proving that regulation always runs behind.
 
-Take those three duties. Two of them are properties of the built thing itself, and one is a filing obligation — something a person produces and keeps. Which is the filing obligation?
+I am leaving that lecture alone, and the reason is that it proves too much. Anything at all can be made to look late if you get to pick the finishing line afterwards.
+
+One document instead.
+
+On the twenty-first of April 2021, the European Commission published its proposal for the Artificial Intelligence Act. It has a reference number you can find it by — C-O-M, twenty twenty-one, two-oh-six — and it is a fixed, public text that anyone can still read today. In that proposal, the Commission defined an AI system by pointing at a list. An annex set out techniques and approaches, and a thing was an AI system if it had been built using one of them.
+
+That is a genuinely reasonable way to draft, and it is worth saying why before saying what went wrong with it. A list of methods is precise. An engineer can check it. A court can apply it without hiring anybody. Its one weakness is that it is a photograph. It is accurate about the state of the art on the day the shutter closed, and about no other day.
+
+Nineteen months after that document, at the end of November 2022, OpenAI released ChatGPT. The thirtieth of November is the date universally reported, and I am taking it from the way it is universally reported rather than from a source I have put my own hands on. Nothing that follows turns on the day.
+
+What everything turns on is the gap.
+
+Nineteen months.
+
+In the text Europe started with, the chapter on general-purpose models is not a weaker version of the one in the Act today. It is not there at all. The entire apparatus that now governs models trained to do a wide range of different things — the obligations on their makers, the tier for the largest of them, the decision to supervise them centrally rather than nationally — went in afterwards, because of what happened during those nineteen months.
+
+{pause: 1.6}
+
+Europe wrote a definition. Then the thing it was defining changed shape underneath it, before the law had finished being made.
+
+## Collingridge {tone: contemplative}
+
+The sharpest statement of that difficulty is forty-six years old, and it is not about software at all.
+
+In 1980, David Collingridge published a book called *The Social Control of Technology*. The sentence he is remembered for runs roughly like this — and I am giving you its sense rather than his exact words, because I have not put the book in front of me. While a technology is young and still easy to change, nobody can yet see what it will do, so nobody knows what to change. By the time its effects are obvious, it has been woven into everything, and changing it has become slow, costly and politically hard.
+
+Take that apart into its two halves, because the structure matters more than the phrasing.
+
+Early: you have the power, but you are ignorant. Late: you have the knowledge, but you have lost the power.
+
+There is no third door. That is what makes it a dilemma rather than a grumble about slow government. The claim is about information and leverage, not about lazy or captured regulators: what you need in order to know, and what you need in order to act, arrive at different times and never overlap.
+
+Collingridge was writing after asbestos, after nuclear power — technologies that got a proper regime only once the harm was countable.
+
+So. If you believed him, what would you build? {pause: 1.8}
+
+You would stop trying to get the rule right. You would build a rule that can be changed without starting again.
+
+Which is very close to what the Act actually does. It carries a power to add new categories to its own high-risk list — high risk being the tier that carries the heavy obligations. It carries a standing power for the Commission to amend parts of the Regulation by what is called a delegated act. That is an instrument the Commission adopts on its own, under authority the legislature handed over in advance. Parliament and Council keep a right to object to any particular one, and a right to take the delegation back altogether — but short of using either, they are not in the room when the text changes. And the Act carries a duty to evaluate itself on a clock and report what it finds.
+
+Those are a Collingridge answer, whether or not anybody drafting them had read him.
+
+## The other clock {tone: measured}
+
+The second position shares its name with this episode, and it is not the same claim.
+
+In 2009 Larry Downes published *The Laws of Disruption*, and the line he is known for runs — quotation — "technology changes exponentially, but social, economic, and legal systems change incrementally." End of quotation. Two years after that, a collection of essays gave the idea its label: Gary Marchant, Braden Allenby and Joseph Herkert edited a volume for Springer in 2011 called *The Growing Gap Between Emerging Technologies and Legal-Ethical Oversight*. Its subtitle is *The Pacing Problem*.
+
+Put plainly: two clocks, running at different speeds, with the distance between them widening rather than closing.
+
+Now notice what that implies, because it points the other way from Collingridge. If the gap is permanent and growing, then any rule with a fixed number in it is obsolete the moment the technology steps over the number. So you should prefer principles to thresholds, and regulators with discretion to lines written in the text.
+
+Collingridge says: regulate early, and expect to be wrong.
+
+The pacing problem says: never write down anything a technology can outrun.
+
+Both are good advice. They are not compatible.
+
+Which one do you think the Act took? {pause: 1.4}
+
+It took both, in adjacent paragraphs of one article. Article 51 is where the heaviest obligations on general-purpose models get switched on. Not the general-purpose tier itself — a model is in that tier because of how general it is and how wide a range of tasks it can competently perform, and there is no number in that at all. Article 51 is about the sub-tier above it: the models judged to carry risk at the scale of the whole market. And that article does contain a fixed figure, a count of the arithmetic operations used to train a model.
+
+But the figure is not the test. The test is capability. The figure is the Act's stand-in for capability, and it works as a presumption: cross it, and you are taken to be in the top tier unless you can argue your way back out. The Commission can also reach in the other direction and designate a model that never crossed the figure at all.
+
+And the paragraph immediately after the figure gives the Commission the power to move the figure.
+
+A stand-in for a capability, and a power to change the stand-in. The pacing problem answered in one paragraph, Collingridge answered in the next. That is a serious piece of drafting. It is also a hedge, twice over. You should hear it as both at once.
+
+## Lex Informatica {tone: lucid}
+
+Third position, and this is the one that changes what you look at.
+
+In February 1998, in volume 76 of the Texas Law Review, Joel Reidenberg published a paper called *Lex Informatica*. A year later Lawrence Lessig published *Code and Other Laws of Cyberspace*, revised in 2006 as *Code: Version 2.0* — and it is from Lessig that most people know the compressed form of the idea. Code is law.
+
+Reidenberg got there first, and it is worth saying his name when the idea comes up.
+
+The claim underneath both of them is structural. What actually stops you doing something is hardly ever the rule forbidding it. It is the design of the thing you are using. A door that will not open constrains you more reliably than a sign saying do not enter, and it needs no court, no inspector, and no cooperation from you. Technical capability sets rules that behave like law, enforced by the plain fact that the alternative is unavailable.
+
+If that is right, then a regulator who wants effect should specify the architecture, not the conduct.
+
+And once you are listening for it, the Act is full of Lessig in the places where it never says his name. It requires a high-risk system to be built so that it automatically records what it did. It requires synthetic content to be marked in a way a machine can detect. It requires technical documentation to exist before a system is placed on a market at all.
+
+None of those instruct a human being to behave well. Each of them changes what the system *is*, so that behaviour becomes checkable — or impossible — later.
+
+So we have three answers on the table. Build in the power to change your mind. Prefer principles to numbers. Or regulate the thing, rather than the person using it.
+
+## The refusal, taken seriously {tone: pointed}
+
+The fourth answer says all three of those are mistakes. It is the one we opened on.
+
+Easterbrook deserves better than the caricature, so take his position at full strength. He is not saying new technology causes no harm. He is saying a statute named after a technology carries two defects, and both are practical.
+
+It dates. The name in the title fixes it to a moment, and moments pass — which is the nineteen months, in advance, from 1996.
+
+And it duplicates. Nearly every harm you can point to is already a harm under law that already exists, developed over centuries, tested in thousands of cases, and not tied to any particular machine.
+
+So what would taking him seriously actually cost? Be concrete about it, because the bill is large. Four things go.
+
+No definitional gate — nothing to be inside or outside of. No tier of practices forbidden in advance, before anyone is hurt. No conformity assessment and no mark on the product saying it was checked. And the big one: no duty on anybody at all until after the thing has injured someone, at which point an injured person sues, or a prosecutor prosecutes, using the ordinary law.
+
+Lessig's reply of 1999 is the ablest answer to that, and it is the answer I would give. Studying the new thing is how you notice the architecture doing the regulating. If you never look at it, you will go on applying rules to conduct while the real constraint sits somewhere you have never once inspected.
+
+## Is the pacing problem real? {tone: curious}
+
+Now the awkward part, said out loud rather than left in the footnotes.
+
+Everything in the second position rests on a single sentence: technology moves faster than law. That sentence is doing two different jobs, and it is worth separating them.
+
+The first job is analytic. It is a claim about rates of change, and a claim about rates of change can be examined.
+
+It has been. In 2023, William Aspray and Philip Doty published a paper in the Journal of the Association for Information Science and Technology, volume 74, asking the question head-on: does technology really outpace policy, and does it matter? The paper does not assume the answer. It lays out the arguments for the outpacing claim and weighs whether the belief survives inspection. That the framing is contested by people who study it is a fact about the literature, not an opinion of mine.
+
+The second job is political. "It moves too fast to regulate" has been, for twenty years, the single most useful sentence available to anyone who would rather not be regulated. If the law is always going to be obsolete, then the responsible course is to wait — and waiting was the preferred outcome anyway.
+
+But that is not a reason to throw the argument out, because serious people make it in good faith. Adam Thierer, at the Mercatus Center, has written on the pacing problem, on Collingridge, and on what he calls permissionless innovation, in public and under his own name.
+
+Both things are true together. It is a real claim, and it is a convenient one. Say so, and then go and examine the claim anyway.
+
+## Where I come down, and what is wrong with it {tone: pointed}
+
+A local judgement now, marked as mine.
+
+I think the pacing framing is weaker than it sounds, and my reason is arithmetic about this particular law.
+
+The most famous timing failure in the AI Act's short life is the deferral. The heavy regime for high-risk systems was supposed to start applying in August 2026. It now starts on the second of December 2027 — sixteen months later — and the route for systems embedded in already-regulated products was pushed back a year of its own, to August 2028. Almost everyone describes that as the law failing to keep up with the technology.
+
+But look at what actually moved the date. It was not a model release. It was not a capability that nobody saw coming. The technical standards the high-risk regime runs on — the documents that tell a manufacturer what compliance concretely looks like — were not going to be finished in time. So the law was moved to fit the standards.
+
+That is not technology outrunning institutions. That is one institution outrunning another, and both of them are institutions with committees and calendars.
+
+Why that particular committee ran late is a whole episode, and it is not this one.
 
 {pause: 1.4}
 
-The documentation. Logging and marking live in the artefact; if everyone at the provider decided tomorrow to ignore them, the log would still be written and the mark would still be in the file. Documentation only exists while someone maintains it. That difference is the whole of Lessig's point, sitting inside one statute.
+And now the strongest objection to everything I have just said. It is my own opening fact.
 
-What does it cost? Two things. You need a regulator who can read an artefact, which is a much scarcer capability than a regulator who can read a file. And you have written engineering practice into law, which means the law now ages at the speed of engineering practice.
+Nineteen months. A definition built on a list of techniques, and then a product arriving that made an entire new chapter necessary. No committee did that. If you wanted a clean case of a technology moving faster than a legislature could finish writing about it, I handed it to you myself, twenty minutes ago, and I cannot take it back.
 
-## Position four: do not name the animal {tone: pointed}
-
-Which returns us to Easterbrook, and to what taking him seriously would actually mean.
-
-The objection is analytic, whatever else he may be. A statute that names a technology dates from the day it is signed, because the name stops fitting. It teaches you nothing general. And it hands a structural gift to whoever was already large when it passed, because a compliance apparatus is a fixed cost, and a fixed cost is a wall.
-
-So: regulate outcomes. If a hiring system discriminates, that is discrimination law, which exists. If a chatbot misleads a customer into a loss, that is contract and misrepresentation, which exist. If a product injures someone, that is product liability, which exists. Let the general law reach the harm, and do not build a bespoke regime around a word that will mean something different in six years.
-
-Take that seriously and you get a world with no definitional gate, no risk tiers, no CE mark on software — the CE mark being the stamp that says a product has been through the Union's conformity machinery — and no duty on anybody until after somebody has been hurt.
-
-That last clause is the cost, and there is a question inside it. On Easterbrook's approach, when a system quietly sorts people into worse outcomes, who has to notice it first?
-
-{pause: 1.4}
-
-The person it sorted. Who was very likely never told there was a system. They then have to work out what caused the outcome, identify who is responsible, and sue. Whether the ordinary law actually reaches these harms — liability, redress, who pays — is a large enough question that this series does not attempt it. It is the subject of the third series, *Who Pays*. I name it rather than gesture at it.
-
-Europe named the animal.
-
-## Where I come down, and the strongest thing against it {tone: contemplative}
-
-Of the four, the one I find most persuasive as a description of reality is Lessig's. What constrains behaviour is overwhelmingly the built environment, and a regulator who ignores that is writing letters to a building.
-
-The strongest objection to that, and I want it on the table before I say anything more in its favour, is Easterbrook's — and it bites harder against Lessig than against anyone else here. Of everything you can put in a statute, an architectural requirement dates fastest. A rule that says *behave fairly* survives a change of technique. A rule that says *mark the output in a machine-readable way* is premised on marking being technically meaningful, and on its staying meaningful. If that premise weakens, the duty does not notice. It stays in force, still enforceable, still auditable, now measuring nothing. You are left with a requirement that produces documentation of a property rather than the property.
-
-That is the price of the position, and you should hear the price named by the person recommending it.
-
-## Is the pacing problem even real {tone: wry}
-
-One more disagreement, and it is the awkward one.
-
-Is any of this true? Does technology actually outpace policy?
-
-William Aspray and Philip Doty went at that question directly, in the Journal of the Association for Information Science and Technology, in 2023, under the title *Does technology really outpace policy, and does it matter?* Their move is to treat the outpacing claim as a proposition to be examined rather than as a background fact — to set out what supports it, and to ask whether the belief survives contact with the evidence. When this episode says the framing is contested, that is the paper it means.
-
-And on the other side, in good faith, Adam Thierer of the Mercatus Center, who has written at length on the pacing problem, on Collingridge, on soft law for hard problems, and on what he calls permissionless innovation. He is the ablest defender of the view that the gap is real and that the right response is restraint.
-
-Now the part it would be easy to leave out.
-
-The sentence *technology moves too fast for law* is a serious analytic claim. It is also the deregulatory position's single best argument, and it is doing both jobs in the same breath every time anyone says it. That does not make it false. Arguments are not refuted by the company they keep. But you should know, when it is offered to you, that it arrives already pointing somewhere — and that the person offering it may not have noticed.
+So: one clear instance of the pacing problem, and one famous instance that turns out to be something else wearing its clothes. Hold both, and stop treating the phrase as a verdict.
 
 ## Where it stands {tone: measured}
 
-It does not resolve, and I am not going to pretend otherwise.
+Three things, each with its status attached, because the statuses are not the same.
 
-What is settled is that the four positions are all live and that the Act contains three of them. What is contested is whether the gap is as wide as the pacing-problem literature claims. What is still moving is the question this series will eventually have to answer: whether building the correction into the instrument actually solves the Collingridge dilemma, or only postpones it.
+Whether technology systematically outpaces policy: contested. Named people on both sides, and the disagreement was live in the literature as recently as 2023.
 
-And there is a test running right now. High-risk is the Act's heaviest tier of systems that are still permitted — episode four builds it from the ground up. As things stand in September 2026, the obligations for the main class of those systems apply from December 2027, having been moved back by an amending regulation in the summer of this year. Why it moved is episode eight's subject and I will leave it there. But the test is simple, and you can watch it without me. If a deadline can be moved once because the supporting machinery is not ready, the interesting question is whether it can be moved twice.
+Whether the Act's design answers Collingridge: still moving — and unusually, there is a date on it. The Act's bet is that you write the rule early, keep the power to change it, and stage when the parts switch on. December 2027 is when the heaviest part is due to arrive. If it applies then, the bet paid off. If the date moves again, the answer is different, and every one of us will be able to see it.
 
-If it is moved again, staged application did not solve Collingridge. It rebranded him.
+And the third thing nobody can settle from an armchair: whether a delegated power to move a threshold is a real repair, or a polite way of postponing the argument to a room with fewer people in it. More guidance than that may simply not be available yet. That is an answer. It is not a failure to find one.
 
-## What you now ask {tone: pointed}
+## What you now ask {tone: warm}
 
-Four questions, and they work on any regulated technology, not only this one.
+You came in with no statute, and you leave with questions instead. That is what this kind of episode is for.
 
-Is this rule drawn where the technology is, or where it was when drafting started? Find the date on the drafting and the date on the thing, and look at the distance.
+The first one works on any rule, in any field. Is this drawn where the technology is now, or where it was when the drafting started? Find the date the text was fixed. Then ask what happened after it.
 
-What in this instrument can change without reopening the statute — and who holds that power? Every delegated power is a forecast that something will need fixing, and a decision about who gets to fix it.
+The second is the one I would keep if I could only keep one. What in this instrument can change without reopening the statute — and who holds that power? Every serious modern regulation has moving parts and fixed parts. Working out which is which tells you who actually governs the thing, and it is very often not the parliament that passed it.
 
-Is the constraint here a rule about the system, or a requirement built into the system? The second kind binds harder and ages faster.
+The third comes from Reidenberg and Lessig. Is the constraint here a rule about the system, or something built into it? One of those you can break and be caught afterwards. The other you cannot break at all, and nobody ever voted for it.
 
-And: would the ordinary law have reached this harm anyway? If the answer is yes, then what the new statute buys you is speed and clarity. That is a real good. It should be defended as that, and not as protection you would otherwise have gone without.
+I will reach back for this tool three times. In Episode 4, where the Act fixes risk at design time and then has to live with the consequences. In Episode 8, where the standards story finally gets told properly. And in Episode 9, where a fixed figure stands in for a capability nobody can measure directly. You do not need to hold those numbers. They will announce themselves when they arrive.
 
-Next time we go back inside the text, and to the most practical question the Act asks. Before you can put a duty on anyone, you have to say who. Provider, deployer, importer, distributor — the Act has a fixed set of answers, and an airline once stood up in a tribunal and argued for one that is not on the list.
+{pause: 1.2}
 
-## Sources {tone: neutral}
+One last thing, and it is the handover.
 
-Frank Easterbrook, *Cyberspace and the Law of the Horse*, in the University of Chicago Legal Forum for 1996 — freely available, and short. Lawrence Lessig's reply, *The Law of the Horse: What Cyberlaw Might Teach*, Harvard Law Review volume 113, 1999, and his book *Code: Version 2.0*. Joel Reidenberg, *Lex Informatica*, Texas Law Review, 1998. David Collingridge, *The Social Control of Technology*, 1980. Larry Downes, *The Laws of Disruption*. The Springer collection edited by Gary Marchant, Braden Allenby and Joseph Herkert, *The Growing Gap Between Emerging Technologies and Legal-Ethical Oversight*. And William Aspray and Philip Doty's 2023 paper on whether technology really outpaces policy.
+Suppose you decide to regulate anyway. Suppose you accept that the rule will be imperfectly timed, that some of it will date, and you write it regardless. Before you can impose a single duty on anybody, you have to answer a question that sounds trivial and is not.
+
+Who is responsible?
+
+The Act has an answer. It has two that carry the weight — and an airline once stood up in front of a tribunal and argued for a third.
+
+Back inside the text.
+
+---
+
+**Notes to the producer.**
+
+**The single fact-check still could not be run.** The plan assigns Episode 2 its one verification to the ChatGPT release date, from OpenAI's own announcement rather than from the docket. `WebFetch` and `WebSearch` remain denied in this session, so openai.com is unreachable. The docket's ⚠ has not been upgraded: the script states the date, says on air that it comes from universal reporting rather than from a source I checked, and immediately adds that nothing in the argument turns on the day. The load-bearing quantity is the nineteen-month gap, whose other endpoint — the Commission proposal of 21 April 2021 — is verified in the docket against EUR-Lex. If the check gets made, deleting one clause is the whole edit.
+
+**Notes on the blocking fix.** The Article 51 passage now separates three things the previous draft ran together: the general-purpose tier (generality and task range, no figure), the systemic-risk sub-tier above it, and the compute figure as a rebuttable presumption of the capability criterion — plus the Commission's power to designate a model below it. The "a number, and a power to change the number" beat survives as "a stand-in for a capability, and a power to change the stand-in", and the hedge reading is now doubled, which is stronger. Episode 9's transfer question is left intact.
+
+**Everything else in the improvement list is applied**, including the swap of the third transfer question to the architecture one. The one item I did not take wholesale: the fourth pointer's second sentence is cut as instructed, and the first sentence is reworded so it no longer shares a construction with the other two deferrals.
+
+Length is about 3,600 words against a 3,400 guide — roughly 27 to 28 minutes.

@@ -169,6 +169,7 @@ def author_episode(
     *,
     runner,
     persona: Persona | None = None,
+    lint_context: dict | None = None,
     trace: Trace | None = None,
     run: Run | None = None,
     max_rounds: int = 3,
@@ -210,7 +211,23 @@ def author_episode(
             )
             run.write_index()  # persist per round so a live viewer sees each round land
 
-        eprompt = f"BRIEF:\n{brief}\n\nTRANSCRIPT:\n{transcript}"
+        # Hand the editor the deterministic counts rather than asking it to count. It cannot:
+        # episode 2 came back `ready` with four forward references against a budget of three
+        # and one inside the opening five minutes, both of which it is explicitly told to
+        # count. A model judges well and tallies badly, so tally for it.
+        measured = ""
+        if lint_context is not None:
+            from prosodia.author.scriptlint import lint_script
+
+            findings = lint_script(transcript, **lint_context)
+            if findings:
+                measured = (
+                    "MEASURED ON THIS DRAFT (counted mechanically — trust these over your own\n"
+                    "counting, and treat every `error` line as BLOCKING):\n"
+                    + "\n".join(f.render() for f in findings)
+                    + "\n\n"
+                )
+        eprompt = f"{measured}BRIEF:\n{brief}\n\nTRANSCRIPT:\n{transcript}"
         _, verdict = runner.run(eprompt, system=editor_sys, schema=EDITOR_SCHEMA)
         # A missing/unparseable verdict is treated as ready (deliberate — don't wedge on a
         # flaky editor), but record WHY so it isn't a silent pass in the trace.

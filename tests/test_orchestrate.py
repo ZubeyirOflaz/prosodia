@@ -170,3 +170,27 @@ def test_author_episode_run_flags_unresolved_loop(tmp_path):
     # and the fix pass is recorded as its own writer round, after that verdict
     last_write = [e for e in run.events() if e.stage == "write"][-1]
     assert last_write.round == 4
+
+
+def test_the_editor_is_handed_the_counts_rather_than_asked_to_count():
+    """Episode 2 came back `ready` with four forward references against a budget of three,
+    and one inside the opening five minutes — both things the editor is explicitly told to
+    count. A model judges well and tallies badly, so the tally is done for it."""
+    draft = "---\nepisode: 1\n---\n\n## B\n" + ("Filler. " * 900) + (
+        "We meet that in Episode 4. Episode 7 takes it up. Episode 9 has it. Episode 12 lands it."
+    )
+    runner = FakeRunner(drafts=[draft], verdicts=[{"ready": True, "notes": "ok"}])
+    author_episode("BRIEF", runner=runner, max_rounds=1,
+                   lint_context={"episode": 1, "target_minutes": 27})
+    editor_prompt = next(p for k, p in runner.calls if k == "schema")
+    assert "MEASURED ON THIS DRAFT" in editor_prompt
+    assert "forward-refs" in editor_prompt
+    assert "treat every `error` line as BLOCKING" in editor_prompt
+
+
+def test_no_lint_context_means_no_measurement_block():
+    runner = FakeRunner(drafts=["## d1"], verdicts=[{"ready": True, "notes": "ok"}])
+    author_episode("BRIEF", runner=runner, max_rounds=1)
+    editor_prompt = next(p for k, p in runner.calls if k == "schema")
+    assert "MEASURED ON THIS DRAFT" not in editor_prompt
+    assert editor_prompt.startswith("BRIEF:")

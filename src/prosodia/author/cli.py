@@ -696,10 +696,17 @@ def _cmd_write(args: argparse.Namespace) -> int:
     epdir = proj / "episodes" / ep.get("slug", f"ep{ep['n']}")
     epdir.mkdir(parents=True, exist_ok=True)
     run = Run(epdir / "run")
+    research_files = sorted((proj / "research").glob("*.md")) if (proj / "research").is_dir() else []
     transcript = author_episode(
         # 30-min per-role timeout: long episodes' writer passes can exceed the 20-min default.
         brief, runner=ClaudeRunner(extra_dirs=(str(proj),), timeout=1800), persona=persona,
         run=run, max_rounds=args.max_rounds,
+        lint_context={
+            "episode": ep["n"],
+            "target_minutes": target_minutes,
+            "banned": list(persona.defaults.freshness_watchlist),
+            "docket": "\n".join(f.read_text(encoding="utf-8") for f in research_files),
+        },
     )
     out = epdir / "transcript.md"
     # Refuse to overwrite a good transcript with a degenerate one. An empty or refusal

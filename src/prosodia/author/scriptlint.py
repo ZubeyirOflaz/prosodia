@@ -48,7 +48,28 @@ _BREATH = re.compile(r"(?m)\{pause[^}]*\}|^##|\?")
 # "But" in a script whose persona requires "but" to carry every turn. Spoken register opens
 # with conjunctions; what is worth flagging is the construction, not the frequency.
 _FRAGMENT = re.compile(r"(?m)(?:^|(?<=[.!?]\s))(Which|Who|Whose|Whereas)\s")
-_LIST_RUN = re.compile(r"(?:[^.;:]+?[,;]\s+){3,}(?:and|or)\s+[^.;:]+[.;:]")
+def _enumerations(body: str) -> list[str]:
+    """Sentences that read a LIST aloud: four or more short parallel items.
+
+    The first version matched any sentence with three commas and an "and", which is most
+    prose — "Three years later, in volume 113 of the Harvard Law Review, Lawrence Lessig
+    answered him, and..." was reported as an enumeration. What distinguishes a list is that
+    the segments are short and parallel, not that commas are present.
+    """
+    out = []
+    for sent in _SENTENCE.findall(body):
+        parts = [p.strip() for p in re.split(r",|;", sent) if p.strip()]
+        if len(parts) < 4:
+            continue
+        short = [p for p in parts if len(re.findall(r"[A-Za-z']+", p)) <= 5]
+        # a run of at least four short segments, consecutive, is a list being read out
+        best = run = 0
+        for p in parts:
+            run = run + 1 if p in short else 0
+            best = max(best, run)
+        if best >= 4:
+            out.append(re.sub(r"\s+", " ", sent).strip())
+    return out
 
 
 @dataclass
@@ -143,7 +164,7 @@ def lint_script(transcript: str, *, episode: int | None = None,
                            f"{early} episode reference(s) in the first five minutes"))
 
     # --- enumeration: no list read aloud ---
-    runs = _LIST_RUN.findall(body)
+    runs = _enumerations(body)
     if runs:
         sample = re.sub(r"\s+", " ", runs[0]).strip()[:90]
         out.append(Finding(WARN, "enumeration",
