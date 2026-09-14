@@ -236,6 +236,9 @@ def _cmd_script_lint(args: argparse.Namespace) -> int:
 
     # The persona's freshness watchlist is a ban list; until now nothing in the pipeline read it.
     banned = list(persona.defaults.freshness_watchlist) if persona else []
+    docket = ""
+    if proj and (proj / "research").is_dir():
+        docket = "\n".join(f.read_text(encoding="utf-8") for f in sorted((proj / "research").glob("*.md")))
 
     if args.transcripts:
         targets = [(None, Path(t)) for t in args.transcripts]
@@ -252,7 +255,7 @@ def _cmd_script_lint(args: argparse.Namespace) -> int:
         print(f"\n{path}")
         findings = lint_episode_file(
             path, episode=n, target_minutes=(planned.get(n) or {}).get("target_minutes"),
-            banned=banned,
+            banned=banned, docket=docket,
         )
         for f in findings:
             print(f.render())

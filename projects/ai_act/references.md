@@ -12,13 +12,12 @@ relies on could not be found in `research/`, it is marked so rather than omitted
 
 **Provisions cited in the episode**
 
-- Article 1
 - Article 3
 - Article 2
 
 **People, bodies and instruments named aloud**
 
-EUR-Lex, Criminaliteits Anticipatie Systeem, Nederlandse Politie.
+Criminaliteits Anticipatie Systeem, Michael Veale, Frederik Zuiderveen Borgesius.
 
 **What the episode was built on** *(from the plan)*
 
@@ -102,7 +101,6 @@ Regulation (EU) 2024/1689, EUR-Lex, Jake Moffatt, Christopher C. Rivers, Civil R
 
 ## Where each provision is taught or cited
 
-- **Article 1** — episode 1
 - **Article 2** — episode 1
 - **Article 3** — episodes 1, 3
 - **Article 6** — episode 3

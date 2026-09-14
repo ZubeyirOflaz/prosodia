@@ -13,6 +13,7 @@ times an episode.
 
 from __future__ import annotations
 
+import itertools
 import re
 import statistics
 from dataclasses import dataclass
@@ -38,6 +39,15 @@ _RECAP = re.compile(
     r"\btwo things\b|\bthree things\b|\bwe have established\b"
 )
 _SENTENCE = re.compile(r"[^.!?]+[.!?]")
+# Places a listener is given a moment: an authored silence, a beat boundary (which the
+# renderer realises as real silence), or a question put to them.
+_BREATH = re.compile(r"(?m)\{pause[^}]*\}|^##|\?")
+# A relative clause punctuated as a sentence — "Which leaves the load-bearing word." It is
+# idiomatic once or twice in speech and a tic beyond that. A GENERIC repeated-opener count was
+# tried first and was pure noise: it flagged sixteen sentences opening "And" and five opening
+# "But" in a script whose persona requires "but" to carry every turn. Spoken register opens
+# with conjunctions; what is worth flagging is the construction, not the frequency.
+_FRAGMENT = re.compile(r"(?m)(?:^|(?<=[.!?]\s))(Which|Who|Whose|Whereas)\s")
 _LIST_RUN = re.compile(r"(?:[^.;:]+?[,;]\s+){3,}(?:and|or)\s+[^.;:]+[.;:]")
 
 
@@ -65,9 +75,32 @@ def _num(word: str) -> int | None:
     return int(word) if word.isdigit() else names.get(word.lower())
 
 
+def _unbracketed_quotations(body: str, docket: str) -> list[str]:
+    """Runs of the docket's exact words that the script speaks without marking as a quotation.
+
+    The persona requires quoted text to be audibly bracketed, because the listener cannot see
+    quotation marks. One editorial round caught a provision spoken near-verbatim without them;
+    nothing mechanical was watching for it.
+    """
+    dn = re.sub(r"[^a-z0-9 ]", " ", docket.lower())
+    dn = re.sub(r"\s+", " ", dn)
+    hits = []
+    for sent in _SENTENCE.findall(body):
+        if '"' in sent or "\u201c" in sent:
+            continue
+        words = re.findall(r"[A-Za-z']+", sent)
+        for i in range(max(0, len(words) - 9)):
+            window = " ".join(w.lower() for w in words[i:i + 10])
+            if window in dn:
+                hits.append(sent.strip()[:110])
+                break
+    return hits
+
+
 def lint_script(transcript: str, *, episode: int | None = None,
                 target_minutes: int | None = None,
-                banned: list[str] | None = None) -> list[Finding]:
+                banned: list[str] | None = None,
+                docket: str = "") -> list[Finding]:
     body = spoken_body(transcript)
     # Keep the match POSITIONS, not just the tokens: slicing the head and tail out of a
     # re-joined token list silently drops every digit, so "Episode 7" became "Episode" and
@@ -139,6 +172,36 @@ def lint_script(transcript: str, *, episode: int | None = None,
         if n:
             out.append(Finding(WARN, "banned-phrase", f'"{phrase}" x{n} (series watchlist)'))
 
+    # --- attention: how long the listener goes with no pause and no question ---
+    #
+    # Beat titles and directives are stripped from `body`, so this measures the RAW script:
+    # an editorial round found a 730-word stretch — five and a half minutes — with neither a
+    # silence nor a retrieval question in it, which is where a travelling listener is lost.
+    raw = transcript.split("---", 2)[-1] if transcript.lstrip().startswith("---") else transcript
+    marks = [0] + [m.start() for m in _BREATH.finditer(raw)] + [len(raw)]
+    worst, where = 0, 0
+    for a, b in itertools.pairwise(marks):
+        n = len(re.findall(r"[A-Za-z']+", raw[a:b]))
+        if n > worst:
+            worst, where = n, a
+    if worst > 450:
+        out.append(Finding(WARN, "no-breath",
+                           f"{worst} words (~{worst / _WORDS_PER_MINUTE:.1f} min) with no pause, "
+                           f"beat break or question: \"...{re.sub(chr(10), ' ', raw[where:where + 70]).strip()}...\""))
+
+    # --- a construction used often enough to become a tic ---
+    frags = [m.group(1) for m in _FRAGMENT.finditer(body)]
+    if len(frags) >= 3:
+        out.append(Finding(WARN, "fragment-tic",
+                           f"{len(frags)} sentences are relative clauses punctuated as sentences "
+                           f'("{frags[0]} ...") — idiomatic twice, a tic beyond'))
+
+    if docket:
+        for sent in _unbracketed_quotations(body, docket):
+            out.append(Finding(WARN, "unbracketed-quote",
+                               f'speaks ten or more of the instrument\'s exact words without '
+                               f'marking them as a quotation: "{sent}..."'))
+
     # --- rhythm ---
     lens = [len(re.findall(r"[A-Za-z']+", s)) for s in _SENTENCE.findall(body)]
     lens = [n for n in lens if n]
@@ -155,6 +218,6 @@ def lint_script(transcript: str, *, episode: int | None = None,
 
 def lint_episode_file(path: Path, *, episode: int | None = None,
                       target_minutes: int | None = None,
-                      banned: list[str] | None = None) -> list[Finding]:
+                      banned: list[str] | None = None, docket: str = "") -> list[Finding]:
     return lint_script(path.read_text(encoding="utf-8"), episode=episode,
-                       target_minutes=target_minutes, banned=banned)
+                       target_minutes=target_minutes, banned=banned, docket=docket)

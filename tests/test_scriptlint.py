@@ -79,3 +79,38 @@ def test_rhythm_is_reported_and_written_register_flagged():
         "applies to a class of systems that nobody had yet defined with any precision. " * 12
     )
     assert "rhythm" in codes(lint_script(long), WARN)
+
+
+def test_a_long_stretch_with_no_pause_or_question_is_flagged():
+    """A travelling listener needs somewhere to breathe and somewhere to re-engage.
+
+    A beat boundary counts: the renderer realises `##` as real silence, so a script that
+    changes beat has given the listener the same thing an authored pause gives them.
+    """
+    solid = HEAD + "## B\n" + ("The rule applies to the system. " * 120)   # ~600 words, no break
+    assert "no-breath" in codes(lint_script(solid), WARN)
+    broken = HEAD + "## B\n" + ("The rule applies. " * 60) + "\n\n## C\n" + ("It does not. " * 60)
+    assert "no-breath" not in codes(lint_script(broken), WARN)
+    asked = HEAD + "## B\n" + ("The rule applies. " * 60) + " Did it infer? " + ("It did. " * 60)
+    assert "no-breath" not in codes(lint_script(asked), WARN)
+
+
+def test_relative_clause_fragments_are_flagged_but_ordinary_openers_are_not():
+    """A generic repeated-opener count was tried first and was pure noise — it flagged
+    sixteen sentences opening "And" in a script whose persona requires "but" to carry every
+    turn. Spoken register opens with conjunctions; the construction is what matters."""
+    frags = HEAD + "## B\nWhich leaves the word. Which sends you on. Which is to say this."
+    assert "fragment-tic" in codes(lint_script(frags), WARN)
+    conjunctions = HEAD + "## B\n" + "And it applies. But it does not. So we ask. And again. " * 4
+    assert "fragment-tic" not in codes(lint_script(conjunctions), WARN)
+
+
+def test_near_verbatim_instrument_text_must_be_bracketed():
+    """The listener cannot see quotation marks, so unmarked quotation sounds like narration."""
+    docket = ("Testing in real world conditions shall not be covered by that exclusion, and the "
+              "provider shall ensure compliance.")
+    unmarked = HEAD + "## B\nTesting in real world conditions shall not be covered by that exclusion."
+    assert "unbracketed-quote" in codes(lint_script(unmarked, docket=docket), WARN)
+    marked = HEAD + '## B\nThe Act says: "Testing in real world conditions shall not be covered by that exclusion."'
+    assert "unbracketed-quote" not in codes(lint_script(marked, docket=docket), WARN)
+    assert "unbracketed-quote" not in codes(lint_script(unmarked), WARN)  # no docket, no check
