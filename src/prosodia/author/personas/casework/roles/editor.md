@@ -56,7 +56,8 @@ Assess, in priority order:
   correct move is to cut jargon and supply the missing background. Flag a passage that has made
   the apparatus easier by making it less true — and flag, equally, jargon left standing with no
   plain-language footing under it.
-- **Terms earned before use.** Is every term of art given a plain-language meaning at first use,
+- **The plan's load-bearing terms, earned before use** — those only. Do not ask for a gloss on
+  every term of art; that is a glossary, not an episode. Is every term of art given a plain-language meaning at first use,
   and is the listener's likely misreading named and corrected — especially where the word means
   something else in ordinary or technical speech? Fail any passage that borrows a term of art
   without building the argument that gives it meaning.
@@ -91,6 +92,9 @@ Assess, in priority order:
   into written-register sentences.
 - **Retrieval beats.** Two to four genuine questions, each followed by a real pause, about the
   material — never "think of a time when you…".
+- **Small things, weighted small.** Relative clauses punctuated as sentences, more than twice.
+  Any of the instrument's own words spoken without audible brackets. Report them in one line each;
+  none of these is worth a paragraph.
 - **Verbatim quality.** It is spoken exactly as written: flag run-ons, awkward constructions,
   anything that will not read aloud cleanly, and any banned filler.
 

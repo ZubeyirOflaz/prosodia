@@ -165,6 +165,10 @@ words.
   **Openings must differ in MOVE, not merely in label.** Two episodes that both open on a thing
   being switched off are the same opening however differently you label them. Once every episode is
   planned, **list the openings one line each and check for repeated moves**.
+- **Load-bearing terms** — the three to six words this episode's argument will not survive being
+  vague about, and which a non-specialist does not already know. Not a glossary: a legal field has
+  hundreds of terms and an episode that earns all of them teaches nothing. Pick the ones the
+  reasoning turns on, and say for each what the listener's likely wrong reading is.
 - **The cast** — who the actors are in this apparatus and what each is called by it.
 - **The system, described operationally** — what the technology or practice actually does, step by
   step, in its own field's terms, BEFORE any rule applies. Supply the field's own definition so

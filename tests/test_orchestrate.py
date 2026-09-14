@@ -39,10 +39,39 @@ def test_author_episode_loops_until_ready():
     assert "fix the opening" in second_writer_prompt
 
 
-def test_author_episode_stops_at_max_rounds():
-    runner = FakeRunner(drafts=["d1", "d2", "d3"], verdicts=[{"ready": False, "notes": "n"}] * 3)
+def test_an_unresolved_loop_ends_on_a_writer_fix_not_another_review():
+    """The last editorial round is otherwise pure cost.
+
+    Its notes describe defects in the draft that is about to ship, and nothing downstream
+    acts on them — so the most expensive call in the run buys a review nobody reads. Spend
+    it on a writer pass that applies the notes instead.
+    """
+    runner = FakeRunner(
+        drafts=["## d1", "## d2", "## d3", "## fixed"],
+        verdicts=[{"ready": False, "notes": "fix the third-country variant"}] * 3,
+    )
     out = author_episode("BRIEF", runner=runner, max_rounds=3)
-    assert out == "d3"
+    assert out == "## fixed"
+    # three writer rounds, three editor rounds, then ONE writer call and no further review
+    kinds = [k for k, _ in runner.calls]
+    assert kinds == ["text", "schema"] * 3 + ["text"]
+    final_prompt = runner.calls[-1][1]
+    assert "FINAL FIX PASS" in final_prompt
+    assert "fix the third-country variant" in final_prompt
+
+
+def test_a_degenerate_final_fix_keeps_the_last_good_draft():
+    runner = FakeRunner(
+        drafts=["## d1", "## d2", ""],
+        verdicts=[{"ready": False, "notes": "n"}] * 2,
+    )
+    assert author_episode("BRIEF", runner=runner, max_rounds=2) == "## d2"
+
+
+def test_a_ready_verdict_skips_the_fix_pass():
+    runner = FakeRunner(drafts=["## d1"], verdicts=[{"ready": True, "notes": "ok"}])
+    assert author_episode("BRIEF", runner=runner, max_rounds=3) == "## d1"
+    assert [k for k, _ in runner.calls] == ["text", "schema"]
 
 
 def test_plan_series_calls_planner():
@@ -129,9 +158,15 @@ def test_author_episode_run_versions_rounds(tmp_path):
 
 def test_author_episode_run_flags_unresolved_loop(tmp_path):
     run = Run(tmp_path / "run")
-    runner = FakeRunner(drafts=["d1", "d2", "d3"], verdicts=[{"ready": False, "notes": "n"}] * 3)
+    runner = FakeRunner(
+        drafts=["## d1", "## d2", "## d3", "## fixed"],
+        verdicts=[{"ready": False, "notes": "n"}] * 3,
+    )
     author_episode("BRIEF", runner=runner, run=run, max_rounds=3)
     last_edit = [e for e in run.events() if e.stage == "edit"][-1]
     assert last_edit.status == "warn"
     assert "max_rounds" in last_edit.warnings[0]
     assert run.rollup_status() == "warn"
+    # and the fix pass is recorded as its own writer round, after that verdict
+    last_write = [e for e in run.events() if e.stage == "write"][-1]
+    assert last_write.round == 4

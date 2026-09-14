@@ -185,6 +185,8 @@ def author_episode(
     editor_sys = persona.role("editor")
     notes = ""
     transcript = ""
+    ready = False
+    note_txt = ""
     brief_art = run.write_artifact("brief.md", brief, label="brief") if run is not None else None
     for rnd in range(1, max_rounds + 1):
         wprompt = (
@@ -233,4 +235,36 @@ def author_episode(
         if ready:
             break
         notes = note_txt
+
+    if not ready and transcript.strip():
+        # A loop that ends on an editor is spending its most expensive call on a review
+        # nothing acts on: the notes describe defects in the draft that is about to ship.
+        # Spend the last call on a writer pass that applies them instead.
+        fprompt = (
+            f"{brief}\n\n"
+            "--- FINAL FIX PASS. There is no further review. ---\n"
+            "Apply the editorial notes below to your previous draft and return the corrected\n"
+            "transcript. Fix what they name and change nothing else.\n\n"
+            f"--- Editorial notes to address ---\n{note_txt}\n\n"
+            f"--- Your previous draft (revise it) ---\n{transcript}"
+        )
+        fixed, _ = runner.run(fprompt, system=writer_sys)
+        fixed = _extract_transcript(fixed)
+        kept = bool(fixed.strip()) and "##" in fixed
+        if trace:
+            trace.append("write", "writer", round=max_rounds + 1, chars=len(fixed), final_fix=True)
+        if run is not None:
+            run.write_artifact(f"stages/write.r{max_rounds + 1}/prompt.md", fprompt)
+            art = run.write_artifact(
+                f"stages/write.r{max_rounds + 1}/transcript.final.md",
+                fixed if kept else transcript, label="final fix",
+            )
+            run.event(
+                "write", "writer", round=max_rounds + 1, outputs=[art],
+                status="ok" if kept else "warn", chars=len(fixed),
+                warnings=[] if kept else ["final fix pass returned no usable transcript; kept the last draft"],
+            )
+            run.write_index()
+        if kept:
+            transcript = fixed
     return transcript

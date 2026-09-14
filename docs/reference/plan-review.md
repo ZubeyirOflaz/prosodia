@@ -96,6 +96,18 @@ read once when the brief is assembled.
 Worth fixing properly: archive each role prompt into the run alongside `brief.md`, so a
 draft can be read against the instructions that actually produced it.
 
+## The shape of the loop
+
+Writer and editor alternate until the editor's `BLOCKING` list is empty, or the round limit is
+reached — and if it is reached, the run ends on a **writer fix pass**, not on another review.
+A loop that ends on an editor spends its most expensive call producing notes that describe
+defects in the draft about to ship, which nothing downstream acts on.
+
+`prosodia script-lint` then counts what an ear-only listener has to carry: forward references
+against a budget of three, enumerations, orientation markers, long stretches with no pause or
+question, relative-clause fragments, unbracketed near-quotations, and rhythm. Like `plan-lint`,
+it exists because the editor is asked to count and an LLM cannot.
+
 ## What only a person can decide
 
 Whether the series is standalone enough; whether the verdict is right; whether a case is

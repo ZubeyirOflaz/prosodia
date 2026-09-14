@@ -433,3 +433,20 @@ def test_a_ready_verdict_leaves_no_editor_notes(tmp_path):
     with patch("prosodia.author.orchestrate.author_episode", side_effect=fake_author):
         assert cli._cmd_write(args) == 0
     assert not (proj / "episodes" / "ep01-a" / "editor-notes.md").exists()
+
+
+def test_terms_to_earn_are_a_short_load_bearing_list_not_a_glossary():
+    """A legal field has hundreds of terms; earning all of them teaches nothing.
+
+    The planner names the few the reasoning turns on, and the writer earns those.
+    """
+    p = Persona.resolve("casework")
+    planner = p.role("planner")
+    assert "Load-bearing terms" in planner
+    assert "three to six" in planner
+    assert "Not a glossary" in planner
+    writer = p.role("writer")
+    assert "Earn the plan's load-bearing terms" in writer
+    assert "not every term" in writer
+    assert "an episode that stops for all of them teaches nothing" in writer
+    assert "Do not ask for a gloss on" in p.role("editor")

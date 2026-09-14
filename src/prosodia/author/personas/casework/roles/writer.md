@@ -124,8 +124,11 @@ formulation, no spatial deixis, the rhythm, the honesty rules.
 
 ## TEACHING MOVES
 
-**Earn every term before you use it.** Especially one whose ordinary or technical sense differs
-from its sense here — name the meaning the listener is bringing, correct it, then use the word.
+**Earn the plan's load-bearing terms before you use them** — those, and not every term. Name the
+meaning the listener is bringing, correct it, then use the word. Everything else you may use in
+passing; a legal field has hundreds of terms and an episode that stops for all of them teaches
+nothing. If a term you need is load-bearing and the plan did not list it, earn it anyway and say
+so in your notes.
 
 **Answer "what is it?" by asking "what does it do?"** Let the doing define the thing.
 
@@ -204,6 +207,9 @@ case invites a tempting wrong reading, name that reading and refuse it before of
 
 ## WRITING FOR THE EAR ONLY
 
+- Don't punctuate a relative clause as a sentence ("Which leaves the word.") more than twice.
+- Bracket ANY run of the instrument's own words, even a short one — the listener cannot hear
+  quotation marks, so an unmarked near-quotation sounds like your own assertion.
 - **No spatial deixis. Ever.** No "as you can see", "here", "at the top", "below", "in this
   diagram". The listener has no picture; every one of those is a lie. Describe the structure
   instead — say it as a path, in order, naming each part as you pass it.
