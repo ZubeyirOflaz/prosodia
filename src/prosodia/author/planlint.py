@@ -74,6 +74,11 @@ def quoted_spans(text: str) -> list[tuple[int, str]]:
         pos += len(seg) + 1
     return out
 _OUTSIDE = re.compile(r"\[OUTSIDE DOCKET:")
+# Markers that say the quoted words are a MISREADING being corrected, not the instrument's.
+_MISREADING = re.compile(
+    r"(?i)\bwrong(?: reading)?\s*[:\u2014-]|\bnot\b[^.]{0,20}\bmeaning\b|\bhears?\b[^.]{0,12}$|"
+    r"\bthinks? it means\b|\bmistakes? it for\b"
+)
 _TABLE_ROW = re.compile(r"^\s*\|.*\|\s*$", re.MULTILINE)
 _RANGE = re.compile(r"(\d+)\s*[‐-―-]\s*(\d+)")
 _LENGTH = re.compile(r"(?im)\*\*Length:?\*\*[^\n\d]{0,20}(\d{1,3})")
@@ -180,6 +185,11 @@ def check_quotations(sections: dict[int, str], docket: str) -> list[Finding]:
             before = s[max(0, start - 250):start]
             if not (_CITE.search(before) or _ANNEX.search(before)):
                 continue  # not attributed to the instrument
+            if _MISREADING.search(before[-70:]):
+                # The load-bearing-terms beat quotes the listener's WRONG reading next to the
+                # article that defines the term — `**intended purpose** (3(12)) — wrong: "what
+                # it is used for"`. That is the plan doing its job, not quoting the instrument.
+                continue
             if norm(q) in dn:
                 continue
             out.append(Finding(ERROR, "quote-not-verbatim",

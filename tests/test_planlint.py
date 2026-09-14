@@ -184,3 +184,21 @@ def test_a_superseded_docket_file_is_citable_but_not_quotable():
     # and with the same file quotable, the quotation passes
     fs2 = lint_plan(plan, docket=all_text, quotable=all_text)
     assert "quote-not-verbatim" not in codes(fs2, ERROR)
+
+
+def test_a_quoted_misreading_is_not_a_quotation_of_the_instrument():
+    """The load-bearing-terms beat quotes the listener's WRONG reading beside the article
+    that defines the term. That is the plan doing its job; flagging it made twelve of the
+    twenty errors on the first re-plan noise."""
+    plan = OUTLINE.replace(
+        "**The variants:** change a fact.",
+        '**Load-bearing terms.**\n- **intended purpose** (Art. 3) — wrong: "what it is used '
+        'for". Right: the use the provider intends.',
+    )
+    fs = lint_plan(plan, docket=DOCKET)
+    assert not any("what it is used for" in f.message for f in fs)
+    # a genuine unverbatim quotation of the instrument is still caught
+    plan2 = OUTLINE.replace(
+        '"a machine-based system that is designed to operate"',
+        '"a machine-based system which was designed to operate"')
+    assert "quote-not-verbatim" in codes(lint_plan(plan2, docket=DOCKET), ERROR)

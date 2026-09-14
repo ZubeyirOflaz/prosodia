@@ -34,6 +34,6 @@ scope: >
 engine: chatterbox
 voice: narrator              # add a clip at voices/narrator.wav (see voices/README.txt)
 lexicon: lexicon.yaml
-target_minutes: 27           # one apparatus per episode; the Planner sets per-episode lengths
+target_minutes: 35           # soft anchor; the Planner sets per-episode lengths
 
 # Episodes are seeded from plan/outline.md once the Planner has run.
