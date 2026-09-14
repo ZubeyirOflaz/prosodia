@@ -443,8 +443,11 @@ def test_terms_to_earn_are_a_short_load_bearing_list_not_a_glossary():
     p = Persona.resolve("casework")
     planner = p.role("planner")
     assert "Load-bearing terms" in planner
-    assert "three to six" in planner
-    assert "Not a glossary" in planner
+    # a strict TEST rather than a quota: a small cap is a number standing in for judgement,
+    # and some subjects genuinely need many terms — the answer there is a longer episode
+    assert "reaches the WRONG ANSWER" in planner
+    assert "There is no small quota" in planner
+    assert "raise the episode's `Length`" in planner
     writer = p.role("writer")
     assert "Earn the plan's load-bearing terms" in writer
     assert "not every term" in writer

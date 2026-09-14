@@ -165,10 +165,17 @@ words.
   **Openings must differ in MOVE, not merely in label.** Two episodes that both open on a thing
   being switched off are the same opening however differently you label them. Once every episode is
   planned, **list the openings one line each and check for repeated moves**.
-- **Load-bearing terms** — the three to six words this episode's argument will not survive being
-  vague about, and which a non-specialist does not already know. Not a glossary: a legal field has
-  hundreds of terms and an episode that earns all of them teaches nothing. Pick the ones the
-  reasoning turns on, and say for each what the listener's likely wrong reading is.
+- **Load-bearing terms**, with the listener's likely wrong reading for each. **The test is strict
+  and it is a test, not a feeling: a term is load-bearing if a listener who holds the ordinary
+  meaning instead of this one reaches the WRONG ANSWER on something the episode teaches.** Useful,
+  interesting, or frequently used is not enough. A legal field has hundreds of terms and an
+  episode that stops for all of them teaches nothing.
+  **There is no small quota.** List as many as genuinely pass that test; twelve is a sanity
+  ceiling, not a target, and needing more than that usually means the episode is carrying two
+  apparatus and should be split. **If the list is long, raise the episode's `Length` to give each
+  term room, and say that is why.** An episode that names ten terms and lands none is worse than
+  one that teaches six provisions properly — glossing over a load-bearing term does not save
+  time, it wastes the whole episode.
 - **The cast** — who the actors are in this apparatus and what each is called by it.
 - **The system, described operationally** — what the technology or practice actually does, step by
   step, in its own field's terms, BEFORE any rule applies. Supply the field's own definition so
