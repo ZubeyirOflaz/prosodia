@@ -310,3 +310,42 @@ def test_compile_finds_the_project_persona_without_an_explicit_config(tmp_path):
     loose = tmp_path / "loose.md"
     loose.write_text("x", encoding="utf-8")
     assert _discover_series(loose) is None
+
+
+def test_writer_is_given_a_word_budget_not_only_minutes():
+    """Episode 1 came back at 5,300 words — 41 minutes — against a 27-minute brief.
+
+    An LLM cannot hear its own pace, so a target expressed only in minutes is not a
+    constraint it can act on. The persona's speaking rate is the conversion.
+    """
+    writer = Persona.resolve("casework").role("writer")
+    assert "130 words a minute" in writer or "130 words per minute" in writer
+    assert "3,500 words" in writer
+
+
+def test_write_brief_states_the_word_budget(tmp_path):
+    import argparse
+    from unittest.mock import patch
+
+    from prosodia.author import cli
+
+    proj = tmp_path / "p"
+    (proj / "plan").mkdir(parents=True)
+    (proj / "series.yaml").write_text("series: S\npersona: casework\n", encoding="utf-8")
+    (proj / "plan" / "outline.md").write_text(
+        "# O\n\n## Episode 1 — A\n\n**Length:** 27 min\n\nbody\n", encoding="utf-8")
+    seen = {}
+
+    def spy(brief, **kw):
+        seen["b"] = brief
+        raise SystemExit
+
+    args = argparse.Namespace(project=str(proj), episode=1, persona=None,
+                              prior_episodes=0, max_rounds=1)
+    with patch("prosodia.author.orchestrate.author_episode", side_effect=spy):
+        try:
+            cli._cmd_write(args)
+        except SystemExit:
+            pass
+    assert "3500 spoken words" in seen["b"]
+    assert "not more than 4200" in seen["b"]

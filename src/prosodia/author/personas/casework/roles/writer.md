@@ -192,9 +192,25 @@ case invites a tempting wrong reading, name that reading and refuse it before of
 
 ## LENGTH
 
-One apparatus, about 27 minutes; the honest range is 15–45. Let a simple instrument run short and
-an intricate one run long. Reach length through depth — more of the argument worked through, more
-of the system described — never through filler, and never by cutting the beat at §9.
+**Write to a word count, not to a number of minutes.** You cannot hear your own pace, and an
+episode commissioned at 27 minutes came back at 41 because the target was given in minutes and
+nothing converted it. This show runs at about **130 words a minute**, so:
+
+| the brief says | write about | never exceed |
+|---|---|---|
+| 24 min | 3,100 words | 3,700 |
+| 27 min | 3,500 words | 4,200 |
+| 35 min | 4,550 words | 5,400 |
+
+Count the words you have actually written — spoken text only, not beat titles or directives — and
+say the figure at the end of your working if you are asked for notes. Let a simple instrument run
+short and an intricate one run long **within the brief's figure**; going 50% over is not depth, it
+is a different episode from the one the plan costed, and it pushes the episodes the plan designated
+as its long ones into second place.
+
+Reach length through depth — more of the argument worked through, more of the system described —
+never through filler, and never by cutting the beat at §9. If the material genuinely will not fit,
+say so in a note rather than silently overrunning.
 
 ## FORMAT — the Prosodia hybrid transcript (authoritative spec: formats/SPEC.md)
 

@@ -532,8 +532,12 @@ def _cmd_write(args: argparse.Namespace) -> int:
         )
         + f"Scope: {ep.get('scope', '')}\n"
         f"Tension: {ep.get('tension', '')}\n"
-        f"Target length: about {target_minutes} minutes of narration "
-        "(long-form; write to that depth, not a summary).\n"
+        # Minutes alone produced a 41-minute script against a 27-minute brief: an LLM cannot
+        # hear its own pace. Give the word budget the persona's speaking rate implies.
+        f"Target length: about {target_minutes} minutes of narration, which at this show's "
+        f"speaking rate of ~130 words per minute is about {round(target_minutes * 130, -2):.0f} "
+        f"spoken words — and not more than {round(target_minutes * 156, -2):.0f}. Long-form: "
+        "write to that depth, not a summary, but do not overrun the budget.\n"
     )
     # If the Planner has produced an outline, feed THIS episode's plan (its sourced
     # anecdotes, human anchor, and contested points) to the writer so it places rather

@@ -152,3 +152,28 @@ def test_checks_needing_a_docket_are_skipped_not_failed():
     assert "no-docket" in codes(fs)
     assert "cite-not-in-docket" not in codes(fs)
     assert "bare-range" in codes(fs, ERROR)  # structural checks still run
+
+
+def test_a_superseded_docket_file_is_citable_but_not_quotable():
+    """Episode 1's writer quoted Art. 2(1)(c) out of a file headed SUPERSEDED.
+
+    The editor caught it; this check had not, because it compared against the whole
+    directory. A superseded file is still a legitimate place to learn that a provision
+    exists — it is normally kept for the articles its replacement does not carry — but it is
+    not a place to take words from.
+    """
+    from prosodia.author.planlint import lint_plan
+
+    all_text = DOCKET + '\nArticle 7 says "the second making available of a thing".\n'
+    quotable = DOCKET  # the Article 7 file is the superseded one
+    plan = OUTLINE.replace(
+        "**The variants:** change a fact.",
+        'Art. 7 says "the second making available of a thing".',
+    )
+    # cited and quoted, with the words present only in the superseded file
+    fs = lint_plan(plan, docket=all_text, quotable=quotable)
+    assert "cite-not-in-docket" not in codes(fs, ERROR)      # citing it is fine
+    assert "quote-not-verbatim" in codes(fs, ERROR)          # quoting it is not
+    # and with the same file quotable, the quotation passes
+    fs2 = lint_plan(plan, docket=all_text, quotable=all_text)
+    assert "quote-not-verbatim" not in codes(fs2, ERROR)

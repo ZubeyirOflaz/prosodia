@@ -108,9 +108,22 @@ def docket_provisions(docket: str) -> set[str]:
     return covered
 
 
-def _load_docket(proj: Path) -> tuple[str, list[str]]:
+_SUPERSEDED = re.compile(r"(?im)^[>\s*_]*SUPERSEDED\b")
+
+
+def _load_docket(proj: Path) -> tuple[str, str, list[str]]:
+    """Return (all docket text, the QUOTABLE subset, file names).
+
+    A file the docket marks SUPERSEDED stays a legitimate place to learn that a provision
+    exists — it is usually kept for the articles its replacement does not carry — but it is
+    not a place to take words from. Episode 1's writer quoted Art. 2(1)(c) out of a file
+    headed SUPERSEDED and saying in terms that nothing in it should be spoken; the editor
+    caught it and this check had not, because it compared against the whole directory.
+    """
     files = sorted((proj / "research").glob("*.md")) if (proj / "research").is_dir() else []
-    return "\n".join(f.read_text(encoding="utf-8") for f in files), [f.name for f in files]
+    texts = {f: f.read_text(encoding="utf-8") for f in files}
+    quotable = [t for f, t in texts.items() if not _SUPERSEDED.search(t[:4000])]
+    return "\n".join(texts.values()), "\n".join(quotable), [f.name for f in files]
 
 
 # ---- checks -----------------------------------------------------------------
@@ -170,7 +183,8 @@ def check_quotations(sections: dict[int, str], docket: str) -> list[Finding]:
             if norm(q) in dn:
                 continue
             out.append(Finding(ERROR, "quote-not-verbatim",
-                               f'quotes "{q[:70]}..." — not verbatim in research/', ep))
+                               f'quotes "{q[:70]}..." — not verbatim in any quotable '
+                               "research/ file (a file marked SUPERSEDED does not count)", ep))
     return out
 
 
@@ -349,7 +363,8 @@ def check_prerequisites(sections: dict[int, str], episodes: list[dict]) -> list[
 
 # ---- driver -----------------------------------------------------------------
 
-def lint_plan(outline_md: str, *, docket: str = "", target_minutes: int = 30) -> list[Finding]:
+def lint_plan(outline_md: str, *, docket: str = "", quotable: str | None = None,
+              target_minutes: int = 30) -> list[Finding]:
     episodes = parse_episode_index(outline_md)
     if not episodes:
         return [Finding(ERROR, "no-episodes", "no episode headings found in the outline")]
@@ -366,7 +381,7 @@ def lint_plan(outline_md: str, *, docket: str = "", target_minutes: int = 30) ->
     findings += check_budgets(sections)
     if docket.strip():
         findings += check_citations(outline_md, docket, sections)
-        findings += check_quotations(sections, docket)
+        findings += check_quotations(sections, docket if quotable is None else quotable)
         findings += check_do_not_use(sections, docket)
     else:
         findings.append(Finding(NOTE, "no-docket",
@@ -379,6 +394,6 @@ def lint_project(proj: Path, *, target_minutes: int | None = None) -> list[Findi
     outline = proj / "plan" / "outline.md"
     if not outline.is_file():
         return [Finding(ERROR, "no-plan", f"{outline} does not exist — run `prosodia plan` first")]
-    docket, _ = _load_docket(proj)
-    return lint_plan(outline.read_text(encoding="utf-8"), docket=docket,
+    docket, quotable, _ = _load_docket(proj)
+    return lint_plan(outline.read_text(encoding="utf-8"), docket=docket, quotable=quotable,
                      target_minutes=target_minutes or 30)
