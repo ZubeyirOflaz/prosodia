@@ -482,4 +482,4 @@ def test_editor_must_quote_the_sentence_it_blocks_on():
     was fixed immediately — two rounds spent on one sentence for want of naming it."""
     editor = Persona.resolve("casework").role("editor")
     assert "QUOTE THE OFFENDING SENTENCE IN EVERY BLOCKING ITEM" in editor
-    assert "three consecutive rounds" in editor
+    assert "Give the words, then the replacement" in editor
