@@ -73,7 +73,10 @@ def _enumerations(body: str) -> list[str]:
         for p in parts:
             run = run + 1 if p in short else 0
             best = max(best, run)
-        if best >= 4:
+        # A real list coordinates its final item. Without this, "The tribunal called it
+        # remarkable, which, from a tribunal member, means absurd." reads as four short
+        # segments and was reported as a list read aloud.
+        if best >= 4 and re.search(r",\s+(?:and|or)\s", sent):
             out.append(re.sub(r"\s+", " ", sent).strip())
     return out
 
@@ -103,13 +106,26 @@ def _num(word: str) -> int | None:
 
 
 def _unbracketed_quotations(body: str, docket: str) -> list[str]:
-    """Runs of the docket's exact words that the script speaks without marking as a quotation.
+    """Runs of the instrument's exact words the script speaks without marking as a quotation.
+
+    Twelve words, calibrated rather than guessed. At ten, a script's own recap trips it — the
+    series earns statutory phrases as the NAMES of concepts ("placed on the market or put into
+    service") and then uses them constantly, which is correct and must not be flagged. At
+    sixteen, a genuine near-quotation of Art. 2(6) slips through. Twelve separates the two on
+    the three episodes written so far.
 
     The persona requires quoted text to be audibly bracketed, because the listener cannot see
     quotation marks. One editorial round caught a provision spoken near-verbatim without them;
     nothing mechanical was watching for it.
     """
-    dn = re.sub(r"[^a-z0-9 ]", " ", docket.lower())
+    # Only the operative text counts. Matching the whole docket meant any phrase a compiler
+    # happened to write in a note could trigger — episode 3's own recap ("So far we have the
+    # gate — what counts as an AI system at all...") was reported as quoting the instrument,
+    # because those words appear in a teaching note. The verbatim provisions live in fenced
+    # blocks; fall back to the whole docket only when there are none.
+    fenced = re.findall(r"```text\n(.*?)```", docket, re.S)
+    source = "\n".join(fenced) if fenced else docket
+    dn = re.sub(r"[^a-z0-9 ]", " ", source.lower())
     dn = re.sub(r"\s+", " ", dn)
     hits = []
     sents = _SENTENCE.findall(body)
@@ -124,8 +140,8 @@ def _unbracketed_quotations(body: str, docket: str) -> list[str]:
         if _AUDIBLE_BRACKET.search(near):
             continue
         words = re.findall(r"[A-Za-z']+", sent)
-        for i in range(max(0, len(words) - 9)):
-            window = " ".join(w.lower() for w in words[i:i + 10])
+        for i in range(max(0, len(words) - 11)):
+            window = " ".join(w.lower() for w in words[i:i + 12])
             if window in dn:
                 hits.append(sent.strip()[:110])
                 break
@@ -234,7 +250,7 @@ def lint_script(transcript: str, *, episode: int | None = None,
     if docket:
         for sent in _unbracketed_quotations(body, docket):
             out.append(Finding(WARN, "unbracketed-quote",
-                               f'speaks ten or more of the instrument\'s exact words without '
+                               f'speaks twelve or more of the instrument\'s exact words without '
                                f'marking them as a quotation: "{sent}..."'))
 
     # --- rhythm ---

@@ -107,8 +107,8 @@ def test_relative_clause_fragments_are_flagged_but_ordinary_openers_are_not():
 
 def test_near_verbatim_instrument_text_must_be_bracketed():
     """The listener cannot see quotation marks, so unmarked quotation sounds like narration."""
-    docket = ("Testing in real world conditions shall not be covered by that exclusion, and the "
-              "provider shall ensure compliance.")
+    docket = ("```text\nTesting in real world conditions shall not be covered by that exclusion, "
+              "and the provider shall ensure compliance with this Regulation.\n```")
     unmarked = HEAD + "## B\nTesting in real world conditions shall not be covered by that exclusion."
     assert "unbracketed-quote" in codes(lint_script(unmarked, docket=docket), WARN)
     marked = HEAD + '## B\nThe Act says: "Testing in real world conditions shall not be covered by that exclusion."'
@@ -120,11 +120,34 @@ def test_audible_bracketing_counts_as_bracketing():
     """The listener cannot hear a quotation mark, so the persona requires quotations to be
     opened and closed in words. Testing for `"` penalised a script for doing the right thing
     for the medium."""
-    docket = "technology changes exponentially, but social, economic and legal systems change incrementally"
+    docket = ("```text\ntechnology changes exponentially, but social, economic and legal systems "
+              "change incrementally, which is the whole problem\n```")
     spoken = (HEAD + "## B\nHis sentence, and these are his words: technology changes "
               "exponentially, but social, economic and legal systems change incrementally. "
               "Those are his words.")
     assert "unbracketed-quote" not in codes(lint_script(spoken, docket=docket), WARN)
     bare = (HEAD + "## B\nTechnology changes exponentially, but social, economic and legal "
-            "systems change incrementally. That is the shape of the problem.")
+            "systems change incrementally, which is the whole problem.")
     assert "unbracketed-quote" in codes(lint_script(bare, docket=docket), WARN)
+
+
+def test_only_the_instruments_own_words_count_as_a_quotation():
+    """Matching the whole docket meant a script's own recap could be reported as quoting the
+    instrument, because those words also appear in a teaching note."""
+    docket = ("# Note\n\nSo far we have the gate, what counts as an AI system at all, and so on.\n\n"
+              "```text\n1. This Regulation lays down harmonised rules for the placing on the "
+              "market and the putting into service of AI systems in the Union.\n```\n")
+    recap = HEAD + "## B\nSo far we have the gate, what counts as an AI system at all, and so on."
+    assert "unbracketed-quote" not in codes(lint_script(recap, docket=docket), WARN)
+    real = (HEAD + "## B\nThis Regulation lays down harmonised rules for the placing on the "
+            "market and the putting into service of AI systems in the Union.")
+    assert "unbracketed-quote" in codes(lint_script(real, docket=docket), WARN)
+
+
+def test_a_clause_heavy_sentence_is_not_a_list():
+    """"The tribunal called it remarkable, which, from a tribunal member, means absurd."
+    is four short comma-separated segments and not a list; a list coordinates its last item."""
+    clauses = HEAD + "## B\nThe tribunal called it remarkable, which, from a member, means absurd."
+    assert "enumeration" not in codes(lint_script(clauses), WARN)
+    real = HEAD + "## B\nAir Canada, the vendor, Moffatt, and the chatbot."
+    assert "enumeration" in codes(lint_script(real), WARN)

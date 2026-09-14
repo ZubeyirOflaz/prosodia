@@ -21,28 +21,17 @@ Criminaliteits Anticipatie Systeem, Michael Veale, Frederik Zuiderveen Borgesius
 
 **What the episode was built on** *(from the plan)*
 
-Regulation (EU) 2024/1689, Arts. 2 and 3(1), consolidated text, EUR-Lex. Commission Guidelines on the definition of an AI system, February 2025. Dutch Algorithm Register, entry 81228922 (algoritmes.overheid.nl). Reporting on the discontinuation of CAS, February 2026.
+Regulation (EU) 2024/1689, Arts. 1, 2, 3(1), 3(9)–(11), 96, consolidated text, EUR-Lex. Commission Guidelines on the definition of an AI system, February 2025. Dutch Algorithm Register, entry 81228922. Reporting on the discontinuation of CAS, February 2026.
 
 ## Episode 2 — The Pacing Problem
 
-**Provisions cited in the episode**
-
-- Article 51
-- Article 56
-- Article 7
-- Article 97
-- Article 112
-- Article 12
-- Article 50
-- Article 11
-
 **People, bodies and instruments named aloud**
 
-Lawrence Lessig, lex informatica, Joel Reidenberg, David Collingridge, Gary Marchant, Frank Easterbrook, Larry Downes, Braden Allenby, Joseph Herkert, William Aspray, Philip Doty, Adam Thierer, Mercatus.
+Lawrence Lessig, lex informatica, Joel Reidenberg, David Collingridge, Larry Downes, Gary Marchant, Braden Allenby, Joseph Herkert, Frank Easterbrook, William Aspray, Philip Doty, Adam Thierer, Mercatus.
 
 **What the episode was built on** *(from the plan)*
 
-Collingridge, *The Social Control of Technology* (Frances Pinter, 1980). Downes, *The Laws of Disruption* (Basic Books, 2009). Marchant, Allenby and Herkert (eds), *The Growing Gap* (Springer, 2011). Lessig, *Code: Version 2.0* (Basic Books, 2006). Reidenberg, "Lex Informatica", 76 *Tex. L. Rev.* 553 (1998). Easterbrook, "Cyberspace and the Law of the Horse", 1996 *U. Chi. Legal F.* 207. Lessig, "The Law of the Horse", 113 *Harv. L. Rev.* 501 (1999). Aspray and Doty, *JASIST* 74(8) (2023) 885. Commission proposal COM(2021) 206 final, 21 April 2021.
+Collingridge (1980). Downes (2009). Marchant, Allenby and Herkert (2011). Lessig, *Code: Version 2.0* (2006). Reidenberg, 76 *Tex. L. Rev.* 553 (1998). Easterbrook, 1996 *U. Chi. Legal F.* 207. Lessig, 113 *Harv. L. Rev.* 501 (1999). Aspray and Doty, *JASIST* 74(8) (2023) 885. COM(2021) 206 final.
 
 ## Episode 3 — Under Whose Name
 
@@ -50,16 +39,14 @@ Collingridge, *The Social Control of Technology* (Frances Pinter, 1980). Downes,
 
 - Article 3
 - Article 25
-- Article 16
-- Article 6
 
 **People, bodies and instruments named aloud**
 
-Regulation (EU) 2024/1689, EUR-Lex, Jake Moffatt, Christopher C. Rivers, Civil Resolution Tribunal of British Columbia, Michael Veale, Frederik Zuiderveen Borgesius.
+Jake Moffatt, Christopher C. Rivers, Civil Resolution Tribunal of British Columbia.
 
 **What the episode was built on** *(from the plan)*
 
-*Moffatt v. Air Canada*, 2024 BCCRT 149, paras. 27, 28, 44 (CanLII). Regulation (EU) 2024/1689, Arts. 3(3), 3(4), 3(11), 25, 2(1). ⚠ CanLII blocks scripted retrieval — the decision has been read manually and the passages above are verbatim.
+*Moffatt v. Air Canada*, 2024 BCCRT 149, paras. 27, 28, 44. Regulation (EU) 2024/1689, Arts. 2(1), 3(3), 3(4), 3(11), 22, 25.
 
 ## Episode 4 — The Ladder
 
@@ -103,17 +90,7 @@ Regulation (EU) 2024/1689, EUR-Lex, Jake Moffatt, Christopher C. Rivers, Civil R
 
 - **Article 2** — episode 1
 - **Article 3** — episodes 1, 3
-- **Article 6** — episode 3
-- **Article 7** — episode 2
-- **Article 11** — episode 2
-- **Article 12** — episode 2
-- **Article 16** — episode 3
 - **Article 25** — episode 3
-- **Article 50** — episode 2
-- **Article 51** — episode 2
-- **Article 56** — episode 2
-- **Article 97** — episode 2
-- **Article 112** — episode 2
 
 ---
 
