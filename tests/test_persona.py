@@ -63,8 +63,10 @@ def test_project_local_persona_overrides_builtin(tmp_path):
 def test_casework_persona_resolves_with_its_defaults():
     p = Persona.resolve("casework")
     assert p.name == "casework" and p.title == "Casework"
-    # 27 minutes is the measured unit of the architecture source, not a round guess.
-    assert p.defaults.target_minutes == 27
+    # A SOFT anchor, not a cap. Was 27 — one craft source's measured unit, borrowed without
+    # the syllabus and readings that surrounded it, for a series specified as standalone.
+    # Two independent runs of Ep 1 landed at 34 minutes with the depth judged earned.
+    assert p.defaults.target_minutes == 35
     assert p.defaults.host_mode == "single"
     for role in ("planner", "writer", "editor", "tone"):
         assert p.has_role(role), role
@@ -321,6 +323,8 @@ def test_writer_is_given_a_word_budget_not_only_minutes():
     writer = Persona.resolve("casework").role("writer")
     assert "130 words a minute" in writer or "130 words per minute" in writer
     assert "3,500 words" in writer
+    # and the conversion must not have become a ceiling
+    assert "never exceed" not in writer.lower()
 
 
 def test_write_brief_states_the_word_budget(tmp_path):
@@ -348,7 +352,9 @@ def test_write_brief_states_the_word_budget(tmp_path):
         except SystemExit:
             pass
     assert "3500 spoken words" in seen["b"]
-    assert "not more than 4200" in seen["b"]
+    # a guide, not a cap: the writer must be able to exceed it and say so
+    assert "GUIDE, not a cap" in seen["b"]
+    assert "never cut\nteaching to hit a number" in seen["b"] or "never cut teaching" in seen["b"]
 
 
 def test_editor_ready_has_a_severity_bar():

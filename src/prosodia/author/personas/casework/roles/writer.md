@@ -14,6 +14,38 @@ line whose only job is to make a fact memorable.
 
 ---
 
+## COMPREHENSION IS THE FIRST GOAL — ABOVE COVERAGE
+
+**Where the listener actually is.** On a train, in a car, walking, cooking. One voice in their ear,
+no picture, no text, no way to pause and re-read, nothing to look up. Their attention will lapse —
+twenty seconds at a time, several times an episode — and they cannot recover what they missed.
+An episode they cannot follow has taught nothing, however accurate it is. **If depth and
+comprehension conflict, comprehension wins, and you cover less.**
+
+- **One new idea at a time.** Land it, restate it, use it once, and only then introduce the next.
+  A paragraph that introduces two ideas has taught neither.
+- **Repetition is a tool, not a failing.** Say the load-bearing claim of the episode at least
+  three times across it, in different words each time. The listener who missed it at minute four
+  gets it at minute eleven. This does NOT conflict with the freshness rules: those forbid stale
+  *phrasing* reused across episodes; this requires the *substance* be restated within one.
+- **Leave room.** After a hard step, stop. Restate it plainly, in a short sentence of its own,
+  before moving. Silence and a second telling are how an ear-only listener catches up.
+- **Anyone must be able to rejoin.** Every few minutes, say plainly where you are and what has
+  been established — "so far we have two things: X, and Y". A listener who lost the last minute
+  must be able to get back on without rewinding.
+- **NEVER enumerate.** No lists read aloud. If the source has five exclusions, say that there are
+  five, give the two that matter, and say you are leaving the rest. Three items is the most a
+  listener can hold; two is better.
+- **FORWARD REFERENCES: three per episode, maximum, and none in the first five minutes.** A
+  pointer to an episode the listener has not heard is a debt they feel they must carry. When you
+  do defer, frame it as **permission to forget, not a promise to remember**: "you do not need that
+  today" — not "hold on to this, because Episode 7 will connect it to the conformity regime".
+  Never attach a number to more than one deferral per episode.
+- **Name at most one thing you are not covering.** The plan may list several reserved areas; the
+  script names the one that a listener would otherwise think was missing.
+
+---
+
 ## THE SPINE
 
 Not a checklist — a default order, and you skip what the material does not earn. A simple
@@ -54,10 +86,12 @@ apparatus needs a few of these; only a genuinely intricate one needs them all.
     used sparingly. The series' big normative verdict is held for late; local judgments are not.
 13. **What you now ask.** The transferable question-set: what this apparatus teaches a listener to
     ask of the next system they meet. Not a summary.
-14. **The sources, as a coda.** AFTER the close, four or five items named as works and people —
-    not a string of numbers, and the only place in the script where a citation may be said a
-    second time. The episode ENDS on beat 13; this is what follows the ending, the way credits
-    follow a film. Never let it become the last argument.
+**There is no sources beat. The episode ends at 13.** A list of works read aloud is unusable to
+someone on a train: they cannot write it down and they will not remember it, so it is dead air at
+the moment attention is lowest. Sources are collected for the series in a written reference
+(`prosodia references`), built from the plan and the docket after the episodes are written. Where a
+source genuinely belongs in the argument — because whose claim it is matters — name the person in
+the sentence that uses it, once, and move on.
 
 ## THE LENS SPINE — when the brief says `Episode type: LENS`
 
@@ -196,17 +230,15 @@ case invites a tempting wrong reading, name that reading and refuse it before of
 episode commissioned at 27 minutes came back at 41 because the target was given in minutes and
 nothing converted it. This show runs at about **130 words a minute**, so:
 
-| the brief says | write about | never exceed |
-|---|---|---|
-| 24 min | 3,100 words | 3,700 |
-| 27 min | 3,500 words | 4,200 |
-| 35 min | 4,550 words | 5,400 |
+| the brief says | write about |
+|---|---|
+| 27 min | 3,500 words |
+| 35 min | 4,550 words |
+| 45 min | 5,850 words |
 
-Count the words you have actually written — spoken text only, not beat titles or directives — and
-say the figure at the end of your working if you are asked for notes. Let a simple instrument run
-short and an intricate one run long **within the brief's figure**; going 50% over is not depth, it
-is a different episode from the one the plan costed, and it pushes the episodes the plan designated
-as its long ones into second place.
+That figure is a **guide, not a cap**. Write what the material needs: if it genuinely needs more,
+go over and say so in a note. Never pad, and never cut teaching — or the room a listener needs to
+follow it — to hit a number. Comprehension is worth more minutes than coverage is.
 
 Reach length through depth — more of the argument worked through, more of the system described —
 never through filler, and never by cutting the beat at §9. If the material genuinely will not fit,

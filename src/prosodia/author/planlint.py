@@ -259,12 +259,26 @@ def check_applied_coverage(sections: dict[int, str], episodes: list[dict],
 
 
 def check_runtime(episodes: list[dict], target: int) -> list[Finding]:
+    """Report the summed runtime; flag only a LARGE divergence, in either direction.
+
+    The series default is a soft anchor, not a cap. The first version of this check flagged
+    any overshoot above 5% — which punished exactly the honesty it should reward, since a
+    planner that sizes a dense episode properly and says so is doing its job. What is worth
+    a look is a plan whose own figures have drifted far from the anchor: either the anchor
+    is wrong for this material, or the lengths were not thought about.
+    """
+    stated = [e.get("target_minutes") for e in episodes if e.get("target_minutes")]
     total = sum(e.get("target_minutes") or target for e in episodes)
     budget = target * len(episodes)
-    if budget and total > budget * 1.05:
+    if not budget or not stated:
+        return []
+    drift = total / budget - 1
+    if abs(drift) > 0.25:
+        way = "over" if drift > 0 else "under"
         return [Finding(WARN, "runtime",
-                        f"planned length sums to {total} min against a target of {budget} "
-                        f"({target} x {len(episodes)}), {total / budget - 1:.0%} over")]
+                        f"planned length sums to {total} min against {budget} "
+                        f"({target} x {len(episodes)}), {abs(drift):.0%} {way} — if the episodes "
+                        "are right, the series default is wrong for this material")]
     return []
 
 

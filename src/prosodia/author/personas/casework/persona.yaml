@@ -9,9 +9,13 @@ description: >
   ask of a system they have never met.
   Distilled from four sourced craft references — see docs/reference/casework-synthesis.md.
 defaults:
-  target_minutes: 27   # one apparatus per episode; the real range runs 15-45. Measured from a
-  # teacher who published a whole legal apparatus as ~27-minute segments. Length follows the
-  # apparatus: a simple instrument gets a short episode, an intricate one runs long.
+  target_minutes: 35   # one apparatus per episode; the real range runs 20-50. A SOFT anchor,
+  # never a cap — length follows the apparatus, and a simple instrument should run short.
+  # Was 27, taken from the one craft source that published a legal apparatus in ~27-minute
+  # segments (the others measured 37 and 97). That number came with a syllabus, readings and
+  # the rest of a course around it; this series is standalone by design, so the episode has to
+  # carry what the scaffolding used to. Two independent runs of Ep 1 landed at 34 minutes and
+  # the editor judged the depth earned both times.
   host_mode: single
   voice: narrator
   # BAN LIST ONLY. This persona's frequent phrases are load-bearing devices, not filler —

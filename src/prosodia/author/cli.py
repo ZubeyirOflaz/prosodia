@@ -213,6 +213,23 @@ def _cmd_voice_prep(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_references(args: argparse.Namespace) -> int:
+    from prosodia.author.references import build_references
+
+    proj = Path(args.project)
+    md, warnings = build_references(proj)
+    if not md:
+        for w in warnings:
+            print(w, file=sys.stderr)
+        return 1
+    out = Path(args.out) if args.out else proj / "references.md"
+    out.write_text(md, encoding="utf-8")
+    print(f"wrote {out}")
+    for w in warnings:
+        print(f"  note: {w}", file=sys.stderr)
+    return 0
+
+
 def _cmd_plan_lint(args: argparse.Namespace) -> int:
     from prosodia.author.planlint import ERROR, WARN, lint_project
 
@@ -536,8 +553,9 @@ def _cmd_write(args: argparse.Namespace) -> int:
         # hear its own pace. Give the word budget the persona's speaking rate implies.
         f"Target length: about {target_minutes} minutes of narration, which at this show's "
         f"speaking rate of ~130 words per minute is about {round(target_minutes * 130, -2):.0f} "
-        f"spoken words — and not more than {round(target_minutes * 156, -2):.0f}. Long-form: "
-        "write to that depth, not a summary, but do not overrun the budget.\n"
+        f"spoken words. That figure is a GUIDE, not a cap: write what the material needs. If it "
+        "genuinely needs more, go over and say so in your notes — but never pad, and never cut "
+        "teaching to hit a number.\n"
     )
     # If the Planner has produced an outline, feed THIS episode's plan (its sourced
     # anecdotes, human anchor, and contested points) to the writer so it places rather
@@ -734,6 +752,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_vp.add_argument("--min-s", type=float, help="min clip length for the pause search (default: 0.8x duration)")
     p_vp.add_argument("--max-s", type=float, help="max clip length for the pause search (default: 1.35x duration)")
 
+    p_ref = sub.add_parser(
+        "references",
+        help="build the series' written source reference from the transcripts, plan and docket",
+    )
+    p_ref.add_argument("--project", required=True)
+    p_ref.add_argument("--out", help="output .md (default: <project>/references.md)")
+
     p_pl = sub.add_parser(
         "plan-lint",
         help="check a plan outline against the research docket and this persona's structural rules",
@@ -789,6 +814,7 @@ _DISPATCH = {
     "lexicon": _cmd_lexicon,
     "voice-prep": _cmd_voice_prep,
     "plan-lint": _cmd_plan_lint,
+    "references": _cmd_references,
     "plan-view": _cmd_plan_view,
     "lint-repetition": _cmd_lint_repetition,
     "trace-report": _cmd_trace_report,

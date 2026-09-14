@@ -132,9 +132,16 @@ def test_an_enumerated_paragraph_is_flagged_as_unsayable(findings):
     assert any("names 10 provisions in sequence" in f.message for f in findings)
 
 
-def test_runtime_is_summed_against_the_target(findings):
-    assert "runtime" in codes(findings, WARN)
-    assert any("67 min against a target of 54" in f.message for f in findings)
+def test_runtime_flags_only_a_large_drift_from_the_series_anchor(findings):
+    """The anchor is soft. The first version flagged any overshoot above 5%, which punished
+    a planner for sizing a dense episode properly and saying so."""
+    # 27 + 40 = 67 against 2 x 27 = 54 is 24% over: within tolerance, no finding
+    assert "runtime" not in codes(findings, WARN)
+    # a plan that has drifted far from its anchor is worth a look, either way
+    long_plan = OUTLINE.replace("**Length:** 40 min", "**Length:** 80 min")
+    fs = lint_plan(long_plan, docket=DOCKET, target_minutes=27)
+    assert "runtime" in codes(fs, WARN)
+    assert any("the series default is wrong for this material" in f.message for f in fs)
 
 
 def test_a_repeated_opening_type_is_flagged(findings):

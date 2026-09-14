@@ -100,9 +100,9 @@ what it judges rather than applies; **which single controversy you considered an
 carry an apparatus episode**; and the two later apparatus episodes that invoke it, by number. A
 lens episode whose test is not shown has not passed it.
 
-Expect roughly **one lens episode in four**. **Announce the switch in both directions with the
-episode number attached** ("three episodes from now we return to the instrument itself"; "this is
-the last time we step back"). A listener must always know which mode they are in.
+Expect roughly **one lens episode in four**. **Announce the switch once in each direction** — the
+listener must know which mode they are in — and attach an episode number to at most one of them.
+Two numbered pointers in one episode is already most of the writer's budget for the whole script.
 
 ## SIZE AND COUNT
 
@@ -122,8 +122,16 @@ handing them an invitation to invent.
 ## PREREQUISITE ORDER AND DEFERRAL
 
 Nothing may use a term an earlier episode has not earned. State per episode what the listener must
-already hold. Where material is deferred, **name the later episode — or the later series — that
-takes it up**, so every deferral is a commitment the writer can voice.
+already hold. Where material is deferred, name the later episode — or the later series — that takes
+it up, so the deferral is a commitment and not a hole.
+
+**But mark which deferrals the writer should SPEAK, and keep that list to three.** The rest are
+for you and the writer, not for the listener. The first generated plan for the EU AI Act produced
+scripts making fifteen cross-episode references in thirty-four minutes — one every two minutes,
+each asking someone on a train to hold a pointer to something they have not heard. That is the
+single worst thing you can do to an ear-only listener, and it comes from this instruction applied
+without a budget. A spoken deferral should give **permission to forget**, not a promise to
+remember.
 
 ## THE VERDICT IS HELD
 

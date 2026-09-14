@@ -102,6 +102,27 @@ natural pause and downmixed to mono. Needs the `audio` extra
 | `--out WAV` | yes | output path (e.g. `projects/<proj>/voices/narrator.wav`) |
 | `--duration S` | no | target clip length in seconds (default 10) |
 
+### `prosodia references`
+
+Build the series' written source reference from the transcripts, the plan and the docket.
+Run it **after the episodes are written**.
+
+The episodes carry **no spoken source list** on purpose: a bibliography read aloud is
+unusable to someone travelling — they cannot write it down and will not remember it — and
+it lands where attention is lowest. The sourcing still has to be checkable, so it lives in
+`<project>/references.md` instead.
+
+| Argument / option | Req | Meaning |
+|---|---|---|
+| `--project DIR` | yes | project directory |
+| `--out FILE` | no | output path (default `<project>/references.md`) |
+
+Per episode it lists the provisions actually cited (in first-mention order), the people and
+bodies named aloud, and the plan's own `**Sources**` beat. Then a series-wide index of where
+each provision is taught, and the docket files everything was checked against. An episode not
+yet written is named and marked, never skipped, and a work the plan relies on that no
+`research/` file mentions is reported on stderr rather than quietly dropped.
+
 ### `prosodia plan-lint`
 
 Check a plan outline against the research docket and the persona's structural rules —

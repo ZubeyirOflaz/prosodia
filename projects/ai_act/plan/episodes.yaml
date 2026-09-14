@@ -7,59 +7,59 @@ episodes:
   slug: ep01-the-gate
   title: The Gate
   type: apparatus
-  target_minutes: 27
+  target_minutes: 34
 - n: 2
   slug: ep02-the-pacing-problem
   title: The Pacing Problem
   type: lens
-  target_minutes: 24
+  target_minutes: 27
 - n: 3
   slug: ep03-under-whose-name
   title: Under Whose Name
   type: apparatus
-  target_minutes: 27
+  target_minutes: 32
 - n: 4
   slug: ep04-the-ladder
   title: The Ladder
   type: apparatus
-  target_minutes: 30
+  target_minutes: 38
 - n: 5
   slug: ep05-the-red-lines
   title: The Red Lines
   type: apparatus
-  target_minutes: 30
+  target_minutes: 38
 - n: 6
   slug: ep06-risk-against-rights
   title: Risk Against Rights
   type: lens
-  target_minutes: 26
+  target_minutes: 30
 - n: 7
   slug: ep07-the-weight
   title: The Weight
   type: apparatus
-  target_minutes: 35
+  target_minutes: 45
 - n: 8
   slug: ep08-the-presumption
   title: The Presumption
   type: apparatus
-  target_minutes: 33
+  target_minutes: 40
 - n: 9
   slug: ep09-the-general-case
   title: The General Case
   type: apparatus
-  target_minutes: 32
+  target_minutes: 40
 - n: 10
   slug: ep10-does-it-travel
   title: Does It Travel
   type: lens
-  target_minutes: 24
+  target_minutes: 28
 - n: 11
   slug: ep11-who-is-actually-watching
   title: Who Is Actually Watching
   type: apparatus
-  target_minutes: 34
+  target_minutes: 42
 - n: 12
   slug: ep12-a-product
   title: A Product
   type: verdict
-  target_minutes: 38
+  target_minutes: 45

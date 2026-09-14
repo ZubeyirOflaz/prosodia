@@ -68,6 +68,12 @@ which nothing can regenerate.
 `prosodia plan-lint` checks a plan against this directory — see
 [plan review](reference/plan-review.md).
 
+## Sources and references
+
+Scripts carry no spoken bibliography. Run
+[`prosodia references`](cli-reference.md#prosodia-references) after the episodes are written
+to build `<project>/references.md` from the transcripts, the plan and the docket.
+
 ## Personas
 
 A **persona** is the authoring voice — the full set of role prompts (planner, writer,

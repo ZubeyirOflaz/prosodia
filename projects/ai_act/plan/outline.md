@@ -107,7 +107,7 @@ Every part below is **taught in exactly one episode**. Other episodes may refer 
 
 ## Episode 1 — The Gate
 
-**Length:** 27 min.
+**Length:** 34 min.
 
 **Prerequisites:** none. This is the entry point; every term after this is earned inside the series.
 
@@ -172,7 +172,7 @@ Called thereafter: **the gate** (Art. 3(1)) and **the reach** (Art. 2).
 
 ## Episode 2 — [LENS] The Pacing Problem
 
-**Length:** 24 min. Short because the argument is small and sharp; padding it would be the failure mode.
+**Length:** 27 min. Short because the argument is small and sharp; padding it would be the failure mode.
 
 **Prerequisites:** Ep 1 — the gate, inference, intended purpose, the idea that duties attach at the point a thing is placed on a market.
 
@@ -204,7 +204,7 @@ Called thereafter: **the gate** (Art. 3(1)) and **the reach** (Art. 2).
 
 ## Episode 3 — Under Whose Name
 
-**Length:** 27 min.
+**Length:** 32 min.
 
 **Prerequisites:** Eps 1–2 — the gate; that duties attach at placing on the market; that the Act is an instrument with staged application.
 
@@ -266,7 +266,7 @@ Called thereafter: **the name rule** (under whose name it goes out) and **the fl
 
 ## Episode 4 — The Ladder
 
-**Length:** 30 min — three more than default, because it builds the four rungs and the classification article that decides which one you are on.
+**Length:** 38 min — three more than default, because it builds the four rungs and the classification article that decides which one you are on.
 
 **Prerequisites:** Eps 1 and 3 — the gate; provider and deployer; that duties attach at placing on the market.
 
@@ -327,7 +327,7 @@ The four rungs, built in order: **prohibited** (Art. 5, live since 2 February 20
 
 ## Episode 5 — The Red Lines
 
-**Length:** 30 min — the prohibition list is eight limbs plus two 2026 insertions plus a heavily-qualified biometric exception.
+**Length:** 38 min — the prohibition list is eight limbs plus two 2026 insertions plus a heavily-qualified biometric exception.
 
 **Prerequisites:** Eps 1, 3, 4 — the gate; provider and deployer; the ladder and which rung is which.
 
@@ -387,7 +387,7 @@ Called thereafter: **the red lines**.
 
 ## Episode 6 — [LENS] Risk Against Rights
 
-**Length:** 26 min.
+**Length:** 30 min.
 
 **Prerequisites:** Eps 1, 3, 4, 5 — the gate, roles, the ladder, the red lines. This episode is unintelligible without the design-time bet from Ep 4.
 
@@ -425,7 +425,7 @@ Called thereafter: **the red lines**.
 
 ## Episode 7 — The Weight
 
-**Length:** 35 min — flagged. Chapter III sections 2 and 3 are the densest obligations in the Act; the alternative is to gut them.
+**Length:** 45 min — flagged. Chapter III sections 2 and 3 are the densest obligations in the Act; the alternative is to gut them.
 
 **Prerequisites:** Eps 1, 3, 4, 6 — the gate; provider and deployer; the ladder and Art. 6; the risk/rights argument.
 
@@ -503,7 +503,7 @@ nothing at stake is the one failure this persona cannot absorb.
 
 ## Episode 8 — The Presumption
 
-**Length:** 33 min — flagged. Notified bodies, standards, conformity assessment, CE marking and the deferral decision are one causal chain and splitting them destroys the argument.
+**Length:** 40 min — flagged. Notified bodies, standards, conformity assessment, CE marking and the deferral decision are one causal chain and splitting them destroys the argument.
 
 **Prerequisites:** Eps 4, 6, 7 — the ladder; the risk/rights argument, including Veale and Zuiderveen Borgesius on standardisation; the Chapter III requirements that this episode's machinery is supposed to certify.
 
@@ -564,7 +564,7 @@ Open in the committee, on the vote to change the rules.
 
 ## Episode 9 — The General Case
 
-**Length:** 32 min — carries Chapter V, Chapter X, Art. 50 and the two codes of practice.
+**Length:** 40 min — carries Chapter V, Chapter X, Art. 50 and the two codes of practice.
 
 **Prerequisites:** Eps 1, 3, 4, 8 — the gate (and that a *model* is not a *system*); provider and deployer; the ladder, including the limited-risk rung this episode now fills in; the standards machinery, because GPAI is governed by a **code of practice** instead, and the contrast is the point.
 
@@ -644,7 +644,7 @@ the listener that the apparatus is about something it is not about.
 
 ## Episode 10 — [LENS] Does It Travel
 
-**Length:** 24 min.
+**Length:** 28 min.
 
 **Prerequisites:** Eps 4, 8, 9 — the ladder; the standards machinery; the GPAI regime and its 5–15 firms.
 
@@ -680,7 +680,7 @@ the listener that the apparatus is about something it is not about.
 
 ## Episode 11 — Who Is Actually Watching
 
-**Length:** 34 min. **⚠ Overloaded — flagged in the coverage map. My recommendation is to split it (11a governance, 11b enforcement) and run a 13-episode series. The plan below is the single-episode version, with the compressions named.**
+**Length:** 42 min. **⚠ Overloaded — flagged in the coverage map. My recommendation is to split it (11a governance, 11b enforcement) and run a 13-episode series. The plan below is the single-episode version, with the compressions named.**
 
 **Prerequisites:** Eps 3, 4, 5, 7, 8, 9 — roles; the tiers and their dates; the prohibitions; the Chapter III duties; conformity assessment; the GPAI regime's separate enforcement arm.
 
@@ -774,7 +774,7 @@ Called thereafter: **market surveillance**, and **the three-way split**.
 
 ## Episode 12 — [VERDICT] A Product
 
-**Length:** 38 min — the verdict episode, and the only one permitted to be long because it is the argument rather than the machinery.
+**Length:** 45 min — the verdict episode, and the only one permitted to be long because it is the argument rather than the machinery.
 
 **Prerequisites:** all eleven. This episode assumes the whole instrument.
 
@@ -917,4 +917,11 @@ The transferable questions the series teaches, and the episode that earns each.
 - Hoffmann
 - GovAI
 - CEPA
-- Annex
+- Frank Easterbrook
+- Larry Downes
+- Braden Allenby
+- Joseph Herkert
+- William Aspray
+- Philip Doty
+- Adam Thierer
+- Mercatus

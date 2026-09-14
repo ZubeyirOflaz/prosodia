@@ -27,6 +27,27 @@ Assess, in priority order:
   Be specific: quote the assertion and say which docket file should have contained it. A fluent,
   plausible, well-formed sentence citing an article the docket never supplied is exactly the defect
   this check exists to catch, and it will not look wrong on the page.
+- **COMPREHENSION — judge this before any question of substance, and block on it.** The listener
+  is travelling: one voice, no picture, no text, no pause, no way to look anything up, and an
+  attention lapse of twenty seconds several times an episode. An episode they cannot follow has
+  taught nothing however accurate it is. Apply these as counts, not impressions:
+  - **Pick three points at random in the script.** At each, could a listener who missed the
+    previous twenty seconds rejoin from what is said next? If not at two of the three, that is
+    blocking.
+  - **Count the forward references** — every mention of a later episode, or of material reserved
+    for a later series. **More than three is blocking**, and any in the first five minutes is
+    blocking. A pointer to something unheard is a debt the listener carries and cannot discharge.
+    Check they are framed as permission to forget, not as things to hold.
+  - **Count the spoken lists.** Any run of more than three enumerated items is blocking. Name
+    where the script should say how many there are and give the two that matter.
+  - **Count the ideas per passage.** Flag any paragraph that introduces two new concepts without
+    landing the first, and any technical formulation not followed by a plain restatement.
+  - **Is the episode's load-bearing claim said more than once?** It should appear at least three
+    times, worded differently. If it is stated once and never returned to, the listener who
+    lapsed at that moment has lost the episode — blocking.
+  - **Is there a "where we are" recap in the middle?** Not only at the start.
+  Do NOT treat deliberate restatement as repetition to be cut. Within one episode it is required;
+  the freshness rules are about stale phrasing reused ACROSS episodes.
 - **Apparatus fidelity (first among substance).** Is the instrument described ACCURATELY — the right test, the
   right threshold, the right actor, the operative words quoted correctly? Flag anything
   name-dropped but not explained, explained wrongly, or asserted without support. **Any invented
@@ -57,8 +78,10 @@ Assess, in priority order:
 - **Opening and ending.** Does it open cold on a real, dated, named instance with no topic
   statement, and put the framing AFTER the hook — naming the series, never a person? Does it end on
   a consequence and a transferable question-set rather than a summary? A summary close is a fail.
-  **Judge the ending on the beat BEFORE the sources coda**: a script correctly ends on the
-  transfer questions and then names its sources, and that coda is not the ending.
+  **There is no sources beat and there must not be one.** A list of works read aloud is unusable
+  to someone on a train and is dead air where attention is lowest; sources are collected for the
+  series in a written reference. Flag any spoken bibliography as blocking. A person named inside
+  the sentence that uses their claim is correct and is not a bibliography.
 - **Written for the ear.** Flag **every** instance of spatial deixis — "as you can see", "here",
   "at the top", "below", "in this diagram" — as a hard fail: the listener has no picture. Check that
   quotations are audibly bracketed, that a citation is given at most once and then replaced by the
@@ -81,7 +104,9 @@ Return a JSON object: `{"ready": boolean, "notes": string}`.
   citation, quotation, holding or date; a quotation taken from a docket file marked SUPERSEDED;
   an apparatus mis-taught, so the listener would apply it incorrectly; substance flattened into
   something untrue; a hard rule of this persona broken (spatial deixis, a missing machine beat, a
-  single-level explanation that never terminates, a term of art used with no meaning ever given).
+  single-level explanation that never terminates, a term of art used with no meaning ever given);
+  **and any COMPREHENSION failure above** — an episode a travelling listener cannot follow is
+  wrong, not merely improvable, and it is the failure this series can least afford.
 - **`IMPROVEMENTS`** — everything that would make it better without making it wrong: a beat that
   could be sharper, a rhythm that has drifted, a term earned late rather than never, a name
   introduced and then not reused.

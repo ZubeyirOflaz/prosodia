@@ -142,3 +142,14 @@ def test_day_month_dates_take_an_ordinal():
     # "2 August 2026" was spoken as "two August"; a regulatory series says dates constantly.
     assert normalize_text("on 2 August 2026") == "on the second of August twenty twenty-six"
     assert normalize_text("the 31 July 2026") == "the thirty-first of July twenty twenty-six"
+
+
+def test_a_slash_between_numbers_is_spoken():
+    """"Regulation (EU) 2024/1689" reached the engine with a bare '/' between two spoken
+    numbers, which has no pronunciation — and it is the most repeated phrase in a series
+    about a single instrument."""
+    out = normalize_text("Regulation (EU) 2024/1689")
+    assert "twenty twenty-four slash sixteen eighty-nine" in out
+    assert "/" not in out
+    # a date is not a fraction: don't touch other uses
+    assert normalize_text("and/or") == "and/or"

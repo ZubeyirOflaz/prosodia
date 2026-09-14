@@ -134,6 +134,11 @@ _ART_PARA = re.compile(r"\b(Article|Articles)\s+(\d+[a-z]?)\((\d+[a-z]?)\)(?:\((
 _MONTHS = (
     "January|February|March|April|May|June|July|August|September|October|November|December"
 )
+# A slash between two numbers has no pronunciation: "Regulation (EU) 2024/1689" reached the
+# engine as "twenty twenty-four/sixteen eighty-nine", where the separator is either dropped —
+# running two numbers together — or rendered as an artefact. It is the most repeated phrase in
+# a series about a single instrument, so it is worth a word.
+_NUM_SLASH = re.compile(r"(?<=\d)\s*/\s*(?=\d)")
 _DAY_MONTH = re.compile(rf"(?<!\w)(the\s+)?(\d{{1,2}})\s+({_MONTHS})\b")
 _CITE_RANGE = re.compile(
     r"\b(Articles|Recitals|Annexes|paragraphs|points|pages)\s+(\d+)\s*[\u2010-\u2015-]\s*(\d+)\b"
@@ -173,6 +178,7 @@ def normalize_text(text: str) -> str:
         + (f", point {m.group(4)}" if m.group(4) else ""),
         text,
     )
+    text = _NUM_SLASH.sub(" slash ", text)
     text = _DAY_MONTH.sub(
         lambda m: f"the {ordinal_to_words(int(m.group(2)))} of {m.group(3)}", text
     )
