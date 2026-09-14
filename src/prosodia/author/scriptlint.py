@@ -39,6 +39,12 @@ _RECAP = re.compile(
     r"\btwo things\b|\bthree things\b|\bwe have established\b"
 )
 _SENTENCE = re.compile(r"[^.!?]+[.!?]")
+# Spoken quotation marks: the phrases a narrator uses to open or close a quotation aloud.
+_AUDIBLE_BRACKET = re.compile(
+    r"(?i)\b(?:these are (?:his|her|their|its) words|(?:his|her|their|its) words|in (?:its|his|her|their) own words"
+    r"|the (?:Act|Regulation|text|article|court|provision) (?:says|reads|puts it)|end of (?:the )?(?:quote|quotation|definition)"
+    r"|quotation|quote|word for word|verbatim|reads as follows|I am quoting)\b"
+)
 # Places a listener is given a moment: an authored silence, a beat boundary (which the
 # renderer realises as real silence), or a question put to them.
 _BREATH = re.compile(r"(?m)\{pause[^}]*\}|^##|\?")
@@ -106,8 +112,16 @@ def _unbracketed_quotations(body: str, docket: str) -> list[str]:
     dn = re.sub(r"[^a-z0-9 ]", " ", docket.lower())
     dn = re.sub(r"\s+", " ", dn)
     hits = []
-    for sent in _SENTENCE.findall(body):
+    sents = _SENTENCE.findall(body)
+    for i, sent in enumerate(sents):
         if '"' in sent or "\u201c" in sent:
+            continue
+        # The persona requires quotations to be bracketed AUDIBLY, not typographically — the
+        # listener cannot hear a quotation mark. "His sentence, and these are his words: ..."
+        # is correctly bracketed and was being reported as unmarked, which penalised the
+        # script for doing the right thing for the medium.
+        near = " ".join(sents[max(0, i - 1):i + 2])
+        if _AUDIBLE_BRACKET.search(near):
             continue
         words = re.findall(r"[A-Za-z']+", sent)
         for i in range(max(0, len(words) - 9)):

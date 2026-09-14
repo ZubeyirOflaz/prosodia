@@ -114,3 +114,17 @@ def test_near_verbatim_instrument_text_must_be_bracketed():
     marked = HEAD + '## B\nThe Act says: "Testing in real world conditions shall not be covered by that exclusion."'
     assert "unbracketed-quote" not in codes(lint_script(marked, docket=docket), WARN)
     assert "unbracketed-quote" not in codes(lint_script(unmarked), WARN)  # no docket, no check
+
+
+def test_audible_bracketing_counts_as_bracketing():
+    """The listener cannot hear a quotation mark, so the persona requires quotations to be
+    opened and closed in words. Testing for `"` penalised a script for doing the right thing
+    for the medium."""
+    docket = "technology changes exponentially, but social, economic and legal systems change incrementally"
+    spoken = (HEAD + "## B\nHis sentence, and these are his words: technology changes "
+              "exponentially, but social, economic and legal systems change incrementally. "
+              "Those are his words.")
+    assert "unbracketed-quote" not in codes(lint_script(spoken, docket=docket), WARN)
+    bare = (HEAD + "## B\nTechnology changes exponentially, but social, economic and legal "
+            "systems change incrementally. That is the shape of the problem.")
+    assert "unbracketed-quote" in codes(lint_script(bare, docket=docket), WARN)
