@@ -81,6 +81,21 @@ Ask it to say what is **good**, too. The `ai_act` review's most useful line was 
 "what the rule assumes about the machine" beat was excellent in all eight apparatus
 episodes — which is the thing to protect when something has to be cut.
 
+## A hazard while a run is in flight
+
+`Persona.role()` (`persona.py:45`) **re-reads the prompt file on every call**, and
+`author_episode` calls it once per writer round and once per editor round. So editing
+`writer.md` or `editor.md` while an episode is being written silently changes the contract
+between rounds: round 2 is judged against a prompt round 1 never saw. Nothing in the run
+trace records which text was used, so the change leaves no evidence.
+
+Do not touch a persona's role prompts while a `write` is running. Python files are safe —
+the running process has already imported them — and so is the research docket, which is
+read once when the brief is assembled.
+
+Worth fixing properly: archive each role prompt into the run alongside `brief.md`, so a
+draft can be read against the instructions that actually produced it.
+
 ## What only a person can decide
 
 Whether the series is standalone enough; whether the verdict is right; whether a case is
