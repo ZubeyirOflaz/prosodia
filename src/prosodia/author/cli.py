@@ -213,6 +213,55 @@ def _cmd_voice_prep(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_script_lint(args: argparse.Namespace) -> int:
+    import yaml
+
+    from prosodia.author.persona import Persona
+    from prosodia.author.planparse import parse_episode_index
+    from prosodia.author.scriptlint import ERROR, WARN, lint_episode_file
+
+    proj = Path(args.project) if args.project else None
+    planned: dict[int, dict] = {}
+    persona = None
+    if proj:
+        cfg = _load_series(proj)
+        persona = Persona.resolve(args.persona or cfg.get("persona"), project=proj)
+        index = proj / "plan" / "episodes.yaml"
+        if index.is_file():
+            doc = yaml.safe_load(index.read_text(encoding="utf-8")) or {}
+            planned = {e["n"]: e for e in (doc.get("episodes") or []) if e.get("n") is not None}
+        elif (proj / "plan" / "outline.md").is_file():
+            planned = {e["n"]: e for e in
+                       parse_episode_index((proj / "plan" / "outline.md").read_text(encoding="utf-8"))}
+
+    # The persona's freshness watchlist is a ban list; until now nothing in the pipeline read it.
+    banned = list(persona.defaults.freshness_watchlist) if persona else []
+
+    if args.transcripts:
+        targets = [(None, Path(t)) for t in args.transcripts]
+    else:
+        targets = [(n, proj / "episodes" / e["slug"] / "transcript.md")
+                   for n, e in sorted(planned.items())
+                   if (proj / "episodes" / e["slug"] / "transcript.md").is_file()]
+    if not targets:
+        print("no transcripts found (pass files or --project)", file=sys.stderr)
+        return 1
+
+    errors = 0
+    for n, path in targets:
+        print(f"\n{path}")
+        findings = lint_episode_file(
+            path, episode=n, target_minutes=(planned.get(n) or {}).get("target_minutes"),
+            banned=banned,
+        )
+        for f in findings:
+            print(f.render())
+        errors += sum(1 for f in findings if f.level == ERROR)
+        warns = sum(1 for f in findings if f.level == WARN)
+        print(f"  -> {sum(1 for f in findings if f.level == ERROR)} error(s), {warns} warning(s)")
+    return 1 if (errors and not args.warn_only) else 0
+
+
 def _cmd_references(args: argparse.Namespace) -> int:
     from prosodia.author.references import build_references
 
@@ -752,6 +801,16 @@ def build_parser() -> argparse.ArgumentParser:
     p_vp.add_argument("--min-s", type=float, help="min clip length for the pause search (default: 0.8x duration)")
     p_vp.add_argument("--max-s", type=float, help="max clip length for the pause search (default: 1.35x duration)")
 
+    p_sl = sub.add_parser(
+        "script-lint",
+        help="count what an ear-only listener actually has to carry: forward references, "
+             "enumerations, orientation, rhythm",
+    )
+    p_sl.add_argument("transcripts", nargs="*", help="transcript .md files (or use --project)")
+    p_sl.add_argument("--project", help="lint every written episode of a project, in order")
+    p_sl.add_argument("--persona", help="persona name (default: series.yaml persona:)")
+    p_sl.add_argument("--warn-only", action="store_true", help="always exit 0")
+
     p_ref = sub.add_parser(
         "references",
         help="build the series' written source reference from the transcripts, plan and docket",
@@ -815,6 +874,7 @@ _DISPATCH = {
     "voice-prep": _cmd_voice_prep,
     "plan-lint": _cmd_plan_lint,
     "references": _cmd_references,
+    "script-lint": _cmd_script_lint,
     "plan-view": _cmd_plan_view,
     "lint-repetition": _cmd_lint_repetition,
     "trace-report": _cmd_trace_report,
