@@ -56,11 +56,12 @@ Assess, in priority order:
   correct move is to cut jargon and supply the missing background. Flag a passage that has made
   the apparatus easier by making it less true — and flag, equally, jargon left standing with no
   plain-language footing under it.
-- **The plan's load-bearing terms, earned before use** — those only. Do not ask for a gloss on
-  every term of art; that is a glossary, not an episode. Is every term of art given a plain-language meaning at first use,
-  and is the listener's likely misreading named and corrected — especially where the word means
-  something else in ordinary or technical speech? Fail any passage that borrows a term of art
-  without building the argument that gives it meaning.
+- **The plan's load-bearing terms, earned before use — those, and not every term.** For each one
+  the plan lists: is it given a plain-language meaning at first use, and is the listener's likely
+  misreading named and corrected, especially where the word means something else in ordinary or
+  technical speech? Fail a passage that leans on one of THOSE terms without building the argument
+  that gives it meaning. Do not ask for a gloss on every term of art the script happens to use —
+  a legal field has hundreds, and an episode that stops for all of them teaches nothing.
 - **The machine beat is present and real.** Does the episode say what the system actually does
   against what the norm presupposes it does? This is why the series exists. A gesture in its place
   is a fail.

@@ -448,5 +448,10 @@ def test_terms_to_earn_are_a_short_load_bearing_list_not_a_glossary():
     writer = p.role("writer")
     assert "Earn the plan's load-bearing terms" in writer
     assert "not every term" in writer
-    assert "an episode that stops for all of them teaches nothing" in writer
-    assert "Do not ask for a gloss on" in p.role("editor")
+    assert "hundreds of terms" in writer
+    editor = p.role("editor")
+    assert "those, and not every term" in editor
+    # and the bullet must not then turn round and demand a gloss on every term of art:
+    # replacing only its label left exactly that contradiction in place for one commit
+    assert "Do not ask for a gloss on every term of art" in editor
+    assert "Fail a passage that leans on one of THOSE terms" in editor
