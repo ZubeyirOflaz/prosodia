@@ -495,6 +495,16 @@ def _cmd_plan(args: argparse.Namespace) -> int:
     run = Run(proj / "plan" / "run")
     outline = plan_series(prompt, runner=runner, persona=persona, trace=trace, run=run)
 
+    # A conversational preamble before the outline is a formatting slip, not a broken plan:
+    # cut to the first heading and say so. The first version of this guard REJECTED a complete
+    # ten-episode plan over two lines of "Here is the outline.", which is the same over-strict
+    # failure it was written to prevent.
+    if not outline.lstrip().startswith("#"):
+        head = re.search(r"(?m)^#{1,2} \S", outline)
+        if head:
+            print(f"  note: dropped {head.start()} chars of preamble before the first heading")
+            outline = outline[head.start():]
+
     episodes = parse_episode_index(outline)
     # Structural completeness, not just "something came back". A Series B plan arrived with its
     # first eleven episodes missing -- the text began mid-sentence and the episodes were

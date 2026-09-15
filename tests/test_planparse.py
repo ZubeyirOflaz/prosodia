@@ -123,3 +123,22 @@ def test_a_truncated_plan_is_detected_by_its_numbering():
     assert numbers == [12, 13]
     assert numbers[0] != 1                       # the signal the guard now checks
     assert not truncated.lstrip().startswith("#")  # and the other one
+
+
+def test_a_preamble_is_stripped_but_a_truncation_is_not_tolerated():
+    """A complete ten-episode plan was rejected over two lines of "Here is the outline." —
+    the guard against truncation being as over-strict as the thing it replaced."""
+    import re
+
+    from prosodia.author.planparse import parse_episode_index
+
+    good = "Here is the outline.\n\n# S — Series Outline\n\n## Episode 1 — A\n\nbody\n"
+    head = re.search(r"(?m)^#{1,2} \S", good)
+    stripped = good[head.start():]
+    assert stripped.lstrip().startswith("#")
+    assert [e["n"] for e in parse_episode_index(stripped)] == [1]
+
+    # stripping does NOT rescue a genuinely truncated plan: its episodes still start late
+    truncated = "…mid-sentence.\n\n## Episode 12 — X\n\nbody\n"
+    h2 = re.search(r"(?m)^#{1,2} \S", truncated)
+    assert [e["n"] for e in parse_episode_index(truncated[h2.start():])] == [12]

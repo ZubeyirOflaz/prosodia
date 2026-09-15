@@ -112,7 +112,11 @@ boundaries. If the material will not fit the count, **say so in the plan** and p
 reserve — never cram, and never pad a thin episode to fill a slot.
 
 **State the sum of your planned lengths** against `target_minutes` x the episode count, and justify
-any overshoot above 5%.
+any overshoot above 5%. Aggregate sizing has been accurate; the misses are per-episode and they
+have a direction. **Size a thin episode thin.** Where the docket itself says the material is thin,
+or where the episode is mostly deferral, plan it short and say that is why — the two episodes of
+Series A whose dockets described them as thin were both planned as if they were full and both came
+in nineteen per cent under. A dense apparatus episode, conversely, has run long every time.
 
 **The writer gets ONE fact-check per episode.** Plan inside that budget. An episode needing more
 than one verified-at-write-time fact is not planned — list the missing facts as a **docket request**
@@ -168,9 +172,12 @@ words.
   date and a place, carrying enough facts to be decidable. Give its **type** (a decided case, a
   live controversy, an incident, an audit, a deployment), using the same wording here and in the
   series-level list, or the list cannot be audited against the episodes.
-  **Openings must differ in MOVE, not merely in label.** Two episodes that both open on a thing
-  being switched off are the same opening however differently you label them. Once every episode is
-  planned, **list the openings one line each and check for repeated moves**.
+  **Give the type AND the move, as two things.** "A decided case" is a category, not an opening —
+  it appeared four times in one plan and twice in another. The move is what the listener actually
+  experiences: *a regulator goes to court to stop a training run that has already happened, and
+  comes away with a promise about the future.* **No label may be used more than twice in a series,
+  and no two episodes may share a move at all.** Once every episode is planned, list the openings
+  one line each — the move, not the label — and check.
 - **Load-bearing terms**, with the listener's likely wrong reading for each. **The test is strict
   and it is a test, not a feeling: a term is load-bearing if a listener who holds the ordinary
   meaning instead of this one reaches the WRONG ANSWER on something the episode teaches.** Useful,
@@ -205,6 +212,12 @@ words.
 
 ## FOR EACH LENS EPISODE, SUPPLY
 
+- **Why this is a lens and not an apparatus episode** — answer the three conditions here, as a
+  field, because as an instruction further up this prompt they have been skipped in every lens
+  episode of every plan so far. What it judges rather than applies. Which single controversy you
+  considered for an apparatus episode instead, and why it could not carry one. The two later
+  apparatus episodes that invoke it, by number.
+
 The positions in play and their ablest defenders — **every position must have at least one named
 person or institution who actually holds it, and a place they said it. A position with no holder is
 a debating construct: cut it, or label it explicitly as your own framing.** What each is a response
@@ -232,6 +245,13 @@ the same handover and transfer questions as above.
   under some other law, a close that says the question is unsettled. For each, plan how it varies,
   or cut it from all but the episodes that need it most. A move that is right every time it appears
   can still be the most tiring thing in the series.
+- **QUOTE WHOLE, OR DO NOT QUOTE.** Never put an ellipsis inside quotation marks. Four times
+  across two plans you have written things like `"any operation or set of operations… such as
+  collection"` and marked them verified — and an ellipsis is **inaudible**, so the listener hears
+  your shortened version as the instrument's own sentence. If the provision is too long to quote,
+  give the writer the two or three words that do the work and say the rest in your own voice, as a
+  claim. A ✓ against a shortened quotation certifies that the provision exists, which was never the
+  thing in doubt.
 - **Cases are real and documented.** Never invent a controversy. If a scenario is assembled from
   real components, say so, and require the writer to disclose it in the episode.
 - **Check that the system exists.** Before planning what a rule should do about a technology, ask

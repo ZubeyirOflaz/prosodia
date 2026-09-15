@@ -1,0 +1,53 @@
+# Episodes as the Planner defined them, parsed from outline.md.
+# `write` reads this when series.yaml lists no matching episode.
+episodes:
+- n: 1
+  slug: ep01-the-same-file-twice
+  title: The Same File, Twice
+  type: apparatus
+  target_minutes: 38
+- n: 2
+  slug: ep02-a-reason-to-touch-it
+  title: A Reason to Touch It
+  type: apparatus
+  target_minutes: 36
+- n: 3
+  slug: ep03-the-category-it-cannot-ask-for
+  title: The Category It Cannot Ask For
+  type: apparatus
+  target_minutes: 38
+- n: 4
+  slug: ep04-solely
+  title: Solely
+  type: apparatus
+  target_minutes: 36
+- n: 5
+  slug: ep05-meaningful-information
+  title: Meaningful Information
+  type: apparatus
+  target_minutes: 34
+- n: 6
+  slug: ep06-what-would-count-as-an-explanation
+  title: What Would Count As An Explanation
+  type: lens
+  target_minutes: 28
+- n: 7
+  slug: ep07-two-assessments-one-system
+  title: Two Assessments, One System
+  type: apparatus
+  target_minutes: 36
+- n: 8
+  slug: ep08-a-product-now
+  title: A Product Now
+  type: apparatus
+  target_minutes: 38
+- n: 9
+  slug: ep09-who-has-to-prove-it
+  title: Who Has to Prove It
+  type: apparatus
+  target_minutes: 36
+- n: 10
+  slug: ep10-layers
+  title: Layers
+  type: verdict
+  target_minutes: 30

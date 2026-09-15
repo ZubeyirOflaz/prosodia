@@ -538,3 +538,22 @@ def test_a_verdict_episode_is_given_the_whole_series_as_evidence(tmp_path):
     assert "SENTINEL_EARLIER_CLAIM" in b        # the record itself, not a summary
     assert "This is EVIDENCE, not phrasing to" in b
     assert "substance wins" in b
+
+
+def test_planner_rules_that_were_skipped_are_now_fields():
+    """Across two plans, rules stated as PROSE were skipped and rules stated as FIELDS were
+    obeyed. The load-bearing-terms field produced 23 of 23 terms in the scripts; the
+    lens three-condition test, an instruction in running text, was shown in 0 of 4 lens
+    episodes. These four fixes move the skipped rules into the deliverables list, or give
+    them a hard form.
+    """
+    planner = Persona.resolve("casework").role("planner")
+    # 1. an ellipsis inside quotation marks is inaudible — four instances, each marked verified
+    assert "QUOTE WHOLE, OR DO NOT QUOTE" in planner
+    assert "inaudible" in planner
+    # 2. the lens test is now a field in the lens deliverables, not a paragraph further up
+    assert "Why this is a lens and not an apparatus episode" in planner
+    # 3. a type label is not a move: "a decided case" appeared four times in one plan
+    assert "No label may be used more than twice in a series" in planner
+    # 4. thin episodes were planned as if full and came in 19% under
+    assert "Size a thin episode thin" in planner
