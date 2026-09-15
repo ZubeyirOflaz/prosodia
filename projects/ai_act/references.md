@@ -175,11 +175,35 @@ GovAI, arXiv 2208.12645. CEPA, *"Burying the Brussels Effect?"*. *German Law Jou
 
 ## Episode 11 — Who Is Actually Watching
 
-*Not yet written.*
+**Provisions cited in the episode**
+
+- Article 75
+- Article 69
+- Article 77
+- Article 99
+- Article 86
+
+**People, bodies and instruments named aloud**
+
+Regulation (EU) 2024/1689, Clearview AI.
+
+**What the episode was built on** *(from the plan)*
+
+Regulation (EU) 2024/1689, Arts. 65, 66, 70, 72–75, 75a–75d, 85–87, 99, 100, 111, 113. Commission press release IP/26/1714, 31 July 2026. Autoriteit Persoonsgegevens decision on Clearview AI (2024); CNIL, Garante, HDPA and ICO decisions (2022). ⚠ **On air, the reported first fines are named as unverified and architecturally implausible, with the reasoning given — never repeated as fact.**
 
 ## Episode 12 — A Product
 
-*Not yet written.*
+**Provisions cited in the episode**
+
+- Article 112
+
+**People, bodies and instruments named aloud**
+
+Regulation (EU) 2026/1744, EN 18286, Michael Veale, Frederik Zuiderveen Borgesius.
+
+**What the episode was built on** *(from the plan)*
+
+Regulation (EU) 2024/1689, Art. 112. Veale and Zuiderveen Borgesius (2021). EDPB–EDPS Joint Opinion 5/2021. Cantero Gamito (2025). CEN-CENELEC JTC 21 status, June 2026, including EN 18286 at Approval. Regulation (EU) 2026/1744.
 
 ---
 
@@ -211,11 +235,17 @@ GovAI, arXiv 2208.12645. CEPA, *"Burying the Brussels Effect?"*. *German Law Jou
 - **Article 51** — episode 9
 - **Article 56** — episode 9
 - **Article 67** — episode 8
+- **Article 69** — episode 11
 - **Article 74** — episode 8
+- **Article 75** — episode 11
+- **Article 77** — episode 11
+- **Article 86** — episode 11
 - **Article 94** — episode 9
 - **Article 95** — episode 9
+- **Article 99** — episode 11
 - **Article 101** — episode 9
 - **Article 102** — episode 4
+- **Article 112** — episode 12
 - **Annex I** — episode 4
 - **Annex III** — episodes 4, 5
 - **Annex II** — episode 5
