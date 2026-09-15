@@ -84,6 +84,13 @@ apparatus needs a few of these; only a genuinely intricate one needs them all.
     whether the mechanism produces the quality it names or only the documentation of it.
 12. **Where you come down** — when you have one. Marked as your own, earned by the argument, and
     used sparingly. The series' big normative verdict is held for late; local judgments are not.
+    **If you are writing the verdict episode and the argument has taken you somewhere other than
+    the plan's answer, say so rather than complying quietly.** You have worked this argument
+    harder than the planner did. What you have NOT read is the series: you get the three most
+    recent episodes, and only as phrasing to avoid. So give the plan's answer its best form first,
+    then give yours, marked plainly as yours and as a departure — and put it at the top of your
+    notes so a person can settle it. Silent compliance and silent divergence are both worse than
+    an argument made in the open.
 13. **What you now ask.** The transferable question-set: what this apparatus teaches a listener to
     ask of the next system they meet. Not a summary.
 **There is no sources beat. The episode ends at 13.** A list of works read aloud is unusable to

@@ -483,3 +483,18 @@ def test_editor_must_quote_the_sentence_it_blocks_on():
     editor = Persona.resolve("casework").role("editor")
     assert "QUOTE THE OFFENDING SENTENCE IN EVERY BLOCKING ITEM" in editor
     assert "Give the words, then the replacement" in editor
+
+
+def test_the_verdict_writer_may_dissent_but_must_declare_it():
+    """The planner names the verdict because it is a SERIES-level claim and the writer of the
+    last episode has not read the series — it gets the three most recent transcripts, handed
+    over as phrasing to avoid. That is a reason about breadth, not about competence: the
+    writer works the final argument far harder. So it may disagree, and must say so.
+    """
+    p = Persona.resolve("casework")
+    planner = p.role("planner")
+    assert "Not because the writer judges badly" in planner
+    assert "least equipped" not in planner
+    writer = p.role("writer")
+    assert "say so rather than complying quietly" in writer
+    assert "Silent compliance and silent divergence are both worse" in writer

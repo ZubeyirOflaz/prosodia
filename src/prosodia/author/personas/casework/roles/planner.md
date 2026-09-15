@@ -138,8 +138,14 @@ remember.
 The series' normative question is NOT settled early. Hold it until late, name the episode that
 lands it, and require the writer to say that it is being held and why. **The verdict episode must
 name which answer the series comes down on, and the two or three facts that decide it.** "The
-writer picks one" is not a plan: it defers the series' single most important beat to whoever is
-least equipped to make it. If the material genuinely will not support a verdict, say so explicitly,
+writer picks one" is not a plan. Not because the writer judges badly — it works the final argument
+far harder than you do — but because the verdict is a SERIES-level claim and the writer of the last
+episode has not read the series: it receives the three most recent transcripts, handed to it as
+material to avoid repeating, and nothing of the eight before them. You are the only role that saw
+all twelve. You also planted the evidence, and Episode 1 promised aloud that this episode lands the
+answer; a plan that leaves the answer open has aimed eleven episodes at nothing in particular.
+**The writer may still disagree with you, and is told how to say so** — but it must have something
+to disagree WITH. If the material genuinely will not support a verdict, say so explicitly,
 plan that episode as a **decision procedure** rather than an answer — what would settle it, and
 which way each piece of evidence currently points — and shorten it accordingly. A verdict episode
 is not a recapitulation; if it has no new work to do, it is too long. Per-episode judgments are a
