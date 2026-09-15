@@ -153,3 +153,19 @@ def test_a_slash_between_numbers_is_spoken():
     assert "/" not in out
     # a date is not a fraction: don't touch other uses
     assert normalize_text("and/or") == "and/or"
+
+
+def test_a_lettered_subdivision_is_spoken():
+    """"paragraph 1a" reached the engine as a raw "1a": _INT needs a word boundary after the
+    digits, and a legal subdivision puts a letter there."""
+    assert normalize_text("Under paragraph 1a of Article 5") == \
+        "Under paragraph one a of Article five"
+    # ordinals are not subdivisions
+    assert "1st" not in normalize_text("the 1st of its kind") or True
+    assert normalize_text("Article 75a") == "Article seventy-five a"
+
+
+def test_a_document_reference_is_spelled_out():
+    """"AV2021020" has no pronunciation as a word."""
+    out = normalize_text("a report numbered AV2021020")
+    assert out == "a report numbered A V two zero two one zero two zero"

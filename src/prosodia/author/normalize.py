@@ -138,6 +138,12 @@ _MONTHS = (
 # engine as "twenty twenty-four/sixteen eighty-nine", where the separator is either dropped —
 # running two numbers together — or rendered as an artefact. It is the most repeated phrase in
 # a series about a single instrument, so it is worth a word.
+# Legal subdivisions carry a letter: "paragraph 1a", "Article 5(1a)". `_INT` requires a word
+# boundary after the digits, so these reached the engine as a raw "1a".
+_SUBDIVISION = re.compile(r"\b(\d{1,3})([a-z])\b")
+# A document reference like "AV2021020" has no pronunciation as a word. Letters and digits,
+# said one at a time, is the only reading a listener can follow.
+_IDENTIFIER = re.compile(r"\b([A-Z]{2,5})(\d{4,})\b")
 _NUM_SLASH = re.compile(r"(?<=\d)\s*/\s*(?=\d)")
 _DAY_MONTH = re.compile(rf"(?<!\w)(the\s+)?(\d{{1,2}})\s+({_MONTHS})\b")
 _CITE_RANGE = re.compile(
@@ -178,6 +184,9 @@ def normalize_text(text: str) -> str:
         + (f", point {m.group(4)}" if m.group(4) else ""),
         text,
     )
+    text = _IDENTIFIER.sub(
+        lambda m: " ".join(m.group(1)) + " " + " ".join(_ONES[int(d)] for d in m.group(2)), text
+    )
     text = _NUM_SLASH.sub(" slash ", text)
     text = _DAY_MONTH.sub(
         lambda m: f"the {ordinal_to_words(int(m.group(2)))} of {m.group(3)}", text
@@ -197,6 +206,8 @@ def normalize_text(text: str) -> str:
         + (f" {m.group(2).lower()}" if m.group(2) else ""),
         text,
     )
+    # after _SECTION, which needs the raw "45a" of "§45a" to make "section forty-five a"
+    text = _SUBDIVISION.sub(lambda m: f"{int_to_words(int(m.group(1)))} {m.group(2)}", text)
     text = _DECADE.sub(lambda m: _decade_to_words(int(m.group(1))), text)
     text = _YEAR.sub(lambda m: year_to_words(int(m.group(1))), text)
     text = text.replace("%", " percent").replace("&", " and ")
