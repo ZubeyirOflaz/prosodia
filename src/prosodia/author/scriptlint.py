@@ -41,10 +41,15 @@ _RECAP = re.compile(
 _SENTENCE = re.compile(r"[^.!?]+[.!?]")
 # Spoken quotation marks: the phrases a narrator uses to open or close a quotation aloud.
 _AUDIBLE_BRACKET = re.compile(
-    r"(?i)\b(?:these are (?:his|her|their|its) words|(?:his|her|their|its) words|in (?:its|his|her|their) own words"
-    r"|the (?:Act|Regulation|text|article|court|provision) (?:says|reads|puts it)|end of (?:the )?(?:quote|quotation|definition)"
-    r"|quotation|quote|word for word|verbatim|reads as follows|I am quoting)\b"
+    r"(?i)(?:\b\w+'s (?:own )?words\b|\b(?:his|her|its|their) (?:own )?words\b"
+    r"|\b(?:says|said|reads|puts it|goes like this|runs like this|reads as follows)\b"
+    r"|\bend of (?:the )?(?:quote|quotation|definition)\b"
+    r"|\b(?:quotation|quote|verbatim)\b|\bword for word\b|\bI am quoting\b)"
 )
+# A beat the writer marked `{tone: quoting}` IS bracketed, by construction — the renderer
+# delivers it in the statute's voice and the script says so around it. Directives are
+# stripped before the text is examined, so this is read off the raw transcript.
+_QUOTING_BEAT = re.compile(r"(?m)^##[^\n]*\{[^}]*tone:\s*quoting[^}]*\}[^\n]*$")
 # Places a listener is given a moment: an authored silence, a beat boundary (which the
 # renderer realises as real silence), or a question put to them.
 _BREATH = re.compile(r"(?m)\{pause[^}]*\}|^##|\?")
@@ -105,7 +110,16 @@ def _num(word: str) -> int | None:
     return int(word) if word.isdigit() else names.get(word.lower())
 
 
-def _unbracketed_quotations(body: str, docket: str) -> list[str]:
+def _quoting_beats(raw: str) -> str:
+    """The text of every beat delivered in the instrument's own voice."""
+    out, marks = [], list(_QUOTING_BEAT.finditer(raw))
+    for m in marks:
+        nxt = re.search(r"(?m)^##", raw[m.end():])
+        out.append(raw[m.end(): m.end() + (nxt.start() if nxt else len(raw))])
+    return "\n".join(out)
+
+
+def _unbracketed_quotations(body: str, docket: str, quoting: str = "") -> list[str]:
     """Runs of the instrument's exact words the script speaks without marking as a quotation.
 
     Twelve words, calibrated rather than guessed. At ten, a script's own recap trips it — the
@@ -138,6 +152,8 @@ def _unbracketed_quotations(body: str, docket: str) -> list[str]:
         # script for doing the right thing for the medium.
         near = " ".join(sents[max(0, i - 1):i + 2])
         if _AUDIBLE_BRACKET.search(near):
+            continue
+        if quoting and sent.strip()[:60] in quoting:
             continue
         words = re.findall(r"[A-Za-z']+", sent)
         for i in range(max(0, len(words) - 11)):
@@ -248,7 +264,7 @@ def lint_script(transcript: str, *, episode: int | None = None,
                            f'("{frags[0]} ...") — idiomatic twice, a tic beyond'))
 
     if docket:
-        for sent in _unbracketed_quotations(body, docket):
+        for sent in _unbracketed_quotations(body, docket, _quoting_beats(raw)):
             out.append(Finding(WARN, "unbracketed-quote",
                                f'speaks twelve or more of the instrument\'s exact words without '
                                f'marking them as a quotation: "{sent}..."'))
