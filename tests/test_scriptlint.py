@@ -161,8 +161,16 @@ def test_the_banned_correction_shape_is_counted():
         "They are not a control. They are a witness. "
         "Not useless. Weakest. "
         "This is not cynicism. It is process regulation. "
+        "That is not a prediction. It is arithmetic. "
+        "Not a training course. "
+        "It is not a press release. It is a considered response. "
+        "Not one of them. "
     )
-    assert "not-x-y" in codes(lint_script(t), WARN)
+    assert "not-x-y" in codes(lint_script(t))
+    # frequency is the discriminator, not form: a couple of these ARE the persona's required
+    # correction of a named misreading, so a low count must not fire
+    few = HEAD + "## B\nHigh-risk is not dangerous. It is a legal classification. Not a rung."
+    assert "not-x-y" not in codes(lint_script(few))
     # an ordinary negation is not the shape
     ok = HEAD + "## B\nThe rule does not reach that system, and nobody has argued that it should."
     assert "not-x-y" not in codes(lint_script(ok), WARN)

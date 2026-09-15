@@ -18,7 +18,7 @@ On the rig, it ran the emissions control system at full strength, everything the
 
 In 2015 this became public knowledge. Volkswagen. Roughly eight and a half million affected cars in Europe.
 
-The thing to carry through the next half hour is not the deception, though. It is something much duller, and much more useful than a scandal.
+The thing to carry through the next half hour is duller than the deception, though — and far more useful than a scandal.
 
 Nobody had to decide whether that car was inside the reach of the law.
 
@@ -46,7 +46,7 @@ One version of it — the version that later reached the European courts — ran
 
 A disclosure now, because I would rather make it early than have you wondering. That software was not an AI system: it inferred nothing, and it was a set of conditions somebody had written down. The AI Act did not exist in 2015 either, so nothing I say today is a claim that the Act applied to Volkswagen.
 
-What I am borrowing is not the software. It is the *route* — the road that car travelled to reach a market, because the AI Act now uses that same road, and almost nobody talks about it.
+What I am borrowing is the *route*, not the software — the road that car travelled to reach a market, because the AI Act now uses that same road, and almost nobody talks about it.
 
 ## The word the whole structure rests on {tone: measured}
 

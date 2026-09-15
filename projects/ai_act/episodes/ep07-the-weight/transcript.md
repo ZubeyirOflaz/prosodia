@@ -208,7 +208,7 @@ And now the trade, which is the sentence I most want you to keep.
 
 A provider can satisfy every article in this chapter and still place on the market a system that harms people — as long as the process ran and the file is in order.
 
-That is not cynicism. It is what *ex ante* process regulation is. It buys you administrability and scale and something to check before harm rather than after, and the price is that compliance and safety are two different questions with two different answers.
+That is what *ex ante* process regulation is. It buys you administrability and scale and something to check before harm rather than after, and the price is that compliance and safety are two different questions with two different answers.
 
 Ask yourself, honestly: could a system satisfy all seven requirements and still hurt somebody? {pause: 1.8}
 
@@ -308,7 +308,7 @@ The requirements, the file, the oversight duty, the deployer obligations — for
 
 And when they do apply, the way a provider demonstrates compliance is conformity assessment. Conformity assessment runs, in the main, against harmonised standards — and a standard confers its legal effect only once it has been cited in the Official Journal.
 
-So the question that decides whether any of this is real is not in this chapter at all. It is: who writes those standards, and do they exist?
+So the question that decides whether any of this is real sits outside this chapter altogether: who writes those standards, and do they exist?
 
 As of June 2026, on the evidence available, the answer to the second half is no. That is the next episode, and so is the half of the aviation report I did not use — the half about what happens when a regulator delegates assessment to the party being assessed.
 

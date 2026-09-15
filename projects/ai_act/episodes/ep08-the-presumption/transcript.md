@@ -214,7 +214,7 @@ The product was built to pass the assessment rather than to meet the standard.
 
 Nothing was falsified and nothing was hidden. The car was optimised against a known, published, fixed evaluation. And an AI system tuned to perform on the benchmark used for its conformity assessment, and differently once it is deployed, is the identical failure with different physics.
 
-That is not a worry I am importing from outside. It is what the machinery this Act borrowed did, under load, when someone had a strong incentive to game it.
+I am not importing that worry from outside: it is what the machinery this Act borrowed did, under load, when someone had a strong incentive to game it.
 
 ## The other half, from the air {tone: measured}
 
@@ -376,7 +376,7 @@ But a presumption is a promise about a document. And as of June 2026, for the hi
 
 A promise about a document, and no document.
 
-That is not a prediction. It is an arithmetic fact about the Official Journal, and anyone can check it.
+That is arithmetic about the Official Journal, not prediction, and anyone can check it.
 
 ## What you now ask {tone: lucid}
 

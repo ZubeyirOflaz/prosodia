@@ -276,11 +276,19 @@ def lint_script(transcript: str, *, episode: int | None = None,
                                f'speaks twelve or more of the instrument\'s exact words without '
                                f'marking them as a quotation: "{sent}..."'))
 
+    # Frequency, not form, is what separates the tic from the device. Correcting a named
+    # misreading of a load-bearing term IS this shape and the persona requires it ("high-risk
+    # does not mean dangerous. It is a legal classification"), and so are emphatic triads
+    # ("Demonstrating. Not verifying. Not testing."). At four the check reported all nine
+    # episodes and most of what it reported was the show working. Eight is where an editor
+    # independently called it "the script's signature move".
     shapes = _NOT_X_Y.findall(body)
-    if len(shapes) >= 4:
-        out.append(Finding(WARN, "not-x-y",
-                           f"{len(shapes)} uses of the 'it is not X, it is Y' correction shape — "
-                           "the series bans it; two is a move, twelve is the narrator's only gear"))
+    if len(shapes) >= 8:
+        out.append(Finding(NOTE, "not-x-y",
+                           f"{len(shapes)} uses of the 'not X — Y' correction shape. Some are "
+                           "required (a named misreading corrected, a level distinguished from a "
+                           "cause); at this count it has become the narrator's default gear. "
+                           "Judge them individually — invert the ones doing no teaching work"))
 
     # --- rhythm ---
     lens = [len(re.findall(r"[A-Za-z']+", s)) for s in _SENTENCE.findall(body)]

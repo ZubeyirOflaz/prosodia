@@ -12,7 +12,7 @@ On 21 April 2021, the European Commission published a proposal for a regulation 
 
 Two months later, on 18 June 2021, two European institutions published a joint reading of it.
 
-The European Data Protection Board — the body where the national data-protection authorities sit together — and the European Data Protection Supervisor, who polices the Union's own institutions. Their document is Joint Opinion 5 of 2021. It is not a press release. It is the considered response of two bodies who had spent fifteen years enforcing Europe's other great information statute, reading a brand-new one and saying, in effect: you have built the wrong kind of instrument.
+The European Data Protection Board — the body where the national data-protection authorities sit together — and the European Data Protection Supervisor, who polices the Union's own institutions. Their document is Joint Opinion 5 of 2021. This is no press release: it is the considered response of two bodies who had spent fifteen years enforcing Europe's other great information statute, reading a brand-new one and saying, in effect: you have built the wrong kind of instrument.
 
 Two of their objections matter today, and there were more than two.
 
