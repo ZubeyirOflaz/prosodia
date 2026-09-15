@@ -72,6 +72,16 @@ Put plainly: the hard questions get settled by engineers in committee, writing a
 
 The second objection is about what the instrument triggers on at all. That one belongs to the European Data Protection Board and the European Data Protection Supervisor, in their joint opinion of 18 June 2021 — the document this series has returned to more often than any other. Their complaint was that a fixed list of forbidden practices cannot anticipate what nobody has thought of yet, and that harms to groups and to society are invisible to an instrument built to assess risk to individuals. They also wanted biometric identification in public banned outright. They got a narrow prohibition with exceptions written into it.
 
+And that second objection this series has already demonstrated, rather than reported.
+
+Go back to the benefits risk model. Take nationality out of it — remove the variable completely — and leave postcode in. In a segregated housing market, postcode carries a great deal of the same information. The discriminatory effect barely moves. Now ask what the Act's classification does.
+
+{pause: 1.4}
+
+Not a millimetre. High-risk before, high-risk after, and for the same reason both times: what the system is for, and who runs it.
+
+That is what it means for a harm to a group to be invisible to an instrument that assesses risk to an individual. The tier was not tracking the thing that mattered most, and it could not, because it was never built to look there. Stated in the abstract, that objection is a complaint. Worked through on a real model, it is the strongest evidence this series produced for the rights side of the argument.
+
 Now, on the first of those two, the critics have been vindicated by events, and I am not going to soften it.
 
 The prediction was made in 2021. By June 2026 no deliverable conferred the presumption. And when the two timetables collided — the law's, and the standards bodies' — the law is what moved. Anyone can check that, and checking it does not require an opinion about anything.
@@ -101,6 +111,8 @@ Hold on to that. In about four minutes it becomes the third fact in the verdict.
 ## Where I come down {tone: pointed}
 
 So. Here is my answer, and it is mine, and it is narrower than you may want it to be.
+
+On whether an instrument of this shape was the right kind of thing in principle, the record is not in, and I am not going to close a series by manufacturing a conclusion. What I can give you is a verdict on what this one has produced so far.
 
 On the record available in September 2026, the product frame was a defensible choice that has not delivered the thing it was chosen for.
 
@@ -200,11 +212,11 @@ A deadline that slips once is a bad estimate. A deadline that slips twice, for t
 
 Three questions to carry out of all of this, and they work on any regime, not only this one.
 
-The first. Who wrote the part of this rule that actually decides cases? Almost never the legislature. Find the document that an engineer would open on a Tuesday, and find out who was in the room when it was drafted, and who paid for them to be there for four years.
+The first. Who wrote the part of this rule that actually decides cases? You asked this one about a standards committee, and about who checks the person who checks. Almost never the legislature. Find the document that an engineer would open on a Tuesday, and find out who was in the room when it was drafted, and who paid for them to be there for four years.
 
 {pause: 1.4}
 
-The second. Does this instrument give the person harmed anything at all? Sometimes the answer is yes. Very often the regulator gets the instrument and the person gets a form, and that is a design decision somebody made deliberately, not an accident of drafting.
+The second. Does this instrument give the person harmed anything at all? You have had this question since the episode about an airline and one passenger, when it was about a single chatbot and a bereavement fare. It is the same question, asked of a whole instrument. Sometimes the answer is yes. Very often the regulator gets the instrument and the person gets a form, and that is a design decision somebody made deliberately, not an accident of drafting.
 
 And the third, which is the one I would most like to leave you holding. What single checkable fact would tell me, in twelve months, whether this regime works?
 
@@ -220,7 +232,7 @@ The phrase sounds like a report nobody reads. In this Act it means something wit
 
 Every year, for as long as the delegated powers run, it must assess whether the high-risk list and the list of prohibited practices need changing, and report what it found to the Parliament and the Council.
 
-By the second of August 2028, it must evaluate whether the supervision and governance system is effective — and separately, whether the AI Office has been given sufficient powers and competences to do its job. That is an institution being asked, by the statute that created it, whether it turned out to be enough.
+By the second of August 2028, it must evaluate whether the supervision and governance system is effective — and separately, whether the AI Office was handed enough power to do the job it was given. That is an institution being asked, by the statute that created it, whether it turned out to be enough.
 
 And by the second of August 2029, and every four years after that, a report on the evaluation and review of the whole Regulation — which, in the Act's own words, "shall include an assessment with regard to the structure of enforcement and the possible need for a Union agency to resolve any identified shortcomings". End of quotation. Where appropriate, and only where appropriate, that report comes with a proposal to amend the law attached.
 
