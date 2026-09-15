@@ -498,3 +498,43 @@ def test_the_verdict_writer_may_dissent_but_must_declare_it():
     writer = p.role("writer")
     assert "say so rather than complying quietly" in writer
     assert "Silent compliance and silent divergence are both worse" in writer
+
+
+def test_a_verdict_episode_is_given_the_whole_series_as_evidence(tmp_path):
+    """The feedforward channel hands prior episodes over as phrasing to DIVERGE from, so
+    routing the series through it would tell the verdict writer to avoid everything the
+    series established. Evidence needs its own section, and its own framing.
+    """
+    import argparse
+    from unittest.mock import patch
+
+    from prosodia.author import cli
+
+    proj = tmp_path / "p"
+    (proj / "plan").mkdir(parents=True)
+    (proj / "series.yaml").write_text("series: S\npersona: casework\n", encoding="utf-8")
+    (proj / "plan" / "outline.md").write_text(
+        "# O\n\n## Episode 1 — A\n\n**Length:** 27 min\n\nbody\n\n"
+        "## Episode 2 — [VERDICT] B\n\n**Length:** 27 min\n\nbody\n", encoding="utf-8")
+    ep1 = proj / "episodes" / "ep01-a"
+    ep1.mkdir(parents=True)
+    (ep1 / "transcript.md").write_text(
+        "---\nepisode: 1\n---\n\n## Beat\n\nSENTINEL_EARLIER_CLAIM.\n", encoding="utf-8")
+    seen = {}
+
+    def spy(brief, **kw):
+        seen["b"] = brief
+        raise SystemExit
+
+    args = argparse.Namespace(project=str(proj), episode=2, persona=None,
+                              prior_episodes=0, max_rounds=1, series_context=False)
+    with patch("prosodia.author.orchestrate.author_episode", side_effect=spy):
+        try:
+            cli._cmd_write(args)
+        except SystemExit:
+            pass
+    b = seen["b"]
+    assert "THE SERIES SO FAR" in b
+    assert "SENTINEL_EARLIER_CLAIM" in b        # the record itself, not a summary
+    assert "This is EVIDENCE, not phrasing to" in b
+    assert "substance wins" in b

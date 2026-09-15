@@ -670,6 +670,28 @@ def _cmd_write(args: argparse.Namespace) -> int:
     if ff:
         brief += "\n\n" + ff + "\n"
 
+    # A verdict episode is delivering a judgement on a series it has not read. The
+    # feedforward above is the WRONG channel for that: it hands prior episodes over as
+    # phrasing to diverge from, so routing the whole series through it would tell the writer
+    # to avoid everything the series established. Give the record as evidence instead, in its
+    # own section, and only where the verdict actually rests on it.
+    if etype == "verdict" or getattr(args, "series_context", False):
+        full = [f"===== Episode {n}: {name} =====\n{md}" for n, name, md in earlier]
+        if full:
+            brief += (
+                "\n\n--- THE SERIES SO FAR — the record you are delivering a verdict ON ---\n"
+                "Every earlier episode, in full and in order. This is EVIDENCE, not phrasing to\n"
+                "avoid: it is what the listener has actually been told, which terms were earned\n"
+                "and where, which judgements were already made, and what was promised. The\n"
+                "avoid-repetition note above still governs WORDING; this governs SUBSTANCE, and\n"
+                "where the two pull against each other, substance wins — you may restate a claim\n"
+                "the series has made, in new words, because a verdict that cannot restate its own\n"
+                "evidence is not a verdict.\n\n"
+                + "\n\n".join(full)
+            )
+            print(f"  series context: feeding all {len(full)} earlier episodes in full "
+                  f"({sum(len(x) for x in full) // 1024} KB) — this is a {etype} episode")
+
     # The research docket goes to the WRITER AND THE EDITOR (orchestrate passes the brief to
     # both). Without it the editor's hardest rule — "any invented case, citation, holding,
     # quotation or date is a hard fail" — is unenforceable, because it has no corpus to check
@@ -771,6 +793,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="how many of the MOST RECENT earlier episodes feed the writer's 'avoid repetition' "
              "context (default 3; 0 disables). Capped so accumulating avoid-constraints across the "
              "whole series don't over-constrain later episodes into sounding synthetic",
+    )
+    p_write.add_argument(
+        "--series-context", action="store_true",
+        help="feed EVERY earlier episode in full, as evidence rather than as phrasing to avoid. "
+             "Automatic for a verdict episode, which is judging a series it has otherwise not read",
     )
     p_write.add_argument("--persona", help="persona name (default: series.yaml persona: or hardcore-history)")
 
