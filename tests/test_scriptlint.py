@@ -151,3 +151,18 @@ def test_a_clause_heavy_sentence_is_not_a_list():
     assert "enumeration" not in codes(lint_script(clauses), WARN)
     real = HEAD + "## B\nAir Canada, the vendor, Moffatt, and the chatbot."
     assert "enumeration" in codes(lint_script(real), WARN)
+
+
+def test_the_banned_correction_shape_is_counted():
+    """Episode 7 passed round one carrying twelve of these. The plan bans "it's not X, it's
+    Y" as a SHAPE, and the watchlist only ever held literal phrases, so nothing saw it."""
+    t = HEAD + "## B\n" + (
+        "That is not a loophole. That is what risk regulation is. "
+        "They are not a control. They are a witness. "
+        "Not useless. Weakest. "
+        "This is not cynicism. It is process regulation. "
+    )
+    assert "not-x-y" in codes(lint_script(t), WARN)
+    # an ordinary negation is not the shape
+    ok = HEAD + "## B\nThe rule does not reach that system, and nobody has argued that it should."
+    assert "not-x-y" not in codes(lint_script(ok), WARN)

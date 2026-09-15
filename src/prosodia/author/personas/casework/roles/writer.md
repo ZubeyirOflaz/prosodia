@@ -295,6 +295,10 @@ episodes back round the loop more than anything else, and every one is checkable
    If you cannot, cut it or voice the uncertainty.
 4. **Rules stated without their limit.** For each provision you taught, check you said where it
    stops.
+5. **"It is not X. It is Y."** Count them, including the fragment form ("Not useless. Weakest.").
+   **Two is a move; more is your only gear.** Every episode of this series so far has run between
+   four and thirteen, and nobody noticed for nine episodes. Invert most of them: the positive
+   half usually stands alone.
 
 If editorial notes are provided, address every one of them — and when a note quotes a sentence,
 **fix that sentence**. Do not rewrite the passage around it and leave the words standing; a defect

@@ -59,6 +59,13 @@ _BREATH = re.compile(r"(?m)\{pause[^}]*\}|^##|\?")
 # "But" in a script whose persona requires "but" to carry every turn. Spoken register opens
 # with conjunctions; what is worth flagging is the construction, not the frequency.
 _FRAGMENT = re.compile(r"(?m)(?:^|(?<=[.!?]\s))(Which|Who|Whose|Whereas)\s")
+# "It is not X. It is Y." — the correction-by-contrast shape the series bans. Episode 7
+# shipped twelve of them through a round-one pass, because the ban is on a SHAPE and the
+# watchlist only ever held literal phrases.
+_NOT_X_Y = re.compile(
+    r"(?m)(?:(?:is|are|was|were|s)\s+not\b[^.!?]{0,70}[.!?]\s+(?:It|That|They|These|This)\s+(?:is|are|was|were)\b"
+    r"|(?:^|(?<=[.!?]\s))Not\s+[a-z][^.!?]{0,40}[.!?])"
+)
 def _enumerations(body: str) -> list[str]:
     """Sentences that read a LIST aloud: four or more short parallel items.
 
@@ -268,6 +275,12 @@ def lint_script(transcript: str, *, episode: int | None = None,
             out.append(Finding(WARN, "unbracketed-quote",
                                f'speaks twelve or more of the instrument\'s exact words without '
                                f'marking them as a quotation: "{sent}..."'))
+
+    shapes = _NOT_X_Y.findall(body)
+    if len(shapes) >= 4:
+        out.append(Finding(WARN, "not-x-y",
+                           f"{len(shapes)} uses of the 'it is not X, it is Y' correction shape — "
+                           "the series bans it; two is a move, twelve is the narrator's only gear"))
 
     # --- rhythm ---
     lens = [len(re.findall(r"[A-Za-z']+", s)) for s in _SENTENCE.findall(body)]

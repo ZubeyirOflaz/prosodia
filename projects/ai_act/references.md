@@ -99,15 +99,69 @@ EDPB–EDPS Joint Opinion 5/2021, 18 June 2021. Veale and Zuiderveen Borgesius, 
 
 ## Episode 7 — The Weight
 
-*Not yet written.*
+**Provisions cited in the episode**
+
+- Article 9
+- Article 10
+- Article 15
+- Article 11
+- Article 12
+- Article 21
+- Article 13
+- Article 3
+- Article 14
+- Article 26
+- Article 27
+- Article 4
+- Annex IV
+
+**People, bodies and instruments named aloud**
+
+Amnesty International, MCAS.
+
+**What the episode was built on** *(from the plan)*
+
+Regulation (EU) 2024/1689, Arts. 4, 4a, 8–21, 26, 27, 57–63, Annexes IV and IX. DOT OIG, AV2021020, 23 February 2021. Amnesty International, *Xenophobic machines*, EUR 35/4686/2021. Human-factors literature on automation bias *(pending the check below)*.
 
 ## Episode 8 — The Presumption
 
-*Not yet written.*
+**Provisions cited in the episode**
+
+- Article 3
+- Article 40
+- Article 67
+- Article 42
+- Article 43
+- Article 41
+- Article 74 (8)
+
+**People, bodies and instruments named aloud**
+
+Regulation (EU) 2026/1744, CEN, CENELEC, JTC 21, EN 18286, Michael Veale, Frederik Zuiderveen Borgesius, Marta Cantero Gamito, Eisenstadt, Klagenfurt, EMIS, Organization Designation Authorization.
+
+**What the episode was built on** *(from the plan)*
+
+Regulation (EU) 2024/1689, Arts. 40, 41, 43, 44, 47, 48, 49, 67, 71, Annexes VI and VII. Regulation (EU) 2026/1744. CEN-CENELEC announcements on exceptional measures, October 2025. Cantero Gamito, REALaw, 28 November 2025. CJEU C-128/20, C-134/20 and C-145/20, 14 July 2022; C-693/18. European Parliament EMIS report A8-0049/2017. DOT OIG AV2021020.
 
 ## Episode 9 — The General Case
 
-*Not yet written.*
+**Provisions cited in the episode**
+
+- Article 3
+- Article 51
+- Article 56
+- Article 95
+- Article 50
+- Article 101
+- Article 94
+
+**People, bodies and instruments named aloud**
+
+Damiana Colla.
+
+**What the episode was built on** *(from the plan)*
+
+Regulation (EU) 2024/1689, Arts. 50, 51–56, 64, 88–94, 95, 101, Annexes XI–XIII. GPAI Code of Practice, 10 July 2025. Code of Practice on transparency of AI-generated content, first signatory list 31 July 2026. Commission press release IP/26/1714, 31 July 2026. Garante *provvedimento* n. 755, 2 November 2024. Court of Rome, 18 March 2026 (reported; judgment not read). European Law Blog, *"Establish, Then Escape?"*
 
 ## Episode 10 — Does It Travel
 
@@ -126,17 +180,40 @@ EDPB–EDPS Joint Opinion 5/2021, 18 June 2021. Veale and Zuiderveen Borgesius, 
 ## Where each provision is taught or cited
 
 - **Article 2** — episode 1
-- **Article 3** — episodes 1, 3, 4, 5
+- **Article 3** — episodes 1, 3, 4, 5, 7, 8, 9
+- **Article 4** — episode 7
 - **Article 5** — episodes 4, 5
 - **Article 6** — episode 4
 - **Article 7** — episode 4
+- **Article 9** — episode 7
+- **Article 10** — episode 7
+- **Article 11** — episode 7
+- **Article 12** — episode 7
+- **Article 13** — episode 7
+- **Article 14** — episode 7
+- **Article 15** — episode 7
+- **Article 21** — episode 7
 - **Article 25** — episode 3
+- **Article 26** — episode 7
+- **Article 27** — episode 7
+- **Article 40** — episode 8
+- **Article 41** — episode 8
+- **Article 42** — episode 8
+- **Article 43** — episode 8
 - **Article 49** — episode 4
-- **Article 50** — episode 4
+- **Article 50** — episodes 4, 9
+- **Article 51** — episode 9
+- **Article 56** — episode 9
+- **Article 67** — episode 8
+- **Article 74** — episode 8
+- **Article 94** — episode 9
+- **Article 95** — episode 9
+- **Article 101** — episode 9
 - **Article 102** — episode 4
 - **Annex I** — episode 4
 - **Annex III** — episodes 4, 5
 - **Annex II** — episode 5
+- **Annex IV** — episode 7
 
 ---
 
@@ -152,4 +229,5 @@ EDPB–EDPS Joint Opinion 5/2021, 18 June 2021. Veale and Zuiderveen Borgesius, 
 - `research/07_operative_text.md` — Docket 07 — Operative text, verbatim from EUR-Lex
 - `research/08_lens_sources.md` — Docket 08 — Sources for the lens episodes  ·  compiled 2026-09-14
 - `research/09_the_choice_of_instrument.md` — Docket 09 — Why this instrument and not another  ·  compiled 2026-09-15
+- `research/10_does_it_travel.md` — Docket 10 — Does the rule travel?  ·  compiled 2026-09-15
 - `research/README.md` — Research docket — "The Instrument"
