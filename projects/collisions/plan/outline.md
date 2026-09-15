@@ -164,7 +164,7 @@ Every part below is taught in exactly one episode. A part may be *referred to* e
 
 **Prerequisites.** Series A, and these four things re-earned in a clause each as they arise, never as a recap: that an AI system is defined by inference; that the Act's duties fall on a *provider* and a *deployer*; that they attach when a thing is placed on a market or put into service; and that the Act is enforced by market surveillance and gives the person harmed no right to sue. **Nothing else from Series A is assumed.**
 
-**Opening instance** — *type: an audit.* The **divergence attack**: researchers prompting a production chatbot to repeat a single word indefinitely until it abandons its assistant behaviour and begins emitting memorised training text, including contact details belonging to real people. `[OUTSIDE DOCKET: Nasr, Carlini and others, "Scalable Extraction of Training Data from (Production) Language Models", arXiv 2311.17035, 28 November 2023 — the authors, the date, the method, and the specific claim about extraction rates and personally identifying strings]`
+**Opening instance** — *type: an audit.* The **divergence attack**: researchers prompting a production chatbot to repeat a single word indefinitely until it abandons its assistant behaviour and begins emitting memorised training text, including contact details belonging to real people. `**Nasr, Carlini and eight others, "Scalable Extraction of Training Data from (Production) Language Models", arXiv:2311.17035, 28 November 2023** — see `research/03_is_a_model_personal_data.md``
 
 *The move: open on somebody typing one word ten thousand times until a stranger's details fall out of a machine everyone had been told stores nothing.*
 
@@ -186,15 +186,15 @@ Every part below is taught in exactly one episode. A part may be *referred to* e
 **Does the system exist as described?** Yes, and that is why this opening was chosen over an argument. Extraction has been demonstrated against deployed commercial models, and a European court has separately found that song lyrics were recoverable from a production model in substantially their original form `[OUTSIDE DOCKET: Landgericht München I, GEMA v OpenAI, 42 O 14139/24, 11 November 2025 — used here as one sentence of technical corroboration, not taught]`.
 
 **The operative text.**
-> **Art. 4(1) ✓** — "any information relating to an identified or identifiable natural person… who can be identified, directly or indirectly, in particular by reference to an identifier".
-> **Art. 4(2) ✓** — "any operation or set of operations… such as collection, recording, organisation, structuring, storage, adaptation or alteration, retrieval, consultation, use".
+> **Art. 4(1) ✓** — "any information relating to an identified or identifiable natural person ('data subject')" — and an identifiable person is one "who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data, an online identifier".
+> **Art. 4(2) ✓** — "any operation or set of operations which is performed on personal data or on sets of personal data, whether or not by automated means, such as collection, recording, organisation, structuring, storage, adaptation or alteration, retrieval, consultation, use".
 > **Art. 4(5) ✓, 4(7) ✓, 4(8) ✓** — pseudonymisation; the purposes-and-means test; on behalf of.
 
 Called thereafter: **the subject test** (4(1)) and **the purposes-and-means test** (4(7)).
 
 **Why this rule and not another.** The road not taken was a schedule of protected fields — name, address, identification number — which is how several national laws and most sectoral rules do it. Europe chose an open functional definition that cannot be evaded by inventing a new kind of identifier. What was traded: boundaries. A definition this wide puts almost everything in scope and moves the entire fight to identifiability, which is exactly where the fight now is.
 
-**The legal turn, mid-episode.** `[OUTSIDE DOCKET: EDPS v Single Resolution Board, C-413/23 P, Court of Justice, judgment of 4 September 2025 — the operative part, the facts (a set of pseudonymised comments transmitted to a consultancy that held no key), and the holding that identifiability is assessed from the position of the party in question]` **and** `[OUTSIDE DOCKET: EDPB Opinion 28/2024, 17 December 2024 — its test for when a model may be considered anonymous, and the threshold it sets]`. Together they make the episode's title literal: the same file, personal data in one building and not in the next.
+**The legal turn, mid-episode.** `**Case C-413/23 P, *EDPS v Single Resolution Board*, Court of Justice, 4 September 2025** — see `research/03_is_a_model_personal_data.md`` **and** `**EDPB Opinion 28/2024, adopted 17 December 2024** — see `research/03_is_a_model_personal_data.md``. Together they make the episode's title literal: the same file, personal data in one building and not in the next.
 
 **The variants — change one fact.**
 1. The key is destroyed before the file is sent. The sender's own position changes, not only the recipient's.
@@ -586,7 +586,7 @@ Called thereafter: **by design**, and **the impact assessment**.
 **Does the system exist as described?** Yes — and the report is an investigator's account, not the operator's. **The operator's own characterisation of what its system did is evidence about the operator.**
 
 **The operative text.**
-> **Art. 4(1) ✓** — "'product' means all movables… **it includes electricity, digital manufacturing files, raw materials and software**."
+> **Art. 4(1) ✓** — "'product' means all movables, even if integrated into, or inter-connected with, another movable or an immovable; **it includes electricity, digital manufacturing files, raw materials and software**."
 > **Art. 7(1) ✓** — "A product shall be considered defective where it does not provide the safety that a person is entitled to expect or that is required under Union or national law."
 > **Art. 7(2)(c) ✓** — in assessing defectiveness, "the effect on the product of **any ability to continue to learn or acquire new features** after it is placed on the market or put into service."
 > **Art. 6(1) ✓, Art. 8(1), (2) ✓, Art. 11(1)(e), 11(2) ✓.**
