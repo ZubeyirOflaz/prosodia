@@ -165,7 +165,13 @@ Regulation (EU) 2024/1689, Arts. 50, 51–56, 64, 88–94, 95, 101, Annexes XI�
 
 ## Episode 10 — Does It Travel
 
-*Not yet written.*
+**People, bodies and instruments named aloud**
+
+Anu Bradford.
+
+**What the episode was built on** *(from the plan)*
+
+GovAI, arXiv 2208.12645. CEPA, *"Burying the Brussels Effect?"*. *German Law Journal*, "The Brussels Side-Effect". *Internet Policy Review*, "Brussels effect or experimentalism?".
 
 ## Episode 11 — Who Is Actually Watching
 
