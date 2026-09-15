@@ -33,7 +33,13 @@ def _looks_like_a_title(t: str) -> bool:
     produces noise rather than findings.
     """
     tokens = t.split()
-    if len(tokens) < 3:
+    # Titles are short. A twelve-word italic span is a sentence being emphasised.
+    if not 3 <= len(tokens) <= 10:
+        return False
+    # A title is capitalised. Italics in a plan are far more often emphasis or an aside --
+    # "*by its own standard*", "*(pending the check below)*" -- and checking those against the
+    # docket produces noise, not findings.
+    if not re.match(r"^[(\[]?[A-Z]", t):
         return False
     return sum(1 for w in tokens if w.endswith(".") and len(w) <= 6) < 2
 

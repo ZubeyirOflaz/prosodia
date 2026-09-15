@@ -86,3 +86,16 @@ def test_an_unwritten_episode_is_named_not_skipped(proj):
 def test_missing_plan_is_an_error_not_a_crash(tmp_path):
     md, warnings = build_references(tmp_path)
     assert md == "" and warnings
+
+
+def test_italic_emphasis_is_not_mistaken_for_a_work_title(proj):
+    """Plans italicise asides as often as titles. "*by its own standard*" and
+    "*(pending the check below)*" were both checked against the docket and reported."""
+    (proj / "plan" / "outline.md").write_text(
+        OUTLINE.replace("**Sources:**",
+                        "**Sources:** Ebers argues it fails *by its own standard*. "),
+        encoding="utf-8")
+    _, warnings = build_references(proj)
+    assert not any("by its own standard" in w for w in warnings)
+    # a capitalised multi-word title is still checked
+    assert any("An Unsourced Work" in w for w in warnings)
