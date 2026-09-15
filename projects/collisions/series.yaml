@@ -1,0 +1,33 @@
+# Series B of the `casework` production — see docs/reference/casework-series-roadmap.md.
+# Depends on Series A: this series is ABOUT instruments colliding, so the instruments must
+# already be known. It states its prerequisites in episode 1 and re-earns any term it leans on.
+series: "The Collisions"
+description: >
+  What happens when one instrument meets another, and when a rule meets a machine that does not
+  behave the way the rule assumes.
+style: casework
+persona: casework
+
+angle: >
+  Take the instruments one collision at a time. Where two rules reach the same system, show which
+  one actually bites, who it binds, and what falls between them. The signature beat of this persona
+  — what the rule assumes about the machine — is at its sharpest here, because a collision is
+  usually two instruments making incompatible assumptions about the same thing.
+
+scope: >
+  SECOND series, and it presupposes Series A. Cover: the GDPR interface — lawful bases and purpose
+  limitation as constraints on training; Article 22 and automated decision-making; the information
+  duties; special-category data and the inference problem; DPIAs; anonymisation and why it usually
+  fails; and the overlapping obligations where the AI Act and the GDPR meet. Then liability: the
+  revised Product Liability Directive and software as a product; fault-based liability and the
+  burden of proof; the withdrawn AI Liability Directive and what filled the gap. Then the rest of
+  the acquis as it bites on AI: the DSA, the DMA, the Data Act and Data Governance Act, copyright
+  and text-and-data-mining.
+  DO NOT cover, and reserve explicitly: fundamental rights, proportionality and the surveillance
+  jurisprudence (Series C); governance inside organisations (Series D). The AI Act itself is
+  Series A — name it, use it, do not re-teach it.
+
+engine: chatterbox
+voice: narrator
+lexicon: lexicon.yaml
+target_minutes: 35           # soft anchor; the Planner sets per-episode lengths

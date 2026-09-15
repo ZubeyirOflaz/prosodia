@@ -107,3 +107,19 @@ def test_series_sections_returns_none_when_there_is_nothing_but_episodes():
     from prosodia.author.planparse import extract_series_sections
 
     assert extract_series_sections("## Episode 1 — A\n\nbody\n") is None
+
+
+def test_a_truncated_plan_is_detected_by_its_numbering():
+    """A Series B plan came back with its first eleven episodes missing — text beginning
+    mid-sentence, episodes numbered 12, 13, 14 — and was written out as if fine, because the
+    guard only asked whether an episode heading existed anywhere."""
+    from prosodia.author.planparse import parse_episode_index
+
+    truncated = ("case is a version-pinned artefact the defendant may not have kept.\n\n"
+                 "## Episode 12 — The Platform Instruments\n\nbody\n\n"
+                 "## Episode 13 — Who Owns The Input\n\nbody\n")
+    eps = parse_episode_index(truncated)
+    numbers = [e["n"] for e in eps]
+    assert numbers == [12, 13]
+    assert numbers[0] != 1                       # the signal the guard now checks
+    assert not truncated.lstrip().startswith("#")  # and the other one

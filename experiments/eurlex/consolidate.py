@@ -178,6 +178,7 @@ def render(node, indent: str = "") -> list[str]:
             out += render_grid(k, indent)
         elif k.tag == "p" and (
             k.has("norm") or k.has("tbl-norm") or k.has("list") or k.has("normal")
+            or k.has("oj-normal") or k.has("oj-tbl-txt")
         ):
             # p.list is a continuation sentence inside a point — dropping it silently
             # deletes operative text (e.g. the Annex III 1(a) biometric-verification carve-out)
@@ -190,7 +191,7 @@ def render(node, indent: str = "") -> list[str]:
             t = norm(flat(k))
             if t:
                 out.append(f"{indent}{t}")
-        elif k.tag == "p" and k.has("footnote"):
+        elif k.tag == "p" and (k.has("footnote") or k.has("oj-note")):
             flush()
             t = norm(flat(k))
             if t:
@@ -261,7 +262,9 @@ chunks = []
 for sub in subs:
     title = subtitle = ""
     for k in sub.kids:
-        if isinstance(k, Node) and k.tag == "p" and (k.has("title-article-norm") or k.has("title-annex-1")):
+        if isinstance(k, Node) and k.tag == "p" and (
+            k.has("title-article-norm") or k.has("title-annex-1") or k.has("oj-ti-art")
+        ):
             title = norm(flat(k))
         if isinstance(k, Node) and (
             (k.tag == "div" and k.has("eli-title")) or (k.tag == "p" and k.has("title-annex-2"))

@@ -295,3 +295,5 @@ projects/**/research/
 # experiments/eurlex/consolidate.py; the gap register is not regenerable by anything.
 !projects/ai_act/research/
 !projects/ai_act/research/*.md
+!projects/collisions/research/
+!projects/collisions/research/*.md

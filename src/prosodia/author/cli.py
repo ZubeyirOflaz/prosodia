@@ -496,6 +496,27 @@ def _cmd_plan(args: argparse.Namespace) -> int:
     outline = plan_series(prompt, runner=runner, persona=persona, trace=trace, run=run)
 
     episodes = parse_episode_index(outline)
+    # Structural completeness, not just "something came back". A Series B plan arrived with its
+    # first eleven episodes missing -- the text began mid-sentence and the episodes were
+    # numbered 12, 13, 14 -- and the old guard passed it, because a truncated plan still has
+    # episode headings. The trace recorded status ok. Check the shape.
+    numbers = [e["n"] for e in episodes]
+    problems = []
+    if not outline.lstrip().startswith("#"):
+        problems.append(f"does not begin with a heading (starts {outline.lstrip()[:60]!r})")
+    if numbers and numbers[0] != 1:
+        problems.append(f"episodes start at {numbers[0]}, not 1")
+    gaps = [n for n in range(1, max(numbers, default=0)) if n not in numbers]
+    if gaps:
+        problems.append(f"episodes missing: {gaps}")
+    if problems:
+        print(
+            "planner output is structurally incomplete, so " + str(out) + " was left unchanged:\n  - "
+            + "\n  - ".join(problems)
+            + f"\nThe result ({len(outline)} chars) is archived under {run.dir}.",
+            file=sys.stderr,
+        )
+        return 1
     if not outline.strip() or not episodes:
         # Refuse rather than overwrite. An empty or refusal result used to be written
         # straight over the previous outline, print "wrote ...", and exit 0.
