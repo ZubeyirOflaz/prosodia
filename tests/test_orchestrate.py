@@ -127,7 +127,8 @@ def test_claude_runner_parses_structured_from_result(monkeypatch):  # finding 26
 
     def fake_run(cmd, **kwargs):
         # structured_output is null; result holds the JSON the schema expects.
-        payload = {"result": json.dumps({"ready": True, "notes": "ok"}), "structured_output": None}
+        payload = {"type": "result", "result": json.dumps({"ready": True, "notes": "ok"}),
+                   "structured_output": None}
         return subprocess.CompletedProcess(cmd, 0, stdout=json.dumps(payload), stderr="")
 
     monkeypatch.setattr(orchestrate.subprocess, "run", fake_run)
@@ -194,3 +195,139 @@ def test_no_lint_context_means_no_measurement_block():
     editor_prompt = next(p for k, p in runner.calls if k == "schema")
     assert "MEASURED ON THIS DRAFT" not in editor_prompt
     assert editor_prompt.startswith("BRIEF:")
+
+
+# ---- the delivery pass ----------------------------------------------------------------
+
+WRITTEN = (
+    "---\nepisode: 1\ntitle: T\ndefaults: { tone: measured, rate: normal }\n---\n\n"
+    "## The machine {tone: pointed}\n"
+    "The radar saw her six seconds out, and the system changed its mind about her repeatedly.\n\n"
+    "## The rule {tone: precise}\n"
+    "The Directive says, and I am quoting: a product is defective where it lacks expected safety.\n"
+)
+TONED = (
+    "---\nepisode: 1\ntitle: T\ndefaults: { tone: measured, rate: normal }\n---\n\n"
+    "## The machine {tone: measured}\n"
+    "The radar saw her six seconds out, {pause: 1.2} and {tone: pointed} the system changed its "
+    "mind about her *repeatedly*. {tone: measured}\n\n"
+    "## The rule {tone: precise}\n"
+    "The Directive says, and I am quoting:\n\n> a product is defective where it lacks expected safety.\n"
+)
+
+
+class ToneRunner:
+    def __init__(self, outputs):
+        self.outputs, self.prompts = list(outputs), []
+
+    def run(self, prompt, *, system=None, schema=None):
+        self.prompts.append(prompt)
+        return self.outputs.pop(0), None
+
+
+def _casework():
+    from prosodia.author.persona import Persona
+
+    return Persona.resolve("casework")
+
+
+def test_markup_changes_are_not_invariance_problems():
+    assert orchestrate.invariance_problems(WRITTEN, TONED) == []
+
+
+def test_a_changed_word_or_beat_is_an_invariance_problem():
+    reworded = TONED.replace("repeatedly", "again and again")
+    assert any("repeatedly" in p for p in orchestrate.invariance_problems(WRITTEN, reworded))
+    retitled = TONED.replace("## The rule", "## The test")
+    assert orchestrate.invariance_problems(WRITTEN, retitled)
+
+
+def test_tone_pass_accepts_markup_only_and_fixes_the_header_tone():
+    runner = ToneRunner([TONED])
+    out, warns = orchestrate.tone_pass(WRITTEN, runner=runner, persona=_casework())
+    assert out.strip() == TONED.strip() and warns == []
+    assert "header-tone" in runner.prompts[0]          # the specialist is told what was measured
+
+
+def test_tone_pass_rejects_a_changed_word_and_retries_with_the_diff(tmp_path):
+    runner = ToneRunner([TONED.replace("repeatedly", "again and again"), TONED])
+    run = Run(tmp_path / "run")
+    out, warns = orchestrate.tone_pass(WRITTEN, runner=runner, persona=_casework(), run=run)
+    assert out.strip() == TONED.strip() and warns == []
+    assert "repeatedly" in runner.prompts[1] and "REJECTED" in runner.prompts[1]
+    assert [e.status for e in run.events() if e.stage == "delivery"] == ["error", "ok"]
+
+
+def test_tone_pass_keeps_the_writers_markup_when_every_attempt_changes_words():
+    bad = TONED.replace("six seconds", "five seconds")
+    out, warns = orchestrate.tone_pass(WRITTEN, runner=ToneRunner([bad, bad]), persona=_casework())
+    assert out == WRITTEN
+    assert warns and "kept" in warns[0]
+
+
+def test_tone_pass_retries_once_on_a_delivery_error_and_keeps_the_better_attempt():
+    still_headed = TONED.replace("## The machine {tone: measured}", "## The machine {tone: pointed}")
+    runner = ToneRunner([still_headed, TONED])
+    out, warns = orchestrate.tone_pass(WRITTEN, runner=runner, persona=_casework())
+    assert out.strip() == TONED.strip() and len(runner.prompts) == 2
+    assert "header-tone" in runner.prompts[1]
+
+
+# ---- the final answer, across messages (2026-10-09) ----------------------------------------
+
+def _stream(*events):
+    import json
+
+    return "\n".join(json.dumps(e) for e in events) + "\n"
+
+
+def _say(*blocks):
+    return {"type": "assistant", "message": {"content": list(blocks)}}
+
+
+def _text(t):
+    return {"type": "text", "text": t}
+
+
+def test_an_answer_split_across_messages_is_rejoined():
+    """The Series C plan arrived as two messages split mid-word; `result` held only the tail."""
+    events = [
+        _say(_text("Reading the docket first.")),
+        _say({"type": "tool_use", "name": "Read", "input": {}}),
+        {"type": "user", "message": {"content": [{"type": "tool_result", "content": "..."}]}},
+        _say(_text("# PLAN\n\n## Episode 1 — x\n\nthe pre")),
+        _say(_text("amble recital and the rest")),
+        {"type": "result", "result": "amble recital and the rest"},
+    ]
+    assert orchestrate.final_answer_text(events, events[-1]["result"]) == \
+        "# PLAN\n\n## Episode 1 — x\n\nthe preamble recital and the rest"
+
+
+def test_a_single_message_answer_is_unchanged():
+    events = [_say(_text("Checking.")), _say({"type": "tool_use", "name": "Read", "input": {}}),
+              _say(_text("The answer.")), {"type": "result", "result": "The answer."}]
+    assert orchestrate.final_answer_text(events, "The answer.") == "The answer."
+
+
+def test_result_stands_when_it_is_not_the_tail_of_the_text():
+    events = [_say(_text("something else entirely")), {"type": "result", "result": "The answer."}]
+    assert orchestrate.final_answer_text(events, "The answer.") == "The answer."
+
+
+def test_runner_reads_the_stream_and_returns_the_whole_answer(monkeypatch):
+    import subprocess
+
+    monkeypatch.setattr(orchestrate.shutil, "which", lambda _: "/usr/bin/claude")
+    seen = {}
+
+    def fake_run(cmd, **kwargs):
+        seen["cmd"] = cmd
+        out = _stream({"type": "system", "subtype": "init"}, _say(_text("first half, pre")),
+                      _say(_text("amble second half")),
+                      {"type": "result", "result": "amble second half", "is_error": False})
+        return subprocess.CompletedProcess(cmd, 0, stdout=out, stderr="")
+
+    monkeypatch.setattr(orchestrate.subprocess, "run", fake_run)
+    result, structured = ClaudeRunner().run("prompt")
+    assert result == "first half, preamble second half" and structured is None
+    assert "stream-json" in seen["cmd"] and "--verbose" in seen["cmd"]

@@ -259,3 +259,69 @@ def test_emphasis_never_leaks_a_marker_into_the_audio():
 def test_snake_case_is_not_treated_as_emphasis():
     ir, _ = compile_text("---\nepisode: 1\n---\n\n## Beat\n\nThe field is target_minutes here.\n")
     assert "target_minutes" in ir.segments[0].spoken_text
+
+
+def test_blockquote_markers_are_not_spoken():
+    """Writers set operative text apart with a markdown blockquote. The '>' is for the eye.
+
+    Eight segments of quoted statute in The Collisions reached the render staged as
+    '> "product means all movables..."', because only asterisk and underscore emphasis
+    was stripped.
+    """
+    src = SAMPLE.replace(
+        "They believed it.",
+        '> "A product shall be considered defective where it does not provide the safety\n'
+        '> that a person is entitled to expect."\n',
+    )
+    ir, _ = compile_text(src)
+    spoken = " ".join(s.spoken_text for s in ir.segments)
+    assert ">" not in spoken
+    assert "A product shall be considered defective" in spoken
+
+
+def _casework_profiles():
+    from prosodia.author.persona import Persona
+    from prosodia.author.tone import VoiceProfiles
+
+    return VoiceProfiles.load(Persona.resolve("casework").voice_profiles_path())
+
+
+def test_a_blockquote_is_a_scoped_quotation():
+    """The quoting voice starts at the blockquote and STOPS at its end, by construction.
+
+    A `{tone: quoting}` directive is sticky to the end of the beat, and across two series the
+    writers put it on beat headers or forgot to restore — about 17 minutes of The Collisions'
+    own commentary went out in the statute's voice. A blockquote cannot leak: its scope is the
+    syntax, and whatever delivery was in force before it is restored after it.
+    """
+    src = (
+        "---\nepisode: 1\ntitle: T\ndefaults: { tone: measured, rate: normal }\n---\n\n"
+        "## The text {tone: precise}\n"
+        "The Directive says, and I am quoting:\n\n"
+        "> A product shall be considered defective where it does not provide the safety\n"
+        "> that a person is entitled to expect.\n\n"
+        "End of quotation. Plainly: safety is judged by expectation.\n"
+    )
+    ir, _ = compile_text(src, profiles=_casework_profiles())
+    by_text = {s.spoken_text.split()[0]: s.intent for s in ir.segments}
+    assert by_text["The"].tone == "precise"                       # before: the beat's tone
+    assert (by_text["A"].tone, by_text["A"].rate) == ("quoting", "slow")
+    assert by_text["End"].tone == "precise"                       # after: restored, not leaked
+    assert by_text["End"].rate == "normal"
+    assert all(">" not in s.spoken_text for s in ir.segments)
+
+
+def test_a_blockquote_restores_an_inline_tone_too():
+    src = (
+        "## B {tone: measured}\nFirst.\n\n{tone: contemplative}\nThen this.\n\n"
+        "> Quoted words.\n\nAfter the quote.\n"
+    )
+    ir, _ = compile_text(src, profiles=_casework_profiles())
+    assert [s.intent.tone for s in ir.segments] == ["measured", "contemplative", "quoting", "contemplative"]
+
+
+def test_a_blockquote_changes_nothing_for_a_persona_without_a_quoting_tone():
+    src = "## B {tone: measured}\nBefore.\n\n> Quoted words.\n\nAfter.\n"
+    ir, _ = compile_text(src)          # default persona: no `quoting` tone in its profile
+    assert {s.intent.tone for s in ir.segments} == {"measured"}
+    assert all(">" not in s.spoken_text for s in ir.segments)

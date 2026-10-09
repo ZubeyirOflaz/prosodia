@@ -204,6 +204,19 @@ case invites a tempting wrong reading, name that reading and refuse it before of
   adjacent. And a claim that something is **new, first, unprecedented or a departure** — novelty
   is the easiest thing to assert and among the hardest to verify. If the docket does not carry it,
   cut it or voice the uncertainty. A plausible number is still an invented one.
+- **Do not restate an instrument's own test in words the docket does not hold.** This is the
+  quietest failure in the role and it is not covered by the rule above, because nothing is being
+  attributed to anybody — you are describing the provision itself, which feels like reading rather
+  than claiming. Two shapes to watch. **Importing a gloss**: the familiar standard that everyone
+  discusses alongside a provision (often from a *recital*, or from a regulator's guidelines) is
+  **not in the operative text**, and the docket usually holds only the operative text — so saying
+  "the Regulation asks whether the person could reasonably expect it" states a test the Regulation
+  does not contain. **Describing the structure wrongly**: saying every factor in a list does one
+  thing when only some of them do. Both produce a listener who applies a test that is not there.
+  **Before you characterise a test, re-read the provision in the docket and check your sentence
+  against its actual words** — and if the gloss is worth having, name where it comes from: "that
+  standard comes from the recitals, not the article", or "that is the Board's reading, not the
+  text".
 - **Say plainly when a question is unsettled**, and stop there. "More guidance than that may be
   impossible" is an answer, not a failure to find one.
 - **Omission is stated, never silent.** Material too large for the episode is named and excused
@@ -273,9 +286,16 @@ say so in a note rather than silently overrunning.
 
 - YAML front-matter: `episode`, `title`, `defaults: { tone: measured, rate: normal }`. OMIT
   `voice` — it is resolved from the project config.
-- Each beat is a level-2 heading carrying delivery intent, e.g.
-  `## What the text actually says {tone: quoting, rate: slow}`. The beat title is a chapter marker
-  and is NOT spoken. One beat = one consistent delivery.
+- Each beat is a level-2 heading carrying delivery intent, e.g. `## Why an open definition
+  {tone: lucid}`. The beat title is a chapter marker and is NOT spoken. One beat = one
+  consistent delivery, so **a beat's tone must suit the whole beat — never `pointed` or
+  `quoting`, which are tones for a sentence.**
+- **Quote the instrument in a blockquote.** Put its words on lines of their own, each starting
+  `> `, and keep your audible brackets outside it:
+  `The Regulation says, and I am quoting:` · `> ...the words...` · `End of quotation.`
+  The compiler reads a blockquote in the quoting voice and returns to yours the moment it ends.
+  **Never set `quoting` with a directive** — a tone stays on until the next one, and a quoting
+  voice set that way has carried on through whole passages of your own commentary.
 - Everything under a beat is spoken verbatim. Mark *emphasis* sparingly. Use `{pause: 1.4}` at
   retrieval beats and where a definition or a test must land. A blank line is a natural short pause.
 - Tone words — use ONLY these: measured, neutral, precise, lucid, curious, contemplative, warm,
@@ -286,7 +306,10 @@ say so in a note rather than silently overrunning.
   doing. Use `note: "..."` for nuance a single word cannot carry.
 - Write numbers, dates and names normally; spoken-form conversion happens downstream. Write
   citations the way you would say them.
-- Mark ONLY what the prose cannot already imply. Keep directives sparse.
+- Mark ONLY what the prose cannot already imply. Keep directives sparse. **A tone specialist
+  tunes the delivery after you** — the pause inside a sentence, the one `pointed` sentence in a
+  passage. Set the beat tones, the pauses after your retrieval questions, and the blockquotes;
+  leave the rest to it.
 
 ## BEFORE YOU RETURN THE DRAFT
 

@@ -89,7 +89,7 @@ def _cmd_compile(args: argparse.Namespace) -> int:
     ir_art = run.write_artifact("stages/compile/ir.json", ir.to_json(), label="ir")
     run.event("compile", "compile", outputs=[ir_art], warnings=compile_warnings, segments=len(ir.segments))
     plan_art = run.write_artifact("stages/tone/render_plan.json", plan.to_json(), label="render_plan")
-    run.event("tone", "tone-specialist", inputs=[ir_art], outputs=[plan_art], warnings=tone_warnings)
+    run.event("tone", "render-plan", inputs=[ir_art], outputs=[plan_art], warnings=tone_warnings)
     lineage = build_lineage(ir, plan, run.events())
     run.write_artifact("lineage.json", lineage.to_json(), label="lineage")
     run.write_index(episode=ir.episode, title=ir.title)
@@ -260,6 +260,13 @@ def _cmd_script_lint(args: argparse.Namespace) -> int:
         for f in findings:
             print(f.render())
         errors += sum(1 for f in findings if f.level == ERROR)
+        from prosodia.author.scriptlint import lint_delivery
+
+        delivery = lint_delivery(path.read_text(encoding="utf-8"))
+        if delivery:
+            print("  delivery markup (the tone pass's job; not counted in the exit status):")
+            for f in delivery:
+                print("  " + f.render())
         warns = sum(1 for f in findings if f.level == WARN)
         print(f"  -> {sum(1 for f in findings if f.level == ERROR)} error(s), {warns} warning(s)")
     return 1 if (errors and not args.warn_only) else 0
@@ -772,6 +779,8 @@ def _cmd_write(args: argparse.Namespace) -> int:
             file=sys.stderr,
         )
         return 1
+    if not getattr(args, "no_tone", False):
+        transcript = _run_tone_pass(transcript, persona=persona, run=run, proj=proj)
     out.write_text(transcript, encoding="utf-8")
     # The last editorial verdict is the one nothing downstream ever acts on: if the loop ran
     # out of rounds, those notes describe defects still IN the shipped draft, and they live
@@ -794,6 +803,53 @@ def _cmd_write(args: argparse.Namespace) -> int:
     print(f"wrote {out}  (persona: {persona.name})")
     print(f"trace: {run.dir}")
     return 0
+
+
+def _run_tone_pass(transcript: str, *, persona, run, proj: Path) -> str:
+    """Delivery pass on a finished transcript; prints what it measured before and after."""
+    from prosodia.author.orchestrate import ClaudeRunner, tone_pass
+    from prosodia.author.scriptlint import lint_delivery
+
+    if not persona.has_role("tone"):
+        print(f"  tone pass: persona '{persona.name}' has no tone role — skipped")
+        return transcript
+    before = lint_delivery(transcript)
+    toned, warns = tone_pass(
+        transcript, runner=ClaudeRunner(extra_dirs=(str(proj),), timeout=1800),
+        persona=persona, run=run,
+    )
+    after = lint_delivery(toned)
+    n = lambda fs: sum(1 for f in fs if f.level == "error")  # noqa: E731
+    print(f"  tone pass: delivery errors {n(before)} -> {n(after)}"
+          + ("" if toned != transcript else " (writer's markup kept)"))
+    for w in warns:
+        print(f"  tone pass: {w}", file=sys.stderr)
+    return toned
+
+
+def _cmd_tone(args: argparse.Namespace) -> int:
+    """Run the tone specialist over transcripts that already exist, in place."""
+    from prosodia.author.persona import Persona
+    from prosodia.core.trace import Run
+
+    rc = 0
+    for raw in args.transcripts:
+        path = Path(raw)
+        series = _discover_series(path)
+        proj = series.parent if series else path.parent
+        cfg = _load_series(proj) if series else {}
+        persona = Persona.resolve(args.persona or cfg.get("persona"), project=proj)
+        print(f"{path}  (persona: {persona.name})")
+        text = path.read_text(encoding="utf-8")
+        run = Run(path.parent / "run")
+        toned = _run_tone_pass(text, persona=persona, run=run, proj=proj)
+        if toned != text:
+            path.write_text(toned, encoding="utf-8")
+            print(f"  wrote {path}  (previous markup: {run.dir}/stages/delivery/before.md)")
+        else:
+            rc = 1
+        run.write_index()
+    return rc
 
 
 def _cmd_ui(args: argparse.Namespace) -> int:
@@ -831,6 +887,17 @@ def build_parser() -> argparse.ArgumentParser:
              "Automatic for a verdict episode, which is judging a series it has otherwise not read",
     )
     p_write.add_argument("--persona", help="persona name (default: series.yaml persona: or hardcore-history)")
+    p_write.add_argument(
+        "--no-tone", action="store_true",
+        help="skip the tone specialist's delivery pass (it runs by default once the editor is done)",
+    )
+
+    p_tone = sub.add_parser(
+        "tone",
+        help="run the tone specialist's delivery pass over existing transcripts, in place",
+    )
+    p_tone.add_argument("transcripts", nargs="+", help="transcript .md files")
+    p_tone.add_argument("--persona", help="persona name (default: the series.yaml above the transcript)")
 
     p_compile = sub.add_parser("compile", help="compile a transcript.md to IR + render plan")
     p_compile.add_argument("transcript", help="path to a transcript .md file")
@@ -936,6 +1003,7 @@ def build_parser() -> argparse.ArgumentParser:
 _DISPATCH = {
     "plan": _cmd_plan,
     "write": _cmd_write,
+    "tone": _cmd_tone,
     "compile": _cmd_compile,
     "submit": _cmd_submit,
     "lexicon": _cmd_lexicon,

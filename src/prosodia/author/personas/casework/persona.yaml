@@ -24,7 +24,8 @@ defaults:
   # vary the wording; never ban it. What is banned is filler and anything that lies to a listener
   # who has no picture in front of them.
   freshness_watchlist:
-    - "however"
+    # the filler connective only; "however detailed" is the concessive and is good prose
+    - "however,"
     - "as you can see"
     - "as we can see"
     - "here we see"

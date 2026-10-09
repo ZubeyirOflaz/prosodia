@@ -132,6 +132,35 @@ Each `tone`/`rate`/`note` directive (header or inline) starts a **new IR
 segment**. Keep them sparse (principle #3): most transcripts will set tone at the
 beat header and rarely inline.
 
+**A tone is sticky.** An inline `tone` stays in force until the next directive that
+sets one, or the end of the beat — it does **not** end at the end of the sentence
+or the paragraph. A tone meant for one sentence must be followed by a directive that
+restores the surrounding one. For a quotation, use a blockquote instead (§5.2),
+whose scope is guaranteed.
+
+### 5.2 Quotations — a blockquote is a scoped span
+
+Lines beginning with `>` form a **blockquote**. The `>` markers are never spoken.
+
+For a persona whose voice profile defines a `quoting` tone, a blockquote is a
+**quotation span**: the compiler delivers its text as `{tone: quoting, rate: slow}`
+and, at the end of the blockquote, **restores whatever delivery was in force before
+it**. Nothing has to be closed by hand, so the quoting voice cannot leak into the
+narration that follows. For any other persona a blockquote is plain spoken text.
+
+```
+The Directive says, and I am quoting:
+
+> A product shall be considered defective where it does not provide the safety
+> that a person is entitled to expect.
+
+End of quotation. Plainly: safety is judged by expectation.
+```
+
+Put only the quoted words inside the blockquote; the audible brackets ("I am quoting",
+"End of quotation") belong to the narrator and stay outside it. The listener cannot hear
+a quotation mark, so the brackets are still spoken.
+
 ### 5.1 Tone vocabulary
 
 The tone words are an **open, descriptive set** — not a rigid enum. The starter
@@ -238,6 +267,7 @@ Spoken = the concatenation, in document order, of all **beat-body text**, with:
 - directive blocks removed (their effect applied),
 - `@speaker` tags removed (their effect applied),
 - emphasis markers removed (their effect recorded),
+- blockquote markers (`>`) removed (their effect applied, §5.2),
 - front-matter and headings excluded,
 - the resulting runs normalized + lexicon-applied at compile time.
 

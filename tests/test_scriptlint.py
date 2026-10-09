@@ -70,6 +70,34 @@ def test_spatial_deixis_and_the_series_watchlist():
     assert "banned-phrase" in codes(fs, WARN)
 
 
+def test_writers_notes_are_not_spoken():
+    """The compiler strips HTML comments, so the linter must too — otherwise a writer's note
+    discussing "episode two" is scanned as an early forward reference in the real script."""
+    note = "<!--\nNotes: that gives the episode two ordinal references back.\n-->\n\n"
+    t = HEAD + "## B\n" + note + "The rule is narrow. " * 50
+    fs = lint_script(t)
+    assert "early-forward-ref" not in codes(fs, ERROR)
+    assert "ordinal references back" not in spoken_body(t)
+
+
+def test_quoting_is_an_audible_bracket():
+    """"Quoting the next provision:" is how the writers actually mark a quotation aloud, and the
+    bracket pattern only knew the noun, so every episode that used the participle was flagged."""
+    q = ('Quoting the next provision: where the assessment indicates that the processing '
+         'would result in a high risk in the absence of measures taken by the controller.')
+    assert "unbracketed-quote" not in codes(
+        lint_script(HEAD + "## B\n" + q, docket=q), WARN)
+
+
+def test_a_watchlist_entry_may_carry_punctuation():
+    """The casework list bans the filler connective "however," and must not fire on the
+    concessive "however detailed", which is good spoken prose and appeared in every episode."""
+    ok = HEAD + "## B\nAn account you cannot argue with is a justification, however detailed."
+    assert "banned-phrase" not in codes(lint_script(ok, banned=["however,"]), WARN)
+    bad = HEAD + "## B\nThe rule is narrow. However, the exception is not."
+    assert "banned-phrase" in codes(lint_script(bad, banned=["however,"]), WARN)
+
+
 def test_rhythm_is_reported_and_written_register_flagged():
     short = HEAD + "## B\n" + "The rule is narrow. It bites once. Nobody checked. " * 40
     assert any(f.code == "rhythm" and f.level == "note" for f in lint_script(short))

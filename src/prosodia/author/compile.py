@@ -36,8 +36,17 @@ _H2 = re.compile(r"^##\s+")
 _HN = re.compile(r"^#{3,}\s+")
 _THEMATIC = re.compile(r"^\s*([-*_])\1{2,}\s*$")
 _BEAT_HDR = re.compile(r"^##\s+(.*?)(?:\s*\{([^{}]*)\})?\s*$")
+# A blockquote is a QUOTATION SPAN (SPEC §4.4): the compiler brackets each run of `>` lines
+# with these two sentinels, and the token loop turns them into "switch to the quoting delivery"
+# and "restore whatever was in force before it". The scope is the syntax itself, so the quoting
+# voice cannot leak past the quotation the way a sticky `{tone: quoting}` directive did — in
+# seven beats of The Collisions it carried on through ~2,200 words of the narrator's own gloss.
+_QOPEN, _QCLOSE = "\x02", "\x03"
+_BLOCKQUOTE = re.compile(r"(?m)(?:^[ \t]*>[^\n]*(?:\n|$))+")
+_QUOTE_INTENT = {"tone": "quoting", "rate": "slow"}
 _TOKEN = re.compile(
-    r"(?P<para>\n[ \t]*\n)"
+    r"(?P<qopen>\x02)|(?P<qclose>\x03)"
+    r"|(?P<para>\n[ \t]*\n)"
     r"|(?P<speaker>(?<![^\n])@[A-Za-z0-9_]+)"
     r"|(?P<directive>(?<!\\)\{[^{}]*\})"
     # Emphasis: any asterisk fence — *emph*, **strong**, ***both***. All fence asterisks
@@ -160,6 +169,18 @@ def split_beats(body: str) -> list[tuple[str | None, dict, str]]:
     return beats
 
 
+def _mark_blockquotes(body: str, *, scoped: bool) -> str:
+    """Strip blockquote markers; when ``scoped``, bracket each blockquote as a quotation span.
+
+    ``scoped`` is true only for a persona whose voice profile defines a ``quoting`` tone.
+    Elsewhere a blockquote is plain text, exactly as before.
+    """
+    def repl(m: re.Match) -> str:
+        inner = re.sub(r"(?m)^[ \t]*>[ \t]?", "", m.group(0)).strip()
+        return f"\n\n{_QOPEN}\n\n{inner}\n\n{_QCLOSE}\n\n" if scoped else f"{inner}\n"
+    return _BLOCKQUOTE.sub(repl, body)
+
+
 def _unescape(t: str) -> str:
     return t.replace(r"\{", "{").replace(r"\}", "}").replace(r"\*", "*").replace(r"\_", "_")
 
@@ -258,6 +279,11 @@ def compile_text(
         state["pending"] = 0
 
     for bi, (title, bdir, bbody) in enumerate(split_beats(body)):
+        # A line-leading '>' is a markdown blockquote. It must never reach the engine — eight
+        # segments of quoted statute in The Collisions went to render starting with "> " — and
+        # for a persona with a `quoting` tone it marks the quotation's scope (see _QOPEN).
+        bbody = _mark_blockquotes(bbody, scoped="quoting" in profiles.known_tones())
+        saved_intent: dict | None = None
         cur_intent = {**default_intent, **_intent_keys(bdir, warnings, f"beat {bi} '{title}'")}
         speaker = default_speaker
         if bi > 0:
@@ -268,7 +294,16 @@ def compile_text(
         for m in _TOKEN.finditer(bbody):
             buf.append(_unescape(bbody[pos:m.start()]))
             kind = m.lastgroup
-            if kind == "para":
+            if kind == "qopen":
+                emit(buf, emph, cur_intent, speaker, bi, title)
+                buf, emph = [], []
+                saved_intent, cur_intent = cur_intent, {**cur_intent, **_QUOTE_INTENT}
+            elif kind == "qclose":
+                emit(buf, emph, cur_intent, speaker, bi, title)
+                buf, emph = [], []
+                if saved_intent is not None:
+                    cur_intent, saved_intent = saved_intent, None
+            elif kind == "para":
                 emit(buf, emph, cur_intent, speaker, bi, title)
                 buf, emph = [], []
                 state["pending"] = max(state["pending"], paragraph_ms)

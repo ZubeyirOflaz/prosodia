@@ -84,7 +84,9 @@ def test_casework_keeps_the_move_other_personas_ban():
     assert "restate it once in plain words" in p.role("writer")
     # what IS banned is filler and anything that lies to a listener with no picture
     banned = [w.lower() for w in p.defaults.freshness_watchlist]
-    assert "however" in banned and "as you can see" in banned
+    # "however," carries its comma on purpose: it bans the filler connective and leaves the
+    # concessive ("however detailed") alone, which is good spoken prose and not filler.
+    assert "however," in banned and "as you can see" in banned
 
 
 def test_casework_writer_carries_its_signature_beat():

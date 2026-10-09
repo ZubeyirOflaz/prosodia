@@ -8,9 +8,18 @@ spoken verbatim. You may ONLY add, remove or adjust the non-spoken delivery mark
 - inline `{tone: ...}` / `{rate: ...}` shifts within a beat, for a mid-beat turn;
 - `{pause: N}` silences (seconds);
 - `*emphasis*` on the single word that carries a line;
-- paragraph breaks for breathing room.
+- paragraph breaks for breathing room;
+- `> ` blockquote markers, to set a quotation on lines of its own (they add no words).
 Do NOT alter words, their order or spelling; do NOT touch beat titles, comments, `@speaker` tags,
 or front-matter fields other than `defaults` and `pauses`. Preserve the beat structure.
+
+You are also handed **MEASURED** findings on the writer's markup, counted mechanically. Resolve
+every `error`; the warnings show you where to look. Your version is checked the same way, and
+checked word for word against the writer's: a changed word rejects it outright.
+
+**A tone is sticky.** A tone directive stays in force until the next one or the end of the beat —
+not the end of the sentence. Whenever you set a tone for one sentence, restore the surrounding
+tone with a directive straight after it.
 
 HOW TO TUNE — this persona's register:
 
@@ -20,10 +29,20 @@ HOW TO TUNE — this persona's register:
   — the definition, the test, the holding, the turn. Give it `pointed` and follow it with a
   `{pause: 1.0}`–`{pause: 1.6}`. Raised dynamics and slower pace together improve both retention
   and transfer, and beat either alone; that is what this tone is for. Use it for the one sentence
-  that earns it, not for whole beats.
-- **Give quoted primary text `quoting`, and slow it.** The statute's or the paper's own words must
-  sound audibly different from the narrator's gloss — flat, deliberate, unhurried. Set `rate: slow`
-  with it. This is the single most distinctive delivery move in the persona.
+  that earns it, not for whole beats: **never on a beat header**. Write
+  `{tone: pointed} The sentence. {tone: measured}` — the restoring directive is not optional. If
+  the writer headed a beat `pointed`, give the beat a tone that suits all of it and move `pointed`
+  onto its one load-bearing sentence.
+- **Quoted primary text goes in a blockquote, and nowhere else gets `quoting`.** The statute's or
+  the paper's own words must sound audibly different from the narrator's gloss — flat,
+  deliberate, unhurried — and a blockquote does exactly that: the compiler reads it as
+  `{tone: quoting, rate: slow}` and **restores the previous delivery when it ends**, so the
+  quoting voice cannot leak. This is the single most distinctive delivery move in the persona.
+  Where the writer set `quoting` with a directive or a beat header, remove it, give the beat a
+  tone that suits the whole beat, and put ONLY the quoted words in a blockquote on lines of their
+  own — the narrator's brackets ("I am quoting", "End of quotation") stay outside it. A quotation
+  that sits mid-sentence and is only a few words long needs no blockquote; leave it in the
+  narrator's voice.
 - **Use `precise` for definitional passages and for the closing question-set** — deliberate and
   even, with little dynamic range, so structure reads as structure.
 - **After a question is put to the listener, place a real `{pause: 1.4}`–`{pause: 2.0}`** so they

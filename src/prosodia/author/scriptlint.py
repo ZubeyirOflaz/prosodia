@@ -44,7 +44,7 @@ _AUDIBLE_BRACKET = re.compile(
     r"(?i)(?:\b\w+'s (?:own )?words\b|\b(?:his|her|its|their) (?:own )?words\b"
     r"|\b(?:says|said|reads|puts it|goes like this|runs like this|reads as follows)\b"
     r"|\bend of (?:the )?(?:quote|quotation|definition)\b"
-    r"|\b(?:quotation|quote|verbatim)\b|\bword for word\b|\bI am quoting\b)"
+    r"|\b(?:quotation|quoting|quote|verbatim)\b|\bword for word\b|\bI am quoting\b)"
 )
 # A beat the writer marked `{tone: quoting}` IS bracketed, by construction — the renderer
 # delivers it in the statute's voice and the script says so around it. Directives are
@@ -106,8 +106,14 @@ class Finding:
 def spoken_body(transcript: str) -> str:
     """The words that reach the ear: no front-matter, no beat titles, no directives."""
     body = transcript.split("---", 2)[-1] if transcript.lstrip().startswith("---") else transcript
+    # The compiler drops HTML comments (compile.py `_COMMENT`), so the writer's notes never reach
+    # the ear. Scanning them cost Episode 10 of The Collisions a whole editorial round: a line in
+    # the notes reading "the episode two ordinal references" was reported as a forward reference
+    # inside the first five minutes. What the linter calls spoken must be what the compiler speaks.
+    body = re.sub(r"<!--.*?-->", "", body, flags=re.S)
     body = re.sub(r"(?m)^##[^\n]*$", "", body)   # beat titles are not spoken (SPEC §4)
     body = re.sub(r"\{[^{}]*\}", "", body)
+    body = re.sub(r"(?m)^[ \t]*>[ \t]?", "", body)   # blockquote markers (SPEC §5.2)
     return re.sub(r"[*_`]", "", body)
 
 
@@ -118,11 +124,13 @@ def _num(word: str) -> int | None:
 
 
 def _quoting_beats(raw: str) -> str:
-    """The text of every beat delivered in the instrument's own voice."""
+    """The text delivered in the instrument's own voice: quoting-headed beats and blockquotes."""
     out, marks = [], list(_QUOTING_BEAT.finditer(raw))
     for m in marks:
         nxt = re.search(r"(?m)^##", raw[m.end():])
         out.append(raw[m.end(): m.end() + (nxt.start() if nxt else len(raw))])
+    # A blockquote is a scoped quotation (SPEC §5.2): already marked, never "unbracketed".
+    out += [re.sub(r"^[ \t]*>[ \t]?", "", ln) for ln in raw.splitlines() if ln.lstrip().startswith(">")]
     return "\n".join(out)
 
 
@@ -242,7 +250,11 @@ def lint_script(transcript: str, *, episode: int | None = None,
     for m in _DEIXIS.finditer(body):
         out.append(Finding(ERROR, "spatial-deixis", f'"{m.group(0)}" — the listener has no picture'))
     for phrase in banned or []:
-        n = len(re.findall(rf"(?i)\b{re.escape(phrase)}\b", body))
+        # A watchlist entry may carry punctuation ("however," bans the filler connective while
+        # leaving the concessive "however detailed" alone), so only anchor the alphanumeric edges.
+        lead = r"\b" if phrase[:1].isalnum() else ""
+        trail = r"\b" if phrase[-1:].isalnum() else ""
+        n = len(re.findall(rf"(?i){lead}{re.escape(phrase)}{trail}", body))
         if n:
             out.append(Finding(WARN, "banned-phrase", f'"{phrase}" x{n} (series watchlist)'))
 
@@ -309,3 +321,78 @@ def lint_episode_file(path: Path, *, episode: int | None = None,
                       banned: list[str] | None = None, docket: str = "") -> list[Finding]:
     return lint_script(path.read_text(encoding="utf-8"), episode=episode,
                        target_minutes=target_minutes, banned=banned, docket=docket)
+
+
+# ---- delivery ---------------------------------------------------------------------------
+#
+# Checks on the delivery markup rather than the words. They belong to the TONE pass, not to
+# the writer/editor loop: a content round must never be spent on a pause. The tone specialist
+# is re-prompted with these when it leaves an `error` standing.
+
+_SENTENCE_TONES = ("pointed", "quoting")
+_POINTED_SPAN_MAX = 45    # words; one load-bearing sentence, with room for a long one
+_DIRECTIVE = re.compile(r"(?<!\\)\{([^{}]*)\}")
+
+
+def _directive_keys(inner: str) -> dict[str, str]:
+    out = {}
+    for part in inner.split(","):
+        if ":" in part:
+            k, v = part.split(":", 1)
+            out[k.strip().lower()] = v.strip().strip('"').lower()
+    return out
+
+
+def lint_delivery(transcript: str, *, sentence_tones: tuple[str, ...] = _SENTENCE_TONES) -> list[Finding]:
+    """Delivery-markup findings: sentence tones used as beat tones, a sticky quoting
+    directive, a `pointed` span that runs on, and narration with no mid-clause pause.
+
+    Measured on two series before this existed: 21 beats headed `pointed` (~57 minutes of
+    a 375-minute series at the setting meant for one sentence), 7 beats headed `quoting`, and
+    not one mid-clause pause in 22 episodes — where the one project the tone specialist DID
+    run on had 153, every one of them mid-clause.
+    """
+    out: list[Finding] = []
+    body = re.sub(r"<!--.*?-->", "", transcript, flags=re.S)
+    beats = re.split(r"(?m)^(?=## )", body)
+    long_pointed: list[str] = []
+    for beat in beats:
+        if not beat.startswith("## "):
+            continue
+        header, _, text = beat.partition("\n")
+        hm = _DIRECTIVE.search(header)
+        htone = _directive_keys(hm.group(1)).get("tone") if hm else None
+        title = _DIRECTIVE.sub("", header[3:]).strip()
+        if htone in sentence_tones:
+            out.append(Finding(ERROR, "header-tone",
+                               f'beat "{title}" is headed `{htone}` — a sentence tone carried '
+                               f"by the whole beat; set the beat's tone and mark the one sentence"))
+        dirs = [(m, _directive_keys(m.group(1))) for m in _DIRECTIVE.finditer(text)]
+        for i, (m, keys) in enumerate(dirs):
+            tone = keys.get("tone")
+            if tone == "quoting":
+                out.append(Finding(ERROR, "quoting-directive",
+                                   f'beat "{title}": `quoting` set by a directive — it stays on '
+                                   f"until the next tone; put the quotation in a blockquote instead"))
+            if tone == "pointed":
+                end = next((mm.start() for mm, kk in dirs[i + 1:] if "tone" in kk), len(text))
+                words = len(re.findall(r"[A-Za-z']+", spoken_body(text[m.end():end])))
+                if words > _POINTED_SPAN_MAX:
+                    long_pointed.append(f'"{title}" ({words} words)')
+    if long_pointed:
+        out.append(Finding(ERROR, "pointed-span",
+                           f"{len(long_pointed)} `pointed` span(s) run past {_POINTED_SPAN_MAX} words "
+                           f"without restoring the surrounding tone: " + "; ".join(long_pointed[:4])))
+    pauses = list(re.finditer(r"\{pause[^}]*\}", body))
+    mid = 0
+    for m in pauses:
+        line = body[body.rfind("\n", 0, m.start()) + 1:m.start()]
+        before = _DIRECTIVE.sub("", line).rstrip()
+        if before and not re.search(r"""[.!?]["'\u201d\u2019)]*$""", before):
+            mid += 1
+    if pauses and not mid:
+        out.append(Finding(WARN, "mid-clause-pause",
+                           f"none of {len(pauses)} pauses falls mid-clause — every one sits at a "
+                           f"paragraph or sentence end; a listener needs a beat right after an "
+                           f"image or a threshold lands, before the sentence finishes"))
+    return out
