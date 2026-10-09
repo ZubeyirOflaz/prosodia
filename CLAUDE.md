@@ -16,5 +16,10 @@ Prosodia turns an LLM-authored, human-editable **transcript with performance dir
 ## Conventions
 
 - License: MIT (open source). Keep dependencies and any bundled/preset voices license-clear.
+- **Voice clips and who hears the audio.** The casework series are private — only the user listens;
+  if one is ever shared, the *transcripts* are shared and others render them in their own voice — so
+  a cloned voice there is a private copy. For any series whose **audio** might be shared, cloning a
+  real person's voice needs that person's permission: raise it with the user before a voice is chosen
+  or rendered. See `docs/reference/casework-voice-candidates.md`.
 - Don't commit audio outputs, model weights, venvs, or synced job folders (see `.gitignore`).
 - Don't `git commit`/`push` unless the user asks.

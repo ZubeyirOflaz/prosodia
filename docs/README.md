@@ -45,3 +45,5 @@ and decisions: [DESIGN.md](../DESIGN.md).
 - [Casework series roadmap](reference/casework-series-roadmap.md) — Series B, C and D, scoped but not planned
 - [Plan review](reference/plan-review.md) — how a Planner outline gets checked: `plan-lint` for the counting, an independent read for the judgement, and the standing ledger for Series A
 - Craft dossiers: [Fisher](reference/fisher-craft.md) · [Hildebrandt](reference/hildebrandt-craft.md) · [Harford](reference/harford-craft.md) · [Sapolsky](reference/sapolsky-craft.md)
+- [Casework voice candidates](reference/casework-voice-candidates.md) — the persona never had its own voice; who to listen to, what to listen for, and how to get a license-clear version
+- [Series B findings](reference/series-b-findings.md) — the Series B review: delivery, speed (0.9× tempo), render splits, editor loop

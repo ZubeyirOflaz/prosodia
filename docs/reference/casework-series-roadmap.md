@@ -126,6 +126,9 @@ judges everything the three earlier series described.
   `lexicon.yaml` and `voices/`, all carrying `persona: casework`. Follow `projects/ai_act/`.
 - **Use the same narrator clip across every series.** It is the primary defence against timbre
   drift, and four series is a long time for a voice to wander.
+- **Know who will hear the audio before choosing that clip.** These series are private: if one is
+  shared, the transcripts are shared, not the audio. A series whose audio *might* be shared needs a
+  voice its owner has agreed to — see [voice candidates](casework-voice-candidates.md).
 - **Keep lexicons empty until something is heard wrong.** Raw spelling generally beats a respelling
   on this engine; add an entry only after hearing a specific name mangled.
 - **Cross-series deferral is a planner instruction**, already in the prompt: reserved material is

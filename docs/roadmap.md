@@ -9,7 +9,9 @@ decisions are [DESIGN.md §11](../DESIGN.md); tracked fixes are
 ## Done (built and tested)
 
 - **Authoring pipeline** end-to-end: Planner / Writer ⇄ Editor / Tone specialist
-  ([pipeline](pipeline-and-traces.md)), plus `compile` and `submit`.
+  ([pipeline](pipeline-and-traces.md)), plus `compile` and `submit`. *The tone specialist was
+  listed here but only became part of `write` on 2026-10-06; before that it had been run once by
+  hand — see [Series B findings §2](reference/series-b-findings.md).*
 - **Contracts**: IR, render plan, intent vocabulary, [job protocol](../protocol/SPEC.md)
   with manifest-based atomic claim, and the trace log.
 - **Tone table**, **normalization**, **pronunciation lexicon**, sentence-aware **chunking**.
@@ -33,7 +35,8 @@ decisions are [DESIGN.md §11](../DESIGN.md); tracked fixes are
 - **Delivery-quality pass**: an LLM **tone specialist** ([`roles/tone.md`](../src/prosodia/author/personas/hardcore-history/roles/tone.md))
   run with a word-invariance check, plus a retuned `voice_profiles.yaml` — raised
   `exaggeration` to cure flatness, mid-clause digest pauses — applied to
-  `projects/eu_history_v2/` (5 episodes).
+  `projects/eu_history_v2/` (5 episodes). Applied by hand at the time; now run by `write` and
+  by `prosodia tone`, with a word-invariance check and `scriptlint.lint_delivery`.
 - A test suite ([evaluation](evaluation.md)) and this documentation set.
 
 ## Open — needs the GPU box
@@ -50,8 +53,18 @@ decisions are [DESIGN.md §11](../DESIGN.md); tracked fixes are
 - **Two-host rendering**: `@speaker` tags are parsed and validated into the IR, but
   the renderer voices the whole episode with one voice — per-speaker voice
   resolution and turn-taking gaps are not yet wired.
-- **Chapter metadata & per-episode output filenames** (today: a flat `episode.wav`).
-- **`rate` as true time-stretch** (today: coupled onto `cfg_weight`).
+- **Chapter metadata** — per-beat chapter marks in the MP3. *(Per-episode output filenames are
+  done: the renderer writes "N. Title.mp3", [Series B findings §7](reference/series-b-findings.md).)*
+- **`rate` as true time-stretch** — the per-beat `rate` is still coupled onto `cfg_weight`, which
+  barely changes speed. The *episode* tempo is fixed (`atempo` 0.90 at render,
+  [Series B findings §1](reference/series-b-findings.md)); a per-beat equivalent would need
+  mel interpolation inside the backend, which Chatterbox's authors left out.
+- **Pauses inside one generation** — today every pause, paragraph and tone change ends the
+  engine call, so chunks run ~5–12 s and a mid-sentence pause is rendered as a sentence end.
+  Approved design: inner pauses spliced into a single generation —
+  [Series B findings §5](reference/series-b-findings.md).
+- **Continuous room tone** — inserted silence is digital zero, so the background noise drops out
+  at every join and pause — [Series B findings §6](reference/series-b-findings.md).
 - **Coverage lint** (today: the Planner produces the map; no automated checker).
 
 ## Later (behind the pluggable interface)
@@ -81,5 +94,5 @@ little pause** at digest / "imagine the scene" moments. The shipped tone-special
 
 ## See also
 
-[Repair plan](../REPAIR_PLAN.md) · [DESIGN.md](../DESIGN.md) ·
+[Series B findings](reference/series-b-findings.md) · [Repair plan](../REPAIR_PLAN.md) · [DESIGN.md](../DESIGN.md) ·
 [Evaluation & testing](evaluation.md) · [Features](features.md)
