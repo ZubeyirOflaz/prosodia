@@ -14,6 +14,7 @@ keep the best.
 from __future__ import annotations
 
 import logging
+import re
 from pathlib import Path
 
 import numpy as np
@@ -56,6 +57,24 @@ def _resolve_voice_ref(
             ir.voice,
         )
     return None
+
+
+_UNSAFE_IN_FILENAME = re.compile(r'[<>:"/\\|?*\x00-\x1f]')
+
+
+def episode_filename(ir: EpisodeIR, ext: str = ".mp3") -> str:
+    """``"7. The Science of Rise and Fall.mp3"`` — the name a listener's player shows.
+
+    Characters Windows refuses in a filename are dropped (the render box runs Windows), as are
+    trailing dots and spaces, which Windows silently strips and Syncthing then fights over.
+    """
+    title = (ir.title or "").strip()
+    if ir.episode is not None and title:
+        stem = f"{ir.episode}. {title}"
+    else:
+        stem = title or (f"Episode {ir.episode}" if ir.episode is not None else "episode")
+    stem = _UNSAFE_IN_FILENAME.sub("", stem).strip().rstrip(". ")
+    return (stem or "episode") + ext
 
 
 def _render_chunk(backend, text, params, base_seed, seg_id, ci, ref, *,
@@ -153,7 +172,10 @@ def render_job(
     backend.load()
     sr = backend.sample_rate
     out_path = Path(out_path)
-    if not out_path.suffix:
+    if out_path.is_dir():
+        # Given the job folder: write the listener-facing file, "N. Title.mp3".
+        out_path = out_path / episode_filename(ir)
+    elif not out_path.suffix:
         out_path = out_path.with_suffix(".wav")
     ref = _resolve_voice_ref(
         ir, job_dir, voices_dir,
@@ -244,7 +266,13 @@ def render_job(
     out_path.parent.mkdir(parents=True, exist_ok=True)
     raw = out_path.with_suffix(".raw.wav")
     A.write_wav(raw, out, sr)
-    if not A.loudness_normalize(raw, out_path, target_lufs, sr=sr):
-        A.write_wav(out_path, A.peak_normalize(out), sr)  # fallback if ffmpeg missing
+    tags = {"title": ir.title, "track": ir.episode}
+    if not A.finalize_audio(raw, out_path, target_lufs, sr=sr, tempo=plan.tempo, tags=tags):
+        # ffmpeg missing or failed: no tempo, no MP3. Keep a playable, normalized WAV rather than
+        # fail the job, and say so — the episode is then at the engine's raw ~170 wpm.
+        fallback = out_path.with_suffix(".wav")
+        logger.warning("ffmpeg finishing pass failed; wrote %s WITHOUT tempo %.2f", fallback.name, plan.tempo)
+        A.write_wav(fallback, A.peak_normalize(out), sr)
+        out_path = fallback
     raw.unlink(missing_ok=True)
     return out_path

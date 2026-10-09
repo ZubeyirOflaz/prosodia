@@ -25,6 +25,9 @@ class VoiceProfiles:
         self.default_tone: str = data.get("default_tone", "measured")
         self.tones: dict[str, dict] = data.get("tones", {})
         self.pace = float(data.get("pace", 1.0))  # global cfg scale; <1 = slower
+        # Playback tempo of the finished episode (see voice_profiles.yaml). `pace` above does NOT
+        # change speaking speed on Chatterbox; this does.
+        self.tempo = float(data.get("tempo", 1.0))
         pauses = data.get("pauses", {}) or {}
         self.paragraph_ms = int(pauses.get("paragraph_ms", 400))
         self.beat_ms = int(pauses.get("beat_ms", 800))
@@ -82,4 +85,6 @@ def build_render_plan(
                 rate_multiplier=rate_multiplier,
             )
         )
-    return RenderPlan(engine=profiles.engine, voice=ir.voice, seed=ir.seed, params=params), warnings
+    return RenderPlan(
+        engine=profiles.engine, voice=ir.voice, seed=ir.seed, params=params, tempo=profiles.tempo
+    ), warnings

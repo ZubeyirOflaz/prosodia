@@ -78,6 +78,9 @@ class RenderPlan(BaseModel):
     voice: str = ""
     seed: int | None = None
     params: list[SegmentParams] = Field(default_factory=list)
+    # Playback tempo for the finished episode, applied once by the renderer (ffmpeg `atempo`,
+    # pitch kept). 1.0 = as generated. Plans written before this field existed read as 1.0.
+    tempo: float = Field(1.0, ge=0.5, le=2.0)
 
     def to_json(self, indent: int = 2) -> str:
         return self.model_dump_json(indent=indent)

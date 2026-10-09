@@ -37,7 +37,7 @@ def render_one(job_dir, root, *, fast_preview=True, voices_dir=None, backend=Non
     status.write_text(protocol.JobStatus(job_id=name, state="rendering").to_json(), encoding="utf-8")
     try:
         audio = render_job(
-            proc, proc / "episode.wav", fast_preview=fast_preview, voices_dir=voices_dir,
+            proc, proc, fast_preview=fast_preview, voices_dir=voices_dir,
             backend=backend, speak_title=speak_title, lexicon_fallback=lexicon_fallback,
         )
         status.write_text(

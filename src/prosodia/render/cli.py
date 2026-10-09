@@ -55,8 +55,29 @@ def check_render_env() -> list[str]:
 
     if shutil.which("ffmpeg") is None:
         problems.append(f"ffmpeg is not on PATH ({_ffmpeg_hint()}).")
+    else:
+        # The finishing pass needs both: without `atempo` an episode silently renders at the
+        # engine's raw ~170 wpm, and without libmp3lame there is no MP3 — the job falls back to
+        # a WAV with no tempo applied. Catch it here rather than in a log line after the render.
+        problems += _ffmpeg_capability_problems()
 
     return problems
+
+
+def _ffmpeg_capability_problems() -> list[str]:
+    import subprocess
+
+    found = []
+    for flag, needle, what in (("-filters", " atempo ", "the `atempo` filter (episode tempo)"),
+                               ("-encoders", " libmp3lame ", "the `libmp3lame` encoder (MP3 output)")):
+        try:
+            out = subprocess.run(["ffmpeg", "-hide_banner", flag], capture_output=True, text=True,
+                                 timeout=30).stdout
+        except Exception:
+            out = ""
+        if needle not in out:
+            found.append(f"ffmpeg lacks {what} — use a full ffmpeg build ({_ffmpeg_hint()}).")
+    return found
 
 
 def render_env_notes() -> list[str]:
@@ -219,7 +240,7 @@ def main(argv: list[str] | None = None) -> int:
         from prosodia.render.render import render_job
 
         out = render_job(
-            args.job, Path(args.job) / "episode.wav", fast_preview=not args.final,
+            args.job, Path(args.job), fast_preview=not args.final,
             voices_dir=args.voices, speak_title=not args.no_title,
             lexicon_fallback=args.lexicon_fallback,
         )

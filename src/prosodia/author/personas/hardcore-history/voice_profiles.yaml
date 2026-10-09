@@ -21,6 +21,13 @@ engine: chatterbox
 # Global pace dial: scales every cfg_weight (lower = slower/more deliberate show-wide).
 pace: 0.9
 
+# Playback tempo, applied to the finished episode by the renderer (ffmpeg `atempo`, pitch kept).
+# Chatterbox speaks at ~170 wpm whatever `pace`, cfg_weight or the reference clip say — measured on
+# 29 renders and in a controlled test (docs/reference/series-b-findings.md §1). 0.90 was chosen BY
+# EAR (2026-10-09) over Rubber Band's old and new engines and Praat PSOLA: atempo was clearly the
+# cleanest, and below 0.90 its artefacts become audible and the delivery drags.
+tempo: 0.90
+
 # Default silence durations (ms). Deliberate long pauses at "let it land" moments are
 # the tone specialist's job (explicit {pause}); these are just the baseline gaps.
 pauses:

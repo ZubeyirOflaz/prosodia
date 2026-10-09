@@ -15,6 +15,13 @@ engine: chatterbox
 # not a funereal one.
 pace: 0.95
 
+# Playback tempo, applied to the finished episode by the renderer (ffmpeg `atempo`, pitch kept).
+# Chatterbox speaks at ~170 wpm whatever `pace`, cfg_weight or the reference clip say — measured on
+# 29 renders and in a controlled test (docs/reference/series-b-findings.md §1). 0.90 was chosen BY
+# EAR (2026-10-09) over Rubber Band's old and new engines and Praat PSOLA: atempo was clearly the
+# cleanest, and below 0.90 its artefacts become audible and the delivery drags.
+tempo: 0.90
+
 # Exposition flows more continuously than dramatic narration, so slightly tighter
 # baseline gaps; the tone specialist still places deliberate long {pause}s by hand.
 pauses:

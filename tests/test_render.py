@@ -246,3 +246,81 @@ def test_lexicon_fallback_disabled_in_fast_preview(tmp_path):
     _render(tmp_path, _respelled_ir(), backend, None,
             fast_preview=True, lexicon_fallback=True)
     assert [t for t, _ in backend.calls] == ["he said Thoo-sid-ih-deez"]
+
+
+# ---- tempo + MP3 (2026-10-09) ---------------------------------------------------------
+
+import json  # noqa: E402
+import shutil  # noqa: E402
+import subprocess  # noqa: E402
+
+needs_ffmpeg = pytest.mark.skipif(shutil.which("ffmpeg") is None or shutil.which("ffprobe") is None,
+                                  reason="ffmpeg/ffprobe not installed")
+
+
+def _probe(path):
+    out = subprocess.run(["ffprobe", "-v", "error", "-show_entries",
+                          "format=duration:format_tags=title,track:stream=codec_name,channels",
+                          "-of", "json", str(path)], capture_output=True, text=True, check=True).stdout
+    return json.loads(out)
+
+
+def _tempo_job(tmp_path, tempo=None, title="The Science of Rise and Fall", episode=7):
+    ir = EpisodeIR(episode=episode, title=title, segments=[
+        Segment(id=0, spoken_text="One.", chunks=["One."]),
+        Segment(id=1, spoken_text="Two.", chunks=["Two."], pause_before_ms=500),
+    ])
+    plan = RenderPlan(params=[SegmentParams(segment_id=i, exaggeration=0.5, cfg_weight=0.5,
+                                            temperature=0.8) for i in (0, 1)],
+                      **({} if tempo is None else {"tempo": tempo}))
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    (tmp_path / "ir.json").write_text(ir.to_json(), encoding="utf-8")
+    (tmp_path / "render_plan.json").write_text(plan.to_json(), encoding="utf-8")
+    return tmp_path
+
+
+def test_a_plan_without_a_tempo_renders_at_normal_speed():
+    """Jobs staged before the field existed must not silently change speed."""
+    assert RenderPlan.from_json('{"params": []}').tempo == 1.0
+
+
+def test_the_persona_profile_puts_its_tempo_into_the_render_plan():
+    from prosodia.author.persona import Persona
+    from prosodia.author.tone import VoiceProfiles, build_render_plan
+
+    profiles = VoiceProfiles.load(Persona.resolve("casework").voice_profiles_path())
+    ir = EpisodeIR(segments=[Segment(id=0, spoken_text="x", chunks=["x"])])
+    plan, _ = build_render_plan(ir, profiles)
+    assert plan.tempo == profiles.tempo == 0.90
+
+
+def test_episode_filename_is_what_a_player_should_show():
+    assert R.episode_filename(EpisodeIR(episode=7, title="The Science of Rise and Fall")) == \
+        "7. The Science of Rise and Fall.mp3"
+    # Windows refuses these; the render box runs Windows
+    assert R.episode_filename(EpisodeIR(episode=3, title='Who Decides: "Us"? / Them.')) == \
+        "3. Who Decides Us  Them.mp3"
+    assert R.episode_filename(EpisodeIR()) == "episode.mp3"
+
+
+@needs_ffmpeg
+def test_render_to_a_folder_writes_a_tagged_mp3_slowed_by_the_plans_tempo(tmp_path):
+    a, b = _tempo_job(tmp_path / "a", tempo=1.0), _tempo_job(tmp_path / "b", tempo=0.90)
+    fast = R.render_job(a, a, backend=FakeBackend(16000, 16000), fast_preview=True)
+    slow = R.render_job(b, b, backend=FakeBackend(16000, 16000), fast_preview=True)
+    assert slow.name == "7. The Science of Rise and Fall.mp3"
+    assert not list((tmp_path / "b").glob("*.raw.wav"))          # the intermediate is cleaned up
+    pf, ps = _probe(fast), _probe(slow)
+    assert ps["streams"][0]["codec_name"] == "mp3" and ps["streams"][0]["channels"] == 1
+    assert ps["format"]["tags"]["title"] == "The Science of Rise and Fall"
+    assert ps["format"]["tags"]["track"] == "7"
+    # the whole episode — speech AND pauses — is 1/0.9 as long
+    ratio = float(ps["format"]["duration"]) / float(pf["format"]["duration"])
+    assert ratio == pytest.approx(1 / 0.90, rel=0.03)
+
+
+@needs_ffmpeg
+def test_an_explicit_wav_path_still_writes_a_wav(tmp_path):
+    out = R.render_job(_tempo_job(tmp_path), tmp_path / "episode.wav",
+                       backend=FakeBackend(16000, 8000), fast_preview=True)
+    assert out.suffix == ".wav" and out.exists()
