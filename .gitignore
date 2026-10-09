@@ -297,3 +297,5 @@ projects/**/research/
 !projects/ai_act/research/*.md
 !projects/collisions/research/
 !projects/collisions/research/*.md
+!projects/constitutional/research/
+!projects/constitutional/research/*.md

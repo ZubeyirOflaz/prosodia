@@ -38,3 +38,26 @@ The served HTML carries a per-request analytics id, so its hash is not stable �
 
 A consolidated text **omits the recitals** and is, in EUR-Lex's own words, a documentation tool
 with no legal effect; the authentic text is the OJ. Take recitals from the original act.
+
+## EUR-Lex now blocks scripted fetches (since 2026-10)
+
+`eur-lex.europa.eu` answers non-browser clients with an **AWS WAF JavaScript challenge** (HTTP 202, ~2 KB),
+so `fetch()` can no longer download new acts. **Cached acts still convert.** Two working routes, both
+verified 2026-10-09:
+
+- **CELLAR content negotiation** — the Publications Office repository serves the same documents:
+
+  ```bash
+  curl -L -H "Accept: application/xhtml+xml" -H "Accept-Language: eng" \
+       -o cache/32024R0900.html http://publications.europa.eu/resource/celex/32024R0900
+  python consolidate.py cache/32024R0900.html out.md --select "Article 18"
+  ```
+
+  The converter reads CELLAR's XHTML unchanged, completeness guard included. **Caveat:** for some works
+  (the Charter, `12016P` / `12012P`) CELLAR's XHTML holds only the table of contents.
+- **Court of Justice press releases** download directly from `curia.europa.eu/site/upload/docs/…/cpYYNNNen.pdf`
+  — official summaries, not judgments.
+
+Also refusing scripted requests: **HUDOC** and `echr.coe.int` (HTTP 403). The Convention's text is available
+from the Council of Europe Treaty Office (`rm.coe.int/1680063765`). **FRA's Charter pages** work but put a
+client behind a challenge after a burst of ~30 requests — fetch them slowly.

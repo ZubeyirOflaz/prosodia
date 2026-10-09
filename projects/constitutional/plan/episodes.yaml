@@ -1,0 +1,49 @@
+# Episodes as the Planner defined them, parsed from outline.md.
+# RECOVERED 2026-10-09: the planner's output arrived as two text blocks and the runner kept only
+# the last; the full text was rejoined from the planner's claude -p session transcript.
+episodes:
+- n: 1
+  slug: ep01-who-called-whom
+  title: Who Called Whom
+  type: apparatus
+  target_minutes: 40
+- n: 2
+  slug: ep02-the-floor
+  title: The Floor
+  type: apparatus
+  target_minutes: 36
+- n: 3
+  slug: ep03-the-ladder
+  title: The Ladder
+  type: apparatus
+  target_minutes: 38
+- n: 4
+  slug: ep04-the-quality-of-the-law
+  title: The Quality of the Law
+  type: apparatus
+  target_minutes: 38
+- n: 5
+  slug: ep05-what-weighing-hides
+  title: What Weighing Hides
+  type: lens
+  target_minutes: 26
+- n: 6
+  slug: ep06-one-man-in-a-carriage
+  title: One Man in a Carriage
+  type: apparatus
+  target_minutes: 32
+- n: 7
+  slug: ep07-the-criteria
+  title: The Criteria
+  type: apparatus
+  target_minutes: 36
+- n: 8
+  slug: ep08-the-vote
+  title: The Vote
+  type: apparatus
+  target_minutes: 38
+- n: 9
+  slug: ep09-the-exception
+  title: The Exception
+  type: verdict
+  target_minutes: 44

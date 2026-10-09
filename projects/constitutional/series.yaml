@@ -1,0 +1,36 @@
+# Series C of the `casework` production — see docs/reference/casework-series-roadmap.md.
+# Depends on NOTHING: the most standalone of the four series, and a listener could start here cold.
+# It still names, once and without re-teaching, the instruments Series A and B covered when a case
+# turns on them.
+series: "The Constitutional Layer"
+description: >
+  What survives when the rules meet real power: the fundamental rights that AI and data systems
+  engage, the proportionality test that is supposed to protect them, and the judgments in which
+  courts actually applied it.
+style: casework
+persona: casework
+
+
+angle: >
+  Take the rights through the cases that tested them. Every episode is built on a named applicant,
+  a dated judgment and a documented deployment — which force, which system, which years, what
+  happened. Proportionality is the standard tool and it is taught properly, as the four questions a
+  court actually asks, rather than invoked as a word. The signature beat — what the rule assumes
+  about the machine — asks here what a rights test assumes about the power it is testing.
+
+scope: >
+  THIRD series, standalone. Cover: the Charter of Fundamental Rights and the European Convention on
+  Human Rights as AI engages them — private life, data protection, non-discrimination, fair trial,
+  expression and assembly; proportionality as the standard test, its four questions and how courts
+  have used and avoided them; the mass-surveillance jurisprudence (Digital Rights Ireland, Schrems I
+  and II, La Quadrature du Net, Big Brother Watch); predictive policing, biometric identification
+  and the rule of law; democracy and elections — microtargeting, synthetic media, the Political
+  Advertising Regulation; emergency powers, derogation and the erosion of safeguards.
+  DO NOT cover, and reserve explicitly: the AI Act's own machinery (Series A); the GDPR, liability
+  and the rest of the acquis as instruments (Series B); governance inside organisations and the
+  comparative picture beyond Europe (Series D). Name them when a case turns on them; do not re-teach.
+
+engine: chatterbox
+voice: narrator
+lexicon: lexicon.yaml
+target_minutes: 35           # soft anchor; the Planner sets per-episode lengths
