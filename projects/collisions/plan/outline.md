@@ -181,9 +181,9 @@ Every part below is taught in exactly one episode. A part may be *referred to* e
 
 **The cast.** The scraper; the model provider — **provider** in Series A's vocabulary, **controller** here, and the collision is that those two words allocate responsibility by different tests; the business customer, a **deployer** under one instrument and a controller or processor under the other; the **data subject** who is in the corpus and was never anyone's customer; the supervisory authority; the **recipient** of a pseudonymised file who holds no key.
 
-**The system, described operationally, before any rule applies.** Crawl, de-duplicate, tokenise; train by adjusting parameters against a prediction objective; ship the weights; serve outputs at inference. **There is no row anywhere.** What the weights encode about any individual sequence is a matter of degree, and the field's word for the recoverable end of that spectrum is **memorisation**, tested by extraction and membership-inference attacks. Machine unlearning — removing a training example's influence after the fact — is an active research area with no accepted guarantee. `[OUTSIDE DOCKET: a definition of memorisation and of membership inference from the extraction literature, so the description can be checked against the field's own words]`
+**The system, described operationally, before any rule applies.** Crawl, de-duplicate, tokenise; train by adjusting parameters against a prediction objective; ship the weights; serve outputs at inference. **There is no row anywhere.** What the weights encode about any individual sequence is a matter of degree, and the field's word for the recoverable end of that spectrum is **memorisation**, tested by extraction and membership-inference attacks. Machine unlearning — removing a training example's influence after the fact — is an active research area with no accepted guarantee. **Memorisation** ▲ — Carlini, Ippolito, Jagielski, Lee, Tramèr and Zhang, "Quantifying Memorization Across Neural Language Models" (ICLR 2023): the model, prompted with the preceding text, emits a training string **verbatim** — and how much it does so grows with model size, with **duplication** in the corpus, and with the **length of the prompt**. **Membership inference** ▲ — Shokri, Stronati, Song and Shmatikov (IEEE S&P 2017): given a record and black-box access, establish **whether that record was in the training set at all**. **Two different disclosures, and the second gets its own sentence.**
 
-**Does the system exist as described?** Yes, and that is why this opening was chosen over an argument. Extraction has been demonstrated against deployed commercial models, and a European court has separately found that song lyrics were recoverable from a production model in substantially their original form `[OUTSIDE DOCKET: Landgericht München I, GEMA v OpenAI, 42 O 14139/24, 11 November 2025 — used here as one sentence of technical corroboration, not taught]`.
+**Does the system exist as described?** Yes, and that is why this opening was chosen over an argument. Extraction has been demonstrated against deployed commercial models, and a European court has separately found that song lyrics were recoverable from a production model in substantially their original form **Landgericht München I, *GEMA v OpenAI*, 42 O 14139/24, 11 November 2025** ▲ — held that memorisation of a work in the model is itself an act of reproduction, and that the text-and-data-mining exception did not cover the training of the model. **One sentence only**, naming the court, the date, and that it is a copyright case under a different instrument; ⚠ do not state it is final..
 
 **The operative text.**
 > **Art. 4(1) ✓** — "any information relating to an identified or identifiable natural person ('data subject')" — and an identifiable person is one "who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data, an online identifier".
@@ -219,7 +219,7 @@ Called thereafter: **the subject test** (4(1)) and **the purposes-and-means test
 
 **Sources.** Regulation (EU) 2016/679, Art. 4(1), (2), (5), (6), (7), (8), (9), (10), consolidated text 02016R0679-20160504, EUR-Lex. Plus, once the docket holds them: the extraction paper; C-413/23 P; EDPB Opinion 28/2024.
 
-**Writability: NOT YET WRITABLE.** Three items sit outside the docket and the writer has one check. **Docket requests 1, 2 and 3.** With those three files the episode is writable and its single check becomes the operative part of C-413/23 P.
+**Writability: WRITABLE.** Docket `03` closed the three items that decide the question and its 2026-09-20 addendum closed the last two. **The single check is the operative part of C-413/23 P**, which the docket has not read — so paraphrase and attribute rather than quote it.
 
 ---
 
@@ -229,9 +229,11 @@ Called thereafter: **the subject test** (4(1)) and **the purposes-and-means test
 
 **Prerequisites.** Episode 1 — personal data, processing, controller and processor, and that training is processing.
 
-**Opening instance** — *type: a live controversy.* `[OUTSIDE DOCKET: the Irish Data Protection Commission's High Court proceedings against Twitter International Unlimited Company, issued 8 August 2024, over the processing of EU and EEA users' public posts to train the Grok model; the undertaking to suspend; the conclusion of the proceedings on 4 September 2024 on a permanent undertaking; the statutory power relied on; the date range of the processing already carried out; and the complainants who triggered it]`
+**Opening instance** — *type: a live controversy.* **Data Protection Commission v Twitter International Unlimited Company** ▲ — urgent High Court proceedings issued **8 August 2024** under **section 134 of the Data Protection Act 2018**, over the processing of EU and EEA users' public posts to train Grok; X agreed to suspend; the proceedings were **struck out on 4 September 2024** on a **permanent undertaking** that data from posts made between **7 May and 1 August 2024** and used to develop, refine or train Grok would be **deleted and not further processed**. The first such action by a lead supervisory authority, and the first use of the section 134 power.
 
-*The move: a regulator goes to court to stop a training run that has already happened — and comes away with a promise about the future and nothing at all about the past.*
+*The move: a regulator goes to court to stop a training run that has already happened — and comes away with the data deleted and the model that was built from it left standing.*
+
+⚠ **Do not say the regulator got nothing about the past.** It got the corpus deleted. What it did not get, and did not publicly ask for, is anything about the trained model — which is the question this episode hands to its closing beat. The complainants are **not** sourced: say "complaints", not "the consumer organisations".
 
 **Load-bearing terms.**
 - **purpose limitation** (5(1)(b) ✓) — wrong: "say what you'll use it for". Right: purposes must be **specified, explicit and legitimate** at the moment of collection, and further processing must be *compatible* with them. "We later decided to train on it" is the textbook breach, not a grey area.
@@ -247,7 +249,7 @@ Called thereafter: **the subject test** (4(1)) and **the purposes-and-means test
 
 **The cast.** The platform as controller; the model developer, which may be a different legal person in the same group; the lead supervisory authority; the consumer organisations who complained; the users, whose posts were public and who were not asked.
 
-**The system, described operationally.** Posts that are public by default; a pipeline that selects, filters and de-duplicates them into a training set; a training run; and, separately, retrieval at inference time, which is a different operation with a different lawful-basis question. **Keep those two apart** — most public argument about this conflates them. `[OUTSIDE DOCKET: the field's own account of what was trained on and when — and note that the operator's description of its own pipeline is evidence about the operator, not about the system]`
+**The system, described operationally.** Posts that are public by default; a pipeline that selects, filters and de-duplicates them into a training set; a training run; and, separately, retrieval at inference time, which is a different operation with a different lawful-basis question. **Keep those two apart** — most public argument about this conflates them. The pipeline above is described **generically and must stay generic** — the docket holds nothing about how this operator filtered or de-duplicated anything. What the operator said about itself is one sentence: from **late July 2024** a setting appeared on X, **on by default**, allowing users' posts and their Grok interactions to be used for training and fine-tuning, and shared with xAI; in **October 2024** the privacy policy was changed to let **third parties** train on posts too ▲. **That is reporting of an interface, not a first-party technical account** — attribute it as reported, and state no corpus size, model version or training-run date.
 
 **The operative text.**
 > **Art. 5(1)(a)–(e) ✓ and 5(2) ✓** — lawfulness, fairness and transparency; purpose limitation; minimisation; accuracy; storage limitation; accountability.
@@ -261,7 +263,7 @@ Called thereafter: **the purpose rule**, **the six doors**, and **the compatibil
 **The variants.**
 1. The posts were public. Does that change the basis? For ordinary personal data, barely — publicity is a factor in the balance, not a door. For special categories it is a door, and that is Episode 3.
 2. The opt-out is offered *before* the training run rather than after. The balance changes and the question becomes whether an opt-out satisfies it at all.
-3. The corpus is bought from a third party. The buyer inherits a question it cannot answer, and the consequences of unlawful development for lawful deployment are genuinely unsettled `[OUTSIDE DOCKET: EDPB Opinion 28/2024's fourth question and its answer]`.
+3. The corpus is bought from a third party. The buyer inherits a question it cannot answer, and the consequences of unlawful development for lawful deployment are addressed — non-bindingly — by **EDPB Opinion 28/2024's fourth question** ▲, which the docket now holds: three scenarios, of which the third is the escape hatch. If the model has been **anonymised**, the original unlawfulness should not affect its later operation. **And Episode 1 already taught how hard anonymity is to show on this same Opinion — that callback is the episode's closing mechanism, not an aside.**
 
 **The levels.** *Technical* — a filtering script decides what "public" meant. *Organisational* — the legitimate-interests assessment is a document written by the party it exonerates. *Institutional* — one lead authority for a platform serving thirty countries. *Economic* — the cost of asking is the loss of the data. *Rights-based* — a person whose posts were public to readers, not to a training run.
 
@@ -277,9 +279,9 @@ Called thereafter: **the purpose rule**, **the six doors**, and **the compatibil
 
 **Transfer questions.** 1. What purpose was stated when this data was collected, and by whom? 2. Which door is this walking through, and who wrote the assessment? 3. Is "necessary" being used to mean "no other way", or to mean "this is how we do it"? 4. If the answer is legitimate interests, what would losing the balance look like? 5. What happens to this model if the basis for its training is found to be wrong?
 
-**Sources.** Regulation (EU) 2016/679, Arts. 5 and 6, consolidated text, EUR-Lex. Plus, once held: the DPC proceedings; EDPB Guidelines 1/2024; EDPB Opinion 28/2024.
+**Sources.** Regulation (EU) 2016/679, Arts. 5 and 6, consolidated text, EUR-Lex; the DPC proceedings and the Grok undertaking; EDPB Opinion 28/2024, fourth question.
 
-**Writability: NOT YET WRITABLE.** Three outside items. **Docket requests 3, 4 and 5.** With them, the single check is the date range of the processing covered by the undertaking.
+**Writability: WRITABLE.** All three outside items closed by docket `04`. Two limits carry into the script: the undertaking's reach over xAI as a separate legal person is unestablished, and every account of the pipeline is press reporting of an interface.
 
 ---
 
@@ -289,7 +291,7 @@ Called thereafter: **the purpose rule**, **the six doors**, and **the compatibil
 
 **Prerequisites.** Episodes 1 and 2 — personal data; that processing needs a basis; what "necessary" does.
 
-**Opening instance** — *type: a decided case.* `[OUTSIDE DOCKET: OT v Vyriausioji tarnybinės etikos komisija, Case C-184/20, Court of Justice, Grand Chamber, judgment of 1 August 2022 — the facts (a Lithuanian anti-corruption statute requiring publication of a declaration of private interests naming the declarant's spouse, cohabitee or partner), the holding that such publication is liable to disclose data concerning sexual orientation and therefore engages the special-categories prohibition, and the operative part]`
+**Opening instance** — *type: a decided case.* ***OT v Vyriausioji tarnybinės etikos komisija*, Case C-184/20**, Court of Justice, **Grand Chamber, judgment of 1 August 2022** ▲. A Lithuanian anti-corruption statute required heads of bodies receiving public funds to file a declaration of private interests naming the declarant's **spouse, cohabitee or partner**, and required the declarations to be **published online**. Held: publication of data **liable indirectly to disclose** a person's sexual orientation is processing of special-category data — because the category can be **deduced** from the answer, and a narrow reading confined to intrinsically sensitive data would undermine the protection's effectiveness. ⚠ **Paraphrase and attribute; the operative part has not been read.**
 
 *The move: a form that never asked the question, and answered it anyway.*
 
@@ -308,7 +310,7 @@ Called thereafter: **the purpose rule**, **the six doors**, and **the compatibil
 
 **The cast.** OT, a named person required by law to expose his household; the national ethics commission; the model builder who never collected a sensitive field; the bias auditor who needs one to do their job; the supervisory authority that must decide whether a prediction is processing.
 
-**The system, described operationally.** How a classifier acquires a protected attribute it was never given: correlated features, proxies, redundant encodings — postcode for ethnicity, purchase timing for pregnancy, typing cadence for a motor condition. Removing the attribute from the inputs does not remove it from the model; the field's name for the naive fix is *fairness through unawareness*, and it is known not to work. The corollary is the trap: **measuring** whether a system discriminates requires holding the very attribute the law prohibits you from holding. `[OUTSIDE DOCKET: one citation from the algorithmic-fairness literature for the proxy problem and for the measurement requirement]`
+**The system, described operationally.** How a classifier acquires a protected attribute it was never given: correlated features, proxies, redundant encodings — postcode for ethnicity, purchase timing for pregnancy, typing cadence for a motor condition. Removing the attribute from the inputs does not remove it from the model; the field's name for the naive fix is *fairness through unawareness*, and it is known not to work. The corollary is the trap: **measuring** whether a system discriminates requires holding the very attribute the law prohibits you from holding. Two separate findings, two separate sources, and the writer must not merge them ▲. **Unawareness fails**: Dwork, Hardt, Pitassi, Reingold and Zemel, "Fairness Through Awareness" (ITCS 2012), and Barocas and Selbst, "Big Data's Disparate Impact", 104 *California Law Review* 671 (2016) — **redundant encoding**, and removing every proxy degrades the model because the proxies carry task-relevant information too. **Measurement requires the forbidden field**: Andrus, Spitzer, Brown and Xiang, "What We Can't Measure, We Can't Understand" (FAccT 2021) — an interview study of 38 practitioners finding they lack the demographic data their own fairness tooling requires. **The title is the sentence; quoting a title is not quoting a work.**
 
 **The operative text.**
 > **Art. 9(1) ✓** — processing of personal data "**revealing** racial or ethnic origin, political opinions, religious or philosophical beliefs, or trade union membership, and the processing of genetic data, biometric data for the purpose of uniquely identifying a natural person, data concerning health or data concerning a natural person's sex life or sexual orientation **shall be prohibited**."
@@ -319,7 +321,17 @@ Called thereafter: **the prohibition** and **the doors**.
 
 **Why this rule and not another.** The road not taken was a general anti-discrimination rule policing outcomes. Europe instead built a category-based prohibition on *inputs*, because the historical harms it was answering — registries, censuses, lists — were input harms. What was traded: an input rule has nothing to say to a system that manufactures the input itself.
 
-**The collision, and it is the series' sharpest.** The AI Act permits providers to process special-category data where strictly necessary to detect and correct bias in high-risk systems — Series A taught that provision and this episode does not re-teach it. So one instrument creates a permission inside a prohibition that belongs to another instrument. And the live legislative proposal would add the matching door to Article 9 itself, together with an express basis for AI development `[OUTSIDE DOCKET: the Digital Omnibus proposal's amendments to Articles 6 and 9, their current status as at the week of recording, and the EDPB–EDPS objection to the deployment-phase scope]`. **Date-stamp everything in this beat.**
+**The collision, and it is the series' sharpest.** It is **not** a prohibition in one instrument and a proposal to reconcile it in another. It is worse, and cleaner. **One instrument has already enacted a permission to process data that the other instrument still prohibits.**
+
+The AI Act's bias-detection permission is **no longer Article 10(5)**. Regulation (EU) **2026/1744 of 8 July 2026**, applying from **27 July 2026**, deleted it and replaced it with a freestanding **Article 4a** ✓, which is **broader**: it reaches **deployers**, and providers and deployers of systems and models that are **not high-risk**. Series A taught the old provision; this episode teaches what replaced it, and the change is the point. Three things in the text:
+
+> **"may exceptionally process"** — the drafters wrote the exception's character into it.
+> **Condition (a)** — the forbidden field may be held only where the job cannot be done with other data, *including synthetic or anonymised data*. **That is the measurement trap, legislated**, and the fairness literature above is the evidence about whether it can.
+> **The last sentence of Art. 4a(2)** — *"This paragraph does not create any obligation to conduct such bias detection and correction."* **A permission to look, and no duty to look.** This is the single strongest line available to the episode, and it says the economic level's point in the Union's own words.
+
+Meanwhile the **GDPR** strand — the Data Omnibus — was **split off and is still in negotiation**: Article 9 is unamended, and the proposed Article 88c route for AI development, plus a residual special-category exemption, have **not passed**. **EDPB–EDPS Joint Opinions 1/2026 and 2/2026** (February 2026) objected to the widening, recalled that special-category processing is in principle prohibited, and pressed for exceptions to stay narrow. ⚠ *"Strictly necessary" did survive into the adopted Art. 4a — do not say the objection was ignored; say the instrument was widened over both authorities' objection.*
+
+**So the deployer of an ordinary, non-high-risk system is told by one Regulation that it may exceptionally process special categories to check for bias, and by the Regulation that actually governs that processing that such processing shall be prohibited — with a closed list of doors that this is not one of.** Article 4a says its conditions apply *"in addition to"* the GDPR, which reads as not displacing Article 9. **Whether Article 4a is itself a door is unsettled. Say that, date it, and stop.** **Date-stamp everything in this beat.**
 
 **The variants.**
 1. A model given no sensitive field predicts ethnicity correctly four times in five. Is that processing of special-category data? *Genuinely unresolved, and the episode must not pretend otherwise.*
@@ -328,7 +340,7 @@ Called thereafter: **the prohibition** and **the doors**.
 
 **The levels.** *Technical* — a proxy nobody chose. *Organisational* — the bias audit that cannot be run without the forbidden field. *Institutional* — two instruments legislating on the same prohibition from opposite directions. *Economic* — the cheapest compliance posture is to know nothing and be able to prove nothing. *Rights-based* — the category exists because of what has been done with it before, **and that is where this episode stops: how a court tests a limit on a right is Series C.** *(Spoken deferral, once.)*
 
-**The contested joints.** Whether an inferred attribute is "revealed" within 9(1) — *contested; the 2022 judgment leans towards yes for indirect disclosure, and it was about publication, not prediction*. Whether proxy-based prediction is Article 9 processing — *contested*. Whether the bias-detection permission works without an Article 9 door — *contested, and the reason the amendment was proposed*.
+**The contested joints.** Whether an inferred attribute is "revealed" within 9(1) — *contested; the 2022 judgment leans towards yes for indirect disclosure, and it was about publication, not prediction*. Whether proxy-based prediction is Article 9 processing — *contested*. Whether the bias-detection permission works without an Article 9 door — *contested, and the reason the GDPR amendment was proposed; that amendment has not passed*.
 
 **What the rule assumes about the machine.** Article 9 assumes sensitivity is a property of **data**: that a controller can look at a field and know whether it is inside the prohibition, and that declining to collect is a way of declining to process. A model makes sensitivity a property of **inference**. **The claim that must land: you cannot decline to disclose what can be predicted — and to prove the machine is not discriminating, you must hold the data you are forbidden to hold.**
 
@@ -338,9 +350,9 @@ Called thereafter: **the prohibition** and **the doors**.
 
 **Transfer questions.** 1. Which of these categories could this system predict, whether or not it was asked to? 2. Is the claim that no sensitive data is processed a claim about the inputs or about the outputs? 3. If somebody wanted to audit this for bias, what would they have to be allowed to hold? 4. Was this data manifestly made public — by the subject, or about them? 5. Which instrument is supplying the permission here, and does it own the prohibition it is carving into?
 
-**Sources.** Regulation (EU) 2016/679, Art. 9(1), (2)(a), (e), (g), (j), (4), and Art. 4(13)–(15), consolidated text, EUR-Lex. Plus, once held: C-184/20; the fairness citation; the current status of the proposed amendments.
+**Sources.** Regulation (EU) 2016/679, Art. 9(1), (2)(a), (e), (g), (j), (4), and Art. 4(13)–(15), consolidated text, EUR-Lex; Regulation (EU) 2024/1689 as amended, Art. 4a, consolidated text, EUR-Lex; C-184/20; the three fairness citations; EDPB–EDPS Joint Opinions 1/2026 and 2/2026.
 
-**Writability: NOT YET WRITABLE.** Four outside items, which is over the line. **Docket requests 5, 6 and 7**, plus the AI Act's bias-detection provision in its own words from Series A's docket — a copy across, not new research.
+**Writability: WRITABLE.** All outside items closed by docket `04`, which also supplies Art. 4a verbatim and corrects this episode's account of the collision.
 
 ---
 
@@ -410,7 +422,7 @@ Called thereafter: **the solely rule** and **the three safeguards**.
 
 **Prerequisites.** Episodes 1–4 — controller; basis; profiling; the solely rule and the three safeguards.
 
-**Opening instance** — *type: a decided case.* `[OUTSIDE DOCKET: the three linked judgments of the Amsterdam Court of Appeal of 4 April 2023 in the proceedings brought by drivers against Uber and Ola Cabs — the ECLI numbers, which processes the court held to be automated decisions within Article 22 (ride allocation, fraud-probability scoring, deactivation), what the drivers were actually given in answer to their access requests, and the passage describing the companies' human review as little more than a symbolic act]`
+**Opening instance** — *type: a decided case.* the **three linked judgments of the *Gerechtshof Amsterdam* (Amsterdam Court of Appeal) of 4 April 2023** ▲, in proceedings brought by drivers — supported by the App Drivers and Couriers Union and Worker Info Exchange — against **Uber** and **Ola Cabs**. Several automated processes on both platforms were held to be **Article 22 decisions**; access requests had been wrongly refused; and the companies' claim that a **human reviewed** the outcomes was rejected **on the facts**, the review amounting to *"not… much more than a purely symbolic act"*. ⚠ **That phrase is a translation of a Dutch judgment taken from English reporting — attribute it as reported and translated, or paraphrase.** ⚠ ECLI numbers are not held and are unsayable anyway; name the court, the date and the parties. ⚠ A national appellate court on these facts — **do not generalise it into a rule that human review is usually symbolic**
 
 *The move: workers ask for their own file, are handed almost nothing, and a court reads the nothing as the answer.*
 
@@ -437,7 +449,7 @@ Called thereafter: **the telling duties** (13 and 14) and **the asking right** (
 
 **Why this rule and not another.** The road not taken was a registry: publish what your systems do, once, for everybody. Europe built a **subject-facing** duty instead — information delivered to the person, on request or at collection. What was traded: an individual duty scales badly and is enforced one complaint at a time, and Article 14's exception for disproportionate effort was written for archives and now does most of its work for web-scale collection.
 
-**The legal turn, mid-episode.** `[OUTSIDE DOCKET: CK v Dun & Bradstreet Austria, C-203/22, Court of Justice, judgment of 27 February 2025 — the holding on what "meaningful information about the logic involved" requires, and its treatment of trade secrets, which are put before the supervisory authority or the court rather than allowed to defeat the right]`
+**The legal turn, mid-episode.** ***CK v Magistrat der Stadt Wien and Dun & Bradstreet Austria*, C-203/22**, Court of Justice, **judgment of 27 February 2025** ▲ — CK was refused a mobile phone contract after an automated credit assessment. Held: *meaningful information about the logic involved* covers the **procedure and principles actually applied**, to the standard that the person can **understand and contest** the decision; handing over **the algorithm, or a step-by-step description, is neither required nor sufficient**; and a controller may **not simply refuse on trade-secret grounds** — it must give the material to the **supervisory authority or court**, which balances. ⚠ **Not read in the original; paraphrase and attribute**
 
 **The collision.** Three explanation duties now sit on the same system with three different addressees: this Regulation tells the *person*; the AI Act tells the *deployer* what the system is and, for certain decisions, gives the affected person an explanation — Series A taught both, and this episode only marks where they overlap and where they do not. **The overlap is narrower than either instrument's advocates claim, and that is the finding.**
 
@@ -458,7 +470,7 @@ Called thereafter: **the telling duties** (13 and 14) and **the asking right** (
 
 **Sources.** Regulation (EU) 2016/679, Arts. 12, 13, 14, 15, consolidated text, EUR-Lex. Plus, once held: the Amsterdam judgments; C-203/22.
 
-**Writability: NOT YET WRITABLE — but the closest of the unwritable ones.** Two outside items. **Docket requests 8 and 2.** With them, the single check is the quoted characterisation of the human review.
+**Writability: WRITABLE.** Both outside items closed by docket `05`. The quoted characterisation of the human review is held **as a translation from English reporting** — so the check is spent on whether the episode quotes it at all, and the safe course is to attribute it as reported.
 
 ---
 
@@ -475,7 +487,7 @@ Called thereafter: **the telling duties** (13 and 14) and **the asking right** (
 1. **There is no right to an explanation in this Regulation.** **Sandra Wachter, Brent Mittelstadt and Luciano Floridi, "Why a Right to Explanation of Automated Decision-Making Does Not Exist in the General Data Protection Regulation", *International Data Privacy Law* 7(2) (2017), p. 76 ✓.** The information provisions create a **right to be informed** — meaningful but limited information about system functionality, its significance and its envisaged consequences, delivered around the time of processing. That is a different and much smaller thing than an account of *why this particular decision came out this way*. *A response to:* the confident post-2016 claim, made in the press and in the literature, that Europe had legislated a right to explanation. *Consequence of adopting it:* a controller complies by publishing a good system description and owes the individual nothing about their own case.
 2. **Then build something that does the work instead: the counterfactual.** **Wachter, Mittelstadt and Russell, "Counterfactual Explanations Without Opening the Black Box", *Harvard Journal of Law & Technology* 31 (2018) ✓.** Tell the person what would have had to be different for the answer to change. It is useful to them, it supports contesting, and it does not require opening the model or exposing the training data. ⚠ **The issue and page numbers are not established in the docket. The writer attributes and paraphrases and speaks no page number.**
 3. **"Meaningful" means usable, and usable means explanation.** **Andrew D. Selbst and Julia Powles, "Meaningful information and the right to explanation", *International Data Privacy Law* 7(4), November 2017, pp. 233–242, DOI 10.1093/idpl/ipx022 ✓** — published in the same journal, months later, answering the first paper by title. Information is not meaningful unless it lets the person **do** something: contest the decision, or exercise the other rights the Regulation gives them. Read that way, the provisions already require explanation in the sense that matters, whatever the drafters thought they were writing. *Consequence:* every automated decision of consequence needs a case-specific account, and the trade-secret objection has to yield.
-4. **The Court has answered an adjacent question, not this one.** `[OUTSIDE DOCKET: C-203/22, 27 February 2025 — the holding, so that this position can be stated in the Court's words rather than mine]` The judgment is about **access** to meaningful information under Article 15(1)(h). Whether Article 22 obliges anyone to give *reasons* remains open. *This framing of the gap is mine, and the script must say so.*
+4. **The Court has answered an adjacent question, not this one.** **C-203/22, 27 February 2025** ▲ — held that the test is whether the person can **understand and contest** the decision, and that the algorithm itself is neither required nor sufficient. ⚠ **The docket does not hold the Court's own wording**, so this is stated in paraphrase and attributed, not quoted. The judgment is about **access** to meaningful information under Article 15(1)(h). Whether Article 22 obliges anyone to give *reasons* remains open. *This framing of the gap is mine, and the script must say so.*
 5. **Justification against explanation.** **This distinction is the series' own framing and is labelled as such on air, not attributed to any scholar.** A **justification** is addressed to an institution and shows the process was proper: a risk assessment, a conformity file, a model card. An **explanation** is addressed to a person and earns the name only by making the decision contestable. Almost everything the instruments in this series require is a justification. `[OUTSIDE DOCKET: if the docket later supplies a scholarly source that draws this distinction in these terms, attribute it; until then it is the narrator's.]`
 
 **The contested joint, and the awkward part said out loud.** All four scholars want people to be able to challenge decisions. What they disagree about is whether the **text** delivers it — which means the argument is partly about statutory interpretation and partly about whether it is honest to read a right into a provision because we need one. **Do not resolve it by picking the nicer-sounding side.** Where the weight leans: *on the narrow question of what the 2016 text says, the sceptics have the better of the drafting history; on what "meaningful" must mean once a court has to apply it, the reply has been closer to what actually happened.*
@@ -498,7 +510,7 @@ Called thereafter: **the telling duties** (13 and 14) and **the asking right** (
 
 **Prerequisites.** Episodes 1, 2 and 3 — controller; purpose; minimisation; special categories. From Series A, in one clause each: that high-risk systems carry engineering duties, and that deployers of some of them owe a fundamental-rights impact assessment.
 
-**Opening instance** — *type: a documentary state.* `[OUTSIDE DOCKET: the list of national competent authorities notified under the AI Act — which office each Member State named as its market-surveillance authority, how many named their data protection authority, how many had not notified by the deadline, and the date the list was last updated]` and `[OUTSIDE DOCKET: "Should data protection authorities enforce the AI Act? Lessons from EU-wide enforcement data", International Data Privacy Law (2026) — for the empirical claim about capacity]`
+**Opening instance** — *type: a documentary state.* the **designation of national competent authorities** under the AI Act ▲ — market-surveillance and notifying authorities, plus a single point of contact, due **2 August 2025**. The reported counts **disagree with one another** (9 Member States with both authorities designated; at least 12 missing the deadline; 19 without a single point of contact; 8 formally designated by 2026). ⚠ **Use ONE figure, name who counted it and when, and give the rest as shape** — never as a series. ⚠ **How many named their DATA PROTECTION authority is NOT established; do not estimate it.** The beat works without it: the instrument presupposes an authority that in a substantial minority of Member States had not been named while its obligations were already running and **Joanna Mazur, Claudio Novelli and Zuzanna Choińska, "Should data protection authorities enforce the AI Act? Lessons from EU-wide enforcement data", *International Data Privacy Law* **16(1)**, March 2026, article `ipaf033` ▲** — an examination of how actively data protection authorities already enforce in AI and automated-decision cases, recommending they be included as market-surveillance authorities for high-risk systems under **Annex III, points 3 to 5**. ⚠ **Report the narrowness — three points of one annex.** ⚠ Not read in full: **do not characterise the data set, method or sample size**
 
 *The move: read a list of names and find the same office on it twice, under two statutes, with two different sets of powers and one budget.*
 
@@ -549,7 +561,7 @@ Called thereafter: **by design**, and **the impact assessment**.
 
 **Sources.** Regulation (EU) 2016/679, Arts. 25, 35, and Art. 4(16), (21), (22), (23), (24), consolidated text, EUR-Lex. Plus, once held: the authorities list; the enforcement-capacity study.
 
-**Writability: NOT YET WRITABLE.** Three outside items. **Docket requests 10 and 11.**
+**Writability: WRITABLE.** Both outside items closed by docket `06`. The episode's one real constraint is that the count of data protection authorities named is unavailable — so the beat is built on the designation gap itself rather than on a number.
 
 ---
 
@@ -559,7 +571,7 @@ Called thereafter: **by design**, and **the impact assessment**.
 
 **Prerequisites.** Episodes 1–7 for the data-protection half of the series, and from Series A, in a clause: that the AI Act regulates systems as products placed on a market. **This episode re-earns nothing else and teaches an instrument the listener has not met.**
 
-**Opening instance** — *type: an incident.* Tempe, Arizona, the night of **18 March 2018**: a test vehicle operated by a ride-hailing company's automated-driving unit struck and killed **Elaine Herzberg** as she pushed a bicycle across a road. `[OUTSIDE DOCKET: the National Transportation Safety Board's report and findings — the successive reclassifications of the pedestrian by the perception system and the effect of each on the track history, the disabling of the vehicle manufacturer's emergency braking, the role assigned to the safety operator, and the report's number and publication date]`
+**Opening instance** — *type: an incident.* Tempe, Arizona, the night of **18 March 2018**: a test vehicle operated by a ride-hailing company's automated-driving unit struck and killed **Elaine Herzberg** as she pushed a bicycle across a road. the **National Transportation Safety Board's investigation** ▲. Radar detected her **about six seconds** before impact; the system **could not classify an object as a pedestrian unless it was near a crosswalk**; for about **five seconds** the classification alternated between *vehicle*, *bicycle* and *unknown object*, **each reclassification discarding the track history** (vehicle or bicycle → assumed travelling the same way in the next lane; unknown → assumed static); the **Volvo's factory emergency braking was disabled**; and Uber's system was set to **wait one second before emergency braking**. The **determined probable cause was the operator's failure to monitor**, being visually distracted. ⚠ **Give both halves** — the six seconds and the finding against the human. ⚠ American facts under American law and the Directive would not have applied: say so. ⚠ **Report number not established; say "the Board's investigation".** ⚠ The exact count of classification transitions is not established — say *repeatedly*
 
 *The move: a machine sees a woman three times in six seconds and starts counting again each time.*
 
@@ -600,7 +612,7 @@ Called thereafter: **the defect test**, **the damage list**, and **the update tr
 2. The buyer fine-tunes it and redeploys. **8(2)** makes the buyer a manufacturer of the whole product.
 3. The manufacturer stops issuing security updates and a known vulnerability is exploited. **11(2)(c)** — the absence of an update is itself a route to liability.
 4. The harm is a wrong credit decision. **Article 6 gives nothing**, and the claimant is back in national law.
-5. The software is free and open source, supplied outside a commercial activity. Outside the Directive `[OUTSIDE DOCKET: the FOSS exclusion and where it sits in the text]`.
+5. The software is free and open source, supplied outside a commercial activity. Outside the Directive **Art. 2(2) ✓**, verbatim in docket `06`: *"This Directive does not apply to free and open-source software that is developed or supplied outside the course of a commercial activity."* **The load-bearing words are "outside the course of a commercial activity", not "open source"** — the licence does not decide it. **Also Art. 2(4)(a) ✓**, which says this Directive does not affect the applicability of the GDPR: **the series' own seam, written into the text**.
 
 **The levels.** *Technical* — an unstable classifier and a discarded track history. *Organisational* — a braking function switched off to reduce false positives, with a human designated to compensate. *Institutional* — a safety investigator that publishes, in a country with no product-liability directive. *Economic* — the cost of false positives is felt by the operator every day; the cost of a false negative was felt once. *Rights-based* — a pedestrian who was not a user, not a customer, and not consulted.
 
@@ -608,7 +620,7 @@ Called thereafter: **the defect test**, **the damage list**, and **the update tr
 
 **What the rule assumes about the machine.** That a product has a **state** at the moment it leaves the maker, against which defectiveness is judged (7(2)(e) ✓), and that safety is something a person can be **entitled to expect**. Article 7(2)(c) concedes the first point in its own words — it names the ability to keep learning as a circumstance — and then asks a court to judge the thing anyway. **The claim that must land: the Directive knows the machine moves, says so in the text, and has no method for judging a moving thing except to ask what a reasonable person expected of it.**
 
-**As written against as enforced.** Nothing has been decided under this Directive and nothing can be until products placed on the market after **9 December 2026** start failing. Transposition was due on the same date, and by mid-2026 only a handful of Member States had completed it `[OUTSIDE DOCKET: the transposition count and its date]`. **This is where the "nobody has run this yet" beat is spent, in full, for the whole series.**
+**As written against as enforced.** Nothing has been decided under this Directive and nothing can be until products placed on the market after **9 December 2026** start failing. Transposition was due on the same date, and by mid-2026 only a handful of Member States had completed it **Art. 22(1) ✓** — transposition due **9 December 2026**; **Art. 2(1) ✓** — the Directive reaches only products placed on the market **after** that date. As at **20 September 2026** that date **has not arrived**. Reported mid-September 2026: **three** Member States transposed (Hungary, Croatia, Lithuania), about twelve more with draft legislation ▲ ⚠ *practitioner tracking, not a Commission count; date-stamp it or give the shape*. **This is where the "nobody has run this yet" beat is spent, in full, for the whole series.**
 
 **Handover.** Strict liability removes the need to prove fault. It does not remove the need to prove that the thing was defective and that the defect caused the harm — and for a system nobody can explain, that is the whole fight.
 
@@ -616,7 +628,7 @@ Called thereafter: **the defect test**, **the damage list**, and **the update tr
 
 **Sources.** Directive (EU) 2024/2853, Arts. 4, 6, 7, 8, 11, and the derogation at Art. 18, EUR-Lex CELEX 32024L2853. Plus, once held: the NTSB report; the transposition state.
 
-**Writability: NOT YET WRITABLE.** Three outside items against a one-check budget. **Docket requests 13, 14 and 15.**
+**Writability: WRITABLE.** All three closed by docket `06`, two of them from operative text. **The "as enforced" beat is now precise: the instrument does not reach a single product placed on the market before 9 December 2026, and as this is recorded that date has not arrived** — not a backlog, an instrument whose first eligible product does not yet exist.
 
 ---
 
@@ -626,7 +638,7 @@ Called thereafter: **the defect test**, **the damage list**, and **the update tr
 
 **Prerequisites.** Episode 8 — product, defect, damage, economic operator. Episode 6 — justification against explanation, which this episode cashes in.
 
-**Opening instance** — *type: a decided case.* `[OUTSIDE DOCKET: the Horizon litigation — the Post Office's prosecutions of sub-postmasters on accounting-system evidence between 1999 and 2015, the number of prosecutions, the English evidential presumption that a computer was operating correctly unless the contrary is shown and the authority for it, and the findings of the High Court in the Horizon Issues judgment of 2019 with its citation and the judge's name]`
+**Opening instance** — *type: a decided case.* the **Post Office Horizon** prosecutions ▲, England and Wales, **1999–2015**, on shortfalls reported by an accounting system supplied by Fujitsu. ⚠ **THE NUMBERS CONFLICT**: 736 prosecutions is reported, and so is *more than 900*, with 236 imprisoned. **Use one, attribute it, say the counts differ — or say *hundreds*.** The evidential rule: **PACE 1984 s. 69** required proof that the computer was operating properly; the **Law Commission in 1997** found it served *"no useful purpose"* and recommended repeal **without replacement**, leaving the presumption that mechanical instruments were in order; **s. 69 was repealed by the Youth Justice and Criminal Evidence Act 1999**. 🔴 **And the Post Office supported the repeal.** ⚠ *Attribute that last fact as reported.* ⚠ English law, not Union law — say so
 
 *The move: a court that begins by assuming the computer was right, and makes the people it was wrong about prove otherwise — without letting them see it.*
 
@@ -657,7 +669,7 @@ Called thereafter: **the disclosure rule** and **the presumptions**.
 
 **Why this rule and not another.** The road not taken was to require explainability by law — to say that a system whose decisions cannot be explained may not be placed on the market. Europe did not do that. It left the black box intact and **changed who loses when it stays closed**. What was traded: the claimant still needs enough to reach plausibility before disclosure opens, and a person who cannot afford an expert never reaches it.
 
-**The turn, mid-episode.** The instrument that was to do this for **fault-based** claims — the proposed AI Liability Directive — was listed for withdrawal in the Commission's 2025 work programme and formally withdrawn. Nothing specific replaced it. What fills the gap is this Directive's presumptions, twenty-seven national fault regimes, and the data-protection Regulation's own compensation route. `[OUTSIDE DOCKET: the proposal and its date; the work-programme entry and its date; the formal withdrawal notice]` `[OUTSIDE DOCKET: GDPR Art. 82 in its own words — **if the docket does not supply it, this beat is cut rather than reconstructed**, and the episode says only that the Regulation has a compensation route]`
+**The turn, mid-episode.** The instrument that was to do this for **fault-based** claims — the proposed AI Liability Directive — was listed for withdrawal in the Commission's 2025 work programme and formally withdrawn. Nothing specific replaced it. What fills the gap is this Directive's presumptions, twenty-seven national fault regimes, and the data-protection Regulation's own compensation route. **COM(2022) 496**, presented **28 September 2022** ▲; listed for withdrawal in **Annex IV of the Commission Work Programme 2025** on **11 February 2025**, reason given as **"no foreseeable agreement"**; taken at the Commission's **2533rd meeting, 16 July 2025**; **notice published in the Official Journal 6 October 2025**. **Three administrative steps over eight months, and no vote against it** *(that characterisation is the narrator's; the dates are sourced)* **Art. 82 ✓** — already held verbatim in `01_operative_text.md`. **The beat is not cut. Quote it from `01`.**
 
 **The collision, and it is the good news of the series.** The documentation, logging and record-keeping duties in the product statute — Series A's material, named in a clause — **create the evidence that this Directive's disclosure rule can compel and whose absence it punishes**. This is the one place where the layers were designed to interlock and appear to do so. **Plant it carefully: Episode 10 needs it as the strongest argument against its own verdict.**
 
@@ -681,7 +693,7 @@ Called thereafter: **the disclosure rule** and **the presumptions**.
 
 **Sources.** Directive (EU) 2024/2853, Arts. 9 and 10, and Art. 4(17), EUR-Lex CELEX 32024L2853. Plus, once held: the Horizon judgment; the AI Liability Directive proposal and its withdrawal; GDPR Art. 82.
 
-**Writability: NOT YET WRITABLE.** Three outside items. **Docket requests 16, 17 and 9.**
+**Writability: WRITABLE.** All three closed by docket `06`; Art. 82 was in the docket all along. The episode now has three routes to compare — the GDPR's compensation right, the Directive's disclosure and presumption, and the withdrawn instrument that would have covered fault-based claims.
 
 ---
 
@@ -691,7 +703,17 @@ Called thereafter: **the disclosure rule** and **the presumptions**.
 
 **Prerequisites.** All nine.
 
-**Opening instance** — *type: a live controversy, and every fact in it carries a date.* The **Digital Omnibus**: a package that reopens the instruments this series has just taught — an express basis for AI development, a new door in the special-categories prohibition, and adjustments across the data acquis — with its AI half adopted and its data half still in negotiation at the moment of recording, and the two European data-protection institutions objecting in a joint opinion. `[OUTSIDE DOCKET: the package's components, the adoption of the AI half by Council on 29 June 2026, the negotiating status of the data half in the week of writing, and EDPB–EDPS Joint Opinion 2/2026 and its specific objection]`
+**Opening instance** — *type: a live controversy, and every fact in it carries a date.* The **Digital Omnibus**, a package that reopens the instruments this series has just taught — and **it split in two, which is the opening.** ✓/▲
+
+> **The AI half is law.** Committees 18 March 2026; political agreement 7 May 2026; Council adopted 29 June 2026; **Regulation (EU) 2026/1744 of 8 July 2026**, applying **27 July 2026**. It **deleted AI Act Art. 10(5)** and inserted a **broader Art. 4a** — the permission to process special categories for bias detection, now reaching deployers and non-high-risk systems. Docket `04` holds it verbatim; Episode 3 taught it.
+> **The data half is not.** Re-checked **5 October 2026**: **Article 9 is unamended**, the proposed **Art. 88c** legitimate-interest route and the residual special-category exemption have **not passed**, and an **ITRE–LIBE committee vote is not expected before the beginning of 2027**.
+> **The objection.** **EDPB–EDPS Joint Opinions 1/2026 and 2/2026**, February 2026. ⚠ They did **not** oppose the legitimate-interest basis — Joint Opinion 2/2026 **accepts** it and says **Art. 88c does not clarify** what it was meant to settle. That is a more damaging criticism than opposition and a fairer one. **Do not report it as opposition.**
+
+🔴 **The fact that opens the episode.** Both halves were proposed together in **November 2025**. **The half that eases obligations on industry was law in eight months. The half that would reconcile it with the rights instrument has not reached a committee vote.** That is a sequence with dates, not a claim about anyone's motives — **lay it out and let it sit**.
+
+**And it closes Episode 3's loop.** Episode 3 left a deployer told by one Regulation that it **may exceptionally process** special categories, and by another that such processing **shall be prohibited**. As at October 2026 that contradiction is **over a year old and has at least another year to run**. Layering did not produce a contradiction that was promptly fixed; it produced one being fixed **at two different speeds**.
+
+⚠ **This is the moving part of the series. Everything above is as at 5 October 2026 — date-stamp it on air, and say the listener may be hearing it after the answer changed.**
 
 *The move: the layers being renegotiated while this was being recorded — and the narrator says so, with the date, because the listener may hear it after the answer has changed.*
 
@@ -705,7 +727,7 @@ Called thereafter: **the disclosure rule** and **the presumptions**.
 
 **THE VERDICT — named, and narrow on purpose.**
 
-**On the record available in September 2026, the layers do add protection — and almost all of it accrues to regulators and to claimants who already have a case, while almost none reaches the person the machine decided about.** Answer 4 is the clearest way to *see* why: the instruments have different addressees, so their protections stack for whoever can litigate or investigate, and leave a hole exactly where a private person stands. Answer 2 is what that costs.
+**On the record available in October 2026, the layers do add protection — and almost all of it accrues to regulators and to claimants who already have a case, while almost none reaches the person the machine decided about.** Answer 4 is the clearest way to *see* why: the instruments have different addressees, so their protections stack for whoever can litigate or investigate, and leave a hole exactly where a private person stands. Answer 2 is what that costs.
 
 **Three facts decide it, each established earlier in the series and each named again here.**
 1. **The instrument that reached a general-purpose model first was the data-protection instrument, not the product statute** — and it did so on a legal-basis question, which is the layering argument's best evidence and is conceded without hedging (Episode 2).
@@ -805,7 +827,7 @@ The transferable questions this series teaches, and the episode that earns each.
 4. **The Irish DPC's 2024 action over Grok training** — the press releases of 8 August and 4 September 2024, the statutory power, the date range of the processing, and who complained. *(Ep 2)*
 5. **EDPB Guidelines 1/2024 on Article 6(1)(f)**, and, if cheap, **C-621/22** on whether a commercial interest can be a legitimate interest. *(Eps 2, 3)*
 6. **OT v Chief Official Ethics Commission, C-184/20**, 1 August 2022 — facts and operative part. *(Ep 3)*
-7. **The Digital Omnibus**, current status, with the proposed amendments to Articles 6 and 9 in their own words and the EDPB–EDPS objection. **This is a moving file and needs a retrieval date on its face.** *(Eps 3, 10)*
+7. ~~**The Digital Omnibus**~~ — **PARTLY CLOSED by docket `04`** (the split; 2026/1744 adopted; Art. 4a verbatim; Joint Opinions 1/2026 and 2/2026; Art. 88c proposed). **Still open: the proposed Arts. 6 and 9 amendments in their own words, and the status as at the week of recording.** **This is a moving file and needs a retrieval date on its face.** *(Eps 3, 10)*
 8. **The Amsterdam Court of Appeal judgments of 4 April 2023** — ECLI numbers, the Article 22 findings, what was actually disclosed, and the passage on symbolic human review. *(Ep 5)*
 9. **PLD Article 5 and GDPR Article 82**, verbatim. Both are operative rights that this plan currently reaches only by cross-reference. **Without Article 82, Episode 9's compensation beat is cut.** *(Eps 8, 9)*
 10. **The national competent authorities notified under the AI Act** — the list, its date, and which are data protection authorities. *(Ep 7)*

@@ -91,6 +91,75 @@ question — and saying so out loud is the episode, not a hedge.
 
 ---
 
+## The last two, closed — addendum of 2026-09-20
+
+Both were listed below as still open. Both are now held, and the section that follows is left in
+place as the record of what was missing. **Episode 1 is fully sourced.**
+
+### Memorisation, and membership inference — the field's own terms
+
+**Nicholas Carlini, Daphne Ippolito, Matthew Jagielski, Katherine Lee, Florian Tramèr and Chiyuan
+Zhang, "Quantifying Memorization Across Neural Language Models", *International Conference on
+Learning Representations (ICLR) 2023*; arXiv:2202.07646.** *Verified: authors, exact title, venue,
+arXiv number.*
+
+**Memorisation, operationally.** A model has memorised a string from its training data when,
+prompted with the text that preceded it, the model **emits that string verbatim**. The paper's
+point is that this is a **measurable quantity**, not a yes-or-no property, and it **grows** with
+three things: the **size of the model**, the **number of times the example was duplicated** in the
+training data, and the **length of the context** used to prompt.
+
+> **Why that third finding is the one for this episode.** It means the same model can look
+> memorisation-free under a short prompt and reproduce training data under a longer one.
+> **Whether a model has memorised something is partly a fact about how hard you tried** — which is
+> exactly the shape of the EDPB's "means reasonably likely to be used" test, arrived at
+> independently by people measuring something else.
+
+**Membership inference.** **Reza Shokri, Marco Stronati, Congzheng Song and Vitaly Shmatikov,
+"Membership Inference Attacks Against Machine Learning Models", *IEEE Symposium on Security and
+Privacy (S&P) 2017*.** *Verified: all four authors, exact title, venue, year.* Given a data record
+and **black-box access** to a model, determine **whether that record was in the model's training
+set**. It exploits the fact that models behave measurably differently on data they were trained on
+than on data they are seeing for the first time.
+
+**Keep the two apart, because they answer different legal questions.** Memorisation asks *can the
+content be got out*. Membership inference asks *can it be established that a particular person's
+record was in there at all* — which is a disclosure about that person even when nothing they wrote
+comes back. **The second is the harder one for the anonymity claim**, and it is the quieter of the
+two, so give it its own sentence rather than folding it into the first.
+
+### GEMA v OpenAI — and it says more than corroboration
+
+**Landgericht München I (Munich Regional Court I), *GEMA v OpenAI*, 42 O 14139/24, judgment of
+11 November 2025.** *Verified: court, case number, date, parties, and the holdings below, from
+multiple independent reports including the Council of Europe's Merlin database, EUIPO's case-law
+service and several firms' notes.*
+
+**The facts.** GEMA, the German collecting society, sampled ChatGPT and found that the model,
+when prompted, **reproduced song lyrics of GEMA-affiliated writers** — sometimes exactly, sometimes
+slightly altered. The lyrics were not freely available online with the rightsholders' consent.
+
+**The holding.** **Memorisation of a work in the model is itself an act of reproduction** — both
+where the work is held in the model and where it is delivered to a user on a prompt. The
+**text-and-data-mining exception** covered the creation of the training corpus but **did not
+extend to the training of the model itself**. OpenAI was ordered to desist, to pay damages, and to
+give information about the scope of use and the revenue.
+
+> ⚠ **The plan uses this for ONE SENTENCE of technical corroboration, and that limit should hold —
+> but the sentence available is stronger than the plan assumed.** This is a court, in a Member
+> State, finding as a fact that the model reproduced protected text on a prompt, and holding that
+> **the memorised content is in the model**. For an episode asking whether personal data is
+> retained in a model, that is a judicial finding about the underlying mechanism, reached under a
+> different instrument.
+>
+> **And that is exactly why it must not be over-read.** It is **copyright**, not data protection;
+> it is a **Regional Court**, not the Court of Justice; and the plan's own deferral rule puts the
+> copying question in a later series. **One sentence, the court named, the date given, and the
+> instrument named as a different one.** ⚠ Reported as under appeal in some accounts — do not
+> state it is final.
+
+---
+
 ## Still open for Episode 1 — two of the five
 
 Both were marked `[OUTSIDE DOCKET]` by the plan and remain so. Neither blocks the episode, and each
