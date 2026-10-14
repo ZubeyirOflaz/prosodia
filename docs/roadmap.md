@@ -39,6 +39,36 @@ decisions are [DESIGN.md §11](../DESIGN.md); tracked fixes are
   by `prosodia tone`, with a word-invariance check and `scriptlint.lint_delivery`.
 - A test suite ([evaluation](evaluation.md)) and this documentation set.
 
+## Agreed or proposed, not yet built — audit of 2026-10-09
+
+An audit of the whole casework session (10 Sept – 9 Oct) found agreed work that had quietly not
+happened: the final writer pass on a `ready` verdict (agreed 14 Sept in its reason, built only for
+the round-limit case), pauses inside one generation and room tone (agreed 6 Oct, skipped when the
+tempo/MP3 change went first), and a half-applied HTML-comment fix in script-lint. All four were
+built on 2026-10-09. What remains, kept apart so "proposed" is not read as "decided":
+
+**Agreed, not yet done**
+- **Visual-study handoff log** — the 10 Sept instruction to append useful material to
+  `~/Documents/tum_ais_studies/06_visual_study_material/HANDOFF.md` lapsed after day one. Candidates
+  since: the load-bearing terms with their likely wrong readings (flashcards), Hildebrandt's
+  four-step spine, the series question ledgers, `references.md`, the four *Digital Rights Ireland*
+  defects.
+
+**Proposed on 6 Oct ([Series B findings §8–11](reference/series-b-findings.md)), never decided**
+- Hand the editor its previous verdict.
+- One line each in `writer.md`: check announced counts; describe a system in at most three stages;
+  keep a rule's qualifier when recalling it; caveats after the hook; a listening frame before a
+  long quotation; retrieval beats in lens episodes.
+- A prompt-echo check (phrases a script shares with its own persona prompt) — Series C Ep 1 had one.
+- The recurring prompt phrases on the watchlist; an enumeration check for fragment lists.
+- A check that sends narrator sentences over ~40 words back to the editor.
+- Restage Series B at 0.9× tempo (the toned Eps 5 and 8 were held for the pause splice, now built).
+
+**Raised 13 Sept, never decided**
+- An unreadable editor verdict counts as `ready` with a green trace (a test certifies it).
+- Re-running `write` reuses the run folder and overwrites the earlier run's drafts.
+- `test_boundary.py`'s torch test can never fail.
+
 ## Open — needs the GPU box
 
 - **First end-to-end audio run** on the RTX 3080 (the render path is unit-tested
@@ -59,12 +89,8 @@ decisions are [DESIGN.md §11](../DESIGN.md); tracked fixes are
   barely changes speed. The *episode* tempo is fixed (`atempo` 0.90 at render,
   [Series B findings §1](reference/series-b-findings.md)); a per-beat equivalent would need
   mel interpolation inside the backend, which Chatterbox's authors left out.
-- **Pauses inside one generation** — today every pause, paragraph and tone change ends the
-  engine call, so chunks run ~5–12 s and a mid-sentence pause is rendered as a sentence end.
-  Approved design: inner pauses spliced into a single generation —
-  [Series B findings §5](reference/series-b-findings.md).
-- **Continuous room tone** — inserted silence is digital zero, so the background noise drops out
-  at every join and pause — [Series B findings §6](reference/series-b-findings.md).
+- *(Done 2026-10-09: pauses inside one generation, and room tone in every inserted silence —
+  [Series B findings §5–6](reference/series-b-findings.md).)*
 - **Coverage lint** (today: the Planner produces the map; no automated checker).
 
 ## Later (behind the pluggable interface)

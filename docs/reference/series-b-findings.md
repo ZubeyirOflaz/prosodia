@@ -18,10 +18,10 @@ proposes, so that each fix can be checked against the problem it was meant to so
 | 2 | The tone specialist was never part of `write` | **Fixed** 2026-10-06 |
 | 3 | Quotations delivered in the wrong voice, recurring | **Fixed** 2026-10-06 (blockquote = scoped quotation) |
 | 4 | Mid-sentence pauses: are they used well? | **Yes — keep them** (user decision) |
-| 5 | Every pause and paragraph splits the render | **Approved in principle** — not built |
-| 6 | Background noise drops out between chunks | **Proposed** — not built |
+| 5 | Every pause and paragraph splits the render | **Built** 2026-10-09 — inner pauses spliced into one generation (IR 0.2) |
+| 6 | Background noise drops out between chunks | **Built** 2026-10-09 — every inserted silence is room tone |
 | 7 | Renderer writes `episode.wav`; MP3s are made by hand | **Fixed** 2026-10-09 — titled, tagged MP3 |
-| 8 | Editor improvements never reach the writer | Proposed — not built |
+| 8 | Editor improvements never reach the writer | **Fixed** 2026-10-09 — a ready verdict ends on a writer pass too; the editor's previous verdict is still not passed back |
 | 9 | The same first-draft defects cost a round each episode | Proposed — not built |
 | 10 | Prompt wording spoken as boilerplate across episodes | Proposed — not built |
 | 11 | Long sentences | Proposed — not built |
@@ -258,8 +258,22 @@ Ep 8 went from 152 segments to 349, 43 of them four words or fewer.
 render box (Chatterbox is not installed on the authoring laptop, and must not be — CLAUDE.md):
 the same paragraphs rendered split and spliced.
 
-**Until then: do not render the toned Eps 5 and 8.** Their `inbox/` jobs are still the pre-tone
-versions.
+**Built 2026-10-09** (agreed 6 October, then skipped when the tempo/MP3 change was done ahead of
+it — see the audit note in `docs/roadmap.md`):
+- **Compiler** (`compile.py`): a segment ends only where the delivery changes (a directive that
+  *changes* tone/rate/note, a speaker tag, a quotation's edges) or at a beat. `{pause}` and
+  paragraph breaks inside it become `Segment.chunk_pauses` — "N ms after the k-th word of this
+  chunk" (IR 0.2). The spoken text before a mid-sentence pause gains a comma if it has no
+  punctuation. Series C Ep 1: **286 segments → 113; ~290 generations → 171** (median 188 chars);
+  generations of four words or fewer **21 → 2**; 161 pauses, 139 inside a generation.
+- **Renderer** (`render.py`, `splice.py`): generate every chunk first, then measure room tone,
+  splice, assemble. A pause's gap is found by aligning the text's punctuation with the audio's
+  gaps in order (long gaps preferred — on real narration punctuation gaps ran 200–750 ms, gaps
+  inside a sentence under ~150 ms) and lengthened to the authored duration. **Fallback differs from
+  the design above:** a pause whose gap cannot be found keeps the engine's own pause and is
+  logged, rather than re-rendering the chunk split — a split is the very cut this removes, and the
+  comma already gives a short pause. Word timestamps from the faster-whisper gate are not used.
+- Old (IR 0.1) jobs still render: their pauses are room-tone gaps between generations.
 
 ## 6. Background noise drops out between chunks
 
@@ -291,6 +305,12 @@ the whole episode as a final pass. Options, as analysed:
   noise to begin with. Risk: a denoised reference can make the clone sound processed.
 
 §5 reduces the number of joins, but splicing still inserts silence, so (a) is needed either way.
+
+**Built 2026-10-09: option (a).** `audio.RoomTone` estimates a power spectrum and level from the
+quietest frames inside the generated chunks (the gaps between words), and plays noise with that
+spectrum from a seamless loop. Every inserted silence uses it — the lead-in and tail, the title
+gap, pauses between generations and the spliced inner pauses — joined with 10 ms crossfades. With
+too little quiet audio to measure, it falls back to digital silence.
 
 ## 7. Output format
 
@@ -328,6 +348,22 @@ round); and `editor.md` pushes hard toward `ready` while promising a human will 
 **Proposed:** a writer pass on accuracy items even when the verdict is `ready`; tell the editor
 what actually happens to each section; make a retrieval or change-one-fact answer that drops a
 rule's condition BLOCKING; give the editor its previous verdict; always write `editor-notes.md`.
+
+**Built 2026-10-09**, after Series C Ep 1 was approved in round 2 with seven improvements unapplied
+(among them a prompt echo and a claim the plan does not make). The 14 September change had added a
+final writer pass only for a loop that runs out of rounds — the literal request — although the
+reason given for it ("if the process ends with editors but no changes are made, the last editor
+round will always be a very expensive but low return review session") covers a ready verdict
+just as well.
+- A `ready` verdict whose `IMPROVEMENTS` section has content now gets one final writer pass with
+  that section only (not BLOCKING or CLEARED), told to skip items meant for the producer.
+- Nobody reviews that pass, so if it adds script-lint errors the approved draft is kept and the run
+  is marked `warn`.
+- `editor.md` now says what happens to each section: IMPROVEMENTS are applied on trust, so anything
+  that must be fixed *and checked* — including a retrieval or change-one-fact answer that drops a
+  rule's condition — is BLOCKING.
+- `editor-notes.md` is written for every episode, and says whether the final pass applied the notes.
+- Not built: handing the editor its previous verdict.
 
 ## 9. The same first-draft defects, every episode
 
