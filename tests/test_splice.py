@@ -1,4 +1,4 @@
-"""Pauses inside one generation, and room tone (2026-10-09).
+"""Pauses inside one generation, and room tone (2026-10-09; edges fixed 2026-10-14).
 
 Synthetic "speech": a tone burst per word, a short dip between words, and the longer gap an
 engine leaves at punctuation, over a noise floor — the shape measured on real Chatterbox
@@ -10,14 +10,21 @@ import pytest
 np = pytest.importorskip("numpy")
 sf = pytest.importorskip("soundfile")
 
+
 from prosodia.render import audio as A
 from prosodia.render.splice import find_gaps, splice_pauses
 
 SR = 16000
 
 
-def speech(text, *, noise=0.003, comma=0.20, stop=0.40, word_gap=0.02, seed=0, after=None):
-    """``after`` overrides the gap after given words: {word number: seconds}."""
+def speech(text, *, noise=0.003, comma=0.20, stop=0.40, word_gap=0.05, seed=0, after=None):
+    """``after`` overrides the gap after given words: {word number: seconds}.
+
+    The 50 ms between words matters: room tone is measured from the quietest tenth of the
+    audio, and real narration has that much background between its words. With 20 ms the
+    quietest tenth was partly speech and the estimate came out 14 dB too loud — on real
+    Chatterbox chunks it lands within 1 dB of the background (2026-10-14).
+    """
     rng = np.random.default_rng(seed)
     parts = []
     for k, tok in enumerate(text.split(), start=1):
@@ -35,6 +42,10 @@ def speech(text, *, noise=0.003, comma=0.20, stop=0.40, word_gap=0.02, seed=0, a
 TEXT = "The first is the controller, the body that decides. Then the processor, which acts."
 
 
+def quiet(n):
+    return np.zeros(n, dtype=np.float32)
+
+
 def _longest_gap(wav):
     gaps, _, _ = find_gaps(wav, SR)
     return max(gaps, key=lambda g: g.ms)
@@ -47,7 +58,7 @@ def test_the_gaps_found_are_the_punctuation_gaps():
 
 def test_a_pause_is_lengthened_at_its_own_comma():
     wav = speech(TEXT)
-    out, rep = splice_pauses(wav, SR, TEXT, [(12, 900)], A.RoomTone.estimate([wav], SR))
+    out, rep = splice_pauses(wav, SR, TEXT, [(12, 900)], quiet)
     assert (rep.spliced, rep.missed) == (1, 0)
     assert (out.size - wav.size) / SR == pytest.approx(0.700, abs=0.03)
     before = find_gaps(wav, SR)[0]
@@ -59,7 +70,7 @@ def test_a_pause_is_lengthened_at_its_own_comma():
 def test_among_close_commas_the_right_one_is_chosen():
     text = "One, two, three, four, five, six."
     wav = speech(text)
-    out, rep = splice_pauses(wav, SR, text, [(3, 1200)], A.RoomTone.estimate([wav], SR))
+    out, rep = splice_pauses(wav, SR, text, [(3, 1200)], quiet)
     before = find_gaps(wav, SR)[0]
     assert rep.spliced == 1
     assert _longest_gap(out).start == pytest.approx(before[2].start, abs=0.05)
@@ -67,7 +78,7 @@ def test_among_close_commas_the_right_one_is_chosen():
 
 def test_a_pause_with_no_gap_to_grow_is_left_alone_and_reported():
     wav = speech(TEXT, comma=0.02, stop=0.02)  # the engine ran straight through
-    out, rep = splice_pauses(wav, SR, TEXT, [(12, 900)], A.RoomTone.estimate([wav], SR))
+    out, rep = splice_pauses(wav, SR, TEXT, [(12, 900)], quiet)
     assert (rep.spliced, rep.missed) == (0, 1)
     assert out.size == wav.size
 
@@ -78,14 +89,14 @@ def test_a_comma_the_engine_ran_through_is_not_moved_to_a_later_breath():
     text = ("The directive is invalid, from its first day in force, is settled. "
             "That records without content sit below the core of private life is settled as law.")
     wav = speech(text, after={11: 0.02, 16: 0.25})   # no gap after "force,"; a breath after "content"
-    out, rep = splice_pauses(wav, SR, text, [(11, 400)], A.RoomTone.estimate([wav], SR))
+    out, rep = splice_pauses(wav, SR, text, [(11, 400)], quiet)
     assert (rep.spliced, rep.missed) == (0, 1)
     assert out.size == wav.size
 
 
 def test_a_gap_already_long_enough_is_not_touched():
     wav = speech(TEXT)
-    out, rep = splice_pauses(wav, SR, TEXT, [(5, 150)], A.RoomTone.estimate([wav], SR))
+    out, rep = splice_pauses(wav, SR, TEXT, [(5, 150)], quiet)
     assert rep.spliced == 1 and out.size == wav.size
 
 
@@ -137,12 +148,10 @@ def _render(tmp_path, chunks, chunk_pauses):
     return wav, sr
 
 
-def test_the_renderer_splices_an_inner_pause_and_never_writes_digital_silence(tmp_path):
+def test_the_renderer_splices_an_inner_pause_into_its_generation(tmp_path):
     plain, sr = _render(tmp_path / "a", [TEXT], [])
     paused, _ = _render(tmp_path / "b", [TEXT], [[InnerPause(after_word=12, ms=1000)]])
     assert (paused.size - plain.size) / sr == pytest.approx(0.800, abs=0.05)
-    # lead-in, tail and every pause are room tone: the background never drops to zero
-    assert A.frame_db(paused, sr).min() > -100
 
 
 def test_a_pause_after_the_last_word_of_a_chunk_goes_between_chunks(tmp_path):
@@ -150,3 +159,29 @@ def test_a_pause_after_the_last_word_of_a_chunk_goes_between_chunks(tmp_path):
     joined, sr = _render(tmp_path / "a", [a, b], [])
     gapped, _ = _render(tmp_path / "b", [a, b], [[InnerPause(after_word=5, ms=1500)], []])
     assert (gapped.size - joined.size) / sr == pytest.approx(1.5 + 0.02, abs=0.05)
+
+
+import shutil
+
+needs_ffmpeg = pytest.mark.skipif(shutil.which("ffmpeg") is None, reason="ffmpeg not installed")
+
+
+@needs_ffmpeg
+def test_room_tone_stays_at_the_background_and_the_edges_stay_silent(tmp_path):
+    """The real render of Series B Ep 1 opened on 3.5 s of noise at -17 dB, nearly the level of
+    the speech: single-pass loudnorm sets its gain over a few seconds, and a room-tone lead-in has
+    no speech in that window to hold it down. Inside the episode the fill sat at the background."""
+    sentence = "The first is the controller, the body that decides."
+    n = 24  # about a minute: a few seconds of audio is all loudnorm start-up, unlike any episode
+    out, sr = _render(tmp_path, [sentence] * n, [[InnerPause(after_word=9, ms=1500)]] * n)
+    db = A.frame_db(out, sr)
+    assert db[: int(3.0 * 100)].max() < -90          # lead-in: digital silence
+    assert db[-int(3.0 * 100):].max() < -90          # tail: digital silence
+    gaps, _, _ = find_gaps(out, sr)
+    level = lambda g: float(np.median(db[int(g.start * 100): int(g.end * 100)]))
+    middle = [g for g in gaps if 15 < g.start < len(out) / sr - 15]
+    commas = [level(g) for g in middle if 150 <= g.ms <= 300]
+    pauses = [level(g) for g in middle if g.ms >= 1000]
+    assert pauses and commas
+    assert max(pauses) < float(np.median(commas)) + 4.0   # the fill is no louder than the background
+

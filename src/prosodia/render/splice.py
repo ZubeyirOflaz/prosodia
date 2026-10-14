@@ -3,7 +3,7 @@
 The compiler keeps the words on both sides of a ``{pause}`` or paragraph break in one chunk, so
 the engine voices the sentence as unfinished (IR ``chunk_pauses``). Chatterbox has no pause
 token, so the pause is made afterwards: the engine leaves a short gap at punctuation, and this
-module finds that gap and lengthens it to the authored duration with room tone.
+module finds that gap and lengthens it to the authored duration with silence.
 
 Finding the right gap: punctuation in the text and gaps in the audio come in the same order.
 A monotonic alignment pairs punctuation boundaries with gaps (a gap can go unmatched — a stop
@@ -55,7 +55,10 @@ def find_gaps(wav: np.ndarray, sr: int) -> tuple[list[Gap], float, float]:
     if db.size == 0:
         return [], 0.0, len(wav) / sr
     hop = A.FRAME_HOP_MS / 1000
-    floor = float(np.percentile(db, 10))
+    # The floor is the engine's background, not digital silence: a stretch of exact zeros
+    # would put the floor at -120 dB and hide every real gap above it.
+    live = db[db > -100.0]
+    floor = float(np.percentile(live if live.size else db, 10))
     thr = min(floor + 8.0, float(np.percentile(db, 95)) - 20.0)
     loud = np.flatnonzero(db >= thr)
     if loud.size == 0:

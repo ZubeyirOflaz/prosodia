@@ -1,10 +1,12 @@
 """Audio assembly: room tone, lead/trail trim, click-free joins, loudness norm.
 
-Pauses are inserted as room tone (Chatterbox has no SSML break): noise shaped like the
-background the generations themselves carry, so a pause is quiet rather than a hole of
-digital zero that the listener hears the background drop out of. Chunk joins use a short
-linear crossfade to avoid clicks. Loudness normalization runs ONCE on the final
-concatenation (per-chunk normalization would amplify volume drift).
+Pauses inside the episode are room tone (Chatterbox has no SSML break): noise shaped like the
+background the generations themselves carry, so the background does not drop out at a pause.
+The lead-in and tail stay digital silence: the final loudness pass is single-pass ``loudnorm``,
+which adjusts gain over a few seconds at a time, and with no speech in that window it raised a
+room-tone lead-in by ~33 dB — to nearly the level of the speech (Series B findings §6). Chunk
+joins use a short linear crossfade to avoid clicks. Loudness normalization runs ONCE on the
+final concatenation (per-chunk normalization would amplify volume drift).
 """
 
 from __future__ import annotations

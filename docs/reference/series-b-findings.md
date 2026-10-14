@@ -19,7 +19,7 @@ proposes, so that each fix can be checked against the problem it was meant to so
 | 3 | Quotations delivered in the wrong voice, recurring | **Fixed** 2026-10-06 (blockquote = scoped quotation) |
 | 4 | Mid-sentence pauses: are they used well? | **Yes — keep them** (user decision) |
 | 5 | Every pause and paragraph splits the render | **Built** 2026-10-09 — inner pauses spliced into one generation (IR 0.2) |
-| 6 | Background noise drops out between chunks | **Built** 2026-10-09 — every inserted silence is room tone |
+| 6 | Background noise drops out between chunks | **Built** 2026-10-09; edges fixed 2026-10-14 — the loud part was the lead-in, raised ~33 dB by `loudnorm` |
 | 7 | Renderer writes `episode.wav`; MP3s are made by hand | **Fixed** 2026-10-09 — titled, tagged MP3 |
 | 8 | Editor improvements never reach the writer | **Fixed** 2026-10-09 — a ready verdict ends on a writer pass too; the editor's previous verdict is still not passed back |
 | 9 | The same first-draft defects cost a round each episode | Proposed — not built |
@@ -306,11 +306,31 @@ the whole episode as a final pass. Options, as analysed:
 
 §5 reduces the number of joins, but splicing still inserts silence, so (a) is needed either way.
 
-**Built 2026-10-09: option (a).** `audio.RoomTone` estimates a power spectrum and level from the
-quietest frames inside the generated chunks (the gaps between words), and plays noise with that
-spectrum from a seamless loop. Every inserted silence uses it — the lead-in and tail, the title
-gap, pauses between generations and the spliced inner pauses — joined with 10 ms crossfades. With
-too little quiet audio to measure, it falls back to digital silence.
+**Built 2026-10-09 as option (a); the cause of "far too strong" found and fixed 2026-10-14.**
+`audio.RoomTone` estimates a spectrum and level from the quietest frames inside the generated chunks
+and fills the silences with matching noise. The user's verdict on the first real render (Series B
+Ep 1): "way too strong and … much worse than the silence we had". Measured on that render:
+
+| | level |
+|---|---|
+| speech (95th percentile) | −11 dB |
+| the engine's own background between words | −48.5 dB |
+| all 629 pauses inside the episode (room tone) | −48 to −50 dB median, none 10 dB above background |
+| **the 4 s lead-in** | **−17 dB** |
+| the tail | −49 rising to −45 dB |
+
+So the fill was right everywhere except the edges. The finishing pass is single-pass `loudnorm`,
+which sets its gain over a few seconds at a time: a lead-in of pure noise has no speech in that
+window, and it was raised ~33 dB, to nearly the level of the speech; the tail was starting to rise
+the same way. Digital zero cannot be raised, which is why the edges were silent before.
+**Fix:** the lead-in and tail are digital silence again; room tone fills only the silences inside the
+episode. On real Chatterbox chunks the estimate lands within 1 dB of the background between words.
+A test renders through the real `loudnorm` and fails if either edge is not silent or a pause comes
+out louder than the background. For listening, the user's Ep 1 with only its edges silenced was
+written to `~/Downloads/1. The Same File, Twice - edges silenced.mp3`.
+
+Kept from the same change: a pause inside a generation keeps the engine's own short gap and its
+background — no trim to −40 dB and hard cut at each pause, as when every pause split the render.
 
 ## 7. Output format
 

@@ -89,8 +89,8 @@ built on 2026-10-09. What remains, kept apart so "proposed" is not read as "deci
   barely changes speed. The *episode* tempo is fixed (`atempo` 0.90 at render,
   [Series B findings §1](reference/series-b-findings.md)); a per-beat equivalent would need
   mel interpolation inside the backend, which Chatterbox's authors left out.
-- *(Done 2026-10-09: pauses inside one generation, and room tone in every inserted silence —
-  [Series B findings §5–6](reference/series-b-findings.md).)*
+- *(Done 2026-10-09: pauses inside one generation, and room tone in the silences inside an episode;
+  its loud lead-in fixed 2026-10-14 — [Series B findings §5–6](reference/series-b-findings.md).)*
 - **Coverage lint** (today: the Planner produces the map; no automated checker).
 
 ## Later (behind the pluggable interface)

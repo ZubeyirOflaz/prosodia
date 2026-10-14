@@ -6,7 +6,7 @@ The render is a deterministic function of the IR + render plan, in two passes:
 2. **Assemble.** Room tone is measured from all the generations; each chunk's inner pauses
    (IR ``chunk_pauses``) are spliced into it (``splice.py``); then chunks are joined —
    crossfaded where they run on, with room tone where a pause sits between them — and the
-   whole episode is loudness-normalized ONCE.
+   whole episode is loudness-normalized ONCE. The lead-in and tail are digital silence.
 
 Fast-preview mode (default): 1 candidate per chunk, no STT validation — fast, for
 finding common failures. Final mode: N candidates + faster-whisper validation,
@@ -326,8 +326,16 @@ def render_job(
         out = A.join_with_gap(intro, gap(title_gap_ms), out, sr, xf_ms)
     elif intro.size:
         out = intro
-    lead, tail = (room(int(sr * edge_silence_ms / 1000) + xf) for _ in range(2))
-    out = A.crossfade(A.crossfade(lead, out, sr, xf_ms), tail, sr, xf_ms)
+    # The lead-in and tail stay DIGITAL silence. The final loudnorm is single-pass, so it sets
+    # its gain over a few seconds at a time: with no speech in that window it raised a room-tone
+    # lead-in by ~33 dB, to nearly the level of the speech (2026-10-14, Series B findings §6).
+    fade = np.linspace(0.0, 1.0, min(xf, out.size // 2), dtype=np.float32)
+    if fade.size:  # no click where the episode meets the silence
+        out = out.copy()
+        out[: fade.size] *= fade
+        out[-fade.size:] *= fade[::-1]
+    edge = A.silence(edge_silence_ms, sr)
+    out = np.concatenate([edge, out, edge])
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     raw = out_path.with_suffix(".raw.wav")
