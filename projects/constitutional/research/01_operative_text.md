@@ -6,7 +6,7 @@ the **Political Advertising Regulation**. Everything else in this docket is seco
 
 | | Source | Retrieved |
 |---|---|---|
-| Charter | EU Agency for Fundamental Rights, Charterpedia (`fra.europa.eu/en/eu-charter/article/…`), reproducing **OJ C 202, 7.6.2016, p. 389**; Explanations from **OJ C 303, 14.12.2007, p. 17** | 2026-10-09 |
+| Charter | **OJ C 202, 7.6.2016, p. 389** (2016/C 202/02) — the Official Journal's own text, from CELLAR (`publications.europa.eu/resource/oj/JOC_2016_202_R_0002`, XHTML), cached at `experiments/eurlex/cache/oj_C202_2016_charter.xhtml`. Explanations: EU Agency for Fundamental Rights, Charterpedia (`fra.europa.eu/en/eu-charter/article/…`), reproducing **OJ C 303, 14.12.2007, p. 17** | 2026-10-09 |
 | ECHR | Council of Europe Treaty Office, **ETS No. 5 as amended by Protocols No. 11 and No. 14** (`rm.coe.int/1680063765`, PDF, 13 pp.) | 2026-10-09 |
 | PAR | **Regulation (EU) 2024/900** of 13 March 2024 on the transparency and targeting of political advertising — CELLAR XHTML for CELEX `32024R0900`, converted by `experiments/eurlex/consolidate.py`; completeness guard reported **no loss** | 2026-10-09 |
 
@@ -14,17 +14,20 @@ the **Political Advertising Regulation**. Everything else in this docket is seco
 JavaScript challenge (HTTP 202), so `consolidate.py` can no longer fetch new acts by CELEX (cached acts still
 convert). The Publications Office's CELLAR repository (`publications.europa.eu/resource/celex/<id>`, content
 negotiation) serves the same documents and worked for the PAR. For the Charter, CELLAR's XHTML for `12016P` and
-`12012P` holds only the table of contents, so the text below is FRA's reproduction. ⚠ **Not yet checked against the
-OJ PDF itself** — do so before any Charter wording is read aloud as the authentic text.
+`12012P` holds only the table of contents, but the OJ issue is served under its own identifier (`/resource/oj/`
+above). The Charter articles below were first taken from FRA's reproduction; **every line has since been checked
+against the OJ text and is identical** (2026-10-09). The Explanations are still FRA's reproduction of OJ C 303. They
+are guidance, never spoken as the Charter.
 
 ⚠ **The ECHR text predates Protocol No. 15** (in force 1 August 2021), which added a recital on **subsidiarity and
 the margin of appreciation** to the preamble and shortened the Art. 35(1) time limit to four months. **None of the
 articles below was changed by it.** The new recital is **not held** here, and the proportionality episode will want
 it: it is the Convention's own text for the margin of appreciation.
 
-**Still to fetch (FRA rate-limited this compiler after a burst of requests — retry slowly):** Charter Arts **11**
-(expression and information), **12** (assembly and association), **21** (non-discrimination), **47** (effective remedy
-and fair trial), **48** (presumption of innocence) and **54** (abuse of rights). Their ECHR counterparts are below.
+**Added from the OJ text:** Charter Arts **11** (expression and information), **12** (assembly and association),
+**21** (non-discrimination), **47** (effective remedy and fair trial), **48** (presumption of innocence) and **54**
+(abuse of rights), at the end of the Charter section. Their Explanations are **not held**. Their ECHR counterparts
+are below.
 
 ---
 
@@ -163,6 +166,48 @@ Everyone has the right to respect for his or her private and family life, home a
 
 ```text
 Everyone is equal before the law.
+```
+
+### Article 11 - Freedom of expression and information
+
+```text
+1. Everyone has the right to freedom of expression. This right shall include freedom to hold opinions and to receive and impart information and ideas without interference by public authority and regardless of frontiers.
+2. The freedom and pluralism of the media shall be respected.
+```
+
+### Article 12 - Freedom of assembly and of association
+
+```text
+1. Everyone has the right to freedom of peaceful assembly and to freedom of association at all levels, in particular in political, trade union and civic matters, which implies the right of everyone to form and to join trade unions for the protection of his or her interests.
+2. Political parties at Union level contribute to expressing the political will of the citizens of the Union.
+```
+
+### Article 21 - Non-discrimination
+
+```text
+1. Any discrimination based on any ground such as sex, race, colour, ethnic or social origin, genetic features, language, religion or belief, political or any other opinion, membership of a national minority, property, birth, disability, age or sexual orientation shall be prohibited.
+2. Within the scope of application of the Treaties and without prejudice to any of their specific provisions, any discrimination on grounds of nationality shall be prohibited.
+```
+
+### Article 47 - Right to an effective remedy and to a fair trial
+
+```text
+Everyone whose rights and freedoms guaranteed by the law of the Union are violated has the right to an effective remedy before a tribunal in compliance with the conditions laid down in this Article.
+Everyone is entitled to a fair and public hearing within a reasonable time by an independent and impartial tribunal previously established by law. Everyone shall have the possibility of being advised, defended and represented.
+Legal aid shall be made available to those who lack sufficient resources in so far as such aid is necessary to ensure effective access to justice.
+```
+
+### Article 48 - Presumption of innocence and right of defence
+
+```text
+1. Everyone who has been charged shall be presumed innocent until proved guilty according to law.
+2. Respect for the rights of the defence of anyone who has been charged shall be guaranteed.
+```
+
+### Article 54 - Prohibition of abuse of rights
+
+```text
+Nothing in this Charter shall be interpreted as implying any right to engage in any activity or to perform any act aimed at the destruction of any of the rights and freedoms recognised in this Charter or at their limitation to a greater extent than is provided for herein.
 ```
 
 ---

@@ -54,7 +54,11 @@ verified 2026-10-09:
   ```
 
   The converter reads CELLAR's XHTML unchanged, completeness guard included. **Caveat:** for some works
-  (the Charter, `12016P` / `12012P`) CELLAR's XHTML holds only the table of contents.
+  (the Charter, `12016P` / `12012P`) CELLAR's XHTML holds only the table of contents, and the PDF/Formex
+  variants 404. Ask for the **Official Journal item** instead — `resource/oj/JOC_<year>_<issue>_R_<item>` (the
+  Charter is `JOC_2016_202_R_0002`; `_R_0001` in that issue is the consolidated Treaties).
+- **Judgments** come the same way, by CELEX (`resource/celex/62012CJ0293` for *Digital Rights Ireland*). The
+  numbered paragraphs split cleanly on `<p class="count" id="pointNN">`.
 - **Court of Justice press releases** download directly from `curia.europa.eu/site/upload/docs/…/cpYYNNNen.pdf`
   — official summaries, not judgments.
 

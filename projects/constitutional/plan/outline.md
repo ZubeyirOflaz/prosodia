@@ -298,7 +298,7 @@ The tone pass places it; this plan only names where it is earned.
    - Ep 7 — the Court rewrote the instrument to save it.
    - Ep 8 — the test turned around, with the state restricting the vote to protect it.
    - Ep 9 — the test suspended, and what survives.
-2. **Attribution to the Court's press summaries rather than its judgments.** Episodes 1, 2 and 3. **Said in full once, in Episode 1, after the hook and never before it.** After that it appears only as a verb ("the Court's summary says"). If docket request R2 is filled, the beat disappears.
+2. **Attribution to the Court's press summaries rather than its judgments.** Episodes 1, 2 and 3. **Docket 03 now holds the *Digital Rights Ireland* judgment, so Episode 1 quotes the Court and does not use this beat.** If the other R2 cases are still unfilled when Episode 2 is written, it is **said in full once, in Episode 2, after the hook and never before it.** After that it appears only as a verb ("the Court's summary says"). If docket request R2 is filled, the beat disappears.
 3. **"Which instrument applies here — the Charter or the Convention."** Episodes 3, 4, 6, 7, 8 and 9. It is earned twice: Episode 3 teaches when the Charter binds a state, and Episode 4 teaches how the two instruments correspond. **After Episode 4 it is one clause, never a recap.**
 4. **The date-stamped contingent.** Episodes 2 (the Latombe appeal), 8 (the Regulation's first year) and 9 (France's experiment). **Each contingent fact is spoken with its date or not at all, and dates are never given as a list.**
 5. **"The state pushed back, and the line bent."** Episodes 3 and 9 only. **Said in full once, in Episode 3.** Episode 9 states it as a deciding fact, and nowhere else may say it.
@@ -338,14 +338,14 @@ The switch into the lens and back out is announced at the start of Episodes 5 an
 
 **Load-bearing terms.** For each, a listener who holds the ordinary meaning reaches a wrong answer on something this episode teaches.
 - **Interference.** *Wrong: someone read my data, or I was harmed.* Right: **keeping** the data is itself an interference with private life and with data protection, and access by the authorities is a second interference. Nobody needs to have looked. The wrong reading makes the whole case look premature.
-- **Traffic and location data.** *Wrong: harmless, because it is not what was said.* Right: the docket's field definition — who communicated with whom, by what means, when, from where, how often. Taken as a whole, it gives "very precise information on the private lives of the persons whose data are retained" ✓.
+- **Traffic and location data.** *Wrong: harmless, because it is not what was said.* Right: the docket's field definition — who communicated with whom, by what means, when, from where, how often. Taken as a whole, the data "may allow very precise conclusions to be drawn concerning the private lives of the persons whose data has been retained" ✓ (docket 03, [27]).
 - **Limitation** (Art. 52(1) ✓). *Wrong: a right is either violated or it isn't.* Right: Charter rights may be limited lawfully. The question is never whether the right was touched, but whether the touching was justified. The wrong reading predicts that any interference wins the case.
 - **Objective of general interest.** *Wrong: the Court second-guesses the government's aims.* Right: a low threshold, and it was passed here — fighting serious crime, and ultimately public security ✓.
 - **Appropriate.** *Wrong: wise policy.* Right: capable of contributing to the aim. Passed ✓.
 - **Strictly necessary.** *Wrong: useful, or important.* Right: no wider than the aim requires — differentiated by person, by data and by time. **Failed** ✓. The wrong reading concludes that because retention helps the police, it is necessary.
 - **Proportionate in the narrow sense.** *Wrong: the name of the whole test, or "fair".* Right: the final weighing, which this case **never reached**. A listener who conflates the two will report the case as lost on balance, and it was not.
 - **Strict review.** *Wrong: courts either defer or take over.* Right: the more serious the interference, the less discretion the legislature has, and the harder the Court looks ✓. This is what turns the test from a formula into a constraint.
-- **Invalid, without temporal limit.** *Wrong: repealed from now on.* Right: invalid from the date it entered into force; the Court declined to limit the effect ✓.
+- **Invalid, without temporal limit.** *Wrong: repealed from now on.* Right: invalid, with no limit set in time — so, in the press release's words, the declaration "takes effect from the date on which the directive entered into force" ✓. The judgment itself is silent on time (docket 03 §1): never say the Court "declined".
 - **A reference from a national court.** *Wrong: an appeal.* Right: a national court asks Luxembourg a question of Union law, Luxembourg answers it, and the case goes home. This is how an Austrian crowd ends up in Luxembourg.
 
 **The cast.**
@@ -373,10 +373,10 @@ Then the second sentence, of which only the working words are given: limitations
 >
 > **Charter Art. 8(1) ✓** — "Everyone has the right to the protection of personal data concerning him or her."
 
-**What the rule is called afterwards:** **the limitation clause**. Its questions are **the aim, the fit, the need and the weighing**. Two gates come first: the limitation must be **in law**, and it must leave **the essence** intact. Both gates are named here in a clause each and taught later. The essence gets **one clause only**: the Court checked first whether the core was touched, and said no, because no content was kept.
+**What the rule is called afterwards:** **the limitation clause**. Its questions are **the aim, the fit, the need and the weighing**. Two gates come first: the limitation must be **in law**, and it must leave **the essence** intact. Both gates are named here in a clause each and taught later. The essence gets **one clause only**: the Court checked first whether the core was touched, and said no — for private life because no content was kept, for data protection because the directive imposed data-security principles ✓ (docket 03, [39]–[40]). Still one clause; do not give the content reason for both rights.
 
 **The four defects — the spoken path.** Never a list of four. Two pairs:
-1. **Two defects about who is caught.** It covered "all individuals, all means of electronic communication and all traffic data without any differentiation, limitation or exception" ✓. And nothing confined access to serious crime or required a prior check by a court or an independent body.
+1. **Two defects about who is caught.** It covered "all persons and all means of electronic communication as well as all traffic data without any differentiation, limitation or exception being made in the light of the objective of fighting against serious crime" ✓ (docket 03, [57]). And nothing confined access to serious crime or required a prior check by a court or an independent body.
 2. **Two defects about how long and how safely.** The retention period had no criteria, being anywhere from six to twenty-four months with no reason given for either. And the safeguards were weak: security could be set with regard to **cost**, there was no irreversible destruction at the end, and the data could leave the Union.
 
 **Claim that must land:** these four defects are a **design brief** — the Court told the legislature what a lawful scheme would look like. Keep that sentence's *substance*. The verdict depends on it.
@@ -426,12 +426,12 @@ Then the second sentence, of which only the working words are given: limitations
 5. Where does the data sit, and who could reach it there?
 
 **Sources.**
-- Court of Justice (Grand Chamber), Joined Cases C-293/12 and C-594/12, *Digital Rights Ireland* and *Kärntner Landesregierung*, judgment of 8 April 2014, and press release No 54/14.
+- Court of Justice (Grand Chamber), Joined Cases C-293/12 and C-594/12, *Digital Rights Ireland* and *Kärntner Landesregierung*, judgment of 8 April 2014 (text: docket 03), and press release No 54/14.
 - Directive 2006/24/EC.
 - Charter of Fundamental Rights, Arts. 7, 8 and 52, OJ C 202, 7.6.2016.
 - Explanations relating to the Charter, OJ C 303, 14.12.2007.
 
-**Writability: WRITABLE NOW.** **The one item to verify at write time:** the wording of Charter Art. 52(1), 7 and 8(1) against the OJ C 202 PDF (docket request R0). Docket 01 reproduces it from FRA and says it has not been checked. If R0 has already been closed, the check passes instead to the judgment paragraph carrying the "feeling of constant surveillance" passage (R2), so it can be attributed to the Court rather than its press office.
+**Writability: WRITABLE NOW — no open check.** R0 is closed: docket 01's Charter text was checked against OJ C 202 and is identical. The *Digital Rights Ireland* half of R2 is filled (docket 03), so the "feeling ... of constant surveillance" passage is attributed to the Court, which credits its Advocate General ([37]). Quote the judgment from docket 03, not the press release in docket 02. Docket 03 §1 lists the four wordings that differ.
 
 ---
 
@@ -1354,7 +1354,7 @@ The transferable questions the series teaches, and the episode that earns each o
 
 ## Writability, stated plainly
 
-- **Episode 1 — WRITABLE NOW.** One check: the Charter wording against the OJ, unless R0 has already closed it.
+- **Episode 1 — WRITABLE NOW.** No open check: R0 is closed and the judgment is in docket 03.
 - **Episode 2 — WRITABLE NOW.** One check: the Latombe appeal's status.
 - **Episode 3 — WRITABLE NOW.** One check: the automated-analysis paragraphs.
 - **Episode 4 — WRITABLE NOW.** One check: the separate-opinion attribution.
@@ -1370,15 +1370,15 @@ The transferable questions the series teaches, and the episode that earns each o
 
 ## Docket requests
 
-- **R0 — Charter wording against the OJ.** Arts. 7, 8, 51 and 52, checked against the OJ C 202, 7.6.2016 PDF (already cached as `experiments/eurlex/cache/charter_12016P.pdf`) before any Charter wording is spoken. *(Eps 1–4)*
+- **R0 — Charter wording against the OJ.** **Closed 2026-10-09.** Docket 01's Charter text was checked line by line against OJ C 202, 7.6.2016, served by CELLAR as `/resource/oj/JOC_2016_202_R_0002`: identical. (No PDF was ever cached; the file this request named was an error page.) *(Eps 1–4)*
 - **R1 — Missing texts, verbatim.**
-  - Charter Arts. **11, 12, 21, 47, 48, 54**.
+  - Charter Arts. **11, 12, 21, 47, 48, 54** — **filled from the OJ text (docket 01).**
   - **Protocol No. 15's preamble recital** on subsidiarity and the margin of appreciation.
   - Convention **Art. 7** and **Art. 13**.
   - **Protocol No. 1, Art. 3.**
   - FRA rate-limited the compiler on the Charter articles, so retry slowly. *(Eps 2, 4, 7, 8, 9)*
 - **R2 — Judgment paragraphs, from CELLAR** (`publications.europa.eu/resource/celex/6YYYYCJNNNN`), so the Court's own words can replace its press summaries:
-  - ***Digital Rights Ireland*** — the four defects, and the "feeling of constant surveillance" passage.
+  - ***Digital Rights Ireland*** — the four defects, and the "feeling of constant surveillance" passage — **filled: docket 03.**
   - ***Schrems I*** — the essence paragraphs.
   - ***Schrems II*** — the Ombudsperson finding, and the names of the US programmes.
   - ***La Quadrature du Net*** — the automated-analysis conditions (located as paras 180–182), and the recital of the French intelligence law with its provision and year.
