@@ -29,6 +29,11 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_CANDIDATES = 2
 SIM_THRESHOLD = 0.85
+# Room tone plays this far below the background measured between words. At the same level it was
+# inaudible in short pauses but plain hiss in long ones: between words the speech masks it, alone
+# for a second and a half it is exposed (Series B Ep 1, 2026-10-14). -10 dB is a stopgap until
+# the fill can follow the pause — background level at the seams, silence in the middle.
+ROOM_TONE_GAIN_DB = -10.0
 # Shared fallback params (mirrors tone.py's _FALLBACK) used only when a segment id
 # is genuinely absent from the plan; that is a contract violation, so we also warn.
 _FALLBACK = (0.40, 0.50, 0.75, 1.0)
@@ -274,7 +279,7 @@ def render_job(
     # Pass 2 — assemble: room tone from the generations themselves, inner pauses spliced in,
     # chunks joined (crossfaded when they run on; room tone where a pause sits between them).
     room = A.RoomTone.estimate([pc[1] for pc in pieces if pc[0] == "audio"], sr,
-                               seed=0 if ir.seed is None else int(ir.seed))
+                               seed=0 if ir.seed is None else int(ir.seed), gain_db=ROOM_TONE_GAIN_DB)
     xf_ms = 10
     xf = int(sr * xf_ms / 1000)
 

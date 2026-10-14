@@ -98,7 +98,7 @@ class RoomTone:
 
     @classmethod
     def estimate(cls, wavs: list[np.ndarray], sr: int, *, seed: int = 0,
-                 max_seconds: float = 30.0) -> RoomTone:
+                 max_seconds: float = 30.0, gain_db: float = 0.0) -> RoomTone:
         hop = int(sr * FRAME_HOP_MS / 1000)
         win = int(sr * FRAME_WIN_MS / 1000)
         quiet: list[np.ndarray] = []
@@ -130,7 +130,7 @@ class RoomTone:
         win_fn = np.hanning(cls._NFFT)
         frames = [x[k:k + cls._NFFT] * win_fn for k in range(0, x.size - cls._NFFT, cls._NFFT // 2)]
         spectrum = np.mean(np.abs(np.fft.rfft(frames, axis=1)) ** 2, axis=0)
-        return cls(sr, spectrum, rms, seed=seed)
+        return cls(sr, spectrum, rms * 10 ** (gain_db / 20), seed=seed)
 
     def __call__(self, n: int) -> np.ndarray:
         """``n`` samples of room tone (zeros when there is none)."""

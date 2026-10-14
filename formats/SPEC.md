@@ -210,8 +210,9 @@ there; the renderer finds that gap and lengthens it to the authored duration. If
 found, that pause keeps the engine's own length and the render log says so. A pause where the
 delivery changes, or at a beat boundary, sits between two generations.
 
-**Silence inside the episode is room tone** — noise matched in level and colour to the background
-the generations themselves carry — so the background does not drop out at a pause. A pause inside a
+**Silence inside the episode is room tone** — noise matched in colour to the background the
+generations themselves carry, played 10 dB below it — so the background does not drop to nothing at
+a pause, and a long pause is not a second of exposed hiss. A pause inside a
 generation keeps the engine's own short gap and only the extension is room tone; nothing is trimmed
 away at the pause. **The lead-in and tail are digital silence**: the final loudness pass adjusts gain
 over a few seconds at a time, and noise with no speech near it gets raised almost to speech level.

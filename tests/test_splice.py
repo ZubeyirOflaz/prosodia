@@ -167,7 +167,7 @@ needs_ffmpeg = pytest.mark.skipif(shutil.which("ffmpeg") is None, reason="ffmpeg
 
 
 @needs_ffmpeg
-def test_room_tone_stays_at_the_background_and_the_edges_stay_silent(tmp_path):
+def test_room_tone_sits_under_the_background_and_the_edges_stay_silent(tmp_path):
     """The real render of Series B Ep 1 opened on 3.5 s of noise at -17 dB, nearly the level of
     the speech: single-pass loudnorm sets its gain over a few seconds, and a room-tone lead-in has
     no speech in that window to hold it down. Inside the episode the fill sat at the background."""
@@ -177,11 +177,24 @@ def test_room_tone_stays_at_the_background_and_the_edges_stay_silent(tmp_path):
     db = A.frame_db(out, sr)
     assert db[: int(3.0 * 100)].max() < -90          # lead-in: digital silence
     assert db[-int(3.0 * 100):].max() < -90          # tail: digital silence
-    gaps, _, _ = find_gaps(out, sr)
-    level = lambda g: float(np.median(db[int(g.start * 100): int(g.end * 100)]))
-    middle = [g for g in gaps if 15 < g.start < len(out) / sr - 15]
-    commas = [level(g) for g in middle if 150 <= g.ms <= 300]
-    pauses = [level(g) for g in middle if g.ms >= 1000]
+    # quiet stretches, judged against the speech (find_gaps would take the fill as its floor)
+    quiet = db < np.percentile(db[db > -100], 95) - 25
+    runs, i = [], 0
+    while i < db.size:
+        if quiet[i] and db[i] > -100:
+            j = i
+            while j < db.size and quiet[j] and db[j] > -100:
+                j += 1
+            runs.append((i, j))
+            i = j
+        else:
+            i += 1
+    middle = [(a, b) for a, b in runs if 1500 < a < db.size - 1500]
+    commas = [float(np.median(db[a:b])) for a, b in middle if 15 <= b - a <= 30]
+    pauses = [float(np.median(db[a + 10:b - 10])) for a, b in middle if b - a >= 100]
     assert pauses and commas
-    assert max(pauses) < float(np.median(commas)) + 4.0   # the fill is no louder than the background
+    background = float(np.median(commas))
+    # 10 dB under the background (ROOM_TONE_GAIN_DB): at the same level it was audible hiss in
+    # long pauses, where no speech masks it — but never a hole of digital zero
+    assert all(background - 14 < p < background - 6 for p in pauses), (background, pauses)
 

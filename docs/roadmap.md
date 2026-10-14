@@ -91,6 +91,10 @@ built on 2026-10-09. What remains, kept apart so "proposed" is not read as "deci
   mel interpolation inside the backend, which Chatterbox's authors left out.
 - *(Done 2026-10-09: pauses inside one generation, and room tone in the silences inside an episode;
   its loud lead-in fixed 2026-10-14 — [Series B findings §5–6](reference/series-b-findings.md).)*
+- **Room tone that follows the pause** — today the fill plays 10 dB under the background everywhere,
+  a stopgap: at full level a long pause was exposed hiss. Better: background level at a pause's seams,
+  fading to silence in its middle; or a cleaner reference clip, which fixes it at the source
+  ([Series B findings §6](reference/series-b-findings.md)).
 - **Coverage lint** (today: the Planner produces the map; no automated checker).
 
 ## Later (behind the pluggable interface)

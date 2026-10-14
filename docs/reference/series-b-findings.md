@@ -19,7 +19,7 @@ proposes, so that each fix can be checked against the problem it was meant to so
 | 3 | Quotations delivered in the wrong voice, recurring | **Fixed** 2026-10-06 (blockquote = scoped quotation) |
 | 4 | Mid-sentence pauses: are they used well? | **Yes — keep them** (user decision) |
 | 5 | Every pause and paragraph splits the render | **Built** 2026-10-09 — inner pauses spliced into one generation (IR 0.2) |
-| 6 | Background noise drops out between chunks | **Built** 2026-10-09; edges fixed 2026-10-14 — the loud part was the lead-in, raised ~33 dB by `loudnorm` |
+| 6 | Background noise drops out between chunks | **Built** 2026-10-09; 2026-10-14: silent edges, fill 10 dB under the background |
 | 7 | Renderer writes `episode.wav`; MP3s are made by hand | **Fixed** 2026-10-09 — titled, tagged MP3 |
 | 8 | Editor improvements never reach the writer | **Fixed** 2026-10-09 — a ready verdict ends on a writer pass too; the editor's previous verdict is still not passed back |
 | 9 | The same first-draft defects cost a round each episode | Proposed — not built |
@@ -331,6 +331,17 @@ written to `~/Downloads/1. The Same File, Twice - edges silenced.mp3`.
 
 Kept from the same change: a pause inside a generation keeps the engine's own short gap and its
 background — no trim to −40 dB and hard cut at each pause, as when every pause split the render.
+
+**Then the long pauses (2026-10-14).** The user heard the fill as louder than the background in some
+pauses — e.g. 1:34–1:37 of Ep 1, a 1.5 s pause. Measured: −48.5 dB, the same as the background between
+words, and within ~2 dB of it in every band from 50 Hz to 12 kHz. So not louder — **exposed**: between
+words the same noise lasts 80–250 ms and the speech on either side masks it; alone for a second and a
+half it is plain hiss on headphones, where before there was digital silence. 37 pauses of 1.2 s or
+more per episode, which is why it was "some times". The noise is the reference clip's own: its
+background is only ~36 dB under its speech, and Chatterbox reproduces it at ~37 dB.
+**Decision: the fill plays 10 dB under the background** (`render.ROOM_TONE_GAIN_DB`) for now.
+Better options, not built: background level at a pause's seams fading to silence in its middle; a
+cleaner reference clip (fixes it at the source, and lowers the noise under the speech too).
 
 ## 7. Output format
 
