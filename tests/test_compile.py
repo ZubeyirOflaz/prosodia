@@ -23,15 +23,16 @@ They believed it.
 def test_compile_basic_segments_and_pauses():
     ir, warns = compile_text(SAMPLE, lexicon=Lexicon({"Monnet": "Moh-nay"}))
     assert ir.voice == "narrator" and ir.episode == 1 and ir.seed == 7
-    assert len(ir.segments) == 3  # beat0 splits at the pause; beat1 has one
+    # beat 0 is ONE generation with the pause inside it; beat 1 has one segment
+    assert len(ir.segments) == 2
 
-    s0, s1, s2 = ir.segments
+    s0, s2 = ir.segments
     assert s0.intent.tone == "somber" and s0.intent.rate == "slow"
     assert "nineteen forty-five" in s0.spoken_text  # normalization applied
     assert s0.pause_before_ms == 0
-
-    assert s1.pause_before_ms == 1000  # explicit {pause: 1.0}
-    assert "again" in s1.emphasis  # *again*
+    # explicit {pause: 1.0}, after "Picture the continent in nineteen forty-five."
+    assert [[(p.after_word, p.ms) for p in ps] for ps in s0.chunk_pauses] == [[(6, 1000)]]
+    assert "again" in s0.emphasis  # *again*
 
     assert s2.intent.tone == "tense"
     assert s2.pause_before_ms >= 1  # beat-boundary pause
@@ -154,8 +155,8 @@ def test_double_asterisk_emphasis_leaves_no_literal_stars():
 def test_bad_pause_warns_and_ignored():  # finding 19
     ir, warns = compile_text("## A\nBefore. {pause: abc} After.")
     assert any("bad pause value" in w for w in warns)
-    # The bad pause does not become a pause_before_ms on the next segment.
-    assert ir.segments[1].pause_before_ms == 0
+    # The bad pause is dropped: no pause, and nothing to split the sentence on.
+    assert len(ir.segments) == 1 and ir.segments[0].chunk_pauses == []
 
 
 def test_unknown_directive_key_warns():  # finding 19
@@ -182,9 +183,8 @@ def test_front_matter_pauses_override():  # finding 20
         "## A\nPara one.\n\nPara two.\n\n## B\nNext beat."
     )
     ir, _ = compile_text(txt)
-    # second segment follows a paragraph break -> 200 ms
-    para_seg = ir.segments[1]
-    assert para_seg.pause_before_ms == 200
+    # the paragraph break inside beat A is an inner pause of 200 ms, after "Para one."
+    assert [(p.after_word, p.ms) for p in ir.segments[0].chunk_pauses[0]] == [(2, 200)]
     # the first segment of beat B follows a beat boundary -> 1500 ms
     beat_b = [s for s in ir.segments if s.beat_index == 1][0]
     assert beat_b.pause_before_ms == 1500
@@ -203,7 +203,7 @@ def test_pause_max_merge():  # finding 21
     # A large explicit pause wins over the paragraph default.
     txt2 = "## A\nOne.\n\n{pause: 2.0} Two."
     ir2, _ = compile_text(txt2)
-    assert ir2.segments[1].pause_before_ms == 2000
+    assert [(p.after_word, p.ms) for p in ir2.segments[0].chunk_pauses[0]] == [(1, 2000)]
 
 
 def test_compile_populates_score_chunks_only_when_respelled():
@@ -249,10 +249,10 @@ def test_emphasis_never_leaks_a_marker_into_the_audio():
         "A second paragraph.\n"
     )
     spoken = [s.spoken_text for s in ir.segments]
-    assert spoken[0] == "A rule about placing on the market and lex informatica here."
+    assert spoken == ["A rule about placing on the market and lex informatica here. A second paragraph."]
     assert not any("*" in t or "_" in t for t in spoken)
-    # the blank line still ends the segment — emphasis may cross a wrap, never a paragraph
-    assert spoken[1] == "A second paragraph."
+    # the blank line is still a paragraph pause — emphasis may cross a wrap, never a paragraph
+    assert [p.after_word for p in ir.segments[0].chunk_pauses[0]] == [11]
     assert warnings == []
 
 
@@ -325,3 +325,56 @@ def test_a_blockquote_changes_nothing_for_a_persona_without_a_quoting_tone():
     ir, _ = compile_text(src)          # default persona: no `quoting` tone in its profile
     assert {s.intent.tone for s in ir.segments} == {"measured"}
     assert all(">" not in s.spoken_text for s in ir.segments)
+
+
+# ---- inner pauses: a pause no longer splits the generation (2026-10-09) ----------------------
+
+def _pauses(seg):
+    return [[(p.after_word, p.ms) for p in ps] for ps in seg.chunk_pauses]
+
+
+def test_a_mid_sentence_pause_stays_inside_one_generation_and_gets_a_comma():
+    """Each split was a separate render that ended like a full stop: a hold before a payoff
+    became two sentences. The pause is now inside the generation, and the words before it end
+    on a comma in the SPOKEN text, so the voice says "more to come"."""
+    ir, _ = compile_text("## A\nNow the test {pause: 0.6} everything turns on.")
+    (seg,) = ir.segments
+    assert seg.authored_text == "Now the test everything turns on."
+    assert seg.spoken_text == "Now the test, everything turns on."
+    assert _pauses(seg) == [[(3, 600)]]
+
+
+def test_punctuation_already_there_is_not_doubled():
+    ir, _ = compile_text("## A\nThe first is the controller — {pause: 0.5} the body that decides.")
+    assert ir.segments[0].spoken_text == "The first is the controller — the body that decides."
+
+
+def test_a_directive_that_changes_nothing_does_not_split():
+    ir, _ = compile_text("## A {tone: lucid}\nOne. {tone: lucid} Two.")
+    assert len(ir.segments) == 1
+
+
+def test_a_pause_where_the_delivery_changes_goes_before_the_next_segment():
+    ir, _ = compile_text("## A {tone: lucid}\nCalm. {pause: 1.2} {tone: pointed} Sharp.")
+    assert [s.intent.tone for s in ir.segments] == ["lucid", "pointed"]
+    assert ir.segments[0].chunk_pauses == []      # no pause left dangling at the end
+    assert ir.segments[1].pause_before_ms == 1200
+
+
+def test_a_pause_on_a_chunk_boundary_sits_between_the_chunks():
+    long = " ".join(["This sentence is here to fill the chunk up."] * 6)
+    ir, _ = compile_text(f"## A\n{long}\n\n{long}", max_chars=300)
+    (seg,) = ir.segments
+    words = [len(c.split()) for c in seg.chunks]
+    placed = [(ci, p.after_word) for ci, ps in enumerate(seg.chunk_pauses) for p in ps]
+    assert len(placed) == 1
+    ci, after = placed[0]
+    assert sum(words[:ci]) + after == 54          # after the first paragraph's 54 words
+    assert all(1 <= p.after_word <= words[i] for i, ps in enumerate(seg.chunk_pauses) for p in ps)
+
+
+def test_a_blockquote_is_still_its_own_generation():
+    ir, _ = compile_text("## A\nThe Act says:\n\n> Everyone is equal before the law.\n\nSo much for that.",
+                         profiles=_casework_profiles())
+    assert [s.intent.tone for s in ir.segments] == ["measured", "quoting", "measured"]
+    assert ir.segments[1].pause_before_ms > 0 and ir.segments[2].pause_before_ms > 0

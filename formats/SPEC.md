@@ -117,7 +117,7 @@ A directive block is `{ key: value, key: value, ... }`: comma-separated
 
 | Key | Value | Effect |
 |---|---|---|
-| `pause` | number (seconds) | Inserts exactly that much **real silence** at this point. Not a tone shift. |
+| `pause` | number (seconds) | Inserts that much silence (room tone, §7) at this point. Not a tone shift. |
 
 **Where directives may appear:**
 
@@ -128,9 +128,10 @@ A directive block is `{ key: value, key: value, ... }`: comma-separated
 - `{pause: N}` may appear anywhere in the body (it is a point event, so it does
   not "carry" forward); it is conventionally placed at a sentence boundary.
 
-Each `tone`/`rate`/`note` directive (header or inline) starts a **new IR
-segment**. Keep them sparse (principle #3): most transcripts will set tone at the
-beat header and rarely inline.
+Each `tone`/`rate`/`note` directive (header or inline) that **changes** the delivery starts a
+**new IR segment** — a separate generation. A directive that repeats what is already in force
+changes nothing. Keep them sparse (principle #3): most transcripts will set tone at the beat
+header and rarely inline.
 
 **A tone is sticky.** An inline `tone` stays in force until the next directive that
 sets one, or the end of the beat — it does **not** end at the end of the sentence
@@ -193,15 +194,25 @@ Use `\*` for a literal asterisk.
 
 Three sources of silence, longest-lived first:
 
-1. **Explicit** — `{pause: N}` inserts exactly `N` seconds of real silence.
+1. **Explicit** — `{pause: N}` inserts `N` seconds of silence.
    Use this for "critical-point" beats (design goal #3).
 2. **Beat boundary** — the gap between beats. Default ≈ `0.8 s`.
 3. **Paragraph break** — a blank line. Default ≈ `0.4 s`.
 
-Defaults are configurable via front-matter `pauses:` or the project config; they
-are realized by the renderer as real silence segments spliced between rendered
-audio (never as engine "breaks," which Chatterbox lacks). Sentence-internal
-pacing is governed by `rate`, not by pauses.
+Defaults are configurable via front-matter `pauses:` or the project config.
+
+**A pause does not split the sentence.** An explicit pause or a paragraph break inside a run of
+unchanged delivery is an *inner pause*: the words on both sides are generated together, so the
+voice treats the sentence as unfinished, and the silence is made inside that one generation (IR
+`chunk_pauses`: "N ms after the k-th word"). In the text the engine reads — never the transcript —
+the words before a mid-sentence pause gain a comma if they end on none, so the engine leaves a gap
+there; the renderer finds that gap and lengthens it to the authored duration. If no gap can be
+found, that pause keeps the engine's own length and the render log says so. A pause where the
+delivery changes, or at a beat boundary, sits between two generations.
+
+**Every silence is room tone** — noise matched to the background the generations themselves
+carry — never digital zero, so the background does not drop out at a pause (Chatterbox has no
+pause token, and each generation carries the reference clip's room).
 
 ---
 
@@ -326,12 +337,13 @@ transcript.md ──compile──▶ IR (segments: intent + authored_text + spok
                               ├─ Tone specialist ─▶ render_plan.json (engine params per segment)
                               │
                               └──────────────▶ renderer: chunk → generate (+STT quality-gate,
-                                               final mode) → trim → splice pauses / crossfade →
-                                               concat → loudness-normalize → episode.wav
+                                               final mode) → trim → measure room tone → splice
+                                               inner pauses → join (crossfade / room-tone gap) →
+                                               tempo + loudness-normalize → "N. Title.mp3"
 ```
 
-> **v0.1 output.** A single flat `episode.wav` (loudness-normalized). Chapter
-> markers/metadata and per-episode output filenames are not yet produced.
+> **Output.** One file per episode, `N. Title.mp3` — tempo applied (render plan `tempo`),
+> loudness-normalized, ID3 title and track. Chapter markers are not yet produced.
 
 The transcript never contains engine settings; the render plan is a **derived**
 artifact. See `protocol/SPEC.md` for the job/handoff contract and the IR schema

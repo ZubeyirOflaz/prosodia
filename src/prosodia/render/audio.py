@@ -1,8 +1,10 @@
-"""Audio assembly: silence, lead/trail trim, click-free joins, loudness norm.
+"""Audio assembly: room tone, lead/trail trim, click-free joins, loudness norm.
 
-Pauses are inserted as real silence (Chatterbox has no SSML break). Chunk joins
-use a short linear crossfade to avoid clicks. Loudness normalization runs ONCE on
-the final concatenation (per-chunk normalization would amplify volume drift).
+Pauses are inserted as room tone (Chatterbox has no SSML break): noise shaped like the
+background the generations themselves carry, so a pause is quiet rather than a hole of
+digital zero that the listener hears the background drop out of. Chunk joins use a short
+linear crossfade to avoid clicks. Loudness normalization runs ONCE on the final
+concatenation (per-chunk normalization would amplify volume drift).
 """
 
 from __future__ import annotations
@@ -48,6 +50,102 @@ def crossfade(a: np.ndarray, b: np.ndarray, sr: int, ms: int = 20) -> np.ndarray
     fade = np.linspace(1.0, 0.0, n, dtype=np.float32)
     middle = a[-n:] * fade + b[:n] * (1.0 - fade)
     return np.concatenate([a[:-n], middle, b[n:]])
+
+
+FRAME_WIN_MS, FRAME_HOP_MS = 20, 10
+
+
+def frame_db(wav: np.ndarray, sr: int) -> np.ndarray:
+    """RMS level per 20 ms frame, every 10 ms, in dBFS."""
+    win, hop = int(sr * FRAME_WIN_MS / 1000), int(sr * FRAME_HOP_MS / 1000)
+    if wav.size < win or hop <= 0:
+        return np.zeros(0, dtype=np.float32)
+    wav = np.ascontiguousarray(wav)
+    n = 1 + (wav.size - win) // hop
+    frames = np.lib.stride_tricks.as_strided(
+        wav, shape=(n, win), strides=(wav.strides[0] * hop, wav.strides[0]), writeable=False)
+    return (10 * np.log10(np.mean(frames.astype(np.float64) ** 2, axis=1) + 1e-12)).astype(np.float32)
+
+
+class RoomTone:
+    """Background noise matched to the generations, for every silence the renderer inserts.
+
+    Estimated from the quietest frames inside the generated chunks — the gaps between words,
+    where only the background the engine copied from the reference clip remains — as a power
+    spectrum and a level. Played back from a circular buffer of noise with that spectrum, so it
+    loops without a seam. With too little quiet audio to measure, it is digital silence, which
+    is what every pause was before.
+    """
+
+    _NFFT = 1024
+    _BUFFER_S = 10.0
+
+    def __init__(self, sr: int, spectrum: np.ndarray | None = None, rms: float = 0.0, seed: int = 0):
+        self.sr, self.rms = sr, float(rms)
+        self._buf = np.zeros(0, dtype=np.float32)
+        self._rng = np.random.default_rng(seed)
+        if spectrum is not None and self.rms > 0:
+            n = int(sr * self._BUFFER_S)
+            white = np.fft.rfft(self._rng.standard_normal(n))
+            bins = np.linspace(0, len(spectrum) - 1, white.size)
+            shape = np.sqrt(np.interp(bins, np.arange(len(spectrum)), spectrum))
+            noise = np.fft.irfft(white * shape, n)
+            level = float(np.sqrt(np.mean(noise ** 2)))
+            if level > 0:
+                self._buf = (noise * (self.rms / level)).astype(np.float32)
+
+    @classmethod
+    def estimate(cls, wavs: list[np.ndarray], sr: int, *, seed: int = 0,
+                 max_seconds: float = 30.0) -> RoomTone:
+        hop = int(sr * FRAME_HOP_MS / 1000)
+        win = int(sr * FRAME_WIN_MS / 1000)
+        quiet: list[np.ndarray] = []
+        total = 0
+        for wav in wavs:
+            db = frame_db(wav, sr)
+            if db.size < 10:
+                continue
+            low = db <= float(np.percentile(db, 10)) + 3.0
+            i = 0
+            while i < db.size:  # runs of at least three quiet frames
+                if low[i]:
+                    j = i
+                    while j < db.size and low[j]:
+                        j += 1
+                    if j - i >= 3:
+                        piece = wav[i * hop: (j - 1) * hop + win]
+                        quiet.append(piece)
+                        total += piece.size
+                    i = j
+                else:
+                    i += 1
+            if total >= sr * max_seconds:
+                break
+        if total < cls._NFFT * 4:
+            return cls(sr, seed=seed)
+        x = np.concatenate(quiet).astype(np.float64)
+        rms = float(np.sqrt(np.mean(x ** 2)))
+        win_fn = np.hanning(cls._NFFT)
+        frames = [x[k:k + cls._NFFT] * win_fn for k in range(0, x.size - cls._NFFT, cls._NFFT // 2)]
+        spectrum = np.mean(np.abs(np.fft.rfft(frames, axis=1)) ** 2, axis=0)
+        return cls(sr, spectrum, rms, seed=seed)
+
+    def __call__(self, n: int) -> np.ndarray:
+        """``n`` samples of room tone (zeros when there is none)."""
+        n = max(0, int(n))
+        if not self._buf.size:
+            return np.zeros(n, dtype=np.float32)
+        start = int(self._rng.integers(self._buf.size))
+        return np.take(self._buf, np.arange(start, start + n), mode="wrap")
+
+    def gap(self, ms: int) -> np.ndarray:
+        return self(int(self.sr * ms / 1000))
+
+
+def join_with_gap(a: np.ndarray, gap: np.ndarray, b: np.ndarray, sr: int, ms: int = 10) -> np.ndarray:
+    """``a`` + ``gap`` + ``b``, crossfaded at both seams; the overlap comes out of ``gap``'s ends,
+    so pass a gap ``2 * ms`` longer than the pause it stands for."""
+    return crossfade(crossfade(a, gap, sr, ms), b, sr, ms)
 
 
 def peak_normalize(wav: np.ndarray, peak: float = 0.97) -> np.ndarray:

@@ -1,10 +1,12 @@
 """Render a job (IR + render_plan) to an episode audio file on the GPU box.
 
-The render loop is a simple, deterministic function of the IR + render plan:
-for each segment, emit ``pause_before_ms`` of real silence, then render each
-~300-char chunk with the Tone-specialist's params, quality-gate it (unless in
-fast-preview mode), trim and crossfade-join, and finally loudness-normalize the
-whole episode ONCE.
+The render is a deterministic function of the IR + render plan, in two passes:
+1. **Generate.** Each ~300-char chunk is rendered with the Tone-specialist's params,
+   quality-gated (unless in fast-preview mode) and trimmed.
+2. **Assemble.** Room tone is measured from all the generations; each chunk's inner pauses
+   (IR ``chunk_pauses``) are spliced into it (``splice.py``); then chunks are joined —
+   crossfaded where they run on, with room tone where a pause sits between them — and the
+   whole episode is loudness-normalized ONCE.
 
 Fast-preview mode (default): 1 candidate per chunk, no STT validation — fast, for
 finding common failures. Final mode: N candidates + faster-whisper validation,
@@ -19,8 +21,9 @@ from pathlib import Path
 
 import numpy as np
 
-from prosodia.core.ir import EpisodeIR, RenderPlan
+from prosodia.core.ir import EpisodeIR, RenderPlan, Segment
 from prosodia.render import audio as A
+from prosodia.render.splice import splice_pauses
 
 logger = logging.getLogger(__name__)
 
@@ -141,6 +144,36 @@ def _render_chunk(backend, text, params, base_seed, seg_id, ci, ref, *,
     )
 
 
+def _remap_after_word(after: int, src: str, dst: str) -> int:
+    """Carry a pause position from the chunk text to the text actually spoken.
+
+    They differ only when the lexicon fallback spoke the unrespelled name, and a respelling
+    can change the word count. The pause follows punctuation, which both share, so count it.
+    """
+    s, d = src.split(), dst.split()
+    if len(s) == len(d) or not d:
+        return after
+    nth = sum(1 for t in s[:after] if t[-1:] in ",;:.!?—–-")
+    marks = [k for k, t in enumerate(d, start=1) if t[-1:] in ",;:.!?—–-"]
+    if 0 < nth <= len(marks):
+        return marks[nth - 1]
+    return max(1, min(len(d), round(after * len(d) / len(s))))
+
+
+def _chunk_pauses(seg: Segment, ci: int, spoken: str) -> tuple[list[tuple[int, int]], int]:
+    """(pauses inside the chunk as (after_word, ms) in ``spoken``'s words, pause after it)."""
+    if ci >= len(seg.chunk_pauses):
+        return [], 0
+    n = len(seg.chunks[ci].split())
+    inner, tail = [], 0
+    for p in seg.chunk_pauses[ci]:
+        if p.after_word >= n:
+            tail = max(tail, p.ms)
+        else:
+            inner.append((_remap_after_word(p.after_word, seg.chunks[ci], spoken), p.ms))
+    return inner, tail
+
+
 def render_job(
     job_dir: str | Path,
     out_path: str | Path,
@@ -186,14 +219,15 @@ def render_job(
 
         validator = WhisperValidator()
 
-    out = np.zeros(0, dtype=np.float32)
+    # Pass 1 — generate. `pieces` is the episode in order: ("gap", ms) and
+    # ("audio", wav, spoken_text, inner_pauses).
+    pieces: list[tuple] = []
     total = max(1, len(ir.segments))
     fb_covered = 0  # respelled chunks eligible for the unassisted-first fallback
     fb_used = 0     # ... of those, how many actually needed the respelling
     for i, seg in enumerate(ir.segments):
-        just_paused = seg.pause_before_ms > 0
-        if just_paused:
-            out = np.concatenate([out, A.silence(seg.pause_before_ms, sr)])
+        if seg.pause_before_ms > 0:
+            pieces.append(("gap", seg.pause_before_ms))
         p = params.get(seg.id)
         if p is None:  # plan/IR drift — a real contract violation, do not hide it.
             logger.warning(
@@ -223,17 +257,11 @@ def render_job(
             )
             if use_fb and fell_back:
                 fb_used += 1
-            wav = A.trim_silence(wav, sr)
-            if not out.size:
-                out = wav
-            elif just_paused:
-                # Don't crossfade into freshly-inserted silence — the fade would
-                # eat up to ~20 ms of every authored pause. Plain-concatenate the
-                # first chunk after a pause so explicit {pause} durations stay exact.
-                out = np.concatenate([out, wav])
-            else:
-                out = A.crossfade(out, wav, sr)
-            just_paused = False  # only the first chunk follows the pause
+            spoken = chunk if (fell_back or not use_fb) else primary
+            inner, tail = _chunk_pauses(seg, ci, spoken)
+            pieces.append(("audio", A.trim_silence(wav, sr), spoken, inner))
+            if tail:
+                pieces.append(("gap", tail))
         if on_progress:
             on_progress((i + 1) / total)
 
@@ -242,6 +270,40 @@ def render_job(
             "lexicon fallback: %d/%d respelled chunk(s) needed the respelling "
             "(the rest rendered fine unassisted)", fb_used, fb_covered,
         )
+
+    # Pass 2 — assemble: room tone from the generations themselves, inner pauses spliced in,
+    # chunks joined (crossfaded when they run on; room tone where a pause sits between them).
+    room = A.RoomTone.estimate([pc[1] for pc in pieces if pc[0] == "audio"], sr,
+                               seed=0 if ir.seed is None else int(ir.seed))
+    xf_ms = 10
+    xf = int(sr * xf_ms / 1000)
+
+    def gap(ms: int) -> np.ndarray:  # a pause, plus the two crossfades it is joined with
+        return room(int(sr * ms / 1000) + 2 * xf)
+
+    out = np.zeros(0, dtype=np.float32)
+    pending = 0
+    spliced = missed = 0
+    for pc in pieces:
+        if pc[0] == "gap":
+            pending = max(pending, pc[1])
+            continue
+        _, wav, spoken, inner = pc
+        if inner:
+            wav, rep = splice_pauses(wav, sr, spoken, inner, room, xfade_ms=xf_ms)
+            spliced, missed = spliced + rep.spliced, missed + rep.missed
+            for note in rep.notes or []:
+                logger.debug("%s: %s", spoken[:40], note)
+        if not out.size:
+            out = A.crossfade(room(int(sr * pending / 1000) + xf), wav, sr, xf_ms) if pending else wav
+        elif pending:
+            out = A.join_with_gap(out, gap(pending), wav, sr, xf_ms)
+        else:
+            out = A.crossfade(out, wav, sr)
+        pending = 0
+    if spliced or missed:
+        logger.info("inner pauses: %d spliced into their generation, %d left at the engine's own "
+                    "length (no gap found)", spliced, missed)
 
     # QoL: speak the episode title at the top (best-effort — a title glitch must never
     # fail an otherwise-good render), then bookend the whole thing with lead/tail silence
@@ -257,11 +319,15 @@ def render_job(
             )
             tw = A.trim_silence(tw, sr)
             if tw.size:
-                intro = np.concatenate([tw, A.silence(title_gap_ms, sr)])
+                intro = tw
         except Exception as exc:  # noqa: BLE001 - the title is a nicety, not worth aborting for
             logger.warning("could not render episode title %r: %s", ir.title, exc)
-    edge = A.silence(edge_silence_ms, sr)
-    out = np.concatenate([edge, intro, out, edge])
+    if intro.size and out.size:
+        out = A.join_with_gap(intro, gap(title_gap_ms), out, sr, xf_ms)
+    elif intro.size:
+        out = intro
+    lead, tail = (room(int(sr * edge_silence_ms / 1000) + xf) for _ in range(2))
+    out = A.crossfade(A.crossfade(lead, out, sr, xf_ms), tail, sr, xf_ms)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     raw = out_path.with_suffix(".raw.wav")

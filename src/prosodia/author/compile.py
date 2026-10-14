@@ -7,10 +7,13 @@ Parsing implements the repair items:
 * directive parsing is quote-aware, so commas/colons inside a quoted value are
   safe (D1).
 
-Segmentation: a ``Segment`` is a contiguous run of speech with a single intent
-and no internal pause. Paragraph breaks, beat boundaries, and ``{pause: N}``
-become the ``pause_before_ms`` of the following segment. ``spoken_text`` is
-normalized and lexicon-respelled; ``authored_text`` is kept for provenance.
+Segmentation: a ``Segment`` is a contiguous run of speech with a single intent. It ends
+where the delivery changes (a tone/rate/note directive that changes something, a speaker
+tag, a quotation's edges) and at a beat boundary; a pause there becomes the next segment's
+``pause_before_ms``. A paragraph break or ``{pause: N}`` INSIDE the run is an inner pause
+(``Segment.chunk_pauses``), and the spoken text before it is given a comma if it has no
+punctuation, so the engine voices "more to come" and the renderer has a gap to stretch.
+``spoken_text`` is normalized and lexicon-respelled; ``authored_text`` is kept for provenance.
 
 Voice resolution precedence (repair C1): instruction-time override ->
 front-matter ``voice`` -> project-config default.
@@ -28,7 +31,7 @@ from prosodia.author.lexicon import Lexicon
 from prosodia.author.normalize import normalize_text
 from prosodia.author.tone import VoiceProfiles, build_render_plan
 from prosodia.core.intents import Intent
-from prosodia.core.ir import EpisodeIR, RenderPlan, Segment
+from prosodia.core.ir import EpisodeIR, InnerPause, RenderPlan, Segment
 
 _COMMENT = re.compile(r"<!--.*?-->", re.S)
 _H1 = re.compile(r"^#\s+")
@@ -61,6 +64,10 @@ _TOKEN = re.compile(
     r"|(?P<uemph>(?<!\\)(?<![\w])_+(?:[^_\n]|\n(?![ \t]*\n))+_+(?![\w]))"
 )
 _INTENT_KEYS = {"tone", "rate", "note"}
+# An inner pause in the token buffer: the run continues, with ``ms`` of silence at this point.
+_PAUSE = "\x01"
+# Spoken text that already ends on punctuation (closing quotes/brackets allowed after it).
+_BOUNDARY_END = re.compile(r"[,;:.!?…—–-][\"'”’)\]]*$")
 
 
 # ---- quote-aware directive parsing (repair D1) ------------------------------
@@ -185,6 +192,35 @@ def _unescape(t: str) -> str:
     return t.replace(r"\{", "{").replace(r"\}", "}").replace(r"\*", "*").replace(r"\_", "_")
 
 
+def _place_pauses(spoken: str, chunks: list[str], after_words: list[tuple[int, int]]) -> list[list[InnerPause]]:
+    """Map pauses at global word counts of ``spoken`` onto (chunk, word count within it).
+
+    Chunks are whole words of ``spoken`` in order, except that a soft split may drop a bare
+    dash token, so tokens are matched rather than counted.
+    """
+    gtok = spoken.split()
+    owners: list[list[int]] = []
+    g = 0
+    for c in chunks:
+        idx = []
+        for tok in c.split():
+            while g < len(gtok) and gtok[g] != tok:
+                g += 1
+            idx.append(g)
+            g += 1
+        owners.append(idx)
+    out: list[list[InnerPause]] = [[] for _ in chunks]
+    for after, ms in after_words:
+        last = after - 1  # global index of the word the pause follows
+        ci = max((i for i, idx in enumerate(owners) if idx and idx[0] <= last), default=None)
+        if ci is None:
+            continue
+        local = sum(1 for x in owners[ci] if x <= last)
+        if local:
+            out[ci].append(InnerPause(after_word=local, ms=ms))
+    return out
+
+
 def _intent_keys(d: dict, warnings: list[str], where: str) -> dict:
     out = {}
     for k, v in d.items():
@@ -248,12 +284,37 @@ def compile_text(
     segments: list[Segment] = []
     state = {"seg_id": 0, "pending": 0}
 
-    def emit(buf, emph, intent, speaker, bi, title):
-        authored = " ".join("".join(buf).split())
-        if not authored:
+    def emit(buf, emph, pauses, intent, speaker, bi, title):
+        # Split the run at its inner pauses: (text, pause after it). A pause with no words
+        # before it belongs to this segment's start, one with none after it to the next's.
+        runs: list[list] = []
+        lead = 0
+        for i, piece in enumerate("".join(buf).split(_PAUSE)):
+            text = " ".join(piece.split())
+            after = pauses[i] if i < len(pauses) else 0
+            if text:
+                runs.append([text, after])
+            elif runs:
+                runs[-1][1] = max(runs[-1][1], after)
+            else:
+                lead = max(lead, after)
+        state["pending"] = max(state["pending"], lead)
+        if not runs:
             return
-        spoken = lexicon.apply(normalize_text(authored))
+        trailing, runs[-1][1] = runs[-1][1], 0
+        authored = " ".join(t for t, _ in runs)
+        pieces = [lexicon.apply(normalize_text(t)) for t, _ in runs]
+        after_words: list[tuple[int, int]] = []
+        count = 0
+        for k, (piece, (_, ms)) in enumerate(zip(pieces, runs)):
+            if ms and not _BOUNDARY_END.search(piece):
+                pieces[k] = piece = piece + ","  # spoken text only: "more to come"
+            count += len(piece.split())
+            if ms:
+                after_words.append((count, ms))
+        spoken = " ".join(pieces)
         chunks = chunk_text(spoken, max_chars)
+        chunk_pauses = _place_pauses(spoken, chunks, after_words) if after_words else []
         # De-respelled per-chunk reference for the render STT gate (see Segment docs).
         # Only carried when a respelling was actually applied here — otherwise it would
         # duplicate `chunks` verbatim and bloat the IR.
@@ -273,10 +334,11 @@ def compile_text(
                 emphasis=list(emph),
                 chunks=chunks,
                 score_chunks=score_chunks,
+                chunk_pauses=chunk_pauses if any(chunk_pauses) else [],
             )
         )
         state["seg_id"] += 1
-        state["pending"] = 0
+        state["pending"] = trailing
 
     for bi, (title, bdir, bbody) in enumerate(split_beats(body)):
         # A line-leading '>' is a markdown blockquote. It must never reach the engine — eight
@@ -290,26 +352,26 @@ def compile_text(
             state["pending"] = max(state["pending"], beat_ms)
         buf: list[str] = []
         emph: list[str] = []
+        pauses: list[int] = []  # one per _PAUSE marker in buf
         pos = 0
         for m in _TOKEN.finditer(bbody):
             buf.append(_unescape(bbody[pos:m.start()]))
             kind = m.lastgroup
             if kind == "qopen":
-                emit(buf, emph, cur_intent, speaker, bi, title)
-                buf, emph = [], []
+                emit(buf, emph, pauses, cur_intent, speaker, bi, title)
+                buf, emph, pauses = [], [], []
                 saved_intent, cur_intent = cur_intent, {**cur_intent, **_QUOTE_INTENT}
             elif kind == "qclose":
-                emit(buf, emph, cur_intent, speaker, bi, title)
-                buf, emph = [], []
+                emit(buf, emph, pauses, cur_intent, speaker, bi, title)
+                buf, emph, pauses = [], [], []
                 if saved_intent is not None:
                     cur_intent, saved_intent = saved_intent, None
             elif kind == "para":
-                emit(buf, emph, cur_intent, speaker, bi, title)
-                buf, emph = [], []
-                state["pending"] = max(state["pending"], paragraph_ms)
+                buf.append(_PAUSE)
+                pauses.append(paragraph_ms)
             elif kind == "speaker":
-                emit(buf, emph, cur_intent, speaker, bi, title)
-                buf, emph = [], []
+                emit(buf, emph, pauses, cur_intent, speaker, bi, title)
+                buf, emph, pauses = [], [], []
                 speaker = m.group()[1:]
                 if speakers_map and speaker not in speakers_map:
                     warnings.append(
@@ -318,21 +380,30 @@ def compile_text(
                     )
             elif kind == "directive":
                 d = parse_directives(m.group()[1:-1])
-                emit(buf, emph, cur_intent, speaker, bi, title)
-                buf, emph = [], []
+                new_intent = {**cur_intent, **_intent_keys(d, warnings, f"beat {bi} inline")}
+                pause_ms = None
                 if "pause" in d:
                     try:
-                        state["pending"] = max(state["pending"], int(float(d["pause"]) * 1000))
+                        pause_ms = int(float(d["pause"]) * 1000)
                     except ValueError:
                         warnings.append(f"beat {bi}: bad pause value {d['pause']!r}")
-                cur_intent = {**cur_intent, **_intent_keys(d, warnings, f"beat {bi} inline")}
+                if new_intent != cur_intent:
+                    # The delivery changes: a new generation, and any pause goes before it.
+                    emit(buf, emph, pauses, cur_intent, speaker, bi, title)
+                    buf, emph, pauses = [], [], []
+                    cur_intent = new_intent
+                    if pause_ms is not None:
+                        state["pending"] = max(state["pending"], pause_ms)
+                elif pause_ms is not None:
+                    buf.append(_PAUSE)
+                    pauses.append(pause_ms)
             elif kind in ("emph", "uemph"):
                 phrase = _unescape(m.group().strip("*_"))  # handles **strong**, *emph*, _emph_
                 buf.append(phrase)
                 emph.append(phrase)
             pos = m.end()
         buf.append(_unescape(bbody[pos:]))
-        emit(buf, emph, cur_intent, speaker, bi, title)
+        emit(buf, emph, pauses, cur_intent, speaker, bi, title)
 
     ir = EpisodeIR(
         episode=fm.get("episode"),

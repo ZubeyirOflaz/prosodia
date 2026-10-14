@@ -5,11 +5,13 @@ Compiled from a transcript (``formats/SPEC.md``). The IR carries engine-neutral
 (``RenderPlan``), so the transcript never contains engine settings (design goal
 #5: swappable engines).
 
-A ``Segment`` is a contiguous run of speech with a single intent and no internal
-pause — so every pause (paragraph break, beat boundary, explicit ``{pause}``)
-becomes the ``pause_before_ms`` of the following segment. That makes the renderer
-a simple loop: emit ``pause_before_ms`` of silence, then render the segment's
-chunks with the params the Tone specialist assigned.
+A ``Segment`` is a contiguous run of speech with a single intent: it ends only where the
+delivery changes (tone, rate, note, speaker), at a beat boundary, or at a quotation. A pause
+or paragraph break INSIDE that run is an inner pause — ``chunk_pauses``: "N ms after the k-th
+word of this chunk" — so the words on both sides are generated together and the voice knows
+the sentence is not finished. A pause where the delivery changes is the next segment's
+``pause_before_ms``. (IR 0.1 had no inner pauses: every pause split the segment, and every
+split became a separate generation that ended like a full stop.)
 """
 
 from __future__ import annotations
@@ -18,7 +20,18 @@ from pydantic import BaseModel, Field
 
 from prosodia.core.intents import Intent
 
-IR_VERSION = "0.1"
+IR_VERSION = "0.2"
+
+
+class InnerPause(BaseModel):
+    """A pause inside one generation: ``ms`` of silence after the first ``after_word`` words.
+
+    Words are the chunk's whitespace-separated tokens. ``after_word`` equal to the chunk's word
+    count means the pause falls between this chunk and the next.
+    """
+
+    after_word: int = Field(ge=1)
+    ms: int = Field(ge=0)
 
 
 class Segment(BaseModel):
@@ -42,6 +55,8 @@ class Segment(BaseModel):
     # respelling was applied in this segment); empty otherwise, and the renderer then
     # scores against ``chunks``. Parallel to ``chunks`` when present.
     score_chunks: list[str] = Field(default_factory=list)
+    # Pauses inside the segment, per chunk (parallel to ``chunks``); empty when there are none.
+    chunk_pauses: list[list[InnerPause]] = Field(default_factory=list)
 
 
 class EpisodeIR(BaseModel):
