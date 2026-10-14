@@ -211,6 +211,27 @@ def build_lexicon(
     return yaml_text
 
 
+_NOTE_HEADING = re.compile(r"^[#*\s]*([A-Z][A-Z ]{3,}?)[*:\s]*$")
+
+
+def editor_improvements(notes: str) -> str:
+    """The ``IMPROVEMENTS`` section of an editor verdict, or "" when it has nothing in it.
+
+    The casework editor heads its notes BLOCKING / IMPROVEMENTS / CLEARED. A persona whose
+    editor writes no such heading gets "" — and so no extra pass on a ready verdict.
+    """
+    kept, inside = [], False
+    for line in notes.splitlines():
+        m = _NOTE_HEADING.match(line)
+        if m:
+            inside = m.group(1).strip() == "IMPROVEMENTS"
+            continue
+        if inside:
+            kept.append(line)
+    text = "\n".join(kept).strip()
+    return "" if re.fullmatch(r"(?i)\(?\s*(none|n/?a|nothing)\b[^\n]{0,40}", text or "none") else text
+
+
 def author_episode(
     brief: str,
     *,
@@ -223,7 +244,9 @@ def author_episode(
 ) -> str:
     """Run the Writer <-> Editor loop until the Editor says ready (or max_rounds).
 
-    When a ``run`` is given, every round is persisted with enriched trace events:
+    The loop always ends on the writer: the last verdict's notes are applied in one final pass
+    with no further review — its BLOCKING notes when rounds run out, its IMPROVEMENTS when it
+    says ready. When a ``run`` is given, every round is persisted with enriched trace events:
     the Writer's prompt and its ``transcript.vN`` draft, and the Editor's verdict.
     A loop that exhausts ``max_rounds`` without approval is flagged ``warn`` — a
     signal the diagnosis pass can surface. ``trace`` (the thin log) is still honored.
@@ -235,8 +258,10 @@ def author_episode(
     transcript = ""
     ready = False
     note_txt = ""
+    last_round = 0
     brief_art = run.write_artifact("brief.md", brief, label="brief") if run is not None else None
     for rnd in range(1, max_rounds + 1):
+        last_round = rnd
         wprompt = (
             f"{brief}\n\n"
             f"--- Editorial notes to address (from the previous round) ---\n{notes or '(none)'}\n\n"
@@ -300,38 +325,67 @@ def author_episode(
             break
         notes = note_txt
 
-    if not ready and transcript.strip():
-        # A loop that ends on an editor is spending its most expensive call on a review
-        # nothing acts on: the notes describe defects in the draft that is about to ship.
-        # Spend the last call on a writer pass that applies them instead.
-        fprompt = (
-            f"{brief}\n\n"
-            "--- FINAL FIX PASS. There is no further review. ---\n"
-            "Apply the editorial notes below to your previous draft and return the corrected\n"
-            "transcript. Fix what they name and change nothing else.\n\n"
-            f"--- Editorial notes to address ---\n{note_txt}\n\n"
-            f"--- Your previous draft (revise it) ---\n{transcript}"
-        )
+    # A loop that ends on an editor spends its most expensive call on a review nothing acts on.
+    # Not ready: the notes describe defects in the draft about to ship. Ready: its IMPROVEMENTS
+    # went to no one — about ninety across Series B, some of them accuracy defects filed one
+    # heading too low. Either way, spend one last writer call applying them.
+    improvements = editor_improvements(note_txt) if ready else ""
+    if transcript.strip() and (not ready or improvements):
+        if ready:
+            task = (
+                "--- FINAL FIX PASS. The editor approved this draft; there is no further review. ---\n"
+                "Apply the editor's improvements below to your draft and return the corrected\n"
+                "transcript. Change only what they name; when an item quotes a sentence, fix that\n"
+                "sentence. Skip any item addressed to the producer or about the tooling rather than\n"
+                "the script.\n\n"
+                f"--- Improvements to apply ---\n{improvements}\n\n"
+            )
+        else:
+            task = (
+                "--- FINAL FIX PASS. There is no further review. ---\n"
+                "Apply the editorial notes below to your previous draft and return the corrected\n"
+                "transcript. Fix what they name and change nothing else. Skip any item addressed to\n"
+                "the producer or about the tooling rather than the script.\n\n"
+                f"--- Editorial notes to address ---\n{note_txt}\n\n"
+            )
+        fprompt = f"{brief}\n\n{task}--- Your previous draft (revise it) ---\n{transcript}"
         fixed, _ = runner.run(fprompt, system=writer_sys)
         fixed = _extract_transcript(fixed)
-        kept = bool(fixed.strip()) and "##" in fixed
+        problem = ""
+        if not (fixed.strip() and "##" in fixed):
+            problem = "final fix pass returned no usable transcript; kept the last draft"
+        elif ready and lint_context is not None:
+            # Nobody reviews this pass, so it must not undo what the editor approved.
+            before = _lint_errors(transcript, lint_context)
+            after = _lint_errors(fixed, lint_context)
+            if after > before:
+                problem = (f"final fix pass added script-lint errors ({before} -> {after}); "
+                           "kept the approved draft")
+        kept = not problem
+        fix_round = last_round + 1
         if trace:
-            trace.append("write", "writer", round=max_rounds + 1, chars=len(fixed), final_fix=True)
+            trace.append("write", "writer", round=fix_round, chars=len(fixed), final_fix=True)
         if run is not None:
-            run.write_artifact(f"stages/write.r{max_rounds + 1}/prompt.md", fprompt)
+            run.write_artifact(f"stages/write.r{fix_round}/prompt.md", fprompt)
             art = run.write_artifact(
-                f"stages/write.r{max_rounds + 1}/transcript.final.md",
+                f"stages/write.r{fix_round}/transcript.final.md",
                 fixed if kept else transcript, label="final fix",
             )
             run.event(
-                "write", "writer", round=max_rounds + 1, outputs=[art],
+                "write", "writer", round=fix_round, outputs=[art],
                 status="ok" if kept else "warn", chars=len(fixed),
-                warnings=[] if kept else ["final fix pass returned no usable transcript; kept the last draft"],
+                warnings=[problem] if problem else [], final_fix=True, after_ready=ready,
             )
             run.write_index()
         if kept:
             transcript = fixed
     return transcript
+
+
+def _lint_errors(transcript: str, lint_context: dict) -> int:
+    from prosodia.author.scriptlint import ERROR, lint_script
+
+    return sum(1 for f in lint_script(transcript, **lint_context) if f.level == ERROR)
 
 
 # ---- the delivery pass ------------------------------------------------------------------

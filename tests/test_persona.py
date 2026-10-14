@@ -401,7 +401,7 @@ def test_unresolved_editor_notes_are_written_beside_the_transcript(tmp_path):
         return "---\nepisode: 1\n---\n\n## Beat\n\nSpoken words here.\n"
 
     args = argparse.Namespace(project=str(proj), episode=1, persona=None,
-                              prior_episodes=0, max_rounds=2)
+                              prior_episodes=0, max_rounds=2, no_tone=True)
     with patch("prosodia.author.orchestrate.author_episode", side_effect=fake_author):
         assert cli._cmd_write(args) == 0
 
@@ -411,7 +411,8 @@ def test_unresolved_editor_notes_are_written_beside_the_transcript(tmp_path):
     assert "NOT marked ready" in notes.read_text(encoding="utf-8")
 
 
-def test_a_ready_verdict_leaves_no_editor_notes(tmp_path):
+def test_a_ready_verdict_also_leaves_its_notes(tmp_path):
+    """A ready verdict's IMPROVEMENTS are applied by a pass nobody reviews — keep them visible."""
     import argparse
     import json
     from unittest.mock import patch
@@ -431,10 +432,12 @@ def test_a_ready_verdict_leaves_no_editor_notes(tmp_path):
         return "---\nepisode: 1\n---\n\n## Beat\n\nSpoken words here.\n"
 
     args = argparse.Namespace(project=str(proj), episode=1, persona=None,
-                              prior_episodes=0, max_rounds=2)
+                              prior_episodes=0, max_rounds=2, no_tone=True)
     with patch("prosodia.author.orchestrate.author_episode", side_effect=fake_author):
         assert cli._cmd_write(args) == 0
-    assert not (proj / "episodes" / "ep01-a" / "editor-notes.md").exists()
+    notes = (proj / "episodes" / "ep01-a" / "editor-notes.md").read_text(encoding="utf-8")
+    assert "marked ready" in notes and "NOT" not in notes.splitlines()[0]
+    assert "fine" in notes
 
 
 def test_terms_to_earn_are_a_short_load_bearing_list_not_a_glossary():

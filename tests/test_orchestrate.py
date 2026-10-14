@@ -68,10 +68,56 @@ def test_a_degenerate_final_fix_keeps_the_last_good_draft():
     assert author_episode("BRIEF", runner=runner, max_rounds=2) == "## d2"
 
 
-def test_a_ready_verdict_skips_the_fix_pass():
-    runner = FakeRunner(drafts=["## d1"], verdicts=[{"ready": True, "notes": "ok"}])
-    assert author_episode("BRIEF", runner=runner, max_rounds=3) == "## d1"
-    assert [k for k, _ in runner.calls] == ["text", "schema"]
+def test_a_ready_verdict_with_nothing_to_improve_skips_the_fix_pass():
+    for notes in ("ok", "BLOCKING\n\nNone.\n\nIMPROVEMENTS\n\nNone.\n\nCLEARED\n\n- dates"):
+        runner = FakeRunner(drafts=["## d1"], verdicts=[{"ready": True, "notes": notes}])
+        assert author_episode("BRIEF", runner=runner, max_rounds=3) == "## d1"
+        assert [k for k, _ in runner.calls] == ["text", "schema"]
+
+
+_READY_NOTES = (
+    "BLOCKING\n\nNone. I checked every quotation.\n\n"
+    "IMPROVEMENTS\n\n1. Cut the prompt echo: \"Before reasoning about rules...\"\n"
+    "2. For the human: a lint artefact at scriptlint.py:266.\n\n"
+    "CLEARED\n\n- Source fidelity: every date checked.\n"
+)
+
+
+def test_a_ready_verdicts_improvements_get_one_writer_pass():
+    """Series C Ep 1 was approved in round 2 with seven improvements — a prompt echo and an
+    overstated claim among them — and nothing applied them. A ready verdict now ends on the
+    writer too, given the IMPROVEMENTS only."""
+    runner = FakeRunner(drafts=["## d1", "## fixed"], verdicts=[{"ready": True, "notes": _READY_NOTES}])
+    out = author_episode("BRIEF", runner=runner, max_rounds=4)
+    run_kinds = [k for k, _ in runner.calls]
+    assert out == "## fixed"
+    assert run_kinds == ["text", "schema", "text"]
+    final_prompt = runner.calls[-1][1]
+    assert "FINAL FIX PASS" in final_prompt and "editor approved" in final_prompt
+    assert "Cut the prompt echo" in final_prompt
+    assert "Source fidelity: every date checked" not in final_prompt  # CLEARED is not a task
+
+
+def test_the_ready_fix_pass_may_not_add_lint_errors(tmp_path):
+    """Nobody reviews the last pass, so it cannot be allowed to undo an approved draft."""
+    run = Run(tmp_path / "run")
+    approved = "---\nepisode: 1\n---\n\n## Beat\n\nA clean sentence.\n"
+    worse = "---\nepisode: 1\n---\n\n## Beat\n\nA clean sentence, as you can see.\n"
+    runner = FakeRunner(drafts=[approved, worse], verdicts=[{"ready": True, "notes": _READY_NOTES}])
+    out = author_episode("BRIEF", runner=runner, run=run, max_rounds=4,
+                         lint_context={"episode": 1, "target_minutes": 27})
+    assert out.strip() == approved.strip()
+    fix = [e for e in run.events() if e.stage == "write"][-1]
+    assert fix.round == 2 and fix.meta["final_fix"] and fix.meta["after_ready"]
+    assert fix.status == "warn" and "lint errors" in fix.warnings[0]
+
+
+def test_editor_improvements_reads_only_its_own_section():
+    assert orchestrate.editor_improvements(_READY_NOTES).startswith("1. Cut the prompt echo")
+    assert "CLEARED" not in orchestrate.editor_improvements(_READY_NOTES)
+    assert orchestrate.editor_improvements("**IMPROVEMENTS**\n- tighten beat 3") == "- tighten beat 3"
+    assert orchestrate.editor_improvements("IMPROVEMENTS\n\nNone.") == ""
+    assert orchestrate.editor_improvements("fine") == ""
 
 
 def test_plan_series_calls_planner():

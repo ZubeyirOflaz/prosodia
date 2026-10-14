@@ -782,23 +782,30 @@ def _cmd_write(args: argparse.Namespace) -> int:
     if not getattr(args, "no_tone", False):
         transcript = _run_tone_pass(transcript, persona=persona, run=run, proj=proj)
     out.write_text(transcript, encoding="utf-8")
-    # The last editorial verdict is the one nothing downstream ever acts on: if the loop ran
-    # out of rounds, those notes describe defects still IN the shipped draft, and they live
-    # only under run/, which is gitignored. Put them beside the transcript.
-    last = sorted(run.stages_dir.glob("edit.r*/verdict.json"))
+    # The last verdict was applied by a writer pass nobody reviewed, and the run folder that
+    # holds it is gitignored. Put it beside the transcript, every time, so a person can check.
+    last = sorted(run.stages_dir.glob("edit.r*/verdict.json"),
+                  key=lambda p: int(p.parent.name.rsplit("r", 1)[-1]))
     if last:
         import json as _json
 
         v = _json.loads(last[-1].read_text(encoding="utf-8"))
-        if not v.get("ready"):
-            notes = epdir / "editor-notes.md"
-            notes.write_text(
-                f"# Editor's notes on episode {ep['n']} — NOT marked ready\n\n"
-                f"The writer/editor loop ended at its round limit rather than on a clean verdict, "
-                f"so the defects below are still in `transcript.md`.\n\n{v.get('notes', '')}\n",
-                encoding="utf-8",
-            )
-            print(f"  editor did not mark this ready — its notes are in {notes}")
+        fix = next((e for e in reversed(run.events()) if e.meta.get("final_fix")), None)
+        if fix is None:
+            applied = "Nothing in them was left for a final pass."
+        elif fix.status == "ok":
+            applied = ("A final writer pass applied them, and **nobody reviewed that pass** — check "
+                       "them against `transcript.md`.")
+        else:
+            applied = f"The final writer pass was not used ({'; '.join(fix.warnings)})."
+        verdict = "marked ready" if v.get("ready") else "NOT marked ready — rounds ran out"
+        notes = epdir / "editor-notes.md"
+        notes.write_text(
+            f"# Editor's notes on episode {ep['n']} — {verdict}\n\n"
+            f"The last verdict ({last[-1].parent.name}). {applied}\n\n{v.get('notes', '')}\n",
+            encoding="utf-8",
+        )
+        print(f"  editor {verdict}; its last notes are in {notes}")
     run.write_index(episode=ep["n"], title=ep.get("title"))
     print(f"wrote {out}  (persona: {persona.name})")
     print(f"trace: {run.dir}")

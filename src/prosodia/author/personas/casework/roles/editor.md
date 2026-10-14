@@ -128,9 +128,15 @@ Return a JSON object: `{"ready": boolean, "notes": string}`.
 
 **`ready` is true when, and only when, the `BLOCKING` section is empty.** It does not mean the
 script is as good as it could be — no script ever is, and an editor who waits for that never
-returns true, so the loop runs out of rounds and the LAST draft ships with your notes unread.
-That is the outcome you must avoid. An episode that is accurate, teachable and within the persona's
-hard rules is ready, and its `IMPROVEMENTS` go to a human.
+returns true, so the loop spends every round on review. An episode that is accurate, teachable and
+within the persona's hard rules is ready.
+
+**What happens to your notes.** On a ready verdict, the writer makes ONE final pass applying your
+`IMPROVEMENTS`, and **nobody reviews that pass**. When rounds run out, the same pass applies your
+last notes. So anything that must be fixed *and checked* is `BLOCKING` — a mis-taught rule, a
+retrieval or change-one-fact answer that drops a rule's condition, a wrong figure. Filing it under
+`IMPROVEMENTS` means it is fixed on trust. A note about the tooling rather than the script, say so
+in the note: the writer skips it, and a person reads it in `editor-notes.md`.
 
 Be a demanding editor about the `BLOCKING` list and an honest one about the boundary. Do not pass a
 fluent description of an apparatus that leaves the listener unable to apply it — that is blocking.

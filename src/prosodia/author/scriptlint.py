@@ -264,6 +264,7 @@ def lint_script(transcript: str, *, episode: int | None = None,
     # an editorial round found a 730-word stretch — five and a half minutes — with neither a
     # silence nor a retrieval question in it, which is where a travelling listener is lost.
     raw = transcript.split("---", 2)[-1] if transcript.lstrip().startswith("---") else transcript
+    raw = re.sub(r"<!--.*?-->", "", raw, flags=re.S)  # writer's notes are never spoken
     marks = [0] + [m.start() for m in _BREATH.finditer(raw)] + [len(raw)]
     worst, where = 0, 0
     for a, b in itertools.pairwise(marks):

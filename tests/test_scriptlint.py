@@ -121,6 +121,9 @@ def test_a_long_stretch_with_no_pause_or_question_is_flagged():
     assert "no-breath" not in codes(lint_script(broken), WARN)
     asked = HEAD + "## B\n" + ("The rule applies. " * 60) + " Did it infer? " + ("It did. " * 60)
     assert "no-breath" not in codes(lint_script(asked), WARN)
+    # the writer's notes are never spoken (Series C Ep 1 was flagged for its notes comment)
+    noted = HEAD + "<!--\n" + ("A note to the producer. " * 120) + "\n-->\n\n## B\nThe rule applies.\n"
+    assert "no-breath" not in codes(lint_script(noted), WARN)
 
 
 def test_relative_clause_fragments_are_flagged_but_ordinary_openers_are_not():

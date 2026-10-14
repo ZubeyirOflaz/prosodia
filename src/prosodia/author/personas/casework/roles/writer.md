@@ -313,7 +313,7 @@ say so in a note rather than silently overrunning.
 
 ## BEFORE YOU RETURN THE DRAFT
 
-Four counts, on the text you are about to return. They are the four things that have sent
+Five counts, on the text you are about to return. They are the five things that have sent
 episodes back round the loop more than anything else, and every one is checkable in a minute.
 
 1. **Forward references.** Count every mention of a later episode or of material reserved for a
